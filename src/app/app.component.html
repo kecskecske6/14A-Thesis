@@ -21,14 +21,15 @@
           </div>
         </li>
       </ul>
-      <input type="button" value="Belépés" class="btn-outline-success btn-light btn button" onclick="openLoginPage()">
+      <input type="button" value="Belépés" class="btn-outline-success btn-light btn button" (click)="openLoginPage()" routerLink="/login">
       <input type="button" value="Regisztráció" class="btn btn-success button">
     </div>
   </div>
 </nav>
 
+<router-outlet></router-outlet>
 
-<div class="container-fluid text-center px-0" id="relative">
+<div *ngIf="status.isDisplayed" class="container-fluid text-center px-0" id="relative">
   <div id="logocontainer">
     <img src="./assets/logo.png" alt="logo" class="img-fluid">
     <h1>
