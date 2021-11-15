@@ -7,8 +7,45 @@
     <title>Bejelentkezés</title>
 </head>
 <body>
-    <div id="loginFormContainer" class="d-flex justify-content-center mx-auto align-middle">
-        Alma
+    <div class="col">
+        <div id="loginFormContainer" class="d-flex justify-content-center mx-auto row">
+            <div id="loginFormHeader">
+                <img id="loginFormHeaderLogo" src="../../../assets/logo.png" alt="Logo">
+            </div>
+            <form class="d-flex row justify-content-center">
+                <div id="loginFormBody">
+                    <div class="mb-4 col-md-12">
+                        <label for="loginInputEmail" class="form-label">Email cím</label>
+                        <input type="email" class="form-control mx-auto" id="loginInputEmail">
+                    </div>
+                    <div class="mb-4">
+                        <label for="exampleInputPassword1" class="form-label">Jelszó</label>
+                        <input type="password" class="form-control mx-auto">
+                    </div>
+                    <div class="mb-4">
+                        <label for="exampleInputPassword1" class="form-label">Jelszó újra</label>
+                        <input type="password" class="form-control mx-auto">
+                    </div>
+                    <button class="g-recaptcha" 
+        data-sitekey="6Lc4wjcdAAAAAF-Yo1C2HrSThKcsrM8vFppMSOeT" 
+        data-callback='onSubmit' 
+        data-action='submit'>Submit</button>
+                </div>
+                <div id="loginFormFooter" class="row">
+                    <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        function onSubmit(token) {
+          document.getElementById("demo-form").submit();
+        }
+      </script>
 </body>
 </html>
