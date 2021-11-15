@@ -26,10 +26,7 @@
                         <label for="exampleInputPassword1" class="form-label">Jelszó újra</label>
                         <input type="password" class="form-control mx-auto">
                     </div>
-                    <button class="g-recaptcha" 
-        data-sitekey="6Lc4wjcdAAAAAF-Yo1C2HrSThKcsrM8vFppMSOeT" 
-        data-callback='onSubmit' 
-        data-action='submit'>Submit</button>
+                    <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
                 </div>
                 <div id="loginFormFooter" class="row">
                     <div class="mb-3 form-check">
@@ -41,11 +38,6 @@
             </form>
         </div>
     </div>
-    <script src="https://www.google.com/recaptcha/api.js"></script>
-    <script>
-        function onSubmit(token) {
-          document.getElementById("demo-form").submit();
-        }
-      </script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lc4wjcdAAAAAF-Yo1C2HrSThKcsrM8vFppMSOeT"></script>
 </body>
 </html>
