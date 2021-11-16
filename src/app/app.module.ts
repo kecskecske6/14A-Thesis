@@ -8,11 +8,13 @@ import { environment } from '../environments/environment';
 import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
+import { RegistrationPageComponent } from './components/registration-page/registration-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    RegistrationPageComponent
   ],
   imports: [
     BrowserModule,

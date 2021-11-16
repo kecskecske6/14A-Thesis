@@ -12,32 +12,22 @@
             <div id="loginFormHeader">
                 <img id="loginFormHeaderLogo" src="../../../assets/logo.png" alt="Logo">
             </div>
-            <form class="d-flex row justify-content-center">
+            <form class="d-flex row justify-content-center align-items-center" method="post">
                 <div id="loginFormBody">
                     <div class="mb-4 col-md-12">
                         <label for="loginInputEmail" class="form-label">Email cím</label>
-                        <input type="email" class="form-control mx-auto" id="loginInputEmail">
+                        <input type="email" class="form-control mx-auto" id="loginInputEmail" required>
                     </div>
                     <div class="mb-4">
-                        <label for="exampleInputPassword1" class="form-label">Jelszó</label>
-                        <input type="password" class="form-control mx-auto">
+                        <label for="loginInputPassword" class="form-label">Jelszó</label>
+                        <input type="password" class="form-control mx-auto" id="loginInputPassword" required>
                     </div>
-                    <div class="mb-4">
-                        <label for="exampleInputPassword1" class="form-label">Jelszó újra</label>
-                        <input type="password" class="form-control mx-auto">
-                    </div>
-                    <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
                 </div>
                 <div id="loginFormFooter" class="row">
-                    <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-lg btn-primary col-8 mx-auto">Bejelentkezés</button>
                 </div>
             </form>
         </div>
     </div>
-    <script src="https://www.google.com/recaptcha/api.js?render=6Lc4wjcdAAAAAF-Yo1C2HrSThKcsrM8vFppMSOeT"></script>
 </body>
 </html>

@@ -12,7 +12,7 @@ export class AppComponent {
     isDisplayed: true
   };
 
-  openLoginPage(){
+  hideMainPage(){
     this.status.isDisplayed = false;
   }
 }
