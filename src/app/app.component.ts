@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'FootTour';
+
+  status = {
+    isDisplayed: true
+  };
+
+  hideMainPage(){
+    this.status.isDisplayed = false;
+  }
 }

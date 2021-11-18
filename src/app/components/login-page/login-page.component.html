@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bejelentkezés</title>
+</head>
+<body>
+    <div class="col">
+        <div id="loginFormContainer" class="d-flex justify-content-center mx-auto row">
+            <div id="loginFormHeader">
+                <img id="loginFormHeaderLogo" src="../../../assets/logo.png" alt="Logo">
+            </div>
+            <form class="d-flex row justify-content-center align-items-center" method="post">
+                <div id="loginFormBody">
+                    <div class="mb-4 col-md-12">
+                        <label for="loginInputEmail" class="form-label">Email cím</label>
+                        <input type="email" class="form-control mx-auto" id="loginInputEmail" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="loginInputPassword" class="form-label">Jelszó</label>
+                        <input type="password" class="form-control mx-auto" id="loginInputPassword" required>
+                    </div>
+                </div>
+                <div id="loginFormFooter" class="row">
+                    <button type="submit" class="btn btn-lg btn-primary col-8 mx-auto">Bejelentkezés</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
