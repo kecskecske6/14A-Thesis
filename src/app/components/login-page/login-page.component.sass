@@ -1,5 +1,22 @@
+$breakpoints: ("phone": 320px, "tablet": 768px, "desktop": 1024px)
+    
 $background-color: rgba(178,218,205,0.9)
 $label-font-size: 1.1rem
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px)
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px)
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px)
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px)
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px)
 
 html
     height: 100%
@@ -13,8 +30,8 @@ body
     position: relative
 
 #loginFormContainer
-    height: 40vh
-    width: 45vh
+    height: 40%
+    width: 45%
     background-color: $background-color
     position: absolute
     top: 50%
