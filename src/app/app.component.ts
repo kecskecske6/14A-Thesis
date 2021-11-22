@@ -12,7 +12,7 @@ export class AppComponent {
     isDisplayed: true
   };
 
-  hideMainPage(){
+  hideMainPage(): void {
     this.status.isDisplayed = false;
   }
 }
