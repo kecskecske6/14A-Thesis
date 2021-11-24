@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FootTour_Companion_App
+namespace FootTourCA
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,7 +23,6 @@ namespace FootTour_Companion_App
         public MainWindow()
         {
             InitializeComponent();
-            ResizeMode = ResizeMode.CanMinimize;
         }
     }
 }

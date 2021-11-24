@@ -1,0 +1,49 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+FootTour/dist
+FootTour/tmp
+FootTour/out-tsc
+# Only exists if Bazel was run
+FootTour/bazel-out
+
+# dependencies
+FootTour/node_modules
+
+# profiling files
+FootTour/chrome-profiler-events*.json
+
+# IDEs and editors
+FootTour/.idea
+FootTour/.project
+FootTour/.classpath
+FootTour/.c9/
+FootTour/*.launch
+FootTour/.settings/
+FootTour/*.sublime-workspace
+
+# IDE - VSCode
+FootTour/.vscode/*
+!FootTour/.vscode/settings.json
+!FootTour/.vscode/tasks.json
+!FootTour/.vscode/launch.json
+!FootTour/.vscode/extensions.json
+FootTour/.history/*
+
+# misc
+FootTour/.sass-cache
+FootTour/connect.lock
+FootTour/coverage
+FootTour/libpeerconnection.log
+FootTour/npm-debug.log
+FootTour/yarn-error.log
+FootTour/testem.log
+FootTour/typings
+
+# System Files
+FootTour/.DS_Store
+FootTour/Thumbs.db
+
+# FootTour Companion App ignores
+FootTourCA/bin
+FootTourCA/obj

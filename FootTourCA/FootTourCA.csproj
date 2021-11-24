@@ -3,7 +3,6 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>FootTour_Companion_App</RootNamespace>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
