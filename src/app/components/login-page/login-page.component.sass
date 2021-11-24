@@ -1,5 +1,5 @@
 $background-color: rgba(178,218,205,0.9)
-$label-font-size: 1.1rem
+$label-font-size: 100%
 
 html
     height: 100%
@@ -21,11 +21,11 @@ body
     left: 50%
     transform: translate(-50%, -50%)
     border-radius: 3%
-    @media (max-height:700px)
+    @media (max-height:850px)
         height: 60vh
         width: 50vh
     @media (min-height:850px)
-        height: 40vh
+        height: 50vh
         width: 50vh
     
 #loginFormHeader
@@ -37,21 +37,21 @@ body
     height: 100%
 
 #loginFormBody
-    margin-top: -80%
+    margin-top: -15%
     height: 60%
     vertical-align: center
     align-items: center
-    @media (max-height:700px)
-        margin-top:-100%
-    @media (min-height:850px)
-        margin-top: -60%
 #loginFormFooter
     height: 20%
-    margin-top: -15%
 
 form
+    height: 68%
     width: 90%
 
 .form-label
+    display: none
     font-weight: bold
     font-size: $label-font-size
+
+.form-control
+    height: 5vh
