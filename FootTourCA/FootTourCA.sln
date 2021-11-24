@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootTour Companion App", "FootTour Companion App.csproj", "{C7FD4450-FAD3-432F-A816-D6E911E0C269}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootTourCA", "FootTourCA.csproj", "{302DF9AC-0EAF-48EB-97EB-309AA9109012}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C7FD4450-FAD3-432F-A816-D6E911E0C269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C7FD4450-FAD3-432F-A816-D6E911E0C269}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C7FD4450-FAD3-432F-A816-D6E911E0C269}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C7FD4450-FAD3-432F-A816-D6E911E0C269}.Release|Any CPU.Build.0 = Release|Any CPU
+		{302DF9AC-0EAF-48EB-97EB-309AA9109012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{302DF9AC-0EAF-48EB-97EB-309AA9109012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{302DF9AC-0EAF-48EB-97EB-309AA9109012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{302DF9AC-0EAF-48EB-97EB-309AA9109012}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {119E2B94-5609-4065-BB8C-A9758FA10498}
+		SolutionGuid = {B7AC63C6-FF99-4D47-87E9-32482E49DA04}
 	EndGlobalSection
 EndGlobal
