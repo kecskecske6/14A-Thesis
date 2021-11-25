@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FootTourCA"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="FootTour - Belépés" Height="450" Width="800">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="E-mail:" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label Content="Jelszó:" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Name="TxtEmail" Grid.Row="1" Grid.Column="2" Text="valaki@valahol.hu" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130" Foreground="Gray" GotFocus="TxtEmail_GotFocus" LostFocus="TxtEmail_LostFocus"/>
+        <PasswordBox Name="PwdPwd" Grid.Row="2" Grid.Column="2" Password="jelszó" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130" Foreground="Gray" GotFocus="PwdPwd_GotFocus" LostFocus="PwdPwd_LostFocus"/>
+        <CheckBox Name="ChkbStay" Content="Bejelentkezve maradok" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Name="BtnLogin" Content="Belépés" IsDefault="True" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Margin="14" Width="100" Click="BtnLogin_Click"/>
+        <Label Name="LblRegister" Content="Nincs még fiókja? Regisztráljon!" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Blue" Cursor="Hand" Width="200" HorizontalContentAlignment="Left" MouseLeftButtonUp="LblRegister_MouseLeftButtonUp"/>
+        <Image Source="/Assets/Link.png" Grid.Row="5" Grid.Column="2" Margin="48,0,11,0" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Cursor="Hand">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="0.25" ScaleY="0.25"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
     </Grid>
 </Window>
