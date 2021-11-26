@@ -1,5 +1,7 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css")
+    
 $background-color: rgba(178,218,205,0.9)
-$label-font-size: 1.1rem
+$label-font-size: 2.5vmin
 
 html
     height: 100%
@@ -13,44 +15,63 @@ body
     position: relative
 
 #registerFormContainer
-    height: 70vh
-    width: 55vh
     background-color: $background-color
     position: absolute
     top: 50%
     left: 50%
     transform: translate(-50%, -50%)
     border-radius: 3%
+    @media (max-height:850px)
+        height: 60vh
+        width: 50vh
+    @media (min-height:850px)
+        height: 80vh
+        width: 60vh
     
 #registerFormHeader
     width: 100%
-    height: 22%
+    height: 20%
 
 #registerFormHeaderLogo
     width: 100%
     height: 100%
 
 #registerFormBody
-    margin-top: -50%
+    margin-top: -30%
     height: 60%
-    align-content: center
+    vertical-align: center
     align-items: center
-
 #registerFormFooter
     height: 20%
-    margin-top: -5%
 
 form
+    height: 68%
     width: 90%
+
+.form-control
+    height:4vh
 
 .form-label
     font-weight: bold
     font-size: $label-font-size
+    @media (max-width: 530px)
+        display: none
+    @media (max-height: 575px)
+        display: none
 
-#termsOfUse
-    margin-left: -5%
+.input-group-text
+    padding-inline-start: 16px
+    height:4vh
 
-#termsOfUse > a
-    text-decoration-line: none
-        
-    
+.btn
+    font-size: $label-font-size
+
+#recaptcha
+    transform:scale(0.77)
+    -webkit-transform:scale(0.77)
+    transform-origin:0 0
+    -webkit-transform-origin:0 0
+    box-sizing: border-box
+
+.rc-anchor-normal
+    width:500px !important
