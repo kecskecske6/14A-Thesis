@@ -39,9 +39,12 @@
                 </div>
                 <div id="registerFormFooter" class="row">
                     <div class="mb-3 mt-4 form-check">
-                    <p id="termsOfUse">
+                    <p *ngIf="termsAndConditionsDisplay.default" id="termsOfUse">
                         Regisztrációjával hozzájárul személyes adatainak az
                         <a href="#TermsOfUse">Adatvédelmi Szabályzat</a> szerinti felhasználásához.
+                    </p>
+                    <p *ngIf="termsAndConditionsDisplay.small">
+                     <input type="checkbox" name="" id=""> ÁSZF
                     </p>
                     </div>
                     <button type="submit" class="btn btn-lg btn-primary col-8 mx-auto">Regisztráció</button>

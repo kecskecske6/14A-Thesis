@@ -49,7 +49,7 @@ form
     width: 90%
 
 .form-control
-    height:4vh
+    height: 4vh
 
 .form-label
     font-weight: bold
@@ -61,17 +61,40 @@ form
 
 .input-group-text
     padding-inline-start: 16px
-    height:4vh
+    height: 4vh
 
 .btn
     font-size: $label-font-size
 
-#recaptcha
-    transform:scale(0.77)
-    -webkit-transform:scale(0.77)
-    transform-origin:0 0
-    -webkit-transform-origin:0 0
-    box-sizing: border-box
-
-.rc-anchor-normal
-    width:500px !important
+@media only screen and (max-width : 480px) 
+    #recaptcha_challenge_image
+        margin: 0 !important
+        width: 100% !important
+        height: auto !important
+    
+    #recaptcha_response_field
+    
+        margin: 0 !important
+        width: 100% !important
+        height: auto !important
+   
+    .recaptchatable #recaptcha_image 
+        margin: 0 !important
+        width: 100% !important
+        height: auto !important
+    
+    .recaptchatable .recaptcha_r1_c1, 
+    .recaptchatable .recaptcha_r3_c1, 
+    .recaptchatable .recaptcha_r3_c2, 
+    .recaptchatable .recaptcha_r7_c1, 
+    .recaptchatable .recaptcha_r8_c1, 
+    .recaptchatable .recaptcha_r3_c3, 
+    .recaptchatable .recaptcha_r2_c1, 
+    .recaptchatable .recaptcha_r4_c1, 
+    .recaptchatable .recaptcha_r4_c2, 
+    .recaptchatable .recaptcha_r4_c4, 
+    .recaptchatable .recaptcha_image_cell 
+        margin: 0 !important
+        width: 100% !important
+        background: none !important
+        height: auto !important
