@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -9,13 +9,35 @@ import { NgForm } from '@angular/forms';
 export class RegistrationPageComponent implements OnInit {
 
   token: string|undefined;
+  screenHeight: any;
+  screenWidth: any;
+
+  termsAndConditionsDisplay ={
+    small: false,
+    default: true
+  }
 
   constructor() {
     this.token = undefined;
+    this.onResize();
    }
 
   ngOnInit(): void {
   }
+
+  @HostListener('window:resize', ['$event'])
+onResize(event?:any) {
+   this.screenHeight = window.innerHeight;
+   this.screenWidth = window.innerWidth;
+   if (this.screenHeight < 600 || this.screenWidth < 530) {
+     this.termsAndConditionsDisplay.default = false;
+     this.termsAndConditionsDisplay.small = true;
+   }
+   else{
+    this.termsAndConditionsDisplay.default = true;
+    this.termsAndConditionsDisplay.small = false;
+   }
+}
 
   public send(form: NgForm): void {
     if (form.invalid) {

@@ -14,25 +14,37 @@
             </div>
             <form class="d-flex row justify-content-center align-items-center" method="post">
                 <div id="registerFormBody">
-                    <div class="mb-4 col-md-12">
-                        <label for="registerInputEmail" class="form-label">Email cím</label>
-                        <input type="email" class="form-control mx-auto" id="registerInputEmail" required>
+                    <div class="mb-4 mt-4 col-md-12">
+                        <label for="registerInputEmail" class="form-label">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope-fill d-flex"></i></span>
+                            <input id="registerInputEmail" type="email" class="form-control" name="email" placeholder="Email">
+                        </div>
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-4 mt-4 col-md-12">
                         <label for="registerInputPassword" class="form-label">Jelszó</label>
-                        <input type="password" class="form-control mx-auto" id="registerInputPassword" required>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock-fill d-flex"></i></span>
+                            <input id="registerInputPassword" type="password" class="form-control" name="password" placeholder="Jelszó">
+                        </div>
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-4 mt-4 col-md-12">
                         <label for="registerInputRePassword" class="form-label">Jelszó újra</label>
-                        <input type="password" class="form-control mx-auto" id="registerInputRePassword" required>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock-fill d-flex"></i></span>
+                            <input id="loginInputRePassword" type="password" class="form-control" name="rePassword" placeholder="Jelszó újra">
+                        </div>
                     </div>
                     <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
                 </div>
                 <div id="registerFormFooter" class="row">
-                    <div class="mb-3 form-check">
-                    <p id="termsOfUse">
+                    <div class="mb-3 mt-4 form-check">
+                    <p *ngIf="termsAndConditionsDisplay.default" id="termsOfUse">
                         Regisztrációjával hozzájárul személyes adatainak az
                         <a href="#TermsOfUse">Adatvédelmi Szabályzat</a> szerinti felhasználásához.
+                    </p>
+                    <p *ngIf="termsAndConditionsDisplay.small">
+                     <input type="checkbox" name="" id=""> ÁSZF
                     </p>
                     </div>
                     <button type="submit" class="btn btn-lg btn-primary col-8 mx-auto">Regisztráció</button>

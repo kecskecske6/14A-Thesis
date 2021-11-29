@@ -1,5 +1,7 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css")
+    
 $background-color: rgba(178,218,205,0.9)
-$label-font-size: 1.1rem
+$label-font-size: 2.5vmin
 
 html
     height: 100%
@@ -13,44 +15,86 @@ body
     position: relative
 
 #registerFormContainer
-    height: 70vh
-    width: 55vh
     background-color: $background-color
     position: absolute
     top: 50%
     left: 50%
     transform: translate(-50%, -50%)
     border-radius: 3%
+    @media (max-height:850px)
+        height: 60vh
+        width: 50vh
+    @media (min-height:850px)
+        height: 80vh
+        width: 60vh
     
 #registerFormHeader
     width: 100%
-    height: 22%
+    height: 20%
 
 #registerFormHeaderLogo
     width: 100%
     height: 100%
 
 #registerFormBody
-    margin-top: -50%
+    margin-top: -30%
     height: 60%
-    align-content: center
+    vertical-align: center
     align-items: center
-
 #registerFormFooter
     height: 20%
-    margin-top: -5%
 
 form
+    height: 68%
     width: 90%
+
+.form-control
+    height: 4vh
 
 .form-label
     font-weight: bold
     font-size: $label-font-size
+    @media (max-width: 530px)
+        display: none
+    @media (max-height: 575px)
+        display: none
 
-#termsOfUse
-    margin-left: -5%
+.input-group-text
+    padding-inline-start: 16px
+    height: 4vh
 
-#termsOfUse > a
-    text-decoration-line: none
-        
+.btn
+    font-size: $label-font-size
+
+@media only screen and (max-width : 480px) 
+    #recaptcha_challenge_image
+        margin: 0 !important
+        width: 100% !important
+        height: auto !important
     
+    #recaptcha_response_field
+    
+        margin: 0 !important
+        width: 100% !important
+        height: auto !important
+   
+    .recaptchatable #recaptcha_image 
+        margin: 0 !important
+        width: 100% !important
+        height: auto !important
+    
+    .recaptchatable .recaptcha_r1_c1, 
+    .recaptchatable .recaptcha_r3_c1, 
+    .recaptchatable .recaptcha_r3_c2, 
+    .recaptchatable .recaptcha_r7_c1, 
+    .recaptchatable .recaptcha_r8_c1, 
+    .recaptchatable .recaptcha_r3_c3, 
+    .recaptchatable .recaptcha_r2_c1, 
+    .recaptchatable .recaptcha_r4_c1, 
+    .recaptchatable .recaptcha_r4_c2, 
+    .recaptchatable .recaptcha_r4_c4, 
+    .recaptchatable .recaptcha_image_cell 
+        margin: 0 !important
+        width: 100% !important
+        background: none !important
+        height: auto !important

@@ -14,17 +14,23 @@
             </div>
             <form class="d-flex row justify-content-center align-items-center" method="post">
                 <div id="loginFormBody">
-                    <div class="mb-4 col-md-12">
-                        <label for="loginInputEmail" class="form-label">Email cím</label>
-                        <input type="email" class="form-control mx-auto" id="loginInputEmail" required>
+                    <div class="mb-4 mt-4 col-md-12">
+                        <label for="loginInputEmail" class="form-label">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope-fill d-flex"></i></span>
+                            <input id="loginInputEmail" type="email" class="form-control" name="email" placeholder="Email cím">
+                        </div>
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-4 mt-4 col-md-12">
                         <label for="loginInputPassword" class="form-label">Jelszó</label>
-                        <input type="password" class="form-control mx-auto" id="loginInputPassword" required>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock-fill d-flex"></i></span>
+                            <input id="loginInputPassword" type="password" class="form-control" name="password" placeholder="Jelszó">
+                        </div>
                     </div>
                 </div>
                 <div id="loginFormFooter" class="row">
-                    <button type="submit" class="btn btn-lg btn-primary col-8 mx-auto">Bejelentkezés</button>
+                    <button type="submit" class="btn btn-primary col-8 mx-auto">Bejelentkezés</button>
                 </div>
             </form>
         </div>
