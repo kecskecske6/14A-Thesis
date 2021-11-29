@@ -1,27 +1,47 @@
 # FootTour
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.10.
+## What is?
 
-## Development server
+**FootTour** is an *online* web application created for tournament organizers to make easier the creation of a tournament.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Where is?
 
-## Code scaffolding
+The **application** is available [here](https://github.com/kecskecske6/FootTour "GitHub repository"), and also on any PC as the project includes a desktop application as well.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Who do?
 
-## Build
+**FootTour** us made by two people: Szebik Levente Róbert and Tankovits Bence.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Their work includes:
 
-## Running unit tests
+- Levente:
+    - Registration and login system
+    - Web development
+        - Making of tournaments
+        - Registering to tournaments
+        - Online broadcasting
+- Bence:
+    - Desktop companion app
+    - Web development
+        - Drawing system
+        - Match report
+        - Statistics
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## What do?
 
-## Running end-to-end tests
+**FootTour** makes organizing tournaments very easy. You just have to register the teams who will paritcipate in the tournament, and **FootTour** does the job for you: it makes the draw and also everything else that is needed for a tournament. Every user has statistics about their past tournaments.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Its features include (marked with an x) or will include the following:
 
-## Further help
+- [x] Registration system for the organizers
+- [x] Online broadcasting of tournaments
+- [x] Archive data of previously held tournaments
+- [ ] Expansion to any sports
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Why this?
+
+Because it's free. Yeah, you've heard it right, **FootTour** is totally free. But that's not the only advantage of this app. It is made utilizing the power of `php`, thus it's very convenient. Data is stored in a `mysql` database, and the front-end is made in `angular`.
+
+## Contact
+
+*You* can reach out to us on the project's [GitHub repository](https://github.com/kecskecske6/FootTour/issues "FootTour issues").

@@ -1,45 +1,49 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
-/tmp
-/out-tsc
+FootTour/dist
+FootTour/tmp
+FootTour/out-tsc
 # Only exists if Bazel was run
-/bazel-out
+FootTour/bazel-out
 
 # dependencies
-/node_modules
+FootTour/node_modules
 
 # profiling files
-chrome-profiler-events*.json
+FootTour/chrome-profiler-events*.json
 
 # IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+FootTour/.idea
+FootTour/.project
+FootTour/.classpath
+FootTour/.c9/
+FootTour/*.launch
+FootTour/.settings/
+FootTour/*.sublime-workspace
 
 # IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+FootTour/.vscode/*
+!FootTour/.vscode/settings.json
+!FootTour/.vscode/tasks.json
+!FootTour/.vscode/launch.json
+!FootTour/.vscode/extensions.json
+FootTour/.history/*
 
 # misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
-/typings
+FootTour/.sass-cache
+FootTour/connect.lock
+FootTour/coverage
+FootTour/libpeerconnection.log
+FootTour/npm-debug.log
+FootTour/yarn-error.log
+FootTour/testem.log
+FootTour/typings
 
 # System Files
-.DS_Store
-Thumbs.db
+FootTour/.DS_Store
+FootTour/Thumbs.db
+
+# FootTour Companion App ignores
+FootTourCA/bin
+FootTourCA/obj
