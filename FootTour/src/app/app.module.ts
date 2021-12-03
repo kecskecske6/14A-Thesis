@@ -9,12 +9,14 @@ import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSet
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { RegistrationPageComponent } from './components/registration-page/registration-page.component';
+import { AvailableTournamentsComponent } from './components/available-tournaments/available-tournaments.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    RegistrationPageComponent
+    RegistrationPageComponent,
+    AvailableTournamentsComponent
   ],
   imports: [
     BrowserModule,
