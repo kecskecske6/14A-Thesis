@@ -11,6 +11,7 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { RegistrationPageComponent } from './components/registration-page/registration-page.component';
 import { AvailableTournamentsComponent } from './components/available-tournaments/available-tournaments.component';
 import { TournamentInfoComponent } from './components/tournament-info/tournament-info.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TournamentInfoComponent } from './components/tournament-info/tournament
     LoginPageComponent,
     RegistrationPageComponent,
     AvailableTournamentsComponent,
-    TournamentInfoComponent
+    TournamentInfoComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,
