@@ -1,0 +1,46 @@
+<div id="container" class="container">
+    <div id="head" class="mx-auto">
+        <div *ngFor="let match of match" class="row">
+            <h2 class="col text-end">{{match.team1name}}</h2>
+            <h2 class="col text-center">{{match.team1goals}}-{{match.team2goals}}</h2>
+            <h2 class="col text-start">{{match.team2name}}</h2>
+        </div>
+    </div>
+    <hr class="mx-auto">
+    <div id="body" class="row text-center">
+        <div id="team1name" *ngFor="let match of match" class="teamName mt-5">{{match.team1name}}</div>
+        <table class="table col-lg-12 mb-5 mt-3 mx-auto">
+            <thead></thead>
+            <tbody>
+              <tr *ngFor="let player of players">
+                <ng-template [ngIf] = "player.team == 'ittASöröm'">
+                <th class="col-1" scope="row">{{player.number}}</th>
+                <td class="col-6 text-start">{{player.name}}</td>
+                <td class="col-3"><img *ngFor="let number of player.goals" src="../../../assets/match report/ball_icon.png" alt=""></td>
+                <td class="col-1"><img *ngIf="player.yellow_card" src="../../../assets/match report/yellow_card.png" alt=""></td>
+                <td class="col-1"><img *ngIf="player.red_card" src="../../../assets/match report/red_card.png" alt=""></td>
+              </ng-template>
+              </tr>
+            </tbody>
+          </table>
+          <div *ngFor="let match of match" class="teamName mt-5">{{match.team2name}}</div>
+          <table class="table col-lg-12 mt-3 mx-auto">
+              <thead></thead>
+              <tbody>
+                <tr *ngFor="let player of players">
+                  <ng-template [ngIf] = "player.team == 'AS Róka'">
+                    <th class="col-1" scope="row">{{player.number}}</th>
+                    <td class="col-6 text-start">{{player.name}}</td>
+                    <td class="col-3"><img *ngFor="let number of player.goals" src="../../../assets/match report/ball_icon.png" alt=""></td>
+                    <td class="col-1"><img *ngIf="player.yellow_card" src="../../../assets/match report/yellow_card.png" alt=""></td>
+                    <td class="col-1"><img *ngIf="player.red_card" src="../../../assets/match report/red_card.png" alt=""></td>
+                </ng-template>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngFor="let item of match">
+              <div><h5>Játékvezető: {{item.referee}}</h5></div>
+              {{item.tournament}}
+            </div>
+    </div>
+</div>

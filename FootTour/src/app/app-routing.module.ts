@@ -5,6 +5,7 @@ import { RegistrationPageComponent } from './components/registration-page/regist
 import { AvailableTournamentsComponent } from './components/available-tournaments/available-tournaments.component';
 import { TournamentInfoComponent } from './components/tournament-info/tournament-info.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import { MatchReportComponent } from './components/match-report/match-report.component';
 import { OrganizierTournamentDashboardComponent } from './components/organizier-tournament-dashboard/organizier-tournament-dashboard.component';
 import { OrganizierEarlierTournamentsComponent } from './components/organizier-earlier-tournaments/organizier-earlier-tournaments.component';
 
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'database/tournaments', component: AvailableTournamentsComponent},
   { path: 'mytournaments', component:OrganizierEarlierTournamentsComponent},
   { path: 'database/tournaments/:tournamentinfo', component: TournamentInfoComponent},
+  { path: 'matchreport', component:MatchReportComponent},
   { path: 'currenttournament', component: OrganizierTournamentDashboardComponent}
 ];
 
