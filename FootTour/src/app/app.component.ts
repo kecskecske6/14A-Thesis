@@ -7,12 +7,11 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
+  title = 'FootTour';
 
   public constructor(private titleService: Title) {}
 
   public setTitle(newTitle: string) {
     this.titleService.setTitle(`FootTour | ${newTitle}`);
   }
-
-  title = 'yes';
 }

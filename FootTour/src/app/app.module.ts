@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { RegistrationPageComponent } from './components/registration-page/registration-page.component';
 import { AvailableTournamentsComponent } from './components/available-tournaments/available-tournaments.component';
+import { TournamentInfoComponent } from './components/tournament-info/tournament-info.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { OrganizierEarlierTournamentsComponent } from './components/organizier-earlier-tournaments/organizier-earlier-tournaments.component';
 
@@ -21,6 +22,7 @@ import { OrganizierEarlierTournamentsComponent } from './components/organizier-e
     AvailableTournamentsComponent,
     MainPageComponent,
     OrganizierEarlierTournamentsComponent
+    TournamentInfoComponent
   ],
   imports: [
     BrowserModule,

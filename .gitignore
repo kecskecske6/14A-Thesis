@@ -47,3 +47,4 @@ FootTour/Thumbs.db
 # FootTour Companion App ignores
 FootTourCA/bin
 FootTourCA/obj
+node_modules
