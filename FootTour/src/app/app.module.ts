@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,7 +28,7 @@ import { MainPageComponent } from './components/main-page/main-page.component';
     RecaptchaModule,
     RecaptchaFormsModule,
   ],
-  providers: [{provide: RECAPTCHA_SETTINGS, useValue:{siteKey: "6LfQDTgdAAAAALWxXWzzcQLexj0O6P7C-CGXXNHW",} as RecaptchaSettings,}],
+  providers: [{ provide: RECAPTCHA_SETTINGS, useValue: { siteKey: "6LfQDTgdAAAAALWxXWzzcQLexj0O6P7C-CGXXNHW", } as RecaptchaSettings, }, Title],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
