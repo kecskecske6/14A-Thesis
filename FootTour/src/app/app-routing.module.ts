@@ -8,6 +8,7 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { MatchReportComponent } from './components/match-report/match-report.component';
 import { OrganizierTournamentDashboardComponent } from './components/organizier-tournament-dashboard/organizier-tournament-dashboard.component';
 import { OrganizierEarlierTournamentsComponent } from './components/organizier-earlier-tournaments/organizier-earlier-tournaments.component';
+import { RefereeMatchReportComponent } from './components/referee-match-report/referee-match-report.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'mytournaments', component:OrganizierEarlierTournamentsComponent},
   { path: 'database/tournaments/:tournamentinfo', component: TournamentInfoComponent},
   { path: 'matchreport', component:MatchReportComponent},
-  { path: 'currenttournament', component: OrganizierTournamentDashboardComponent}
+  { path: 'currenttournament', component: OrganizierTournamentDashboardComponent},
+  {path: 'matchreport/referee', component: RefereeMatchReportComponent}
 ];
 
 @NgModule({
