@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'register', component: RegistrationPageComponent},
   { path: 'database/tournaments/:tournamentinfo', component: TournamentInfoComponent},
   { path: 'database/tournaments', component: AvailableTournamentsComponent},
-  { path: 'currentournament', component: OrganizierTournamentDashboardComponent},
+  { path: 'currenttournament', component: OrganizierTournamentDashboardComponent},
 ];
 
 @NgModule({
