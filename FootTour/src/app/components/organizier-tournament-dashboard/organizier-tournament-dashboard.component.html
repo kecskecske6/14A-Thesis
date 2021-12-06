@@ -1,0 +1,17 @@
+<div id="container" class="d-flex mx-auto">
+    <div class="col">
+    <div id="infoHead" class="text-center">
+    <h2>Mikulás kupa</h2>
+   </div>
+         <div class="text-center mt-5">Nevezett csapatok</div>
+         <hr class="mx-auto">
+         <div id="teamName" [ngClass]="team.payed == true ? 'bg-succes': 'bg-danger'" *ngFor="let team of teams" class="text-center mt-3">{{team.name}}</div>
+         <hr class="mx-auto">
+         <div class="text-center mt-3">Leírás</div>
+         <div id="description" class=" mx-auto mt-3">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint ullam dignissimos laborum ad reprehenderit sunt perferendis impedit a quam nisi quae quis vel, consectetur earum hic non ipsa? Sequi, aliquam.
+            Mollitia consectetur corporis totam sunt! Aliquam esse voluptate quidem et optio, iusto maxime eius? Fuga explicabo ullam voluptate assumenda distinctio, architecto et maxime iste at, omnis ut veritatis illum aspernatur?
+            Libero nulla tempore ipsum enim deleniti. Error esse, consequatur omnis maiores iusto minus saepe a. Ipsum nemo officiis libero distinctio, nisi vel dolorem ad deserunt error doloribus? Minus, dignissimos pariatur.
+         </div>
+</div>
+</div>
