@@ -5,13 +5,15 @@ import { RegistrationPageComponent } from './components/registration-page/regist
 import { AvailableTournamentsComponent } from './components/available-tournaments/available-tournaments.component';
 import { TournamentInfoComponent } from './components/tournament-info/tournament-info.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import { MatchReportComponent } from './components/match-report/match-report.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegistrationPageComponent},
   { path: 'database/tournaments/:tournamentinfo', component: TournamentInfoComponent},
-  { path: 'database/tournaments', component: AvailableTournamentsComponent}
+  { path: 'database/tournaments', component: AvailableTournamentsComponent},
+  { path: 'matchreport', component:MatchReportComponent},
 ];
 
 @NgModule({
