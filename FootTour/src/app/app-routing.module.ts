@@ -10,8 +10,7 @@ const routes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegistrationPageComponent},
-  { path: 'availabletournaments', component: AvailableTournamentsComponent},
-  { path: 'availabletournaments/:tournamentinfo', component: TournamentInfoComponent},
+  { path: 'database/tournaments/:tournamentinfo', component: TournamentInfoComponent},
   { path: 'database/tournaments', component: AvailableTournamentsComponent}
 ];
 
