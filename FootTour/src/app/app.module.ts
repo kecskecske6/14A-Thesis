@@ -16,6 +16,7 @@ import { MatchReportComponent } from './components/match-report/match-report.com
 import { OrganizierTournamentDashboardComponent } from './components/organizier-tournament-dashboard/organizier-tournament-dashboard.component';
 import { OrganizierEarlierTournamentsComponent } from './components/organizier-earlier-tournaments/organizier-earlier-tournaments.component';
 import { RefereeMatchReportComponent } from './components/referee-match-report/referee-match-report.component';
+import { TournamentScheduleComponent } from './components/tournament-schedule/tournament-schedule.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { RefereeMatchReportComponent } from './components/referee-match-report/r
     MatchReportComponent,
     OrganizierTournamentDashboardComponent,
     OrganizierEarlierTournamentsComponent,
-    RefereeMatchReportComponent
+    RefereeMatchReportComponent,
+    TournamentScheduleComponent
   ],
   imports: [
     BrowserModule,
