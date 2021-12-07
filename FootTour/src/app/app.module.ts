@@ -15,6 +15,7 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { MatchReportComponent } from './components/match-report/match-report.component';
 import { OrganizierTournamentDashboardComponent } from './components/organizier-tournament-dashboard/organizier-tournament-dashboard.component';
 import { OrganizierEarlierTournamentsComponent } from './components/organizier-earlier-tournaments/organizier-earlier-tournaments.component';
+import { RefereeMatchReportComponent } from './components/referee-match-report/referee-match-report.component';
 import { TournamentScheduleComponent } from './components/tournament-schedule/tournament-schedule.component';
 
 @NgModule({
@@ -28,6 +29,7 @@ import { TournamentScheduleComponent } from './components/tournament-schedule/to
     MatchReportComponent,
     OrganizierTournamentDashboardComponent,
     OrganizierEarlierTournamentsComponent,
+    RefereeMatchReportComponent,
     TournamentScheduleComponent
   ],
   imports: [

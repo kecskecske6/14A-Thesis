@@ -8,6 +8,7 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { MatchReportComponent } from './components/match-report/match-report.component';
 import { OrganizierTournamentDashboardComponent } from './components/organizier-tournament-dashboard/organizier-tournament-dashboard.component';
 import { OrganizierEarlierTournamentsComponent } from './components/organizier-earlier-tournaments/organizier-earlier-tournaments.component';
+import { RefereeMatchReportComponent } from './components/referee-match-report/referee-match-report.component';
 import { TournamentScheduleComponent } from './components/tournament-schedule/tournament-schedule.component';
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'database/tournaments/:tournamentinfo', component: TournamentInfoComponent},
   { path: 'matchreport', component:MatchReportComponent},
   { path: 'currenttournament', component: OrganizierTournamentDashboardComponent},
+  {path: 'matchreport/referee', component: RefereeMatchReportComponent},
   { path: 'schedule', component: TournamentScheduleComponent}
 ];
 
