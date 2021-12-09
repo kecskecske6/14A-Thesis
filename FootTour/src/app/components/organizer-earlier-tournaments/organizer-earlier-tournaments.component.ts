@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-organizier-earlier-tournaments',
-  templateUrl: './organizier-earlier-tournaments.component.html',
-  styleUrls: ['./organizier-earlier-tournaments.component.sass']
+  templateUrl: './organizer-earlier-tournaments.component.html',
+  styleUrls: ['./organizer-earlier-tournaments.component.sass']
 })
-export class OrganizierEarlierTournamentsComponent implements OnInit {
+export class OrganizerEarlierTournamentsComponent implements OnInit {
 
   nowtournaments = [
     {

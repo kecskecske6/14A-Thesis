@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-organizier-tournament-dashboard',
-  templateUrl: './organizier-tournament-dashboard.component.html',
-  styleUrls: ['./organizier-tournament-dashboard.component.sass']
+  templateUrl: './organizer-tournament-dashboard.component.html',
+  styleUrls: ['./organizer-tournament-dashboard.component.sass']
 })
-export class OrganizierTournamentDashboardComponent implements OnInit {
+export class OrganizerTournamentDashboardComponent implements OnInit {
 
   teams =[
     {
