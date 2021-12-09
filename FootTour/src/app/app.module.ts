@@ -13,8 +13,8 @@ import { AvailableTournamentsComponent } from './components/available-tournament
 import { TournamentInfoComponent } from './components/tournament-info/tournament-info.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { MatchReportComponent } from './components/match-report/match-report.component';
-import { OrganizierTournamentDashboardComponent } from './components/organizier-tournament-dashboard/organizier-tournament-dashboard.component';
-import { OrganizierEarlierTournamentsComponent } from './components/organizier-earlier-tournaments/organizier-earlier-tournaments.component';
+import { OrganizerTournamentDashboardComponent } from './components/organizer-tournament-dashboard/organizer-tournament-dashboard.component';
+import { OrganizerEarlierTournamentsComponent } from './components/organizer-earlier-tournaments/organizer-earlier-tournaments.component';
 import { RefereeMatchReportComponent } from './components/referee-match-report/referee-match-report.component';
 import { TournamentScheduleComponent } from './components/tournament-schedule/tournament-schedule.component';
 
@@ -27,8 +27,8 @@ import { TournamentScheduleComponent } from './components/tournament-schedule/to
     TournamentInfoComponent,
     MainPageComponent,
     MatchReportComponent,
-    OrganizierTournamentDashboardComponent,
-    OrganizierEarlierTournamentsComponent,
+    OrganizerTournamentDashboardComponent,
+    OrganizerEarlierTournamentsComponent,
     RefereeMatchReportComponent,
     TournamentScheduleComponent
   ],
