@@ -1,50 +1,49 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-FootTour/dist
-FootTour/tmp
-FootTour/out-tsc
+FootTour/frontend/dist
+FootTour/frontend/tmp
+FootTour/frontend/out-tsc
 # Only exists if Bazel was run
-FootTour/bazel-out
+FootTour/frontend/bazel-out
 
 # dependencies
-FootTour/node_modules
+FootTour/frontend/node_modules
 
 # profiling files
-FootTour/chrome-profiler-events*.json
+FootTour/frontend/chrome-profiler-events*.json
 
 # IDEs and editors
-FootTour/.idea
-FootTour/.project
-FootTour/.classpath
-FootTour/.c9/
-FootTour/*.launch
-FootTour/.settings/
-FootTour/*.sublime-workspace
+FootTour/frontend/.idea
+FootTour/frontend/.project
+FootTour/frontend/.classpath
+FootTour/frontend/.c9/
+FootTour/frontend/*.launch
+FootTour/frontend/.settings/
+FootTour/frontend/*.sublime-workspace
 
 # IDE - VSCode
-FootTour/.vscode/*
-!FootTour/.vscode/settings.json
-!FootTour/.vscode/tasks.json
-!FootTour/.vscode/launch.json
-!FootTour/.vscode/extensions.json
-FootTour/.history/*
+FootTour/frontend/.vscode/*
+!FootTour/frontend/.vscode/settings.json
+!FootTour/frontend/.vscode/tasks.json
+!FootTour/frontend/.vscode/launch.json
+!FootTour/frontend/.vscode/extensions.json
+FootTour/frontend/.history/*
 
 # misc
-FootTour/.sass-cache
-FootTour/connect.lock
-FootTour/coverage
-FootTour/libpeerconnection.log
-FootTour/npm-debug.log
-FootTour/yarn-error.log
-FootTour/testem.log
-FootTour/typings
+FootTour/frontend/.sass-cache
+FootTour/frontend/connect.lock
+FootTour/frontend/coverage
+FootTour/frontend/libpeerconnection.log
+FootTour/frontend/npm-debug.log
+FootTour/frontend/yarn-error.log
+FootTour/frontend/testem.log
+FootTour/frontend/typings
 
 # System Files
-FootTour/.DS_Store
-FootTour/Thumbs.db
+FootTour/frontend/.DS_Store
+FootTour/frontend/Thumbs.db
 
 # FootTour Companion App ignores
 FootTourCA/bin
 FootTourCA/obj
-node_modules
