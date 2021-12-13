@@ -7,13 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Collapse.png" />
     <None Remove="Assets\Link.png" />
+    <None Remove="Assets\logo.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Link.png">
+    <Content Include="Assets\Collapse.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
+    <Content Include="Assets\Link.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
