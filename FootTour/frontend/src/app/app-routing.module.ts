@@ -14,14 +14,14 @@ import { TournamentScheduleComponent } from './components/tournament-schedule/to
 const routes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'login', component: LoginPageComponent },
-  { path: 'register', component: RegistrationPageComponent},
-  { path: 'database/tournaments', component: AvailableTournamentsComponent},
-  { path: 'mytournaments', component:OrganizerEarlierTournamentsComponent},
-  { path: 'database/tournaments/:tournamentinfo', component: TournamentInfoComponent},
-  { path: 'matchreport', component:MatchReportComponent},
-  { path: 'currenttournament', component: OrganizerTournamentDashboardComponent},
-  {path: 'matchreport/referee', component: RefereeMatchReportComponent},
-  { path: 'schedule', component: TournamentScheduleComponent}
+  { path: 'register', component: RegistrationPageComponent },
+  { path: 'database/tournaments', component: AvailableTournamentsComponent },
+  { path: 'mytournaments', component: OrganizerEarlierTournamentsComponent },
+  { path: 'database/tournaments/:tournamentinfo', component: TournamentInfoComponent },
+  { path: 'matchreport', component: MatchReportComponent },
+  { path: 'currenttournament', component: OrganizerTournamentDashboardComponent },
+  { path: 'matchreport/referee', component: RefereeMatchReportComponent },
+  { path: 'schedule', component: TournamentScheduleComponent }
 ];
 
 @NgModule({

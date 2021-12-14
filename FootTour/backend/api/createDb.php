@@ -1,17 +1,15 @@
 <?php
-    /*set_time_limit(0);
-    $sql = explode(";", file_get_contents("../init.sql"));
-    foreach ($sql as $key => $value) {
-        if ($conn->query(trim($value) . ";") === TRUE) {
-            echo "Database created successfully";
-        } else {
-            echo "Error creating database " . $conn->error;
+    if ($conn->query("DROP DATABASE IF EXISTS foottour") === TRUE)
+        echo "Done";
+    else
+        echo $conn->error;
+    $file = explode(";", file_get_contents("../init.sql"));
+    $i = 0;
+    foreach ($file as $key => $value) {
+        if ($i != 0 and $i != count($file) - 1) {
+            if ($conn->query($value . ";") !== TRUE)
+                die($conn->error);
         }
-    }*/
-    $sql = "DROP database if exists foottour";
-    if ($conn->query($sql) === true) {
-        echo "Database created successfully";
-    } else {
-        echo "Error creating database " . $conn->error;
+        ++$i;
     }
 ?>

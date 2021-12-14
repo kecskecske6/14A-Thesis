@@ -7,10 +7,10 @@
     <div class="card-body text-center">
       <h4 class="card-title text-center">{{tournament.name}}</h4>
       <p class="card-text mt-4 text-start">
-        Szervező: {{tournament.organizer}} <br>
+        Szervező: {{tournament.organizerId}} <br>
         Helyszín: {{tournament.location}} <br>
-        Nevezési díj: {{tournament.entry_fee}} Ft<br>
-        Időpont: {{tournament.start_date}}
+        Nevezési díj: {{tournament.entryFee}} Ft<br>
+        Időpont: {{tournament.startDate}}
       </p>
       <input type="button" class="btn btn-primary btn-large" value="Részletek" 
       [routerLink]="'/availabletournaments/tournamentinfo'">

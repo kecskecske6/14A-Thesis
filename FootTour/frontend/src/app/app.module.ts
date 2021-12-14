@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
 import { AppComponent } from './app.component';
@@ -39,6 +40,7 @@ import { TournamentScheduleComponent } from './components/tournament-schedule/to
     RouterModule,
     RecaptchaModule,
     RecaptchaFormsModule,
+    HttpClientModule
   ],
   providers: [{ provide: RECAPTCHA_SETTINGS, useValue: { siteKey: "6LfQDTgdAAAAALWxXWzzcQLexj0O6P7C-CGXXNHW", } as RecaptchaSettings, }, Title],
   bootstrap: [AppComponent]
