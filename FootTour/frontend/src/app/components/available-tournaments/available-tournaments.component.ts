@@ -9,8 +9,8 @@ import { TournamentService } from 'src/app/services/tournament.service';
 })
 export class AvailableTournamentsComponent implements OnInit {
 
-  //tournaments: Tournament[] = [];
-  tournaments = [
+  tournaments: Tournament[] = [];
+  /*tournaments = [
     {
       name: 'Mikulás kupa',
       organizer: 'Teszt Elek',
@@ -60,11 +60,19 @@ export class AvailableTournamentsComponent implements OnInit {
       start_date: '2021.12.24',
       entry_fee: "10.000"
     }
-  ]
+  ]*/
 
   constructor(private tournamentService: TournamentService) { }
 
   ngOnInit(): void {
+    this.getTournaments();
+  }
+
+  getTournaments(): void {
+    this.tournamentService.getAll().subscribe(
+      (data: Tournament[]) => this.tournaments = data,
+      err => console.log(err)
+    );
   }
 
 }

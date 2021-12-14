@@ -1,6 +1,6 @@
 <?php
     include_once "connect.php";
-    $sql = "Select * from tournaments";
+    $sql = "SELECT * from foottour.tournaments;";
     $tournaments = array();
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -20,6 +20,6 @@
             $tournaments[$i]["description"] = $row["description"];
             ++$i;
         }
-        echo json_encode($tournaments);
+        echo json_encode(array('data'=>$tournaments));
     }
 ?>

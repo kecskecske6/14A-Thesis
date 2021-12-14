@@ -7,10 +7,8 @@
     $i = 0;
     foreach ($file as $key => $value) {
         if ($i != 0 and $i != count($file) - 1) {
-            if ($conn->query($value . ";") === TRUE)
-                echo "Done";
-            else
-                echo $conn->error;
+            if ($conn->query($value . ";") !== TRUE)
+                die($conn->error);
         }
         ++$i;
     }
