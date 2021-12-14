@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Tournament } from 'src/app/interfaces/tournament';
+import { TournamentService } from 'src/app/services/tournament.service';
 
 @Component({
   selector: 'app-available-tournaments',
@@ -7,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AvailableTournamentsComponent implements OnInit {
 
+  //tournaments: Tournament[] = [];
   tournaments = [
     {
       name: 'Mikulás kupa',
@@ -59,7 +62,7 @@ export class AvailableTournamentsComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor(private tournamentService: TournamentService) { }
 
   ngOnInit(): void {
   }
