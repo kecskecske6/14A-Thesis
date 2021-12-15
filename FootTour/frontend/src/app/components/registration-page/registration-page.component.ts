@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-registration-page',
@@ -8,36 +9,41 @@ import { NgForm } from '@angular/forms';
 })
 export class RegistrationPageComponent implements OnInit {
 
-  token: string|undefined;
+  model = {
+    email: '',
+    password: ''
+  }
+
+  token: string | undefined;
   screenHeight: any;
   screenWidth: any;
 
-  termsAndConditionsDisplay ={
+  termsAndConditionsDisplay = {
     small: false,
     default: true
   }
 
-  constructor() {
+  constructor(private userService: UserService) {
     this.token = undefined;
     this.onResize();
-   }
+  }
 
   ngOnInit(): void {
   }
 
   @HostListener('window:resize', ['$event'])
-onResize(event?:any) {
-   this.screenHeight = window.innerHeight;
-   this.screenWidth = window.innerWidth;
-   if (this.screenHeight < 600 || this.screenWidth < 530) {
-     this.termsAndConditionsDisplay.default = false;
-     this.termsAndConditionsDisplay.small = true;
-   }
-   else{
-    this.termsAndConditionsDisplay.default = true;
-    this.termsAndConditionsDisplay.small = false;
-   }
-}
+  onResize(event?: any) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    if (this.screenHeight < 600 || this.screenWidth < 530) {
+      this.termsAndConditionsDisplay.default = false;
+      this.termsAndConditionsDisplay.small = true;
+    }
+    else {
+      this.termsAndConditionsDisplay.default = true;
+      this.termsAndConditionsDisplay.small = false;
+    }
+  }
 
   public send(form: NgForm): void {
     if (form.invalid) {
@@ -48,6 +54,12 @@ onResize(event?:any) {
     }
 
     console.debug(`Token [${this.token}] generated`);
+  }
+
+  register(): void {
+    this.userService.insert(this.model).subscribe(
+      result => this.userService
+    );
   }
 
 }

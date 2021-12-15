@@ -22,4 +22,5 @@
         }
         echo json_encode(array('data'=>$tournaments));
     }
+    $conn->close();
 ?>

@@ -12,4 +12,5 @@
     } else {
         echo $conn->error;
     }
+    $conn->close();
 ?>
