@@ -25,8 +25,9 @@
           </div>
         </li>
       </ul>
-      <input type="button" value="Belépés" class="btn-outline-success btn-light btn button" routerLink="/login" (click)="setTitle('Belépés')">
-      <input type="button" value="Regisztráció" class="btn btn-success button" routerLink="/register" (click)="setTitle('Regisztráció')">
+      <input *ngIf="!userService.user" type="button" value="Belépés" class="btn-outline-success btn-light btn button" routerLink="/login" (click)="setTitle('Belépés')">
+      <input *ngIf="!userService.user" type="button" value="Regisztráció" class="btn btn-success button" routerLink="/register" (click)="setTitle('Regisztráció')">
+      <span *ngIf="userService.user">{{userService.user.name}}</span>
     </div>
   </div>
 </nav>

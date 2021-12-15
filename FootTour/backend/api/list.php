@@ -20,7 +20,7 @@
             $tournaments[$i]["description"] = $row["description"];
             ++$i;
         }
-        echo json_encode(array('data'=>$tournaments));
+        echo json_encode($tournaments);
     }
     $conn->close();
 ?>

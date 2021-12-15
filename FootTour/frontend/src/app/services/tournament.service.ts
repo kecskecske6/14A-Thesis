@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
+import { Tournament } from '../interfaces/tournament';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +11,7 @@ export class TournamentService {
 
   constructor(private http: HttpClient) { }
 
-  getAll() {
-    return this.http.get('http://localhost:8000/api/list.php').pipe(
-      map((res: any) => {
-        return res['data'];
-      })
-    );
+  getAll(): Observable<Tournament[]> {
+    return this.http.get<Tournament[]>(`${environment.apiURL}/list.php`);
   }
 }

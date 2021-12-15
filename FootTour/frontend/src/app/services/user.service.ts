@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { User } from '../interfaces/user';
 
@@ -9,11 +9,12 @@ import { User } from '../interfaces/user';
 })
 export class UserService {
 
-  user: User;
+  user: User | undefined = undefined;
 
   constructor(private http: HttpClient) { }
 
-  insert(data: any) {
-    return this.http.put(`${environment.apiURL}/store.php`, data);
+  insert(data: any): Observable<User> {
+    console.log(data);
+    return this.http.post<User>(`${environment.apiURL}/store.php`, data);
   }
 }

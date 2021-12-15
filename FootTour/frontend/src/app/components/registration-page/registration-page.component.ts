@@ -58,7 +58,8 @@ export class RegistrationPageComponent implements OnInit {
 
   register(): void {
     this.userService.insert(this.model).subscribe(
-      result => this.userService
+      result => this.userService.user = result,
+      error => console.log(error)
     );
   }
 
