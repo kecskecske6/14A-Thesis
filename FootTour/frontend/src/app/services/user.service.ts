@@ -2,16 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { Tournament } from '../interfaces/tournament';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TournamentService {
+export class UserService {
+
+  user: User | undefined = undefined;
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Tournament[]> {
-    return this.http.get<Tournament[]>(`${environment.apiURL}/list.php`);
+  insert(data: any): Observable<User> {
+    console.log(data);
+    return this.http.post<User>(`${environment.apiURL}/store.php`, data);
   }
 }

@@ -1,57 +1,51 @@
-<!DOCTYPE html>
-<html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regisztráció</title>
-</head>
-<body>
-    <div class="col">
-        <div id="registerFormContainer" class="d-flex justify-content-center mx-auto row">
-            <div id="registerFormHeader">
-                <img id="registerFormHeaderLogo" src="../../../assets/logo.png" alt="Logo">
-            </div>
-            <form class="d-flex row justify-content-center align-items-center" method="post">
-                <div id="registerFormBody">
-                    <div class="mb-4 mt-4 col-md-12">
-                        <label for="registerInputEmail" class="form-label">Email</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-envelope-fill d-flex"></i></span>
-                            <input id="registerInputEmail" type="email" class="form-control" name="email" placeholder="Email">
-                        </div>
+<div class="col">
+    <div id="registerFormContainer" class="d-flex justify-content-center mx-auto row">
+        <div id="registerFormHeader">
+            <img id="registerFormHeaderLogo" src="../../../assets/logo.png" alt="Logo">
+        </div>
+        <form class="d-flex row justify-content-center align-items-center">
+            <div id="registerFormBody">
+                <div class="mb-4 mt-4 col-md-12">
+                    <label for="registerInputEmail" class="form-label">Email</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope-fill d-flex"></i></span>
+                        <input id="registerInputEmail" type="email" class="form-control" name="email"
+                            placeholder="Email" [(ngModel)]="model.email">
                     </div>
-                    <div class="mb-4 mt-4 col-md-12">
-                        <label for="registerInputPassword" class="form-label">Jelszó</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-lock-fill d-flex"></i></span>
-                            <input id="registerInputPassword" type="password" class="form-control" name="password" placeholder="Jelszó">
-                        </div>
-                    </div>
-                    <div class="mb-4 mt-4 col-md-12">
-                        <label for="registerInputRePassword" class="form-label">Jelszó újra</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-lock-fill d-flex"></i></span>
-                            <input id="loginInputRePassword" type="password" class="form-control" name="rePassword" placeholder="Jelszó újra">
-                        </div>
-                    </div>
-                    <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
                 </div>
-                <div id="registerFormFooter" class="row">
-                    <div class="mb-3 mt-4 form-check">
+                <div class="mb-4 mt-4 col-md-12">
+                    <label for="registerInputPassword" class="form-label">Jelszó</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock-fill d-flex"></i></span>
+                        <input id="registerInputPassword" type="password" class="form-control" name="password"
+                            placeholder="Jelszó" [(ngModel)]="model.password">
+                    </div>
+                </div>
+                <div class="mb-4 mt-4 col-md-12">
+                    <label for="registerInputRePassword" class="form-label">Jelszó újra</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock-fill d-flex"></i></span>
+                        <input id="loginInputRePassword" type="password" class="form-control" name="rePassword"
+                            placeholder="Jelszó újra" [(ngModel)]="model.password">
+                    </div>
+                </div>
+                <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required
+                    [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
+            </div>
+            <div id="registerFormFooter" class="row">
+                <div class="mb-3 mt-4 form-check">
                     <p *ngIf="termsAndConditionsDisplay.default" id="termsOfUse">
                         Regisztrációjával hozzájárul személyes adatainak az
                         <a href="#TermsOfUse">Adatvédelmi Szabályzat</a> szerinti felhasználásához.
                     </p>
                     <p *ngIf="termsAndConditionsDisplay.small">
-                     <input type="checkbox" name="" id=""> ÁSZF
+                        <input type="checkbox" name="" id=""> ÁSZF
                     </p>
-                    </div>
-                    <button type="submit" class="btn btn-lg btn-primary col-8 mx-auto">Regisztráció</button>
                 </div>
-            </form>
-        </div>
+                <button type="button" class="btn btn-lg btn-primary col-8 mx-auto"
+                    (click)="register()">Regisztráció</button>
+            </div>
+        </form>
     </div>
-    <script src="https://www.google.com/recaptcha/api.js?render=6Lc4wjcdAAAAAF-Yo1C2HrSThKcsrM8vFppMSOeT"></script>
-</body>
-</html>
+</div>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lc4wjcdAAAAAF-Yo1C2HrSThKcsrM8vFppMSOeT"></script>
