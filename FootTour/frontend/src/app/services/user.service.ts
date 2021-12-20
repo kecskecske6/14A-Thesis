@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { User } from '../interfaces/user';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,4 +18,13 @@ export class UserService {
     console.log(data);
     return this.http.post<User>(`${environment.apiURL}/store.php`, data);
   }
+
+  getAll() {
+    return this.http.get(`${environment.apiURL}/list.php`).pipe(
+      map((res: any) => {
+        return res['data'];
+      })
+    );
+  }
+
 }

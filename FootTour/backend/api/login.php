@@ -8,7 +8,7 @@ $request = json_decode($postdata);
 $name = $request->email;
 $password = $request->password;
 
-$sql = "SELECT id, name, email FROM users";
+$sql = "SELECT * FROM foottour.users";
 $result = $conn->query($sql);
 
 
