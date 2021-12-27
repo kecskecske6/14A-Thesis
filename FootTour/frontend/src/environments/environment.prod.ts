@@ -3,5 +3,6 @@ export const environment = {
   recaptcha: {
     siteKey: '6Lc4wjcdAAAAAF-Yo1C2HrSThKcsrM8vFppMSOeT',
   },
-  apiURL: 'http://localhost:8000/api'
+  apiURL: 'http://localhost:8000/api',
+  backend: 'http://localhost/backend/api'
 };

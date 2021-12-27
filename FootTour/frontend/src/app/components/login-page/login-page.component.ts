@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
+
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -9,27 +12,32 @@ import { UserService } from 'src/app/services/user.service';
 
 export class LoginPageComponent implements OnInit {
 
-  users : User = null;
-  error = '';
-  success = '';
+  loginForm! : FormGroup;
+  message!: string;
 
-  constructor(private userService: UserService) {
+  constructor(private formBuilder: FormBuilder, private Router:Router, private UserService: UserService) {
    }
 
   ngOnInit(): void {
-    this.getUser();
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.compose([Validators.required])],
+      password: ['', Validators.required]
+    });
   }
 
-  getUser(): void{
-    this.userService.getAll().subscribe(
-      (data: User) => {
-        this.users = data;
-        this.success = 'succes';
-      },
-      (err) =>{
-        console.log(err);
-        this.error = err;
+  onSubmit(){
+    const loginData = {
+      email: this.loginForm.controls.email.value,
+      password: this.loginForm.controls.password.value
+    };
+
+    this.UserService.login(loginData).subscribe((data: any) =>{
+      this.message = data.message;
+      console.log(this.message);
+      if(data.token){
+        window.localStorage.setItem('token', data.token);
       }
-    );
+    })
   }
+ 
 }
