@@ -18,8 +18,7 @@ export class LoginPageComponent implements OnInit {
   token!: string;
   email! : string;
 
-  constructor(private formBuilder: FormBuilder, private Router:Router, private UserService: UserService) {
-   }
+  constructor(private formBuilder: FormBuilder, private Router:Router, private UserService: UserService) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -36,7 +35,9 @@ export class LoginPageComponent implements OnInit {
 
       this.UserService.login(loginData).subscribe(
         result =>{
-          console.log()
+          console.log(result);
+          this.UserService.setUser(result);
+          this.Router.navigate(['']);
         },
         error =>{
           console.log(error);

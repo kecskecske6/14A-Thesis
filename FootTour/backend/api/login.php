@@ -1,5 +1,6 @@
 <?php
 include_once("connect.php");
+include_once("../classes/user.php");
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Request-Method: POST");
 header("Access-Control-Allow-Headers: *");
@@ -7,7 +8,7 @@ header("Access-Control-Allow-Headers: *");
 $token = null;
 $headers = apache_request_headers();
 $postdata = file_get_contents("php://input");
-
+$user = new User();
 
 if(isset($postdata) && !empty($postdata))
 {
@@ -18,13 +19,16 @@ if(isset($postdata) && !empty($postdata))
     $result = $conn->query($sql);
     $count = mysqli_num_rows($result);
     if ($count == 1) {
-                $user = [
-                    "message" => "Successful login",
-                    "token" => "alma",
-                    "email" => $email
-                ];
-               echo json_encode(['data' => $user]);
-                http_response_code(200);
+        $row = mysqli_fetch_row($result);
+        $user->id = $row[0];
+        $user->name = $row[1];
+        $user->email = $row[2];
+        $user->isDeleted = $row[4];
+        $user->isOrganizer = $row[5];
+        $user->isReferee = $row[6];
+        $user->isLeader = $row[7];
+            echo json_encode($user);
+            http_response_code(200);
     }
     if($count == 0){
         http_response_code(401);
