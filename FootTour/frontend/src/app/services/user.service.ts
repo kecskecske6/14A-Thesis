@@ -19,8 +19,8 @@ export class UserService {
   }
 
   login(data : any): Observable<ApiResponse>{
-    console.log(data);
-    console.log(environment.backend);
-    return this.http.post<ApiResponse>(`${environment.backend}/login.php`, data);
+   // console.log(data);
+   // console.log(environment.backend);
+    return this.http.post<ApiResponse>(`${environment.backend}login.php`, data);
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/user';
+import { filter } from 'rxjs/operators'
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,6 +15,8 @@ export class LoginPageComponent implements OnInit {
 
   loginForm! : FormGroup;
   message!: string;
+  token!: string;
+  email! : string;
 
   constructor(private formBuilder: FormBuilder, private Router:Router, private UserService: UserService) {
    }
@@ -31,13 +34,13 @@ export class LoginPageComponent implements OnInit {
       password: this.loginForm.controls.password.value
     };
 
-    this.UserService.login(loginData).subscribe((data: any) =>{
-      this.message = data.message;
-      console.log(this.message);
-      if(data.token){
-        window.localStorage.setItem('token', data.token);
-      }
-    })
+      this.UserService.login(loginData).subscribe(
+        result =>{
+          console.log()
+        },
+        error =>{
+          console.log(error);
+        }
+      )
   }
- 
 }
