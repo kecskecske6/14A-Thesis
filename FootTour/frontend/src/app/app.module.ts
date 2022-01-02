@@ -18,6 +18,7 @@ import { OrganizerTournamentDashboardComponent } from './components/organizer-to
 import { OrganizerEarlierTournamentsComponent } from './components/organizer-earlier-tournaments/organizer-earlier-tournaments.component';
 import { RefereeMatchReportComponent } from './components/referee-match-report/referee-match-report.component';
 import { TournamentScheduleComponent } from './components/tournament-schedule/tournament-schedule.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,14 @@ import { TournamentScheduleComponent } from './components/tournament-schedule/to
     RecaptchaModule,
     RecaptchaFormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('access_token');
+        }
+      }
+    })
   ],
   providers: [{ provide: RECAPTCHA_SETTINGS, useValue: { siteKey: "6LfQDTgdAAAAALWxXWzzcQLexj0O6P7C-CGXXNHW", } as RecaptchaSettings, }, Title],
   bootstrap: [AppComponent]

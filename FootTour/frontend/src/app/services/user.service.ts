@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class UserService {
-  user: User | undefined = undefined;
+  user! : User;
 
   constructor(private http: HttpClient) {}
   
@@ -17,13 +17,7 @@ export class UserService {
     return this.http.post<User>(`${environment.apiURL}/store.php`, data);
   }
 
-  login(data : any): Observable<User>{
-   // console.log(data);
-   // console.log(environment.backend);
-    return this.http.post<User>(`${environment.backend}login.php`, data);
-  }
-
-  setUser(user : User){
-    this.user = user;
+  SetUser(name : string){
+    this.user.name = name;
   }
 }

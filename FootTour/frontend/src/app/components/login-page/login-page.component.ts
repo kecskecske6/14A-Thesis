@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/user';
-import { filter } from 'rxjs/operators'
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,34 +14,34 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginPageComponent implements OnInit {
 
   loginForm! : FormGroup;
-  message!: string;
-  token!: string;
-  email! : string;
+  email! :string;
+  password! : string;
+  user!: User;
 
-  constructor(private formBuilder: FormBuilder, private Router:Router, private UserService: UserService) {}
+  constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required])],
       password: ['', Validators.required]
     });
+   this.authService.logout();
   }
 
   onSubmit(){
     const loginData = {
-      email: this.loginForm.controls.email.value,
+      email : this.loginForm.controls.email.value,
       password: this.loginForm.controls.password.value
-    };
-
-      this.UserService.login(loginData).subscribe(
-        result =>{
-          console.log(result);
-          this.UserService.setUser(result);
-          this.Router.navigate(['']);
-        },
-        error =>{
-          console.log(error);
-        }
-      )
+    }
+    this.authService.loginForm(loginData).subscribe(response =>{
+      if(response.status === 'success'){
+        this.authService.setUser(response);
+        this.router.navigate(['/schedule']);
+        this.userService.SetUser(localStorage.getItem("name")!)
+      }
+    },
+    error =>{
+      console.log(error);
+    });
   }
 }
