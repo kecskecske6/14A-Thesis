@@ -8,9 +8,11 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class UserService {
-  user! : User | null;
+  user : User | null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.user = null;
+  }
   
   insert(data: any): Observable<User> {
     console.log(data);
