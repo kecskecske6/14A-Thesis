@@ -34,7 +34,7 @@ export class AuthService {
 
   loginForm(data : any): Observable<LoginResponse> {
     return this.http
-      .post<LoginResponse>(environment.backend + 'login.php', data, this.httpOptions)
+      .post<LoginResponse>(environment.backend + '/api/' + 'login.php', data, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -55,9 +55,13 @@ export class AuthService {
     this.router.navigate(['login']);
   }
 
+  getToken(): string{
+    return localStorage.getItem('access_token')!;
+  }
+
   getData(data : any): Observable<LoginResponse> {
     return this.http
-      .post<LoginResponse>(environment.backend + 'login.php', data, this.httpOptions)
+      .post<LoginResponse>(environment.backend + '/api/' + 'login.php', data, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)

@@ -17,7 +17,11 @@ export class UserService {
     return this.http.post<User>(`${environment.apiURL}/store.php`, data);
   }
 
-  SetUser(name : string){
-    this.user.name = name;
+  getUserById(id: number): Observable<User>{
+    return this.http.get<User>(`${environment.backend}/controllers/userController.php?id=${id}`);
+  }
+
+  SetUser(user : User){
+    this.user = user;
   }
 }
