@@ -5,13 +5,14 @@ import { retry, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { LoginResponse } from '../interfaces/loginresponse';
 import { environment } from 'src/environments/environment.prod';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient, private userService : UserService) { }
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type' : 'application/json'})
@@ -53,6 +54,8 @@ export class AuthService {
   logout() {
     localStorage.clear();
     this.router.navigate(['login']);
+    this.userService.logOutUser();
+    
   }
 
   getToken(): string{

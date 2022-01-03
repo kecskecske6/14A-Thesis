@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class UserService {
-  user! : User;
+  user! : User | null;
 
   constructor(private http: HttpClient) {}
   
@@ -23,5 +23,9 @@ export class UserService {
 
   SetUser(user : User){
     this.user = user;
+  }
+
+  logOutUser(){
+    this.user = null;
   }
 }
