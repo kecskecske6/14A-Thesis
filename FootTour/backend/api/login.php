@@ -65,7 +65,7 @@ if(isset($postdata) && !empty($postdata))
             'access_token' => $jwt,
             'time' => time(),
             'status' => "success",
-            'name' => $row[1]
+            'id' => $row[0]
         );
         echo json_encode($data_insert);
     }

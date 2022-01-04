@@ -37,7 +37,7 @@ export class LoginPageComponent implements OnInit {
       if(response.status === 'success'){
         this.authService.setUser(response);
         this.router.navigate(['/schedule']);
-        this.userService.getUserById(2).subscribe(response=>{
+        this.userService.getUserById(Number(this.authService.getId())).subscribe(response=>{
           console.log(response);
           this.userService.SetUser(response);
         });
