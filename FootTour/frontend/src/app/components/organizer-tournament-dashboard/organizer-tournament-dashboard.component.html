@@ -1,20 +1,22 @@
 <div id="container" class="d-flex mx-auto">
-    <div class="col">
-    <div id="infoHead" class="text-center">
-    <h2>Mikulás kupa</h2>
-   </div>
-         <div class="text-center mt-5">Nevezett csapatok 6/12</div>
-         <hr class="mx-auto">
-         <div id="teamName" [ngClass]="team.payed == true ? 'bg-success mx-auto rounded': 'bg-danger mx-auto rounded'" *ngFor="let team of teams" class="text-center mt-3">{{team.name}}</div>
-         <hr class="mx-auto">
-         <div class="text-center mt-3">Helyszín: Győr, Szent István út 10.</div>
-         <hr class="mx-auto">
-         <div class="text-center mt-3">Nevezési díj: 10.000Ft</div>
-         <hr class="mx-auto">
-         <div class="text-center mt-3">Kezdési időpont: 2022.01.01 8:00</div>
-         <hr class="mx-auto">
-         <div class="text-center">
-         <input type="button" class="btn btn-primary" value="Sorsolás">
-         </div>
-   </div>
+      <div class="col">
+            <div id="infoHead" class="text-center">
+                  <h2>Mikulás kupa</h2>
+            </div>
+            <div class="text-center mt-5">Nevezett csapatok 6/12</div>
+            <hr class="mx-auto">
+            <div id="teamName"
+                  [ngClass]="team.payed == true ? 'bg-success mx-auto rounded': 'bg-danger mx-auto rounded'"
+                  *ngFor="let team of teams" class="text-center mt-3">{{team.name}}</div>
+            <hr class="mx-auto">
+            <div class="text-center mt-3">Helyszín: Győr, Szent István út 10.</div>
+            <hr class="mx-auto">
+            <div class="text-center mt-3">Nevezési díj: 10.000Ft</div>
+            <hr class="mx-auto">
+            <div class="text-center mt-3">Kezdési időpont: 2022.01.01 8:00</div>
+            <hr class="mx-auto">
+            <div class="text-center">
+                  <input type="button" class="btn btn-primary" value="Sorsolás" routerLink="/draw">
+            </div>
+      </div>
 </div>

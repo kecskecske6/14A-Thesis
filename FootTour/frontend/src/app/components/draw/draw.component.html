@@ -1,0 +1,12 @@
+<div class="container">
+    <h2 class="text-center">Mikulás kupa</h2>
+    <hr>
+    <br>
+    <label for="type">Típus:</label>
+    <select [(ngModel)]="tournament.type" class="form-select" name="type" id="type" onchange="logging()">
+        <option *ngFor="let c of types" [ngValue]="c">{{c.name}}</option>
+    </select>
+    <div *ngIf="tournament.type == 'Csoportkör és kieséses'">
+        <label for="number"></label>
+    </div>
+</div>

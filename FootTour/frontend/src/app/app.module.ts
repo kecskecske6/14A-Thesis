@@ -18,6 +18,7 @@ import { OrganizerTournamentDashboardComponent } from './components/organizer-to
 import { OrganizerEarlierTournamentsComponent } from './components/organizer-earlier-tournaments/organizer-earlier-tournaments.component';
 import { RefereeMatchReportComponent } from './components/referee-match-report/referee-match-report.component';
 import { TournamentScheduleComponent } from './components/tournament-schedule/tournament-schedule.component';
+import { DrawComponent } from './components/draw/draw.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { TournamentScheduleComponent } from './components/tournament-schedule/to
     OrganizerTournamentDashboardComponent,
     OrganizerEarlierTournamentsComponent,
     RefereeMatchReportComponent,
-    TournamentScheduleComponent
+    TournamentScheduleComponent,
+    DrawComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ import { OrganizerTournamentDashboardComponent } from './components/organizer-to
 import { OrganizerEarlierTournamentsComponent } from './components/organizer-earlier-tournaments/organizer-earlier-tournaments.component';
 import { RefereeMatchReportComponent } from './components/referee-match-report/referee-match-report.component';
 import { TournamentScheduleComponent } from './components/tournament-schedule/tournament-schedule.component';
+import { DrawComponent } from './components/draw/draw.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'matchreport', component: MatchReportComponent },
   { path: 'currenttournament', component: OrganizerTournamentDashboardComponent },
   { path: 'matchreport/referee', component: RefereeMatchReportComponent },
-  { path: 'schedule', component: TournamentScheduleComponent }
+  { path: 'schedule', component: TournamentScheduleComponent },
+  { path: 'draw', component: DrawComponent }
 ];
 
 @NgModule({
