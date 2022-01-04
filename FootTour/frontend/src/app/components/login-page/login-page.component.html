@@ -3,20 +3,20 @@
         <div id="loginFormHeader">
             <img id="loginFormHeaderLogo" src="../../../assets/logo.png" alt="Logo">
         </div>
-        <form class="d-flex row justify-content-center align-items-center" method="post">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="d-flex row justify-content-center align-items-center" method="post">
             <div id="loginFormBody">
                 <div class="mb-4 mt-4 col-md-12">
                     <label for="loginInputEmail" class="form-label">Email</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-envelope-fill d-flex"></i></span>
-                        <input id="loginInputEmail" type="email" class="form-control" name="email" placeholder="Email cím">
+                        <input formControlName="email" id="loginInputEmail" autocomplete="off" type="email" class="form-control" name="email" placeholder="Email cím">
                     </div>
                 </div>
                 <div class="mb-4 mt-4 col-md-12">
                     <label for="loginInputPassword" class="form-label">Jelszó</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-lock-fill d-flex"></i></span>
-                        <input id="loginInputPassword" type="password" class="form-control" name="password" placeholder="Jelszó">
+                        <input formControlName="password" id="loginInputPassword" autocomplete="off" type="password" class="form-control" name="password" placeholder="Jelszó">
                     </div>
                 </div>
             </div>
