@@ -2,16 +2,16 @@
     <h1 class="text-center">Aktuális tornáim</h1>
     
   <div class="row row-cols-auto justify-content-around mx-auto">
-  <div class="card m-4 col" style="width: 18rem;" *ngFor="let nowtournament of nowtournaments">
+  <div class="card m-4 col" style="width: 18rem;" *ngFor="let tournaments of tournaments">
       <img src="../../../assets/logo.png" class="card-img-top" alt="...">
       <hr class="mb-1">
       <div class="card-body text-center">
-        <h4 class="card-title text-center">{{nowtournament.name}}</h4>
+        <h4 class="card-title text-center">{{tournaments.name}}</h4>
         <p class="card-text mt-4 text-start">
-          Szervező: {{nowtournament.organizer}} <br>
-          Helyszín: {{nowtournament.location}} <br>
-          Nevezési díj: {{nowtournament.entry_fee}} Ft<br>
-          Időpont: {{nowtournament.start_date}}
+          Szervező: {{tournaments.organizerId}} <br>
+          Helyszín: {{tournaments.location}} <br>
+          Nevezési díj: {{tournaments.entryFee}} Ft<br>
+          Időpont: {{tournaments.startDate}}
         </p>
         <input type="button" class="btn btn-primary btn-large" value="Részletek">
       </div>
@@ -28,15 +28,13 @@
       <div class="card-body text-center">
         <h4 class="card-title text-center">{{tournament.name}}</h4>
         <p class="card-text mt-4 text-start">
-          Szervező: {{tournament.organizer}} <br>
+          Szervező: {{tournament.organizerId}} <br>
           Helyszín: {{tournament.location}} <br>
-          Nevezési díj: {{tournament.entry_fee}} Ft<br>
-          Időpont: {{tournament.start_date}}
+          Nevezési díj: {{tournament.entryFee}} Ft<br>
+          Időpont: {{tournament.startDate}}
         </p>
         <input type="button" class="btn btn-primary btn-large" value="Részletek">
       </div>
   </div>
   </div>
   </div>
-  
-  

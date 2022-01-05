@@ -27,6 +27,10 @@ export class UserService {
     this.user = user;
   }
 
+  getUserId() : number{
+    return this.user?.id!;
+  }
+
   logOutUser(){
     this.user = null;
   }

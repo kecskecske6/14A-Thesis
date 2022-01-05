@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   setUser(resp: LoginResponse) {
-    localStorage.setItem('name', resp.name);
+    localStorage.setItem('id', resp.id.toString());
     localStorage.setItem('access_token', resp.access_token);
   }
 
@@ -60,6 +60,10 @@ export class AuthService {
 
   getToken(): string{
     return localStorage.getItem('access_token')!;
+  }
+
+  getId(): string{
+    return localStorage.getItem('id')!;
   }
 
   getData(data : any): Observable<LoginResponse> {

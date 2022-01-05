@@ -16,6 +16,9 @@
         <li class="nav-item">
           <a href="#contact" class="nav-link">Kapcsolat</a>
         </li>
+        <li *ngIf="userService.user" class="nav-item">
+          <a routerLink="/mytournaments" class="nav-link">Tornáim</a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">Adatbázis</a>
