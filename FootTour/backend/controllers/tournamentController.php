@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     use Firebase\JWT\JWT;
     
     $key = "FootTourSecret";
+    $decoded = null;
 
     function getAuthorizationHeader(){
         $headers = null;
@@ -42,22 +43,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
         }
         return $headers;
     }
-
-    
     try {
         $authHeader = getAuthorizationHeader();
         $temp_header = explode(" ", $authHeader);
         $jwt = $temp_header[1];
-        $postdata = $_GET['id'];
         JWT::$leeway = 10;
         $decoded = JWT::decode($jwt, $key, array('HS256'));
-       
-        if($postdata == $decoded->data->id){
+    }
+    catch (Exception $e) {
+        http_response_code(401);
+    }
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            createTournament();
+            http_response_code(200);
+    }
+   elseif ($_SERVER['REQUEST_METHOD'] === 'GET')
+    {
+       getTournamentByUserId();
+    }
+    
+    function createTournament(){
+        $request = json_decode(file_get_contents("php://input"));
+        $id = $decoded->data->id;
+        $sql = "INSERT INTO foottour.tournaments (organizer_id, start_date, end_date, name, location,
+        entry_fee, description, teams_count) VALUES ('$id', '$request->startDate', '$request->endDate',
+        '$request->name', '$request->location', '$request->entryFee', '$request->description', '$request->teamsCount')";
+        $conn->query($sql);
+    }
+
+    function getTournamentByUserId(){
+        $postdata = $_GET['id'];
+        echo json_encode($decoded);
+        if ($postdata == $decoded->data->id) {
             $tournaments = array();
             $sql = "SELECT * from foottour.tournaments WHERE organizer_Id = '$postdata'";
             $result = $conn->query($sql);
             $count = mysqli_num_rows($result);
-            if ($count > 0){
+            if ($count > 0) {
                 $i = 0;
                 while ($row = $result->fetch_assoc()) {
                     $tournaments[$i]["id"] = $row["id"];
@@ -83,9 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
         else{
         http_response_code(401);
         }
-
-    } catch (Exception $e) {
-        http_response_code(401);
     }
     $conn->close();
 ?>
