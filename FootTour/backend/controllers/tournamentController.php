@@ -19,93 +19,89 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }
     include_once "../api/connect.php";
     include_once "../classes/tournament.php";
-    require_once('../vendor/autoload.php');
-    use Firebase\JWT\JWT;
-    
-    $key = "FootTourSecret";
-    $decoded = null;
+    include_once "auth.php";
 
-    function getAuthorizationHeader(){
-        $headers = null;
-        if (isset($_SERVER['Authorization'])) {
-            $headers = trim($_SERVER["Authorization"]);
-        }
-        else if (isset($_SERVER['HTTP_AUTHORIZATION'])) { //Nginx or fast CGI
-            $headers = trim($_SERVER["HTTP_AUTHORIZATION"]);
-        } elseif (function_exists('apache_request_headers')) {
-            $requestHeaders = apache_request_headers();
-            // Server-side fix for bug in old Android versions (a nice side-effect of this fix means we don't care about capitalization for Authorization)
-            $requestHeaders = array_combine(array_map('ucwords', array_keys($requestHeaders)), array_values($requestHeaders));
-            //print_r($requestHeaders);
-            if (isset($requestHeaders['Authorization'])) {
-                $headers = trim($requestHeaders['Authorization']);
-            }
-        }
-        return $headers;
-    }
-    try {
-        $authHeader = getAuthorizationHeader();
-        $temp_header = explode(" ", $authHeader);
-        $jwt = $temp_header[1];
-        JWT::$leeway = 10;
-        $decoded = JWT::decode($jwt, $key, array('HS256'));
-    }
-    catch (Exception $e) {
-        http_response_code(401);
-    }
-    
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            createTournament();
+    $auth = new Auth();
+
+    if($auth->authorize() != null){
+        $decoded = $auth->setData();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            createTournament($decoded, $conn);
             http_response_code(200);
+        }
+    elseif ($_SERVER['REQUEST_METHOD'] === 'GET')
+        {
+            getTournamentByUserId($decoded, $conn);
+        }
+    elseif ($_SERVER['REQUEST_METHOD'] === 'PUT'){
+            modifyTournament($decoded, $conn);
     }
-   elseif ($_SERVER['REQUEST_METHOD'] === 'GET')
-    {
-       getTournamentByUserId();
+    else{
+            http_response_code(400);
+        }
     }
-    
-    function createTournament(){
-        $request = json_decode(file_get_contents("php://input"));
-        $id = $decoded->data->id;
-        $sql = "INSERT INTO foottour.tournaments (organizer_id, start_date, end_date, name, location,
-        entry_fee, description, teams_count) VALUES ('$id', '$request->startDate', '$request->endDate',
-        '$request->name', '$request->location', '$request->entryFee', '$request->description', '$request->teamsCount')";
-        $conn->query($sql);
+    else{
+        http_response_code(401);
     }
 
-    function getTournamentByUserId(){
-        $postdata = $_GET['id'];
-        echo json_encode($decoded);
-        if ($postdata == $decoded->data->id) {
-            $tournaments = array();
-            $sql = "SELECT * from foottour.tournaments WHERE organizer_Id = '$postdata'";
-            $result = $conn->query($sql);
-            $count = mysqli_num_rows($result);
-            if ($count > 0) {
-                $i = 0;
-                while ($row = $result->fetch_assoc()) {
-                    $tournaments[$i]["id"] = $row["id"];
-                    $tournaments[$i]["organizerId"] = $row["organizer_id"];
-                    $tournaments[$i]["startDate"] = $row["start_date"];
-                    $tournaments[$i]["endDate"] = $row["end_date"];
-                    $tournaments[$i]["name"] = $row["name"];
-                    $tournaments[$i]["location"] = $row["location"];
-                    $tournaments[$i]["bestPlayer"] = $row["best_player"];
-                    $tournaments[$i]["topScorer"] = $row["top_scorer"];
-                    $tournaments[$i]["bestGoalkeeper"] = $row["best_goalkeeper"];
-                    $tournaments[$i]["entryFee"] = $row["entry_fee"];
-                    $tournaments[$i]["teamsCount"] = $row["teams_count"];
-                    $tournaments[$i]["description"] = $row["description"];
-                    $i++;
+        function createTournament($decoded, $conn){
+            $request = json_decode(file_get_contents("php://input"));
+            $id = $decoded->data->id;
+            $sql = "INSERT INTO foottour.tournaments (organizer_id, start_date, end_date, name, location,
+            entry_fee, description, teams_count) VALUES ('$id', '$request->startDate', '$request->endDate',
+            '$request->name', '$request->location', '$request->entryFee', '$request->description', '$request->teamsCount')";
+            $conn->query($sql);
+        }
+
+        function getTournamentByUserId($decoded, $conn){
+            $postdata = $_GET['id'];
+            if ($postdata == $decoded->data->id) {
+                $tournaments = array();
+                $sql = "SELECT * from foottour.tournaments WHERE organizer_Id = '$postdata'";
+                $result = $conn->query($sql);
+                $count = mysqli_num_rows($result);
+                if ($count > 0) {
+                    $i = 0;
+                    while ($row = $result->fetch_assoc()) {
+                        $tournaments[$i]["id"] = $row["id"];
+                        $tournaments[$i]["organizerId"] = $row["organizer_id"];
+                        $tournaments[$i]["startDate"] = $row["start_date"];
+                        $tournaments[$i]["endDate"] = $row["end_date"];
+                        $tournaments[$i]["name"] = $row["name"];
+                        $tournaments[$i]["location"] = $row["location"];
+                        $tournaments[$i]["bestPlayer"] = $row["best_player"];
+                        $tournaments[$i]["topScorer"] = $row["top_scorer"];
+                        $tournaments[$i]["bestGoalkeeper"] = $row["best_goalkeeper"];
+                        $tournaments[$i]["entryFee"] = $row["entry_fee"];
+                        $tournaments[$i]["teamsCount"] = $row["teams_count"];
+                        $tournaments[$i]["description"] = $row["description"];
+                        $i++;
+                    }
+                    http_response_code(200);
+                    echo json_encode($tournaments);
+                }else{
+                    http_response_code(404);
                 }
-                http_response_code(200);
-                echo json_encode($tournaments);
-            }else{
-                http_response_code(404);
+            }
+            else{
+            http_response_code(401);
             }
         }
-        else{
-        http_response_code(401);
+
+        function modifyTournament($decoded,$conn){
+            $request = json_decode(file_get_contents("php://input"));
+            $postdata = $_GET['id'];
+            $id = $decoded->data->id;
+            $sql = "UPDATE foottour.tournaments SET start_date = '$request->startDate', end_date = '$request->endDate', 
+            name = '$request->name', location = '$request->location', best_player = '$request->bestPlayer', top_scorer = '$request->topScorer',
+            best_goalkeeper = '$request->bestGoalkeeper', entry_fee = '$request->entryFee', description = '$request->description',
+            teams_count = '$request->teamsCount' WHERE id = '$postdata' AND organizer_id = '$id'";
+            if(!$conn->query($sql)){
+                echo json_encode($conn->query($sql));
+                http_response_code(400);
+            }
+            else
+                echo json_encode(array("Sikeresen módosította az adatokat"));
         }
-    }
-    $conn->close();
+        $conn->close();
 ?>
