@@ -16,6 +16,9 @@
         <li class="nav-item">
           <a href="#contact" class="nav-link">Kapcsolat</a>
         </li>
+        <li *ngIf="userService.user" class="nav-item">
+          <a routerLink="/mytournaments" class="nav-link">Tornáim</a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">Adatbázis</a>
@@ -27,13 +30,12 @@
       </ul>
       <input *ngIf="!userService.user" type="button" value="Belépés" class="btn-outline-success btn-light btn button" routerLink="/login" (click)="setTitle('Belépés')">
       <input *ngIf="!userService.user" type="button" value="Regisztráció" class="btn btn-success button" routerLink="/register" (click)="setTitle('Regisztráció')">
-      <div *ngIf="userService.user" class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">{{userService.user.name}}</a>
-        <div class="dropdown-menu">
-          <a routerLink="/account" class="dropdown-item">Fiók</a>
-          <hr class="dropdown-divider">
-          <a href="" (click)="logOut()" class="dropdown-item">Kijelentkezés</a>
-        </div>
+
+      <div *ngIf="userService.user">
+      <a class="dropdown-toggle" data-bs-toggle="dropdown" role="button" >{{userService.user.name}}</a>
+      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+        <li (click)="logOutOnClick()" class="dropdown-item">Kijelentkezés</li>
+      </ul>
       </div>
     </div>
   </div>

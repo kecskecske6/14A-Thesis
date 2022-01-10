@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Tournament } from 'src/app/models/tournament';
 import { TournamentService } from 'src/app/services/tournament.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-organizer-earlier-tournaments',
@@ -9,81 +11,20 @@ import { TournamentService } from 'src/app/services/tournament.service';
 })
 export class OrganizerEarlierTournamentsComponent implements OnInit {
 
-  tournaments: Tournament[] = [];
+  tournaments: TournamentModel[] = [];
 
-  /*nowtournaments = [
-    {
-      name: 'Mikulás kupa',
-      organizer: 'Teszt Elek',
-      location: 'Győr',
-      start_date: '2021.12.24',
-      entry_fee: "10.000"
-    },
-    {
-      name: 'Mikulás kupa',
-      organizer: 'Teszt Elek',
-      location: 'Budapest',
-      start_date: '2021.12.24',
-      entry_fee: "10.000"
-    }
-  ]
-
-  tournaments = [
-    {
-      name: 'Mikulás kupa',
-      organizer: 'Teszt Elekasd',
-      location: 'Győr',
-      start_date: '2021.12.24',
-      entry_fee: "10.000"
-    },
-    {
-      name: 'Mikulás kupa',
-      organizer: 'Teszt Elek',
-      location: 'Budapest',
-      start_date: '2021.12.24',
-      entry_fee: "10.000"
-    },
-    {
-      name: 'Mikulás kupa',
-      organizer: 'Teszt Elek',
-      location: 'Győr',
-      start_date: '2021.12.24',
-      entry_fee: "10.000"
-    },
-    {
-      name: 'Mikulás kupa',
-      organizer: 'Teszt Elek',
-      location: 'Győr',
-      start_date: '2021.12.24',
-      entry_fee: "10.000"
-    },
-    {
-      name: 'Mikulás kupa',
-      organizer: 'Teszt Elek',
-      location: 'Győr',
-      start_date: '2021.12.24',
-      entry_fee: "10.000"
-    },
-    {
-      name: 'Mikulás kupa',
-      organizer: 'Teszt Elek',
-      location: 'Győr',
-      start_date: '2021.12.24',
-      entry_fee: "10.000"
-    }
-  ]*/
-
-  constructor(private tournamentService: TournamentService) { }
+  constructor(private http: HttpClient, private tournamentService: TournamentService, private userService: UserService) {}
 
   ngOnInit(): void {
     this.getTournaments();
   }
-  
-  getTournaments(): void {
-    this.tournamentService.getAllByUserId(1).subscribe(
-      (data: Tournament[]) => this.tournaments = data,
-      err => console.log(err)
-    );
+  getTournaments() : void{
+    this.tournamentService.getByOrganizerId(this.userService.getUserId()).subscribe(
+      (result: Tournament[])=>{
+        this.tournaments = result;
+      },
+      error=>{
+        console.log(error);
+      });
   }
-
 }

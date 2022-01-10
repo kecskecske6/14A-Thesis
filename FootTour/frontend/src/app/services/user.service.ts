@@ -8,13 +8,30 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class UserService {
+  user : User | null;
 
-  user: User | undefined = undefined;
-
-  constructor(private http: HttpClient) { }
-
+  constructor(private http: HttpClient) {
+    this.user = null;
+  }
+  
   insert(data: any): Observable<User> {
     console.log(data);
     return this.http.post<User>(`${environment.apiURL}/store.php`, data);
+  }
+
+  getUserById(id: number): Observable<User>{
+    return this.http.get<User>(`${environment.backend}/controllers/userController.php?id=${id}`);
+  }
+
+  SetUser(user : User){
+    this.user = user;
+  }
+
+  getUserId() : number{
+    return this.user?.id!;
+  }
+
+  logOutUser(){
+    this.user = null;
   }
 }

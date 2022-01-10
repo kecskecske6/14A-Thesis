@@ -2,16 +2,16 @@
     <h1 class="text-center">Aktuális tornáim</h1>
     
   <div class="row row-cols-auto justify-content-around mx-auto">
-  <div class="card m-4 col" style="width: 18rem;" *ngFor="let nowtournament of tournaments">
+  <div class="card m-4 col" style="width: 18rem;" *ngFor="let tournament of tournaments">
       <img src="../../../assets/logo.png" class="card-img-top" alt="...">
       <hr class="mb-1">
       <div class="card-body text-center">
-        <h4 class="card-title text-center">{{nowtournament.name}}</h4>
+        <h4 class="card-title text-center">{{tournaments.name}}</h4>
         <p class="card-text mt-4 text-start">
-          Szervező: {{nowtournament.organizerId}} <br>
-          Helyszín: {{nowtournament.location}} <br>
-          Nevezési díj: {{nowtournament.entryFee}} Ft<br>
-          Időpont: {{nowtournament.startDate}}
+          Szervező: {{tournament.organizerId}} <br>
+          Helyszín: {{tournament.location}} <br>
+          Nevezési díj: {{tournament.entryFee}} Ft<br>
+          Időpont: {{tournament.startDate}}
         </p>
         <input type="button" class="btn btn-primary btn-large" value="Részletek" [routerLink]="'/mytournaments/' + nowtournament.id">
       </div>
@@ -38,5 +38,3 @@
   </div>
   </div>
   </div>
-  
-  
