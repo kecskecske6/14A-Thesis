@@ -1,7 +1,6 @@
 <?php
     require_once('../vendor/autoload.php');
     use Firebase\JWT\JWT;
-    
 
     function getAuthorizationHeader(){
         $headers = null;
@@ -20,27 +19,23 @@
             }
         }
         return $headers;
-}
+    }
 
-    class Auth {
-        public function authorize(){
+    class Auth{
+        function authorize(){
             $key = "FootTourSecret";
-            try {
-                $authHeader = getAuthorizationHeader();
-                $temp_header = explode(" ", $authHeader);
-                $jwt = $temp_header[1];
-                JWT::$leeway = 10;
-                $decoded = JWT::decode($jwt, $key, array('HS256'));
-                return $decoded;
-            }
-            catch (Exception $e) {
-                http_response_code(401);
-                return null;
-            }
+        try {
+            $authHeader = getAuthorizationHeader();
+            $temp_header = explode(" ", $authHeader);
+            $jwt = $temp_header[1];
+            JWT::$leeway = 10;
+            $decoded = JWT::decode($jwt, $key, array('HS256'));
+            return $decoded;
         }
-
-        public function setData() {
-            return $this->authorize();
+        catch (Exception $e) {
+            return null;
+            http_response_code(401);
         }
+    }
     }
 ?>
