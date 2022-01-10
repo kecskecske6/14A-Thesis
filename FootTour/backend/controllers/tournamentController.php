@@ -9,7 +9,10 @@
     if($auth->authorize() != null){
         $decoded = $auth->authorize();
         if($_SERVER['REQUEST_METHOD'] == 'GET'){
-            getByOrganizerId($decoded, $conn);
+            if(isset($_REQUEST['id']))
+                getByOrganizerId($decoded, $conn);
+            elseif(isset($_REQUEST['name']))
+                getTournamentByName($decoded, $conn);
         }
         elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
             createTournament($decoded, $conn);
@@ -100,7 +103,7 @@
     function getTournamentByName($decoded, $conn){
         $name = $_REQUEST['name'];
         $tournaments = array();
-        $sql = "SELECT * from foottour.tournaments WHERE name = $name";
+        $sql = "SELECT * from foottour.tournaments WHERE name = '$name'";
         $result = $conn->query($sql);
         $count = mysqli_num_rows($result);
         if($count > 0){
