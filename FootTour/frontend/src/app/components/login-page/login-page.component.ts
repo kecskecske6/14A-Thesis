@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from 'src/app/interfaces/user';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -36,7 +36,7 @@ export class LoginPageComponent implements OnInit {
     this.authService.loginForm(loginData).subscribe(response =>{
       if(response.status === 'success'){
         this.authService.setUser(response);
-        this.router.navigate(['/schedule']);
+        this.router.navigate(['/schedule/1']);
         this.userService.getUserById(Number(this.authService.getId())).subscribe(response=>{
           console.log(response);
           this.userService.SetUser(response);
