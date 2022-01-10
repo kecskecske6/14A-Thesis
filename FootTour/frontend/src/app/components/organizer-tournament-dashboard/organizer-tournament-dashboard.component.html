@@ -1,19 +1,19 @@
 <div id="container" class="d-flex mx-auto">
       <div class="col">
             <div id="infoHead" class="text-center">
-                  <h2>Mikulás kupa</h2>
+                  <h2>{{tournament.name}}</h2>
             </div>
-            <div class="text-center mt-5">Nevezett csapatok {{teams.length}}/8</div>
+            <div class="text-center mt-5">Nevezett csapatok {{teams.length}}/{{tournament.teamsCount}}</div>
             <hr class="mx-auto">
             <div id="teamName"
                   [ngClass]="'bg-success mx-auto rounded'"
                   *ngFor="let team of teams" class="text-center mt-3">{{team.name}}</div>
             <hr class="mx-auto">
-            <div class="text-center mt-3">Helyszín: </div>
+            <div class="text-center mt-3">Helyszín: {{tournament.location}}</div>
             <hr class="mx-auto">
-            <div class="text-center mt-3">Nevezési díj: 10.000Ft</div>
+            <div class="text-center mt-3">Nevezési díj: {{tournament.entryFee}}Ft</div>
             <hr class="mx-auto">
-            <div class="text-center mt-3">Kezdési időpont: 2022.01.01 8:00</div>
+            <div class="text-center mt-3">Kezdési időpont: {{tournament.startDate}}</div>
             <hr class="mx-auto">
             <div class="text-center">
                   <input type="button" class="btn btn-primary" value="Sorsolás" [routerLink]="'/draw/' + 4">

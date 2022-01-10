@@ -102,6 +102,14 @@ CREATE TABLE foottour.groups (
 )
 ENGINE = INNODB;
 
+CREATE TABLE foottour.teams_to_groups (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  team_id INT(11) NOT NULL,
+  group_id INT(11) NOT NULL,
+  PRIMARY KEY (id)
+)
+ENGINE = INNODB;
+
 ALTER TABLE foottour.teams_to_tournaments 
   ADD CONSTRAINT FK_teams_to_tournaments_tournament_id FOREIGN KEY (tournament_id)
     REFERENCES foottour.tournaments(id) ON DELETE NO ACTION;
@@ -156,3 +164,11 @@ ALTER TABLE foottour.events
 ALTER TABLE foottour.groups 
   ADD CONSTRAINT FK_groups_tournament_id FOREIGN KEY (tournament_id)
     REFERENCES foottour.tournaments(id) ON DELETE NO ACTION;
+    
+ALTER TABLE foottour.teams_to_groups 
+  ADD CONSTRAINT FK_teams_to_groups_group_id FOREIGN KEY (group_id)
+    REFERENCES foottour.groups(id) ON DELETE NO ACTION;
+
+ALTER TABLE foottour.teams_to_groups 
+  ADD CONSTRAINT FK_teams_to_groups_team_id FOREIGN KEY (team_id)
+    REFERENCES foottour.teams(id) ON DELETE NO ACTION;
