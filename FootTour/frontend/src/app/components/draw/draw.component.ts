@@ -51,7 +51,7 @@ export class DrawComponent implements OnInit {
       let team; 
       let doAgain;
       do {
-        team = this.teams[Math.random() * this.teams.length];
+        team = this.teams[Math.floor(Math.random() * this.teams.length)];
         doAgain = false;
         for (let j = 0; j < groups.length; j++) {
           if (groups[j].includes(team)) doAgain = true;

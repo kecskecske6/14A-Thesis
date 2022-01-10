@@ -1,43 +1,82 @@
 import { Component, OnInit } from '@angular/core';
+import { Team } from 'src/app/interfaces/team';
+import { Tournament } from 'src/app/interfaces/tournament';
+import { TeamService } from 'src/app/services/team.service';
+import { TournamentService } from 'src/app/services/tournament.service';
 
 @Component({
-  selector: 'app-organizier-tournament-dashboard',
+  selector: 'app-organizer-tournament-dashboard',
   templateUrl: './organizer-tournament-dashboard.component.html',
   styleUrls: ['./organizer-tournament-dashboard.component.sass']
 })
 export class OrganizerTournamentDashboardComponent implements OnInit {
 
-  teams =[
+  teams: Team[] = [];
+  tournament: Tournament | undefined = undefined;
+  /*teams =[
     {
       name: 'ittASöröm',
-      payed: true
+      paid: true
     },
     {
-      name: 'ittASöröm',
-      payed: false
+      name: 'ittASöröm2',
+      paid: false
     },
     {
-      name: 'ittASöröm',
-      payed: true
+      name: 'ittASöröm3',
+      paid: true
     },
     {
-      name: 'ittASöröm',
-      payed: false
+      name: 'ittASöröm4',
+      paid: false
     },
     {
-      name: 'ittASöröm',
-      payed: true
+      name: 'ittASöröm5',
+      paid: true
     },
     {
-      name: 'ittASöröm',
-      payed: true
+      name: 'ittASöröm6',
+      paid: true
     },
-  ]
+    {
+      name: 'ittASöröm7',
+      paid: true
+    },
+    {
+      name: 'ittASöröm8',
+      paid: true
+    }
+  ]*/
 
 
-  constructor() { }
-
+  constructor(private teamService: TeamService, private tournamentService: TournamentService) { }
+  /*ngOnInit(): void {
+    this.getTournaments();
+  }
+  
+  getTournaments(): void {
+    this.tournamentService.getAllByUserId(1).subscribe(
+      (data: Tournament[]) => this.tournaments = data,
+      err => console.log(err)
+    );
+  }*/
   ngOnInit(): void {
+    this.getTeams();
+    this.getTournamentInfo();
+  }
+
+  getTeams(): void {
+    this.teamService.getAllByTournamentId(4).subscribe(
+      (data: Team[]) => this.teams = data,
+      err => console.log(err)
+    );
+  }
+
+  getTournamentInfo(): void {
+    this.tournamentService.getById(4).subscribe(
+      (data: Tournament) => this.tournament = data,
+      err => console.log(err)
+    );
   }
 
 }

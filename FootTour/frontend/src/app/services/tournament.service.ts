@@ -14,4 +14,12 @@ export class TournamentService {
   getAll(): Observable<Tournament[]> {
     return this.http.get<Tournament[]>(`${environment.apiURL}/list.php`);
   }
+
+  getById(id: number): Observable<Tournament> {
+    return this.http.get<Tournament>(`${environment.apiURL}/list.php?id=${id}`);
+  }
+
+  getAllByUserId(id: number): Observable<Tournament[]> {
+    return this.http.get<Tournament[]>(`${environment.apiURL}/list.php?userId=${id}`);
+  }
 }

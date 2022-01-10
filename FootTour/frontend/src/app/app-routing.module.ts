@@ -20,10 +20,10 @@ const routes: Routes = [
   { path: 'mytournaments', component: OrganizerEarlierTournamentsComponent },
   { path: 'database/tournaments/:tournamentinfo', component: TournamentInfoComponent },
   { path: 'matchreport', component: MatchReportComponent },
-  { path: 'currenttournament', component: OrganizerTournamentDashboardComponent },
+  { path: 'mytournaments/:id', component: OrganizerTournamentDashboardComponent },
   { path: 'matchreport/referee', component: RefereeMatchReportComponent },
-  { path: 'schedule', component: TournamentScheduleComponent },
-  { path: 'draw', component: DrawComponent }
+  { path: 'schedule/:id', component: TournamentScheduleComponent },
+  { path: 'draw/:id', component: DrawComponent }
 ];
 
 @NgModule({
