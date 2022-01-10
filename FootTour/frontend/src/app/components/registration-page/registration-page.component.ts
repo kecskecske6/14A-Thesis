@@ -11,7 +11,8 @@ export class RegistrationPageComponent implements OnInit {
 
   model = {
     email: '',
-    password: ''
+    password: '',
+    passwordAgain: ''
   }
 
   token: string | undefined;
@@ -57,6 +58,10 @@ export class RegistrationPageComponent implements OnInit {
   }
 
   register(): void {
+    if (this.model.password != this.model.passwordAgain) {
+      
+    }
+      
     this.userService.insert(this.model).subscribe(
       result => this.userService.user = result,
       error => console.log(error)

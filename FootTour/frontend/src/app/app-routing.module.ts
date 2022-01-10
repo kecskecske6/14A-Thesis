@@ -10,6 +10,7 @@ import { OrganizerTournamentDashboardComponent } from './components/organizer-to
 import { OrganizerEarlierTournamentsComponent } from './components/organizer-earlier-tournaments/organizer-earlier-tournaments.component';
 import { RefereeMatchReportComponent } from './components/referee-match-report/referee-match-report.component';
 import { TournamentScheduleComponent } from './components/tournament-schedule/tournament-schedule.component';
+import { DrawComponent } from './components/draw/draw.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -20,9 +21,10 @@ const routes: Routes = [
   { path: 'mytournaments', canActivate:[AuthGuard], component: OrganizerEarlierTournamentsComponent },
   { path: 'database/tournaments/:tournamentinfo', component: TournamentInfoComponent },
   { path: 'matchreport', component: MatchReportComponent },
-  { path: 'currenttournament', component: OrganizerTournamentDashboardComponent },
+  { path: 'mytournaments/:id', component: OrganizerTournamentDashboardComponent },
   { path: 'matchreport/referee', component: RefereeMatchReportComponent },
-  { path: 'schedule', component: TournamentScheduleComponent }
+  { path: 'schedule/:id', component: TournamentScheduleComponent },
+  { path: 'draw/:id', component: DrawComponent }
 ];
 
 @NgModule({

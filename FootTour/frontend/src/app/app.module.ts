@@ -18,6 +18,7 @@ import { OrganizerTournamentDashboardComponent } from './components/organizer-to
 import { OrganizerEarlierTournamentsComponent } from './components/organizer-earlier-tournaments/organizer-earlier-tournaments.component';
 import { RefereeMatchReportComponent } from './components/referee-match-report/referee-match-report.component';
 import { TournamentScheduleComponent } from './components/tournament-schedule/tournament-schedule.component';
+import { DrawComponent } from './components/draw/draw.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { TokenInterceptor } from './auth/token.interceptor';
 
@@ -33,7 +34,8 @@ import { TokenInterceptor } from './auth/token.interceptor';
     OrganizerTournamentDashboardComponent,
     OrganizerEarlierTournamentsComponent,
     RefereeMatchReportComponent,
-    TournamentScheduleComponent
+    TournamentScheduleComponent,
+    DrawComponent
   ],
   imports: [
     BrowserModule,

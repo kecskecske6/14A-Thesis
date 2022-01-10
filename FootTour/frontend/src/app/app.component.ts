@@ -16,7 +16,6 @@ export class AppComponent {
   public setTitle(newTitle: string) {
     this.titleService.setTitle(`FootTour | ${newTitle}`);
   }
-
   public logOutOnClick(){
     this.auth.logout();
   }
