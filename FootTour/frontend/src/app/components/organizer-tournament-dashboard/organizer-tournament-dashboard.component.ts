@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Team } from 'src/app/models/team';
-import { Tournament } from 'src/app/models/tournament';
+import { Team } from 'src/app/interfaces/team';
+import { TournamentModel } from 'src/app/models/tournament';
 import { TeamService } from 'src/app/services/team.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 
@@ -12,7 +12,7 @@ import { TournamentService } from 'src/app/services/tournament.service';
 export class OrganizerTournamentDashboardComponent implements OnInit {
 
   teams: Team[] = [];
-  tournament: Tournament = new Tournament();
+  tournament: TournamentModel = new TournamentModel();
   /*teams =[
     {
       name: 'ittASöröm',
@@ -74,7 +74,7 @@ export class OrganizerTournamentDashboardComponent implements OnInit {
 
   getTournamentInfo(): void {
     this.tournamentService.getById(4).subscribe(
-      (data: Tournament) => this.tournament = data,
+      (data: TournamentModel) => this.tournament = data,
       err => console.log(err)
     );
   }
