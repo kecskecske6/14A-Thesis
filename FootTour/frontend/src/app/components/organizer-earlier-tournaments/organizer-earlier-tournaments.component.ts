@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class OrganizerEarlierTournamentsComponent implements OnInit {
 
-  tournaments: TournamentModel[] = [];
+  tournaments: Tournament[] = [];
 
   constructor(private http: HttpClient, private tournamentService: TournamentService, private userService: UserService) {}
 
@@ -19,7 +19,7 @@ export class OrganizerEarlierTournamentsComponent implements OnInit {
     this.getTournaments();
   }
   getTournaments() : void{
-    this.tournamentService.getByOrganizerId(this.userService.getUserId()).subscribe(
+    this.tournamentService.getAllByUserId(this.userService.getUserId()).subscribe(
       (result: Tournament[])=>{
         this.tournaments = result;
       },
