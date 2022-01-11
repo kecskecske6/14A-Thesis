@@ -15,12 +15,11 @@ export class UserService {
   }
   
   insert(data: any): Observable<User> {
-    console.log(data);
-    return this.http.post<User>(`${environment.apiURL}/store.php`, data);
+    return this.http.post<User>(`${environment.backendURL}/api/store.php`, data);
   }
 
   getUserById(id: number): Observable<User>{
-    return this.http.get<User>(`${environment.backend}/controllers/userController.php?id=${id}`);
+    return this.http.get<User>(`${environment.backendURL}/controllers/userController.php?id=${id}`);
   }
 
   SetUser(user : User){

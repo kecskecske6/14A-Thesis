@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { User } from "../models/user";
 
 export interface LoginResponse {
     access_token: string;

@@ -19,7 +19,7 @@ export class OrganizerEarlierTournamentsComponent implements OnInit {
     this.getTournaments();
   }
   getTournaments() : void{
-    this.tournamentService.getByOrganizerId(this.userService.getUserId()).subscribe(
+    this.tournamentService.getAllByUserId(this.userService.getUserId()).subscribe(
       (result: Tournament[])=>{
         this.tournaments = result;
       },
