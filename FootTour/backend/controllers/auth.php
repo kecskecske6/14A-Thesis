@@ -21,6 +21,15 @@
         return $headers;
     }
 
+    function checkExpire($token, $key){
+        try {
+            $decoded = JWT::decode($token, $key, array('HS256'));
+        } catch (\Firebase\JWT\ExpiredException $e) {
+            http_response_code(500);
+            echo json_encode(array("alma"));
+        }
+    }
+
     class Auth{
         function authorize(){
             $key = "FootTourSecret";
@@ -30,6 +39,7 @@
             $jwt = $temp_header[1];
             JWT::$leeway = 10;
             $decoded = JWT::decode($jwt, $key, array('HS256'));
+            checkExpire($jwt, $key);
             return $decoded;
         }
         catch (Exception $e) {

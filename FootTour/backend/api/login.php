@@ -1,5 +1,4 @@
 <?php
-
 include_once("../controllers/header.php");
 include_once("connect.php");
 include_once("../classes/user.php");
@@ -29,8 +28,9 @@ if(isset($postdata) && !empty($postdata))
         $user = new User();
         $iat = time();
         $nbf = $iat + 10;
-        $exp = $iat + 600000;
+        $exp = $iat + 1000;
         $row = mysqli_fetch_row($result);
+        $_SESSION["name"] = $row[1];
         $token = array(
             "iss" => "localhost",
             "aud" => "www.FootTour.com",
