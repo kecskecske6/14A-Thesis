@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { Tournament } from '../models/tournament';
+import { Tournament } from '../interfaces/tournament';
+import { TournamentModel } from '../models/Tournament';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class TournamentService {
     return this.http.get<Tournament[]>(`${environment.apiURL}/tournaments/list.php`);
   }
 
-  getById(id: number): Observable<Tournament> {
-    return this.http.get<Tournament>(`${environment.apiURL}/tournaments/list.php?id=${id}`);
+  getById(id: number): Observable<TournamentModel> {
+    return this.http.get<TournamentModel>(`${environment.apiURL}/tournaments/list.php?id=${id}`);
   }
 
   getAllByUserId(id: number): Observable<Tournament[]> {
