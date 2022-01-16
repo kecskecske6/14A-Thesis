@@ -33,6 +33,7 @@
             return $decoded;
         }
         catch (Exception $e) {
+            echo $e;
             return null;
             http_response_code(401);
         }

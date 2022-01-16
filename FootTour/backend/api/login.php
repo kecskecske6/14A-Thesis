@@ -29,7 +29,7 @@ if(isset($postdata) && !empty($postdata))
         $user = new User();
         $iat = time();
         $nbf = $iat + 10;
-        $exp = $iat + 600000;
+        $exp = $iat + 80;
         $row = mysqli_fetch_row($result);
         $token = array(
             "iss" => "localhost",
