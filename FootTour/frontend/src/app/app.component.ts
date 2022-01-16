@@ -11,7 +11,19 @@ import { UserService } from './services/user.service';
 export class AppComponent {
   title = 'FootTour';
 
-  public constructor(private titleService: Title, public userService: UserService, private auth: AuthService) {}
+  public constructor(private titleService: Title, public userService: UserService, private auth: AuthService) {
+    if(this.auth.getToken()){
+      this.userService.getUserById(Number(this.auth.getId())).subscribe(
+        response => {
+          console.log(response);
+          this.userService.SetUser(response);
+        },
+        error =>{
+          console.log(error);
+        }
+      );
+    }
+  }
 
   public setTitle(newTitle: string) {
     this.titleService.setTitle(`FootTour | ${newTitle}`);
