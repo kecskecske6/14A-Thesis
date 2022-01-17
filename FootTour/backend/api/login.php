@@ -28,7 +28,7 @@ if(isset($postdata) && !empty($postdata))
         $user = new User();
         $iat = time();
         $nbf = $iat + 10;
-        $exp = $iat + 1000;
+        $exp = $iat + 3600;
         $row = mysqli_fetch_row($result);
         $_SESSION["name"] = $row[1];
         $token = array(

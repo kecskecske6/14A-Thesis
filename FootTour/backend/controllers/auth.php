@@ -21,12 +21,13 @@
         return $headers;
     }
 
-    function checkExpire($token, $key){
-        try {
-            $decoded = JWT::decode($token, $key, array('HS256'));
-        } catch (\Firebase\JWT\ExpiredException $e) {
-            http_response_code(500);
-            echo json_encode(array("alma"));
+    function checkExpire($token, $key, $decoded){
+        if($decoded->exp > time()){
+            return true;
+        }
+        else{
+            return false;
+
         }
     }
 
@@ -39,12 +40,15 @@
             $jwt = $temp_header[1];
             JWT::$leeway = 10;
             $decoded = JWT::decode($jwt, $key, array('HS256'));
-            checkExpire($jwt, $key);
+            if(checkExpire($jwt, $key, $decoded) == true){
             return $decoded;
+            }
+            else{
+              return null;
+            }
         }
         catch (Exception $e) {
             return null;
-            http_response_code(401);
         }
     }
     }
