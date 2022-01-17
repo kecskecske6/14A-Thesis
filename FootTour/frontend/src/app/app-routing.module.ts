@@ -17,14 +17,14 @@ const routes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegistrationPageComponent },
-  { path: 'database/tournaments', component: AvailableTournamentsComponent },
+  { path: 'database/tournaments',canActivate:[AuthGuard], component: AvailableTournamentsComponent },
   { path: 'mytournaments', canActivate:[AuthGuard], component: OrganizerEarlierTournamentsComponent },
-  { path: 'database/tournaments/:tournamentinfo', component: TournamentInfoComponent },
-  { path: 'matchreport', component: MatchReportComponent },
-  { path: 'mytournaments/:id', component: OrganizerTournamentDashboardComponent },
-  { path: 'matchreport/referee', component: RefereeMatchReportComponent },
-  { path: 'schedule/:id', component: TournamentScheduleComponent },
-  { path: 'draw/:id', component: DrawComponent }
+  { path: 'database/tournaments/:tournamentinfo', canActivate:[AuthGuard], component: TournamentInfoComponent },
+  { path: 'matchreport', canActivate:[AuthGuard], component: MatchReportComponent },
+  { path: 'mytournaments/:id', canActivate:[AuthGuard], component: OrganizerTournamentDashboardComponent },
+  { path: 'matchreport/referee', canActivate:[AuthGuard], component: RefereeMatchReportComponent },
+  { path: 'schedule/:id', canActivate:[AuthGuard], component: TournamentScheduleComponent },
+  { path: 'draw/:id', canActivate:[AuthGuard], component: DrawComponent }
 ];
 
 @NgModule({

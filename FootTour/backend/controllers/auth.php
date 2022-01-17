@@ -27,6 +27,7 @@
         }
         else{
             return false;
+
         }
     }
 
@@ -41,10 +42,10 @@
             $decoded = JWT::decode($jwt, $key, array('HS256'));
             if(checkExpire($jwt, $key, $decoded) == true){
             return $decoded;
-        }
-        else{
-            return null;
-        }
+            }
+            else{
+              return null;
+            }
         }
         catch (Exception $e) {
             return null;
