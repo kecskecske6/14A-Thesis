@@ -1,5 +1,6 @@
 <?php
     include_once "../connect.php";
+    include_once "../../controllers/header.php";
     if (isset($_GET)) {
         if (isset($_GET["tournamentId"])) {
             $sql = "SELECT teams.* FROM teams_to_tournaments JOIN teams ON teams_to_tournaments.team_id = teams.id JOIN tournaments ON teams_to_tournaments.tournament_id = tournaments.id where tournament.id = " . $_GET["tournamentId"] . ";";

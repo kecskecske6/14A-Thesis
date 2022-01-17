@@ -1,5 +1,6 @@
 <?php
     include_once "../connect.php";
+    include_once "../../controllers/header.php";
     if (isset($_GET)) {
         if (isset($_GET["id"])) {
             $sql = "SELECT * from foottour.tournaments where id = " . $_GET["id"] . ";";
