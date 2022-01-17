@@ -1,5 +1,4 @@
 <?php
-
 include_once("../controllers/header.php");
 include_once("connect.php");
 include_once("../classes/user.php");
@@ -29,7 +28,7 @@ if(isset($postdata) && !empty($postdata))
         $user = new User();
         $iat = time();
         $nbf = $iat + 10;
-        $exp = $iat + 80;
+        $exp = $iat + 3600;
         $row = mysqli_fetch_row($result);
         $token = array(
             "iss" => "localhost",

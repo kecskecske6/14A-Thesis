@@ -21,6 +21,15 @@
         return $headers;
     }
 
+    function checkExpire($token, $key, $decoded){
+        if($decoded->exp > time()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     class Auth{
         function authorize(){
             $key = "FootTourSecret";
@@ -30,12 +39,15 @@
             $jwt = $temp_header[1];
             JWT::$leeway = 10;
             $decoded = JWT::decode($jwt, $key, array('HS256'));
+            if(checkExpire($jwt, $key, $decoded) == true){
             return $decoded;
         }
-        catch (Exception $e) {
-            echo $e;
+        else{
             return null;
-            http_response_code(401);
+        }
+        }
+        catch (Exception $e) {
+            return null;
         }
     }
     }
