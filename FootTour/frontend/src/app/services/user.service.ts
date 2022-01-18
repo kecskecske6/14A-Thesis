@@ -22,6 +22,10 @@ export class UserService {
     return this.http.get<User>(`${environment.backendURL}/controllers/userController.php?id=${id}`);
   }
 
+  getNameById(id: number): Observable<string>{
+    return this.http.get<string>(`${environment.backendURL}/controllers/userController.php?userId=${id}`);
+  }
+
   SetUser(user : User){
     this.user = user;
   }

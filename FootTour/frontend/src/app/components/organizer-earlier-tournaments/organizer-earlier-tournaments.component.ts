@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Tournament } from 'src/app/interfaces/tournament';
 import { AuthService } from 'src/app/services/auth.service';
 import { TournamentService } from 'src/app/services/tournament.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-organizer-earlier-tournaments',

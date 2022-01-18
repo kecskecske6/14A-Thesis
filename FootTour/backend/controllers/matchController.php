@@ -41,16 +41,12 @@ function getById($conn, $id){
         echo json_encode(array("message" => "Nem található mérkőzés"));
     }
 }
-class Response{
 
-    public $playerName, $teamName;
-
-}
 
 function getPlayersByMatchId($conn, $id){
     $sql = "SELECT
-    teams.name,
-    players.name
+    players.name,
+    players.kit_number
   FROM foottour.players_to_teams
     INNER JOIN foottour.players
         ON players_to_teams.player_id = players.id 
@@ -65,17 +61,17 @@ function getPlayersByMatchId($conn, $id){
       WHERE matches.id = '$id'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
-        $responses = array();
+        $players = array();
         $i = 0;
         while ($row = mysqli_fetch_row($result)) {
-            $resp = new Response();
-            $resp->teamName = $row[0];
-            $resp->playerName = $row[1];
-            array_push($responses,$resp);
+            $player = new Player();
+            $player->name = $row[0];
+            $player->kitNumber = $row[1];
+            array_push($players,$player);
             $i++;
         }
     }
-    return $responses;
+    return $players;
 }
 
 function getTeamNameById($conn, $id){

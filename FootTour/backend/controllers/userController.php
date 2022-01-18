@@ -7,15 +7,19 @@ include_once "auth.php";
 $auth = new Auth();
 
 if($auth->authorize() != null){
-    login($conn);
+    if(isset($_GET['id'])){
+    login($conn, $_GET['id']);
+    }
+    elseif(isset($_GET['userId'])){
+        getNameById($conn, $_GET['userId']);
+    }
 }
-    function login($conn){
-        $postdata = $_GET['id'];
-        $sql = "SELECT * from foottour.users WHERE id = '$postdata'";
+    function login($conn, $id){
+        $sql = "SELECT * from foottour.users WHERE id = '$id'";
         $result = $conn->query($sql);
         $row = mysqli_fetch_row($result);
         $user = new User();
-        $user->id = $postdata;
+        $user->id = $row[0];
         $user->name = $row[1];
         $user->email = $row[2];
         $user->password = $row[3];
@@ -25,5 +29,13 @@ if($auth->authorize() != null){
         $user->isLeader=$row[7];
         http_response_code(200);
         echo json_encode($user);
+    }
+
+    function getNameById($conn, $id){
+        $sql = "SELECT name FROM foottour.users WHERE id = '$id'";
+        $result = $conn->query($sql);
+        $row = mysqli_fetch_row($result);
+        http_response_code(200);
+        echo json_encode($row);
     }
 ?>
