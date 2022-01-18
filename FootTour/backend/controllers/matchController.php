@@ -3,6 +3,7 @@ include_once "header.php";
 include_once "../api/connect.php";
 include_once "../classes/match.php";
 include_once "auth.php";
+include_once "../classes/player.php";
 
 $auth = new Auth();
 
@@ -40,6 +41,7 @@ function getById($conn, $id){
 
 function getPlayersByMatchId($conn, $id){
     $sql = "SELECT
+    teams.name,
     players.name
   FROM foottour.players_to_teams
     INNER JOIN foottour.players
@@ -54,7 +56,14 @@ function getPlayersByMatchId($conn, $id){
         ON matches.tournament_id = tournaments.id
       WHERE matches.id = '$id'";
     $result = $conn->query($sql);
-    $row = mysqli_fetch_row($result);
-    echo json_encode($row);
+    if ($result->num_rows > 0) {
+        $data = array();
+        $i = 0;
+        while ($row = mysqli_fetch_row($result)) {
+            array_push($data,$row[0], $row[1]);
+            $i++;
+        }
+    }
+    echo json_encode($data);
 }
 ?>
