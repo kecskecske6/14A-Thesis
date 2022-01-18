@@ -1,19 +1,19 @@
-<!-- <div id="container" class="container">
+<div id="container" class="container">
     <div id="head" class="mx-auto">
         <div class="row">
-            <h2 class="col text-end">{{match.team1name}}</h2>
-            <h2 class="col text-center">{{match.team1goals}}-{{match.team2goals}}</h2>
-            <h2 class="col text-start">{{match.team2name}}</h2>
+            <h2 class="col text-end">{{team1Name}}</h2>
+            <h2 class="col text-center">{{team1Goals}}-{{team2Goals}}</h2>
+            <h2 class="col text-start">{{team2Name}}</h2>
         </div>
     </div>
-    <hr class="mx-auto">
+    <!-- <hr class="mx-auto">
     <div id="body" class="row text-center">
         <div id="team1name" *ngFor="let match of match" class="teamName mt-5">{{match.team1name}}</div>
         <table class="table col-lg-12 mb-5 mt-3 mx-auto">
             <thead></thead>
             <tbody>
               <tr *ngFor="let player of players">
-                <ng-template [ngIf] = "player.team == 'ittASöröm'">
+                <ng-template [ngIf] = "matchplayer.teamName == 'ittASöröm'">
                 <th class="col-1" scope="row">{{player.number}}</th>
                 <td class="col-6 text-start">{{player.name}}</td>
                 <td class="col-3"><img *ngFor="let number of player.goals" src="../../../assets/match report/ball_icon.png" alt=""></td>
@@ -28,7 +28,7 @@
               <thead></thead>
               <tbody>
                 <tr *ngFor="let player of players">
-                  <ng-template [ngIf] = "player.team == 'AS Róka'">
+                  <ng-template [ngIf] = "match.player.teamName == 'AS Róka'">
                     <th class="col-1" scope="row">{{player.number}}</th>
                     <td class="col-6 text-start">{{player.name}}</td>
                     <td class="col-3"><img *ngFor="let number of player.goals" src="../../../assets/match report/ball_icon.png" alt=""></td>
@@ -42,5 +42,5 @@
               <div><h5>Játékvezető: {{item.referee}}</h5></div>
               {{item.tournament}}
             </div>
-    </div>
-</div> -->
+    </div> -->
+</div>

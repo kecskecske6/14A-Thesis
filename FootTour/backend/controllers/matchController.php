@@ -9,7 +9,7 @@ $auth = new Auth();
 
 if($auth->authorize() != null){
     if($_SERVER["REQUEST_METHOD"] == "GET"){
-        getPlayersByMatchId($conn, $_GET['matchId']);
+        getById($conn, $_GET['matchId']);
     }
 }
 else{
@@ -30,6 +30,9 @@ function getById($conn, $id){
         $match->team1Goals = $row[5];
         $match->team2Goals = $row[6];
         $match->code = $row[7];
+        $match->players = getPlayersByMatchId($conn, $id);
+        $match->team1Name = getTeamNameById($conn, $match->team1Id);
+        $match->team2Name = getTeamNameById($conn, $match->team2Id);
         http_response_code(200);
         echo json_encode($match);
     }
@@ -37,6 +40,11 @@ function getById($conn, $id){
         http_response_code(404);
         echo json_encode(array("message" => "Nem található mérkőzés"));
     }
+}
+class Response{
+
+    public $playerName, $teamName;
+
 }
 
 function getPlayersByMatchId($conn, $id){
@@ -57,13 +65,28 @@ function getPlayersByMatchId($conn, $id){
       WHERE matches.id = '$id'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
-        $data = array();
+        $responses = array();
         $i = 0;
         while ($row = mysqli_fetch_row($result)) {
-            array_push($data,$row[0], $row[1]);
+            $resp = new Response();
+            $resp->teamName = $row[0];
+            $resp->playerName = $row[1];
+            array_push($responses,$resp);
             $i++;
         }
     }
-    echo json_encode($data);
+    return $responses;
+}
+
+function getTeamNameById($conn, $id){
+    $sql = "SELECT name FROM foottour.teams WHERE id = '$id'";
+    $result = $conn->query($sql);
+    if($result != false){
+        $row = mysqli_fetch_row($result);
+        return $row;
+    }
+    else{
+        http_response_code(404);
+    }
 }
 ?>

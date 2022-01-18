@@ -7,6 +7,9 @@ export class Match{
     team1Goals = 0;
     team2Goals = 0;
     code = "";
+    players = {};
+    team1Name = "";
+    team2Name = "";
 
     constructor(match: any = undefined){
         if(match){
@@ -18,6 +21,9 @@ export class Match{
             this.team1Goals = match.team1Goals;
             this.team2Goals = match.team2Goals;
             this.code = match.code;
+            this.players = match.players;
+            this.team1Name = match.team1Name;
+            this.team2Name = match.team2Name;
         }
     }
 }
