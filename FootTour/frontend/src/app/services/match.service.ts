@@ -12,6 +12,6 @@ export class MatchService {
   constructor(private http: HttpClient) { }
 
   getMatchById(id: number): Observable<any>{
-    return this.http.get<any>(`${environment.backendURL}/controllers/matchController.php?matchId=${id}`);
+    return this.http.get<any>(`${environment.backendURL}/api/matches/getById.php?matchId=${id}`);
   }
 }
