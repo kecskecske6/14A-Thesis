@@ -31,6 +31,14 @@ export class MatchReportComponent implements OnInit {
     this.matchService.getMatchById(this.id).subscribe(
       (result: any) =>{
         console.log(result);
+        this.team1Name = result.team1Name;
+        this.team2Name = result.team2Name;
+        this.team1Goals = result.team1Goals;
+        this.team2Goals = result.team2Goals;
+        this.team1Players = result.team1Players;
+        this.team2Players = result.team2Players;
+        this.refereeName = result.refereeName;
+        this.tournamentName = result.tournamentName;
       },
       error=>{
         console.log(error);

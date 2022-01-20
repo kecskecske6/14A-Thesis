@@ -63,7 +63,7 @@ export class RegistrationPageComponent implements OnInit {
     }
       
     this.userService.insert(this.model).subscribe(
-      result => this.userService.user = result,
+      result => this.userService.userName = result.name,
       error => console.log(error)
     );
   }

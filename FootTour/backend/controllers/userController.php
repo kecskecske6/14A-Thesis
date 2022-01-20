@@ -1,19 +1,5 @@
 <?php
-include_once "header.php";
-include_once "../api/connect.php";
-include_once "../classes/user.php";
-include_once "auth.php";
-
-$auth = new Auth();
-
-if($auth->authorize() != null){
-    if(isset($_GET['id'])){
-    login($conn, $_GET['id']);
-    }
-    elseif(isset($_GET['userId'])){
-        getNameById($conn, $_GET['userId']);
-    }
-}
+class UserController{
     function login($conn, $id){
         $sql = "SELECT * from foottour.users WHERE id = '$id'";
         $result = $conn->query($sql);
@@ -34,8 +20,8 @@ if($auth->authorize() != null){
     function getNameById($conn, $id){
         $sql = "SELECT name FROM foottour.users WHERE id = '$id'";
         $result = $conn->query($sql);
-        $row = mysqli_fetch_row($result);
-        http_response_code(200);
-        echo json_encode($row);
+        return mysqli_fetch_row($result);
+        
     }
+}
 ?>

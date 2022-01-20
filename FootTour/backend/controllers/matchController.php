@@ -1,7 +1,7 @@
 <?php
 class MatchController{
  
-function getById($conn, $id, $match, $player){
+function getById($conn, $id, $match, $player, $userController, $tournamentController){
     $sql = "SELECT * FROM foottour.matches WHERE id = '$id'";
     $result = $conn->query($sql);
     if($result != false){
@@ -18,6 +18,8 @@ function getById($conn, $id, $match, $player){
         $match->team2Players = $this->getPlayersByMatchId($conn, $id, $row[3], $player);
         $match->team1Name = $this->getTeamNameById($conn, $match->team1Id);
         $match->team2Name = $this->getTeamNameById($conn, $match->team2Id);
+        $match->refereeName = $userController->getNameById($conn, $row[4]);
+        $match->tournamentName = $tournamentController->getNameById($conn, $row[1]);
         http_response_code(200);
         echo json_encode($match);
     }

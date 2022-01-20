@@ -5,11 +5,6 @@ include_once("../classes/user.php");
 require_once("../vendor/autoload.php");
 use \Firebase\JWT\JWT;
 
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Request-Method: POST");
-header("Access-Control-Allow-Headers: *");
-
-$headers = apache_request_headers();
 define('SECRET_KEY', 'FootTourSecret');
 define('ALGORITHM', 'HS256');
 
@@ -31,17 +26,21 @@ if(isset($postdata) && !empty($postdata))
         $exp = $iat + 3600;
         $row = mysqli_fetch_row($result);
         $_SESSION["name"] = $row[1];
+        $user->id = $row[0];
+        $user->name = $row[1];
+        $user->email = $row[2];
+        $user->password = $row[3];
+        $user->isDeleted=$row[4];
+        $user->isOrganizer=$row[5];
+        $user->isReferee=$row[6];
+        $user->isLeader=$row[7];
         $token = array(
             "iss" => "localhost",
             "aud" => "www.FootTour.com",
             "iat" => $iat,
             "nbf" => $nbf,
             "exp" => $exp,
-            "data" => array(
-                "id" => $row[0],
-                "name" => $row[1],
-                "email" => $row[2]
-            )
+            "data" => $user
         );
         http_response_code(200);
         $jwt = JWT::encode($token, SECRET_KEY);
@@ -50,7 +49,8 @@ if(isset($postdata) && !empty($postdata))
             'access_token' => $jwt,
             'time' => time(),
             'status' => "success",
-            'id' => $row[0]
+            'id' => $row[0],
+            'name' => $row[1]
         );
         echo json_encode($data_insert);
     }

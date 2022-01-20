@@ -1,30 +1,6 @@
 <?php
-    include_once "header.php";
-    include_once "../api/connect.php";
-    include_once "../classes/tournament.php";
-    include_once "auth.php";
 
-    $auth = new Auth();
-
-    if($auth->authorize() != null){
-        $decoded = $auth->authorize();
-        if($_SERVER['REQUEST_METHOD'] == 'GET'){
-            if(isset($_REQUEST['userId']))
-                getByOrganizerId($decoded, $conn);
-            elseif(isset($_REQUEST['name']))
-                getTournamentByName($decoded, $conn);
-            else getAll($conn);
-        }
-        elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
-            createTournament($decoded, $conn);
-        }
-        elseif($_SERVER['REQUEST_METHOD'] == 'PUT'){
-            modifyTournament($decoded, $conn);
-        }
-    }
-    else{
-        http_response_code(401);
-    }
+  class TournamentController{
 
     function getAll($conn) {
         $sql = "SELECT * from foottour.tournaments;";
@@ -156,5 +132,17 @@
             http_response_code(404);
         }
     }
-    $conn->close();
+
+    function getNameById($conn, $id){
+        $sql = "SELECT name FROM foottour.tournaments WHERE id = '$id'";
+        $result = $conn->query($sql);
+        if($result != false){
+            $row = mysqli_fetch_row($result);
+            return $row;
+        }
+        else{
+            http_response_code(404);
+        }
+    }
+}
 ?>

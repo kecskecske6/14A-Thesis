@@ -10,6 +10,7 @@ export class Match{
     players = {};
     team1Name = "";
     team2Name = "";
+    refereeName = "";
 
     constructor(match: any = undefined){
         if(match){
@@ -24,6 +25,7 @@ export class Match{
             this.players = match.players;
             this.team1Name = match.team1Name;
             this.team2Name = match.team2Name;
+            this.refereeName = match.refereeName;
         }
     }
 }
