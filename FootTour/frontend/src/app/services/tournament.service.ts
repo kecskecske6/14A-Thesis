@@ -13,15 +13,15 @@ export class TournamentService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Tournament[]> {
-    return this.http.get<Tournament[]>(`${environment.backendURL}/controllers/tournamentController.php`);
+    return this.http.get<Tournament[]>(`${environment.backendURL}/api/tournaments/list.php`);
   }
 
   getById(id: number): Observable<TournamentModel> {
-    return this.http.get<TournamentModel>(`${environment.backendURL}/tournaments/list.php?id=${id}`);
+    return this.http.get<TournamentModel>(`${environment.backendURL}/api/tournaments/list.php?id=${id}`);
   }
 
   getAllByUserId(id: number): Observable<Tournament[]> {
-    return this.http.get<Tournament[]>(`${environment.backendURL}/controllers/tournamentController.php?userId=${id}`);
+    return this.http.get<Tournament[]>(`${environment.backendURL}/api/tournaments/list.php?userId=${id}`);
   }
 
 }

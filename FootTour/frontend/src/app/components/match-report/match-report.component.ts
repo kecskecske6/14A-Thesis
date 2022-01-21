@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Player } from 'src/app/models/Player';
+import { Match } from 'src/app/models/Match';
+import { MatchService } from 'src/app/services/match.service';
+import { PlayerService } from 'src/app/services/player.service';
+import { UserService } from 'src/app/services/user.service';
+import { event } from 'src/app/interfaces/event';
 
 @Component({
   selector: 'app-match-report',
@@ -6,110 +12,46 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./match-report.component.sass']
 })
 export class MatchReportComponent implements OnInit {
-  match = [
-    {
-      team1name: 'ittASöröm',
-      team2name: 'AS Róka',
-      team1goals: 3,
-      team2goals: 1,
-      referee : "Vak János",
-      tournament: "Mikulás kupa"
-    }
-  ]
+  team1Name= "";
+  team2Name = "";
+  refereeName = "";
+  team1Goals = -1;
+  team2Goals = -2;
+  tournamentName = "Lébény Kupa"; //TODO
+  id = 1;
+  match!: Match;
+  team1Players: Player[] = [];
+  team2Players: Player[] = [];
+  team1PlayersWithEvents: Player[] = [];
+  team2PlayersWithEvents: Player[] =[];
+  events: event[] = [];
 
-  players = [
-    {
-      team: 'ittASöröm',
-      name: 'Teszt Elek',
-      number: 1,
-      goals: [0,1,2],
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'ittASöröm',
-      name: 'Kandisz Nóra',
-      number: 5,
-      goals: null,
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'ittASöröm',
-      name: 'Pofáz Zoltán',
-      number: 7,
-      goals: null,
-      yellow_card: true,
-      red_card: false
-    },
-    {
-      team: 'ittASöröm',
-      name: 'Élő Erik',
-      number: 10,
-      goals: [0],
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'ittASöröm',
-      name: 'Kiss Béla',
-      number: 18,
-      goals: null,
-      yellow_card: false,
-      red_card: true
-    },
-    {
-      team: 'ittASöröm',
-      name: 'David Villa',
-      number: 95,
-      goals: null,
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'AS Róka',
-      name: 'Lakatos Tihamér',
-      number: 1,
-      goals: null,
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'AS Róka',
-      name: 'Lakatos Ákos',
-      number: 4,
-      goals: null,
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'AS Róka',
-      name: 'Lakatos Norbert',
-      number: 9,
-      goals: null,
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'AS Róka',
-      name: 'Lakatos Ábrahám',
-      number: 10,
-      goals: null,
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'AS Róka',
-      name: 'Lakatos Zsolt',
-      number: 16,
-      goals: [0],
-      yellow_card: true,
-      red_card: false
-    },
-  ]
-  constructor() { }
+  constructor(private matchService: MatchService, private playerService: PlayerService, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.getMatchById();
+  }
+
+  getMatchById(){
+    this.matchService.getMatchById(this.id).subscribe(
+      (result: any) =>{
+        console.log(result);
+        this.team1Name = result.team1Name.name;
+        this.team2Name = result.team2Name.name;
+        this.team1Goals = result.team1Goals;
+        this.team2Goals = result.team2Goals;
+        this.team1Players = result.team1Players;
+        this.team2Players = result.team2Players;
+        this.refereeName = result.refereeName.name;
+        this.tournamentName = result.tournamentName.name;
+        this.events = result.events;
+        this.team1PlayersWithEvents = this.matchService.setEventsToPlayers(this.events, this.team1Players);
+        this.team2PlayersWithEvents = this.matchService.setEventsToPlayers(this.events, this.team2Players)
+      },
+      error=>{
+        console.log(error);
+      }
+    )
   }
 
 }

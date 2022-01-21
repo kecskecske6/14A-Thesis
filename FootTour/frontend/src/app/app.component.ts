@@ -12,16 +12,8 @@ export class AppComponent {
   title = 'FootTour';
 
   public constructor(private titleService: Title, public userService: UserService, private auth: AuthService) {
-    if(this.auth.getToken()){
-      this.userService.getUserById(Number(this.auth.getId())).subscribe(
-        response => {
-          console.log(response);
-          this.userService.SetUser(response);
-        },
-        error =>{
-          console.log(error);
-        }
-      );
+    if(this.auth.isLoggedIn()){
+      this.userService.SetUser(userService.getName()!);
     }
   }
 

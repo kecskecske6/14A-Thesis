@@ -1,160 +1,121 @@
 <?php
-    include_once "header.php";
-    include_once "../api/connect.php";
-    include_once "../classes/tournament.php";
-    include_once "auth.php";
 
-    $auth = new Auth();
-
-    if($auth->authorize() != null){
-        $decoded = $auth->authorize();
-        if($_SERVER['REQUEST_METHOD'] == 'GET'){
-            if(isset($_REQUEST['userId']))
-                getByOrganizerId($decoded, $conn);
-            elseif(isset($_REQUEST['name']))
-                getTournamentByName($decoded, $conn);
-            else getAll($conn);
-        }
-        elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
-            createTournament($decoded, $conn);
-        }
-        elseif($_SERVER['REQUEST_METHOD'] == 'PUT'){
-            modifyTournament($decoded, $conn);
-        }
-    }
-    else{
-        http_response_code(401);
-    }
+  class TournamentController{
 
     function getAll($conn) {
-        $sql = "SELECT * from foottour.tournaments;";
-        $tournaments = array();
+        $sql = "SELECT * from foottour.tournaments";
         $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            $i = 0;
-            while ($row = $result->fetch_assoc()) {
-                $tournaments[$i]["id"] = $row["id"];
-                $tournaments[$i]["organizerId"] = $row["organizer_id"];
-                $tournaments[$i]["startDate"] = $row["start_date"];
-                $tournaments[$i]["endDate"] = $row["end_date"];
-                $tournaments[$i]["name"] = $row["name"];
-                $tournaments[$i]["location"] = $row["location"];
-                $tournaments[$i]["bestPlayer"] = $row["best_player"];
-                $tournaments[$i]["topScorer"] = $row["top_scorer"];
-                $tournaments[$i]["bestGoalkeeper"] = $row["best_goalkeeper"];
-                $tournaments[$i]["entryFee"] = $row["entry_fee"];
-                $tournaments[$i]["teamsCount"] = $row["teams_count"];
-                $tournaments[$i]["description"] = $row["description"];
-                ++$i;
-            }
-            echo json_encode($tournaments);
+        if ($result === false) return false;
+        $tournaments = array();
+        while ($row = $result->fetch_object()) {
+            array_push($tournaments,$row);
         }
+        return $tournaments;
+    }
+
+    function getById($conn, $id){
+        $sql = "SELECT * from foottour.tournaments WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
+        $id = htmlspecialchars(strip_tags($id));
+        $stmt->bind_param("i",$id);
+        if ($stmt->execute() === false) return false;
+        $result = $stmt->get_result();
+        return $result->fetch_object();
     }
     
-    function getByOrganizerId($decoded, $conn){
-        $postdata = $_GET['userId'];
-        if($postdata == $decoded->data->id){
+    function getByOrganizerId($conn, $id){
+            $sql = "SELECT * from foottour.tournaments WHERE organizer_Id = ?";
+            $stmt = $conn->prepare($sql);
+            if ($stmt === false) return false;
+            $id = htmlspecialchars(strip_tags($id));
+            $stmt->bind_param("i",$id);
+            if ($stmt->execute() === false) return false;
+            $result = $stmt->get_result();
             $tournaments = array();
-            $sql = "SELECT * from foottour.tournaments WHERE organizer_Id = '$postdata'";
-            $result = $conn->query($sql);
-            $count = mysqli_num_rows($result);
-            if ($count > 0){
-                $i = 0;
-                while ($row = $result->fetch_assoc()) {
-                    $tournaments[$i]["id"] = $row["id"];
-                    $tournaments[$i]["organizerId"] = $row["organizer_id"];
-                    $tournaments[$i]["startDate"] = $row["start_date"];
-                    $tournaments[$i]["endDate"] = $row["end_date"];
-                    $tournaments[$i]["name"] = $row["name"];
-                    $tournaments[$i]["location"] = $row["location"];
-                    $tournaments[$i]["bestPlayer"] = $row["best_player"];
-                    $tournaments[$i]["topScorer"] = $row["top_scorer"];
-                    $tournaments[$i]["bestGoalkeeper"] = $row["best_goalkeeper"];
-                    $tournaments[$i]["entryFee"] = $row["entry_fee"];
-                    $tournaments[$i]["teamsCount"] = $row["teams_count"];
-                    $tournaments[$i]["description"] = $row["description"];
-                    $i++;
-                }
-                http_response_code(200);
-                echo json_encode($tournaments);
-            }else{
-                http_response_code(404);
+            while($row = $result->fetch_object()){
+                array_push($tournaments,$row);
             }
-        }
-        else{
-        http_response_code(401);
-        }
+            return $tournaments;
     }
 
-    function createTournament($decoded, $conn){
-        $postdata = json_decode(file_get_contents("php://input"));
-        $id = $decoded->data->id;
-        if($_GET['id'] == $id){
+    function createTournament($conn, $postdata){
         $sql = "INSERT INTO foottour.tournaments (organizer_id, start_date, end_date, name,
-        location, entry_fee, description, teams_count) VALUES ('$id', '$postdata->startDate',
-        '$postdata->endDate', '$postdata->name', '$postdata->location', '$postdata->entryFee',
-        '$postdata->description', '$postdata->teamsCount')";
-            if($conn->query($sql)){
-                
-                http_response_code(200);
-                echo json_encode(array("Sikeresen létrehozta a tornát"));
-            }
-            else{
-                http_response_code(400);
-            }
-        }
-        else{
-            http_response_code(401);
-        }
+        location, entry_fee, description, teams_count) VALUES (?,?,?,?,?,?,?,?)";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
+        $organizerId = htmlspecialchars(strip_tags($postdata->organizerId));
+        $startDate = htmlspecialchars(strip_tags($postdata->startDate));
+        $endDate = htmlspecialchars(strip_tags($postdata->endDate));
+        $name = htmlspecialchars(strip_tags($postdata->name));
+        $location = htmlspecialchars(strip_tags($postdata->location));
+        $entryFee = htmlspecialchars(strip_tags($postdata->entryFee));
+        $description = htmlspecialchars(strip_tags($postdata->description));
+        $teamsCount = htmlspecialchars(strip_tags($postdata->teamsCount));
+
+        $stmt->bind_param("issssisi",$organizerId, $startDate, $endDate, $name, $location, $entryFee,
+                        $description, $teamsCount);
+        if ($stmt->execute() === false) return false;
+        
+        return $this->getById($conn, $stmt->insert_id);
     }
 
-    function modifyTournament($decoded, $conn){
-        $postdata = json_decode(file_get_contents("php://input"));
-        $id = $_REQUEST['id'];
-        $organizerId = $decoded->data->id;
-        $sql = "UPDATE foottour.tournaments SET start_date='$postdata->startDate',
-        end_date = '$postdata->endDate', name='$postdata->name', location='$postdata->location',
-        best_player = '$postdata->bestPlayer', best_goalkeeper='$postdata->bestGoalkeeper',
-        entry_fee='$postdata->entryFee', description = '$postdata->description', teams_count='$postdata->teamsCount' WHERE organizer_id = $organizerId AND id = $id";
-        if($conn->query($sql)){
-                
-            http_response_code(200);
-            echo json_encode(array("Sikeresen módosította a tornát"));
-        }
-        else{
-            http_response_code(400);
-        }
+
+    function modifyTournament($conn, $postdata){
+        $sql = "UPDATE foottour.tournaments SET `start_date` = ?,
+        `end_date` = ?, `name` = ?, `location` = ?,
+        `best_player` = ?, `best_goalkeeper` = ?, `top_scorer` = ?,
+        `entry_fee` = ?, `description` = ?, `teams_count` = ? 
+        WHERE `organizer_id` = ? AND `id` = ?";
+        
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
+
+        $id = htmlspecialchars(strip_tags($postdata->id));
+        $organizerId = htmlspecialchars(strip_tags($postdata->organizerId));
+        $startDate = htmlspecialchars(strip_tags($postdata->startDate));
+        $endDate = htmlspecialchars(strip_tags($postdata->endDate));
+        $name = htmlspecialchars(strip_tags($postdata->name));
+        $location = htmlspecialchars(strip_tags($postdata->location));
+        $bestPlayer = htmlspecialchars(strip_tags($postdata->bestPlayer));
+        $bestGoalkeeper = htmlspecialchars(strip_tags($postdata->bestGoalkeeper));
+        $topScorer = htmlspecialchars(strip_tags($postdata->topScorer));
+        $entryFee = htmlspecialchars(strip_tags($postdata->entryFee));
+        $description = htmlspecialchars(strip_tags($postdata->description));
+        $teamsCount = htmlspecialchars(strip_tags($postdata->teamsCount));
+
+        $stmt->bind_param("sssssssisiii",$startDate, $endDate, $name, $location, 
+                            $bestPlayer, $bestGoalkeeper, $topScorer, $entryFee, $description,
+                            $teamsCount, $organizerId, $id);
+        if ($stmt->execute() === false) return false;
+        
+        return array("message"=> "Sikeresen módosította a tornát");
     }
 
-    function getTournamentByName($decoded, $conn){
-        $name = $_REQUEST['name'];
-        $tournaments = array();
-        $sql = "SELECT * from foottour.tournaments WHERE name = '$name'";
-        $result = $conn->query($sql);
-        $count = mysqli_num_rows($result);
-        if($count > 0){
-            $i = 0;
-                while ($row = $result->fetch_assoc()) {
-                    $tournaments[$i]["id"] = $row["id"];
-                    $tournaments[$i]["organizerId"] = $row["organizer_id"];
-                    $tournaments[$i]["startDate"] = $row["start_date"];
-                    $tournaments[$i]["endDate"] = $row["end_date"];
-                    $tournaments[$i]["name"] = $row["name"];
-                    $tournaments[$i]["location"] = $row["location"];
-                    $tournaments[$i]["bestPlayer"] = $row["best_player"];
-                    $tournaments[$i]["topScorer"] = $row["top_scorer"];
-                    $tournaments[$i]["bestGoalkeeper"] = $row["best_goalkeeper"];
-                    $tournaments[$i]["entryFee"] = $row["entry_fee"];
-                    $tournaments[$i]["teamsCount"] = $row["teams_count"];
-                    $tournaments[$i]["description"] = $row["description"];
-                    $i++;
-                }
-                http_response_code(200);
-                echo json_encode($tournaments);
-        }
-        else{
-            http_response_code(404);
-        }
+    function getTournamentByName($conn, $name){
+        $sql = "SELECT * from foottour.tournaments WHERE name = ?";
+        $stmt = $conn->prepare($sql);
+            if ($stmt === false) return false;
+            $name = htmlspecialchars(strip_tags($name));
+            $stmt->bind_param("s",$name);
+            if ($stmt->execute() === false) return false;
+            $result = $stmt->get_result();
+            $tournaments = array();
+            while($row = $result->fetch_object()){
+                array_push($tournaments,$row);
+            }
+            return $tournaments;
     }
-    $conn->close();
+
+    function getNameById($conn, $id){
+        $sql = "SELECT name FROM foottour.tournaments WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
+        $id = htmlspecialchars(strip_tags($id));
+        $stmt->bind_param("i",$id);
+        if ($stmt->execute() === false) return false;
+        $result = $stmt->get_result();
+        return $result->fetch_object();
+    }
+}
 ?>
