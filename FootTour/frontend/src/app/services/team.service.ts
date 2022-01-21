@@ -12,6 +12,6 @@ export class TeamService {
   constructor(private http: HttpClient) { }
 
   getAllByTournamentId(id: number): Observable<Team[]> {
-    return this.http.get<Team[]>(`${environment.backendURL}/teams/list.php?tournamentId=${id}`);
+    return this.http.get<Team[]>(`${environment.backendURL}/api/teams/list.php?tournamentId=${id}`);
   }
 }
