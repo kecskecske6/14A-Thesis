@@ -11,7 +11,7 @@
     if($auth->authorize() != null){
         if (isset($_GET)) {
             if (isset($_GET["tournamentId"])) {
-            echo json_encode($tc->getTeamsByTournamentId($conn, $_GET["tournamentId"], $team));
+            echo json_encode($tc->getTeamsByTournamentId($conn, $_GET["tournamentId"]));
         }
         else{
             http_response_code(400);

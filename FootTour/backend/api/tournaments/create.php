@@ -9,7 +9,7 @@ $tc = new TournamentController();
 
 if($auth->authorize() != null){
     $postdata = json_decode(file_get_contents("php://input"));
-    $tc->createTournament($conn, $postdata);
+    echo json_encode($tc->createTournament($conn, $postdata));
 }
 else{
     http_response_code(401);

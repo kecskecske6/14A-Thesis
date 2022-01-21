@@ -12,12 +12,12 @@
          <table class="table col-lg-12 mb-5 mt-3 mx-auto">
             <thead></thead>
             <tbody>
-              <tr *ngFor="let player of team1Players">
-                <th class="col-1" scope="row">{{player.kitNumber}}</th>
-               <td class="col-6 text-start">{{player.name}}</td>
-               <!--  <td class="col-3"><img *ngFor="let number of player.goals" src="../../../assets/match report/ball_icon.png" alt=""></td>
-                <td class="col-1"><img *ngIf="player.yellow_card" src="../../../assets/match report/yellow_card.png" alt=""></td>
-                <td class="col-1"><img *ngIf="player.red_card" src="../../../assets/match report/red_card.png" alt=""></td> -->
+              <tr *ngFor="let player of team1PlayersWithEvents">
+                <th class="col-1" scope="row">{{player.kit_number}}</th>
+                    <td class="col-6 text-start">{{player.name}}</td>
+                    <td class="col-3"><div *ngFor="let number of player.number_of_goals_in_a_match; index as i" class="float-start m-1"><img src="../../../assets/match report/ball_icon.png" alt="">{{player.number_of_goals_in_a_match[i]}}'</div></td>
+                    <td class="col-1" ><div *ngIf="player.yellow_cards > 0"><img  src="../../../assets/match report/yellow_card.png" alt="">{{player.yellow_cards}}'</div></td>
+                    <td class="col-1"><div *ngIf="player.red_cards > 0"><img src="../../../assets/match report/red_card.png" alt="">{{player.red_cards}}'</div></td>
               </tr>
             </tbody>
           </table>
@@ -25,13 +25,13 @@
           <table class="table col-lg-12 mt-3 mx-auto">
               <thead></thead>
               <tbody>
-                <tr *ngFor="let player of team2Players">
-                    <th class="col-1" scope="row">{{player.kitNumber}}</th>
+                <tr *ngFor="let player of team2PlayersWithEvents">
+                    <th class="col-1" scope="row">{{player.kit_number}}</th>
                     <td class="col-6 text-start">{{player.name}}</td>
-                    <!--<td class="col-3"><img *ngFor="let number of player.goals" src="../../../assets/match report/ball_icon.png" alt=""></td>
-                    <td class="col-1"><img *ngIf="player.yellow_card" src="../../../assets/match report/yellow_card.png" alt=""></td>
-                    <td class="col-1"><img *ngIf="player.red_card" src="../../../assets/match report/red_card.png" alt=""></td>
-                  --> 
+                    <td class="col-3"><div *ngFor="let number of player.number_of_goals_in_a_match; index as i" class="float-start m-1"><img src="../../../assets/match report/ball_icon.png" alt="">{{player.number_of_goals_in_a_match[i]}}'</div></td>
+                    <td class="col-1" ><div *ngIf="player.yellow_cards > 0"><img  src="../../../assets/match report/yellow_card.png" alt="">{{player.yellow_cards}}'</div></td>
+                    <td class="col-1"><div *ngIf="player.red_cards > 0"><img src="../../../assets/match report/red_card.png" alt="">{{player.red_cards}}'</div></td>
+                 
                 </tr>
              </tbody>
             </table> 

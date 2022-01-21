@@ -21,7 +21,7 @@
             echo json_encode($tc->getTournamentByName($conn, $_GET["name"]));
         }
         else{
-            echo json_encode($tc->getAll($conn, $tournament));
+            echo json_encode($tc->getAll($conn));
         }
     }else{
         http_response_code(405);

@@ -1,28 +1,21 @@
 <?php
 
 class EventController{
-    function getEventsByMatchId($conn, $id, $event){
-        $sql = "SELECT * FROM foottour.events WHERE match_id = '$id'";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            $events = array();
-            $i = 0;
-            while ($row = mysqli_fetch_row($result)) {
-                $event = new Event();
-                $event->id = $row[0];
-                $event->matchId = $row[1];
-                $event->playerId = $row[2];
-                $event->type = $row[3];
-                $event->minute = $row[4];
-                array_push($events, $event);
-                ++$i;
-            }
-            return $events;
+    function getEventsByMatchId($conn, $id){
+        $sql = "SELECT * FROM foottour.events WHERE match_id = ?";
+
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
+        $id = htmlspecialchars(strip_tags($id));
+        $stmt->bind_param("i",$id);
+        if ($stmt->execute() === false) return false;
+        $result = $stmt->get_result();
+        $events = array();
+        while($row = $result->fetch_object()){
+            array_push($events,$row);
         }
-        else{
-            return false;
+        return $events;
         }
-    }
 }
 
 ?>

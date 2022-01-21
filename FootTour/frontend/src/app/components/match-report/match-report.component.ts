@@ -4,6 +4,7 @@ import { Match } from 'src/app/models/Match';
 import { MatchService } from 'src/app/services/match.service';
 import { PlayerService } from 'src/app/services/player.service';
 import { UserService } from 'src/app/services/user.service';
+import { event } from 'src/app/interfaces/event';
 
 @Component({
   selector: 'app-match-report',
@@ -21,7 +22,9 @@ export class MatchReportComponent implements OnInit {
   match!: Match;
   team1Players: Player[] = [];
   team2Players: Player[] = [];
-  events: Event[] = [];
+  team1PlayersWithEvents: Player[] = [];
+  team2PlayersWithEvents: Player[] =[];
+  events: event[] = [];
 
   constructor(private matchService: MatchService, private playerService: PlayerService, private userService: UserService) { }
 
@@ -33,15 +36,17 @@ export class MatchReportComponent implements OnInit {
     this.matchService.getMatchById(this.id).subscribe(
       (result: any) =>{
         console.log(result);
-        this.team1Name = result.team1Name;
-        this.team2Name = result.team2Name;
+        this.team1Name = result.team1Name.name;
+        this.team2Name = result.team2Name.name;
         this.team1Goals = result.team1Goals;
         this.team2Goals = result.team2Goals;
         this.team1Players = result.team1Players;
         this.team2Players = result.team2Players;
-        this.refereeName = result.refereeName;
-        this.tournamentName = result.tournamentName;
+        this.refereeName = result.refereeName.name;
+        this.tournamentName = result.tournamentName.name;
         this.events = result.events;
+        this.team1PlayersWithEvents = this.matchService.setEventsToPlayers(this.events, this.team1Players);
+        this.team2PlayersWithEvents = this.matchService.setEventsToPlayers(this.events, this.team2Players)
       },
       error=>{
         console.log(error);

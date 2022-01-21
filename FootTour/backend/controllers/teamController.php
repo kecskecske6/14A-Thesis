@@ -2,26 +2,22 @@
 
 class TeamController{
     
-    function getTeamsByTournamentId($conn, $tournamentId, $team){
+    function getTeamsByTournamentId($conn, $tournamentId){
         $sql = "SELECT * FROM foottour.teams_to_tournaments INNER JOIN foottour.tournaments
-          ON teams_to_tournaments.tournament_id = tournaments.id WHERE tournaments.id = '$tournamentId'";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            $teams = array();
-            $i = 0;
-            while ($row = mysqli_fetch_row($result)){
-                $team = new Team();
-                $team->id = $row[0];
-                $team->leaderId = $row[1];
-                $team->name = $row[2];
-                array_push($teams, $team);
-                $i++;
-            }
-            return $teams;
+          ON teams_to_tournaments.tournament_id = tournaments.id WHERE tournaments.id = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
+
+        $tournamentId = htmlspecialchars(strip_tags($tournamentId));
+
+        $stmt->bind_param("i",$tournamentId);
+        if ($stmt->execute() === false) return false;
+        $result = $stmt->get_result();
+        $teams = array();
+        while($row = $result->fetch_object()){
+            array_push($teams,$row);
         }
-        else{
-            http_response_code(404);
-        }
+        return $teams;
     }
 }
 ?>

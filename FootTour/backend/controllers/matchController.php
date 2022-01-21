@@ -1,10 +1,15 @@
 <?php
 class MatchController{
  
-function getById($conn, $id, $match, $player, $userController, $tournamentController, $ec, $event){
-    $sql = "SELECT * FROM foottour.matches WHERE id = '$id'";
-    $result = $conn->query($sql);
-    if($result != false){
+function getById($conn, $id, $match, $userController, $tournamentController, $ec){
+    $sql = "SELECT * FROM foottour.matches WHERE id = ?";
+
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) return false;
+    $id = htmlspecialchars(strip_tags($id));
+    $stmt->bind_param("i",$id);
+    if ($stmt->execute() === false) return false;
+    $result = $stmt->get_result();
         $row = mysqli_fetch_row($result);
         $match->id = $row[0];
         $match->tournamentId = $row[1];
@@ -14,25 +19,20 @@ function getById($conn, $id, $match, $player, $userController, $tournamentContro
         $match->team1Goals = $row[5];
         $match->team2Goals = $row[6];
         $match->code = $row[7];
-        $match->team1Players = $this->getPlayersByMatchId($conn, $id, $row[2], $player);
-        $match->team2Players = $this->getPlayersByMatchId($conn, $id, $row[3], $player);
+        $match->team1Players = $this->getPlayersByMatchId($conn, $id, $row[2]);
+        $match->team2Players = $this->getPlayersByMatchId($conn, $id, $row[3]);
         $match->team1Name = $this->getTeamNameById($conn, $match->team1Id);
         $match->team2Name = $this->getTeamNameById($conn, $match->team2Id);
         $match->refereeName = $userController->getNameById($conn, $row[4]);
         $match->tournamentName = $tournamentController->getNameById($conn, $row[1]);
-        $match->events = $ec->getEventsByMatchId($conn, $row[0], $event);
-        http_response_code(200);
-        echo json_encode($match);
-    }
-    else{
-        http_response_code(404);
-        echo json_encode(array("message" => "Nem található mérkőzés"));
-    }
+        $match->events = $ec->getEventsByMatchId($conn, $row[0]);
+        return $match;
 }
 
 
-function getPlayersByMatchId($conn, $id, $teamId, $player){
+function getPlayersByMatchId($conn, $id, $teamId){
     $sql = "SELECT
+    players.id,
     players.name,
     players.kit_number
   FROM foottour.players_to_teams
@@ -46,32 +46,30 @@ function getPlayersByMatchId($conn, $id, $teamId, $player){
         ON teams_to_tournaments.tournament_id = tournaments.id
     INNER JOIN foottour.matches
         ON matches.tournament_id = tournaments.id
-      WHERE matches.id = '$id' AND teams.id = '$teamId'";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        $players = array();
-        $i = 0;
-        while ($row = mysqli_fetch_row($result)) {
-            $player = new Player();
-            $player->name = $row[0];
-            $player->kitNumber = $row[1];
-            array_push($players,$player);
-            $i++;
-        }
+      WHERE matches.id = ? AND teams.id = ?";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) return false;
+    $id = htmlspecialchars(strip_tags($id));
+    $teamId = htmlspecialchars(strip_tags($teamId));
+    $stmt->bind_param("ii",$id, $teamId);
+    if ($stmt->execute() === false) return false;
+    $result = $stmt->get_result();
+    $players = array();
+    while($row = $result->fetch_object()){
+        array_push($players,$row);
     }
     return $players;
 }
 
 function getTeamNameById($conn, $id){
-    $sql = "SELECT name FROM foottour.teams WHERE id = '$id'";
-    $result = $conn->query($sql);
-    if($result != false){
-        $row = mysqli_fetch_row($result);
-        return $row;
-    }
-    else{
-        http_response_code(404);
-    }
+    $sql = "SELECT name FROM foottour.teams WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) return false;
+    $id = htmlspecialchars(strip_tags($id));
+    $stmt->bind_param("i",$id);
+    if ($stmt->execute() === false) return false;
+    $result = $stmt->get_result();
+    return $result->fetch_object();
 }
 }
 ?>

@@ -17,9 +17,8 @@ $mc = new MatchController();
 $uc = new UserController();
 $tc = new TournamentController();
 $ec = new eventController();
-$event = new Event();
 
 if($auth->authorize() != null){
-    $mc->getById($conn, $_GET['matchId'], $match, $player, $uc, $tc, $ec, $event);
+    echo json_encode($mc->getById($conn, $_GET['matchId'], $match, $uc, $tc, $ec));
 }
 ?>

@@ -1,7 +1,7 @@
 export interface event{
     id: number,
-    matchId: number,
-    playerId: number,
+    match_id: number,
+    player_id: number,
     type: string,
     minute: number
 }
