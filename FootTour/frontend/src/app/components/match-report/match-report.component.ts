@@ -21,6 +21,8 @@ export class MatchReportComponent implements OnInit {
   match!: Match;
   team1Players: Player[] = [];
   team2Players: Player[] = [];
+  events: Event[] = [];
+
   constructor(private matchService: MatchService, private playerService: PlayerService, private userService: UserService) { }
 
   ngOnInit(): void {
@@ -39,6 +41,7 @@ export class MatchReportComponent implements OnInit {
         this.team2Players = result.team2Players;
         this.refereeName = result.refereeName;
         this.tournamentName = result.tournamentName;
+        this.events = result.events;
       },
       error=>{
         console.log(error);
