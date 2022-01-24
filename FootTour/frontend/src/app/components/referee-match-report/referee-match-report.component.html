@@ -1,14 +1,16 @@
 <div id="container" class="container">
+  <form [formGroup]="matchreport" (ngSubmit)="onSubmit()">
     <div id="head" class="mx-auto">
-        <div *ngFor="let match of match" class="row">
-            <h2 class="col text-end">{{match.team1name}}</h2>
-            <h2 class="col text-center"> <input type="number" class="inputTeamScore me-sm-3" name="team1score" id="team1Score"> - <input type="number" class="inputTeamScore ms-sm-3" name="team1score" id="team1score"></h2>
-            <h2 class="col text-start">{{match.team2name}}</h2>
+        <div  class="row">
+            <h2 class="col text-end">{{team1Name}}</h2>
+            <h2 class="col text-center"> <input type="number" formControlName="team1Score" class="inputTeamScore me-sm-3" name="team1score" id="team1Score"> - 
+            <input type="number" formControlName="team2Score" class="inputTeamScore ms-sm-3" name="team1score" id="team1score"></h2>
+            <h2 class="col text-start">{{team2Name}}</h2>
         </div>
     </div>
     <hr class="mx-auto">
     <div id="body" class="row text-center">
-        <div id="team1name" *ngFor="let match of match" class="teamName mt-5">{{match.team1name}}</div>
+        <div id="team1name" class="teamName mt-5">{{team1Name}}</div>
         <table class="table col-lg-12 mb-5 mt-3 mx-auto">
             <thead>
                 <tr>
@@ -20,19 +22,17 @@
                   </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let player of players">
-                <ng-template [ngIf] = "player.team == 'ittASöröm'">
-                <th class="col-1" scope="row">{{player.number}}</th>
+              <tr *ngFor="let player of team1Players">
+                <th class="col-1" scope="row">{{player.kit_number}}</th>
                 <td class="col-6 text-start">{{player.name}}</td>
                 <td class="col-3"><input type="number" class="inputTeamScore" name="team1score" id="team1Score"></td>
-                <td class="col-1"><i *ngIf="!player.yellow_card" class="bi bi-plus-circle"></i><img *ngIf="player.yellow_card" src="../../../assets/match report/yellow_card.png" alt=""><i *ngIf="player.yellow_card" class="bi bi-dash-circle"></i></td>
-                <td class="col-1"><i *ngIf="!player.red_card" class="bi bi-plus-circle"></i><img *ngIf="player.red_card" src="../../../assets/match report/red_card.png" alt=""><i *ngIf="player.red_card" class="bi bi-dash-circle"></i></td>
-              </ng-template>
+                <td class="col-1"><i  class="bi bi-plus-circle"></i><img src="../../../assets/match report/yellow_card.png" alt=""><i class="bi bi-dash-circle"></i></td>
+                <td class="col-1"><i  class="bi bi-plus-circle"></i><img src="../../../assets/match report/red_card.png" alt=""><i class="bi bi-dash-circle"></i></td>
               </tr>
             </tbody>
           </table>
-          <div *ngFor="let match of match" class="teamName mt-5">{{match.team2name}}</div>
-          <table class="table col-lg-12 mt-3 mx-auto">
+          <div class="teamName mt-5">{{team2Name}}</div>
+          <!-- <table class="table col-lg-12 mt-3 mx-auto">
               <thead>
                 <th scope="col">Mezszám</th>
                 <th scope="col" class="text-start">Név</th>
@@ -55,9 +55,10 @@
             <div *ngFor="let item of match">
               <div><h5>Játékvezető: <input type="text" name="referee" id="inputRefereeName"></h5></div>
               {{item.tournament}}
-            </div>
+            </div> -->
             <div>
-                <input type="button" class="btn btn-primary btn-lg w-25 mt-4" value="Rögzítés">
+                <input type="submit" class="btn btn-primary btn-lg w-25 mt-4" value="Rögzítés">
             </div>
-    </div>
+          </div>
+  </form>
 </div>
