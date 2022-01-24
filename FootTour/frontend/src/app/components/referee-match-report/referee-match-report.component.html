@@ -26,13 +26,25 @@
                 <th class="col-1" scope="row">{{player.kit_number}}</th>
                 <td class="col-6 text-start">{{player.name}}</td>
                 <td class="col-3"><input type="number" class="inputTeamScore" name="team1score" id="team1Score"></td>
-                <td class="col-1"><i  class="bi bi-plus-circle"></i><img src="../../../assets/match report/yellow_card.png" alt=""><i class="bi bi-dash-circle"></i></td>
-                <td class="col-1"><i  class="bi bi-plus-circle"></i><img src="../../../assets/match report/red_card.png" alt=""><i class="bi bi-dash-circle"></i></td>
+                <td class="col-1">
+                  <ng-template [ngIf] = "player.yellow_cards > 0" [ngIfElse]="yellowPlus">
+                    <img src="../../../assets/match report/yellow_card.png" alt="">
+                    <i class="bi bi-dash-circle"></i>
+                  </ng-template>
+                  <ng-template #yellowPlus><i (click)="yellowAdd(player)" class="bi bi-plus-circle"></i></ng-template>
+                </td>
+                <td class="col-1">
+                  <ng-template [ngIf] = "player.red_cards > 0" [ngIfElse]="redPlus">
+                  <img src="../../../assets/match report/red_card.png" alt="">
+                  <i class="bi bi-dash-circle"></i>
+                  </ng-template>
+                  <ng-template #redPlus><i class="bi bi-plus-circle" (click)="redAdd(player)"></i></ng-template>
+                </td>
               </tr>
             </tbody>
           </table>
           <div class="teamName mt-5">{{team2Name}}</div>
-          <!-- <table class="table col-lg-12 mt-3 mx-auto">
+            <table class="table col-lg-12 mt-3 mx-auto">
               <thead>
                 <th scope="col">Mezszám</th>
                 <th scope="col" class="text-start">Név</th>
@@ -41,21 +53,31 @@
                 <th scope="col">Piros</th>
               </thead>
               <tbody>
-                <tr *ngFor="let player of players">
-                  <ng-template [ngIf] = "player.team == 'AS Róka'">
-                    <th class="col-1" scope="row">{{player.number}}</th>
+                <tr *ngFor="let player of team2Players">
+                    <th class="col-1" scope="row">{{player.kit_number}}</th>
                     <td class="col-6 text-start">{{player.name}}</td>
                     <td class="col-3"><input type="number" class="inputTeamScore" name="team1score" id="team1Score"></td>
-                    <td class="col-1"><i *ngIf="!player.yellow_card" class="bi bi-plus-circle"></i><img *ngIf="player.yellow_card" src="../../../assets/match report/yellow_card.png" alt=""><i *ngIf="player.yellow_card" class="bi bi-dash-circle"></i></td>
-                    <td class="col-1"><i *ngIf="!player.red_card" class="bi bi-plus-circle"></i><img *ngIf="player.red_card" src="../../../assets/match report/red_card.png" alt=""><i *ngIf="player.red_card" class="bi bi-dash-circle"></i></td>
-                </ng-template>
+                    <td class="col-1">
+                      <ng-template [ngIf] = "player.yellow_cards > 0" [ngIfElse]="yellowPlus">
+                        <img src="../../../assets/match report/yellow_card.png" alt="">
+                        <i class="bi bi-dash-circle"></i>
+                      </ng-template>
+                      <ng-template #yellowPlus><i class="bi bi-plus-circle"></i></ng-template>
+                    </td>
+                    <td class="col-1">
+                      <ng-template [ngIf] = "player.red_cards > 0" [ngIfElse]="redPlus">
+                        <img src="../../../assets/match report/red_card.png" alt="">
+                        <i class="bi bi-dash-circle"></i>
+                        </ng-template>
+                        <ng-template #redPlus><i class="bi bi-plus-circle"></i></ng-template>
+                    </td>
                 </tr>
               </tbody>
             </table>
-            <div *ngFor="let item of match">
+            <div>
               <div><h5>Játékvezető: <input type="text" name="referee" id="inputRefereeName"></h5></div>
-              {{item.tournament}}
-            </div> -->
+              <!-- {{item.tournament}} -->
+            </div>
             <div>
                 <input type="submit" class="btn btn-primary btn-lg w-25 mt-4" value="Rögzítés">
             </div>

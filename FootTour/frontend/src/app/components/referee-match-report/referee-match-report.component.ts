@@ -33,8 +33,8 @@ export class RefereeMatchReportComponent implements OnInit {
       console.log(result);
       this.team1Name = result.team1Name.name;
       this.team2Name = result.team2Name.name;
-      this.team1Players = result.team1Players;
-      this.team2Players = result.team2Players;
+      this.team1Players = this.matchService.setPlayerProperties(result.team1Players);
+      this.team2Players = this.matchService.setPlayerProperties(result.team2Players);
     },
     error=>{
       console.log(error);
@@ -43,6 +43,13 @@ export class RefereeMatchReportComponent implements OnInit {
 
   onSubmit(){
     console.log(this.matchreport.controls.team1Score.value);
+  }
 
+  yellowAdd(player: Player){
+    player.yellow_cards++;
+  }
+
+  redAdd(player: Player){
+    player.red_cards++;
   }
 }

@@ -18,11 +18,7 @@ export class MatchService {
   }
 
   setEventsToPlayers(events: event[], players: Player[]){
-      players.forEach(player => {
-        player.goals=0;
-        player.yellow_cards = 0;
-        player.red_cards = 0;
-      });
+      players = this.setPlayerProperties(players);
       players.forEach(player => {
         player.number_of_goals_in_a_match = [];
         events.forEach(event => {
@@ -46,5 +42,14 @@ export class MatchService {
         console.log(player.number_of_goals_in_a_match);
       });
       return players;
+  }
+
+  setPlayerProperties(players: Player[]){
+    players.forEach(player => {
+      player.goals=0;
+      player.yellow_cards = 0;
+      player.red_cards = 0;
+    });
+    return players;
   }
 }
