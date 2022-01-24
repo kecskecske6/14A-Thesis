@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Event } from '@angular/router';
+import { event } from 'src/app/models/Event';
 import { Player } from 'src/app/models/Player';
 import { MatchService } from 'src/app/services/match.service';
 
@@ -11,20 +13,25 @@ import { MatchService } from 'src/app/services/match.service';
 export class RefereeMatchReportComponent implements OnInit {
 
   id = 1;
+  underModify = {
+    index: -1,
+    modifying: false
+  }
+  minute!: number;
   matchreport!: FormGroup;
   team1Name = "";
   team2Name = "";
+  team1Goals = 0;
+  team2Goals = 0;
   team1Players: Player[] = [];
   team2Players: Player[] = [];
+  event: event = new event();
+  events: event[] = [];
   
-  constructor(private fb: FormBuilder, private matchService: MatchService) { }
+  constructor(private matchService: MatchService) { }
 
   ngOnInit(): void {
     this.getMatchById();
-    this.matchreport = this.fb.group({
-      team1Score: [0],
-      team2Score: [0]
-    });
   }
 
   getMatchById(){
@@ -45,11 +52,36 @@ export class RefereeMatchReportComponent implements OnInit {
     console.log(this.matchreport.controls.team1Score.value);
   }
 
-  yellowAdd(player: Player){
-    player.yellow_cards++;
+  eventAssign(player: Player, type: string, index: number){
+    if(type == "yellowCard" && !this.underModify.modifying) player.yellow_cards++;
+    else if(type == "redCard" && !this.underModify.modifying) player.red_cards++;
+    else if(type == "goal" && this.underModify.index != index && !this.underModify.modifying){
+      this.underModify.index = index;
+      this.underModify.modifying = true;
+    }
   }
 
-  redAdd(player: Player){
-    player.red_cards++;
+  saveGoal(player: Player, type: string){
+    this.event = new event;
+    this.event.match_id = this.id;
+    this.event.player_id = player.id;
+    this.event.type = type;
+    this.event.minute = this.minute;
+    this.events.push(this.event);
+    console.log(this.events);
+    this.stopModify(player);
+  }
+
+  removeCard(player: Player, type: string){
+    if(type == "yellowCard") player.yellow_cards--;
+    else player.red_cards--;
+  }
+
+
+  stopModify(player: Player){
+      // this.underModify.modifiedPlayer = player;
+      this.underModify.modifying = false;
+      this.underModify.index = -1;
+      this.minute = 0;
   }
 }

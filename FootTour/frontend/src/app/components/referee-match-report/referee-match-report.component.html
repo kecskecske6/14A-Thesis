@@ -1,10 +1,11 @@
 <div id="container" class="container">
-  <form [formGroup]="matchreport" (ngSubmit)="onSubmit()">
+  <form>
     <div id="head" class="mx-auto">
         <div  class="row">
             <h2 class="col text-end">{{team1Name}}</h2>
-            <h2 class="col text-center"> <input type="number" formControlName="team1Score" class="inputTeamScore me-sm-3" name="team1score" id="team1Score"> - 
-            <input type="number" formControlName="team2Score" class="inputTeamScore ms-sm-3" name="team1score" id="team1score"></h2>
+            <!-- <h2 class="col text-center"> <input type="number" formControlName="team1Score" class="inputTeamScore me-sm-3" name="team1score" id="team1Score"> -->
+            <!-- <input type="number" formControlName="team2Score" class="inputTeamScore ms-sm-3" name="team1score" id="team1score"></h2> -->
+             <h2 class="col text-center">{{team1Goals}} - {{team2Goals}}</h2>
             <h2 class="col text-start">{{team2Name}}</h2>
         </div>
     </div>
@@ -16,29 +17,43 @@
                 <tr>
                     <th scope="col">Mezszám</th>
                     <th scope="col" class="text-start">Név</th>
-                    <th scope="col" class="text-center">Gól</th>
+                    <th scope="col" class="text-center" *ngIf="underModify.modifying">Perc</th>
+                    <th scope="col" class="text-center" *ngIf="!underModify.modifying">Gól</th>
                     <th scope="col">Sárga</th>
                     <th scope="col">Piros</th>
                   </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let player of team1Players">
+              <tr *ngFor="let player of team1Players; let i = index" [attr.data-index]="i">
                 <th class="col-1" scope="row">{{player.kit_number}}</th>
-                <td class="col-6 text-start">{{player.name}}</td>
-                <td class="col-3"><input type="number" class="inputTeamScore" name="team1score" id="team1Score"></td>
+                <td class="col-4 text-start">{{player.name}}</td>
+                <ng-template [ngIf]="!underModify.modifying || underModify.index != i" [ngIfElse]="goalModify">
+                <td class="col-3">
+                  <!-- <input type="number" class="inputTeamScore" name="team1score" id="team1Score"> -->
+                    <i class="bi bi-plus-circle" (click)="eventAssign(player, 'goal', i)"></i>
+                  </td>
+                  </ng-template>
+                  <ng-template #goalModify>
+                    <td class="col-3">
+                      <input type="number" name="goalMinute" id="inGoalMinute" placeholder="Perc" [(ngModel)]="minute">
+                      <i class="bi bi-check-circle ms-2" (click)="saveGoal(player, 'goal')"></i>
+                      <i class="bi bi-x-circle ms-2" (click)="stopModify(player)"></i>
+                    </td>
+                  </ng-template>
+                
                 <td class="col-1">
                   <ng-template [ngIf] = "player.yellow_cards > 0" [ngIfElse]="yellowPlus">
-                    <img src="../../../assets/match report/yellow_card.png" alt="">
-                    <i class="bi bi-dash-circle"></i>
+                    <img src="../../../assets/match report/yellow_card.png">
+                    <i class="bi bi-dash-circle" (click)="removeCard(player, 'yellowCard')"></i>
                   </ng-template>
-                  <ng-template #yellowPlus><i (click)="yellowAdd(player)" class="bi bi-plus-circle"></i></ng-template>
+                  <ng-template #yellowPlus><i (click)="eventAssign(player, 'yellowCard', i)" class="bi bi-plus-circle"></i></ng-template>
                 </td>
                 <td class="col-1">
                   <ng-template [ngIf] = "player.red_cards > 0" [ngIfElse]="redPlus">
-                  <img src="../../../assets/match report/red_card.png" alt="">
-                  <i class="bi bi-dash-circle"></i>
+                  <img src="../../../assets/match report/red_card.png">
+                  <i class="bi bi-dash-circle" (click)="removeCard(player, 'redCard')"></i>
                   </ng-template>
-                  <ng-template #redPlus><i class="bi bi-plus-circle" (click)="redAdd(player)"></i></ng-template>
+                  <ng-template #redPlus><i class="bi bi-plus-circle" (click)="eventAssign(player, 'redCard', i)"></i></ng-template>
                 </td>
               </tr>
             </tbody>
@@ -53,23 +68,23 @@
                 <th scope="col">Piros</th>
               </thead>
               <tbody>
-                <tr *ngFor="let player of team2Players">
+                <tr *ngFor="let player of team2Players let i = index" [attr.data-index]="i">
                     <th class="col-1" scope="row">{{player.kit_number}}</th>
                     <td class="col-6 text-start">{{player.name}}</td>
                     <td class="col-3"><input type="number" class="inputTeamScore" name="team1score" id="team1Score"></td>
                     <td class="col-1">
                       <ng-template [ngIf] = "player.yellow_cards > 0" [ngIfElse]="yellowPlus">
-                        <img src="../../../assets/match report/yellow_card.png" alt="">
-                        <i class="bi bi-dash-circle"></i>
+                        <img src="../../../assets/match report/yellow_card.png">
+                        <i class="bi bi-dash-circle" (click)="removeCard(player, 'yellowCard')"></i>
                       </ng-template>
-                      <ng-template #yellowPlus><i class="bi bi-plus-circle"></i></ng-template>
+                      <ng-template #yellowPlus><i class="bi bi-plus-circle" (click)="eventAssign(player, 'yellowCard', i)"></i></ng-template>
                     </td>
                     <td class="col-1">
                       <ng-template [ngIf] = "player.red_cards > 0" [ngIfElse]="redPlus">
-                        <img src="../../../assets/match report/red_card.png" alt="">
-                        <i class="bi bi-dash-circle"></i>
+                        <img src="../../../assets/match report/red_card.png">
+                        <i class="bi bi-dash-circle" (click)="removeCard(player, 'redCard')"></i>
                         </ng-template>
-                        <ng-template #redPlus><i class="bi bi-plus-circle"></i></ng-template>
+                        <ng-template #redPlus><i class="bi bi-plus-circle" (click)="eventAssign(player, 'redCard', i)"></i></ng-template>
                     </td>
                 </tr>
               </tbody>
