@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { event } from '../interfaces/event';
-import { Player } from '../models/Player';
+import { Event } from '../interfaces/event';
+import { PlayerModel } from '../models/Player';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +17,11 @@ export class MatchService {
     return this.http.get<any>(`${environment.backendURL}/api/matches/getById.php?matchId=${id}`);
   }
 
-  setEventsToPlayers(events: event[], players: Player[]){
+  setEventsToPlayers(events: Event[], players: PlayerModel[]){
       players.forEach(player => {
         player.goals=0;
-        player.yellow_cards = 0;
-        player.red_cards = 0;
+        player.yellowCards = 0;
+        player.redCards = 0;
       });
       players.forEach(player => {
         player.number_of_goals_in_a_match = [];
@@ -33,10 +33,10 @@ export class MatchService {
                   player.number_of_goals_in_a_match.push(event.minute);
                 break;
               case "yellowCard":
-                  player.yellow_cards = event.minute;
+                  player.yellowCards = event.minute;
                 break;
               case "redCard":
-                  player.red_cards = event.minute;
+                  player.redCards = event.minute;
                 break;
               default:
                 break;

@@ -1,19 +1,21 @@
-export class TournamentModel{
+import { Tournament } from "../interfaces/tournament";
+
+export class TournamentModel implements Tournament {
     id = 0;
     organizerId = 0;
     startDate: Date = new Date();
     endDate: Date = new Date();
     name = '';
     location = '';
-    bestPlayer: string |null = null;
-    topScorer: string |null = null;
-    bestGoalkeeper: string |null = null;
+    bestPlayer: string | null = null;
+    topScorer: string | null = null;
+    bestGoalkeeper: string | null = null;
     entryFee = 0;
     teamsCount = 0;
     description = '';
 
-    constructor(model: any = undefined){
-        if(model){
+    constructor(model: any = undefined) {
+        if (model) {
             this.id = Number(model.id);
             this.organizerId = Number(model.organizerId);
             this.startDate = new Date(model.startDate);

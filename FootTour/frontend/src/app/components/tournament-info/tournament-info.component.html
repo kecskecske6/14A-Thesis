@@ -1,23 +1,21 @@
 <div id="container" class="d-flex mx-auto">
     <div class="col">
     <div id="infoHead" class="text-center">
-    <h2>Mikulás kupa</h2>
+    <h2>{{tournament.name}}</h2>
    </div>
-         <div class="text-center mt-5">Szervező: Teszt Elek</div>
+         <div class="text-center mt-5">Szervező: {{tournament.organizerId}}</div>
          <hr class="mx-auto">
-         <div class="text-center mt-3">Helyszín: Győr, Szent István út 10.</div>
+         <div class="text-center mt-3">Helyszín: {{tournament.location}}</div>
          <hr class="mx-auto">
-         <div class="text-center mt-3">Nevezési díj: 10.000Ft</div>
+         <div class="text-center mt-3">Nevezési díj: {{tournament.entryFee}}Ft</div>
          <hr class="mx-auto">
-         <div class="text-center mt-3">Csapatok száma: 12/32</div>
+         <div class="text-center mt-3">Csapatok száma: {{teams.length}}/{{tournament.teamsCount}}</div>
          <hr class="mx-auto">
-         <div class="text-center mt-3">Kezdési időpont: 2022.01.01 8:00</div>
+         <div class="text-center mt-3">Kezdési időpont: {{tournament.startDate}}</div>
          <hr class="mx-auto">
          <div class="text-center mt-3">Leírás</div>
          <div id="description" class=" mx-auto mt-3">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint ullam dignissimos laborum ad reprehenderit sunt perferendis impedit a quam nisi quae quis vel, consectetur earum hic non ipsa? Sequi, aliquam.
-            Mollitia consectetur corporis totam sunt! Aliquam esse voluptate quidem et optio, iusto maxime eius? Fuga explicabo ullam voluptate assumenda distinctio, architecto et maxime iste at, omnis ut veritatis illum aspernatur?
-            Libero nulla tempore ipsum enim deleniti. Error esse, consequatur omnis maiores iusto minus saepe a. Ipsum nemo officiis libero distinctio, nisi vel dolorem ad deserunt error doloribus? Minus, dignissimos pariatur.
+            {{tournament.description}}
          </div>
 </div>
 </div>

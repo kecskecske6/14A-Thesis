@@ -25,7 +25,7 @@
     }
     
     function getByOrganizerId($conn, $id){
-            $sql = "SELECT * from foottour.tournaments WHERE organizer_Id = ?";
+            $sql = "SELECT * from foottour.tournaments WHERE organizer_id = ?";
             $stmt = $conn->prepare($sql);
             if ($stmt === false) return false;
             $id = htmlspecialchars(strip_tags($id));

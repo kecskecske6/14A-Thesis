@@ -66,14 +66,14 @@ export class OrganizerTournamentDashboardComponent implements OnInit {
   }
 
   getTeams(): void {
-    this.teamService.getAllByTournamentId(4).subscribe(
+    this.teamService.getAllByTournamentId(1).subscribe(
       (data: Team[]) => this.teams = data,
       err => console.log(err)
     );
   }
 
   getTournamentInfo(): void {
-    this.tournamentService.getById(4).subscribe(
+    this.tournamentService.getById(1).subscribe(
       (data: TournamentModel) => this.tournament = data,
       err => console.log(err)
     );

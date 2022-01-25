@@ -1,4 +1,6 @@
-export class Match{
+import { Match } from "../interfaces/match";
+
+export class MatchModel implements Match {
     id = 0;
     tournamentId = 0;
     team1Id = 0;
@@ -12,8 +14,8 @@ export class Match{
     team2Name = "";
     refereeName = "";
 
-    constructor(match: any = undefined){
-        if(match){
+    constructor(match: any = undefined) {
+        if (match) {
             this.id = match.id;
             this.tournamentId = match.tournamentId;
             this.team1Id = match.team1Id;
