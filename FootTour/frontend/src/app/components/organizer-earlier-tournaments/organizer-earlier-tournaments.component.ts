@@ -13,18 +13,19 @@ export class OrganizerEarlierTournamentsComponent implements OnInit {
 
   tournaments: Tournament[] = [];
 
-  constructor(private http: HttpClient, private tournamentService: TournamentService, private auth: AuthService) {}
+  constructor(private http: HttpClient, private tournamentService: TournamentService, private auth: AuthService) { }
 
   ngOnInit(): void {
     this.getTournaments();
   }
-  getTournaments() : void{
+  getTournaments(): void {
     this.tournamentService.getAllByUserId(Number(this.auth.getId())).subscribe(
-      (result: Tournament[])=>{
+      (result: Tournament[]) => {
         this.tournaments = result;
       },
-      error=>{
+      error => {
         console.log(error);
       });
+      console.log(this.tournaments);
   }
 }
