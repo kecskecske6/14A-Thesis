@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Team } from 'src/app/interfaces/team';
 import { TournamentModel } from 'src/app/models/Tournament';
 import { TeamService } from 'src/app/services/team.service';
@@ -49,7 +50,7 @@ export class OrganizerTournamentDashboardComponent implements OnInit {
   ]*/
 
 
-  constructor(private teamService: TeamService, private tournamentService: TournamentService) { }
+  constructor(private teamService: TeamService, private tournamentService: TournamentService, private router: Router) { }
   /*ngOnInit(): void {
     this.getTournaments();
   }
@@ -66,14 +67,14 @@ export class OrganizerTournamentDashboardComponent implements OnInit {
   }
 
   getTeams(): void {
-    this.teamService.getAllByTournamentId(2).subscribe(
+    this.teamService.getAllByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
       (data: Team[]) => this.teams = data,
       err => console.log(err)
     );
   }
 
   getTournamentInfo(): void {
-    this.tournamentService.getById(2).subscribe(
+    this.tournamentService.getById(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
       (data: TournamentModel) => this.tournament = new TournamentModel(data),
       err => console.log(err)
     );

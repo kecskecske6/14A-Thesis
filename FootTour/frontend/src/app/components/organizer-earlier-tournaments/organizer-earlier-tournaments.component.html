@@ -11,7 +11,7 @@
           Szervező: {{tournament.organizerId}} <br>
           Helyszín: {{tournament.location}} <br>
           Nevezési díj: {{tournament.entryFee}} Ft<br>
-          Időpont: {{tournament.startDate}}
+          Időpont: {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}
         </p>
         <input type="button" class="btn btn-primary btn-large" value="Részletek" [routerLink]="'/mytournaments/' + tournament.id">
       </div>
@@ -31,7 +31,7 @@
           Szervező: {{tournament.organizerId}} <br>
           Helyszín: {{tournament.location}} <br>
           Nevezési díj: {{tournament.entryFee}} Ft<br>
-          Időpont: {{tournament.startDate}}
+          Időpont: {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}
         </p>
         <input type="button" class="btn btn-primary btn-large" value="Részletek">
       </div>

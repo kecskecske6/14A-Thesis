@@ -11,7 +11,7 @@
          <hr class="mx-auto">
          <div class="text-center mt-3">Csapatok száma: {{teams.length}}/{{tournament.teamsCount}}</div>
          <hr class="mx-auto">
-         <div class="text-center mt-3">Kezdési időpont: {{tournament.startDate}}</div>
+         <div class="text-center mt-3">Kezdési időpont: {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}</div>
          <hr class="mx-auto">
          <div class="text-center mt-3">Leírás</div>
          <div id="description" class=" mx-auto mt-3">
