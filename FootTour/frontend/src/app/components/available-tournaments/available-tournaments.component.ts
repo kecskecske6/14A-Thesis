@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Tournament } from 'src/app/interfaces/tournament';
+import { TournamentModel } from 'src/app/models/Tournament';
 import { TournamentService } from 'src/app/services/tournament.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { TournamentService } from 'src/app/services/tournament.service';
 })
 export class AvailableTournamentsComponent implements OnInit {
 
-  tournaments: Tournament[] = [];
+  tournaments: TournamentModel[] = [];
 
   constructor(private tournamentService: TournamentService) { }
 
@@ -19,7 +19,11 @@ export class AvailableTournamentsComponent implements OnInit {
 
   getTournaments(): void {
     this.tournamentService.getAll().subscribe(
-      (data: Tournament[]) => this.tournaments = data,
+      (data: TournamentModel[]) => {
+        data.forEach(t => {
+          this.tournaments.push(new TournamentModel(t));
+        });
+      },
       err => console.log(err)
     );
   }

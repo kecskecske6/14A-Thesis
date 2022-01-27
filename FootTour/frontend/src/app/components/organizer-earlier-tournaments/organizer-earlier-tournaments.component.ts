@@ -20,6 +20,7 @@ export class OrganizerEarlierTournamentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTournaments();
+    this.getOrganizerName();
   }
   getTournaments(): void {
     this.tournamentService.getAllByUserId(Number(this.auth.getId())).subscribe(
@@ -36,7 +37,7 @@ export class OrganizerEarlierTournamentsComponent implements OnInit {
 
   getOrganizerName(): void {
     this.userService.getById(Number(this.auth.getId())).subscribe(
-      result => this.organizer = result.name,
+      result => this.organizer = result,
       error => console.log(error)
     );
   }
