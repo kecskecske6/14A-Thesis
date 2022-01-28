@@ -37,7 +37,7 @@ export class OrganizerEarlierTournamentsComponent implements OnInit {
 
   getOrganizerName(): void {
     this.userService.getById(Number(this.auth.getId())).subscribe(
-      result => this.organizer = result,
+      result => this.organizer = result.name,
       error => console.log(error)
     );
   }

@@ -1,6 +1,6 @@
 <?php
     header('Access-Control-Allow-Origin: *');
-    $conn = new mysqli('localhost', 'root', '');
+    $conn = new mysqli('localhost', 'root', '', 'foottour');
     mysqli_set_charset($conn, 'utf8');
 
     if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);

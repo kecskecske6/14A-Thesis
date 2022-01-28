@@ -2,10 +2,7 @@
     <h2 class="text-center">Mikulás kupa</h2>
     <hr>
     <br>
-    <label for="type">Típus:</label>
-    <select #t (change)="set(t.value)" class="form-select" name="type" id="type">
-        <option *ngFor="let c of types" [ngValue]="c">{{c.name}}</option>
-    </select>
+    <p class="text-center">Típus: {{tournament.type}}</p>
     <div *ngIf="tournament.type == 'Csoportkör és kieséses'">
         <label for="number">Csoportok létszáma:</label>
         <select name="number" id="number" class="form-select">

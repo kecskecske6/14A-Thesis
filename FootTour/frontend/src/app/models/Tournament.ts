@@ -13,6 +13,8 @@ export class TournamentModel implements Tournament {
     entryFee = 0;
     teamsCount = 0;
     description = '';
+    type = '';
+    groupsAmount = 0;
 
     constructor(model: any = undefined) {
         if (model) {
@@ -28,6 +30,8 @@ export class TournamentModel implements Tournament {
             this.entryFee = Number(model.entry_fee);
             this.teamsCount = Number(model.teams_count);
             this.description = model.description;
+            this.type = model.type;
+            this.groupsAmount = Number(model.groups_amount);
         }
     }
 }

@@ -11,4 +11,6 @@ export interface Tournament {
     entryFee: number;
     teamsCount: number;
     description: string;
+    type: string;
+    groupsAmount: number;
 }
