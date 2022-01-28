@@ -47,8 +47,8 @@ export class MatchService {
   setPlayerProperties(players: Player[]){
     players.forEach(player => {
       player.number_of_goals_in_a_match = [];
-      player.yellow_cards = 0;
-      player.red_cards = 0;
+      player.number_of_yellows_in_a_match = [];
+      player.redCard = 0;
     });
     return players;
   }

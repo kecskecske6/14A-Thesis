@@ -38,7 +38,8 @@
                 </div>
               </div>
             </td>
-            <ng-template [ngIf]="!underModify.modifying || underModify.team != 1 || underModify.index != i" [ngIfElse]="goalModify">
+            <!--Gól rögzítés-->
+            <ng-template [ngIf]="!underModify.modifying || underModify.team != 1 || underModify.index != i || underModify.type != 'goal'" [ngIfElse]="goalModify">
               <td class="col-1 align-middle">
                 <!-- <input type="number" class="inputTeamScore" name="team1score" id="team1Score"> -->
                 <i class="bi bi-plus-circle" (click)="eventAssign(player, 'goal', i, 1)"></i>
@@ -48,19 +49,27 @@
               <td class="col-3 align-middle">
                 <input type="number" min="1" max="120" name="goalMinute" id="inGoalMinute" placeholder="Perc"
                   [(ngModel)]="minute">
-                <i class="bi bi-check-circle ms-2" (click)="saveGoal(player, 'goal', team1Name)"></i>
+                <i class="bi bi-check-circle ms-2" (click)="saveEvent(player, 'goal', team1Name)"></i>
                 <i class="bi bi-x-circle ms-2" (click)="stopModify(player)"></i>
               </td>
             </ng-template>
-
+            <!--Sárga rögzítés-->
             <td class="col-1 align-middle">
-              <ng-template [ngIf]="player.yellow_cards > 0" [ngIfElse]="yellowPlus">
-                <img src="../../../assets/match report/yellow_card.png">
-                <i class="bi bi-dash-circle" (click)="removeCard(player, 'yellowCard')"></i>
+              <ng-template [ngIf]="!underModify.modifying || underModify.team != 1 || underModify.index != i || underModify.type != 'yellowCard'" [ngIfElse]="yellowPlus1">
+                <i (click)="eventAssign(player, 'yellowCard', i,1)" class="bi bi-plus-circle"></i>
+                <i *ngIf="player.number_of_yellows_in_a_match.length == 1" class="bi bi-dash-circle" (click)="removeCard(player, 'redCard')"></i>
               </ng-template>
-              <ng-template #yellowPlus><i (click)="eventAssign(player, 'yellowCard', i,1)" class="bi bi-plus-circle"></i>
+              <ng-template #yellowPlus1>
+                <input type="number" min="1" max="120" name="yellowMinute" id="inYellowMinute" placeholder="Perc"
+                [(ngModel)]="minute">
+              <i class="bi bi-check-circle ms-2" (click)="saveEvent(player, 'goal', team1Name)"></i>
+              <i class="bi bi-x-circle ms-2" (click)="stopModify(player)"></i>
+              </ng-template>
+              <ng-template #yellowPlus2>
+
               </ng-template>
             </td>
+            <!--Piros rögzítés-->
             <td class="col-1 align-middle">
               <ng-template [ngIf]="player.red_cards > 0" [ngIfElse]="redPlus">
                 <img src="../../../assets/match report/red_card.png">
@@ -111,7 +120,7 @@
               <td class="col-3 align-middle">
                 <input type="number" min="1" max="120" name="goalMinute" id="inGoalMinute" placeholder="Perc"
                   [(ngModel)]="minute">
-                <i class="bi bi-check-circle ms-2" (click)="saveGoal(player2, 'goal', team2Name)"></i>
+                <i class="bi bi-check-circle ms-2" (click)="saveEvent(player2, 'goal', team2Name)"></i>
                 <i class="bi bi-x-circle ms-2" (click)="stopModify(player2)"></i>
               </td>
             </ng-template>

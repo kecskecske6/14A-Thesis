@@ -7,6 +7,8 @@ export class Player{
     red_cards = -1;
     kit_number = -1;
     number_of_goals_in_a_match :number[] = [];
+    number_of_yellows_in_a_match: number[] = [];
+    redCard = 0;
 
     constructor(player: any = undefined){
         this.id = player.id;

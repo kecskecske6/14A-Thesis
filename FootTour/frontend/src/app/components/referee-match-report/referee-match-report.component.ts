@@ -17,6 +17,7 @@ export class RefereeMatchReportComponent implements OnInit {
   underModify = {
     team: 1,
     index: -1,
+    type: "",
     modifying: false
   }
   minute: number = 1;
@@ -55,25 +56,28 @@ export class RefereeMatchReportComponent implements OnInit {
   }
 
   eventAssign(player: Player, type: string, index: number, team: number){
-    if(type == "yellowCard" && !this.underModify.modifying) player.yellow_cards++;
-    else if(type == "redCard" && !this.underModify.modifying) player.red_cards++;
-    else if(type == "goal" && this.underModify.index != index && !this.underModify.modifying){
-      this.underModify.index = index;
-      this.underModify.modifying = true;
-      this.underModify.team = team;
-    }
+    this.underModify.type = type;
+    this.underModify.index = index;
+    this.underModify.modifying = true;
+    this.underModify.team = team;
   }
 
-  saveGoal(player: Player, type: string, teamName: string){
+  saveEvent(player: Player, type: string, teamName: string){
     if(this.minute > 0 && this.minute < 120){
-    this.event = new event;
-    this.event.match_id = this.id;
-    this.event.player_id = player.id;
-    this.event.type = type;
-    this.event.minute = this.minute;
-    player.number_of_goals_in_a_match.push(this.minute);
-    if(teamName == this.team1Name) this.team1Goals++;
-    else this.team2Goals++;
+      this.event = new event;
+      this.event.match_id = this.id;
+      this.event.player_id = player.id;
+      this.event.type = type;
+      this.event.minute = this.minute;
+      if(type == "goal"){
+        player.number_of_goals_in_a_match.push(this.minute);
+        if(teamName == this.team1Name) this.team1Goals++;
+        else this.team2Goals++;
+      }
+      else if(type == "yellowCard") player.number_of_yellows_in_a_match.push(this.minute);
+      else{
+        //Piros lap
+      }
     this.events.push(this.event);
     console.log(this.events);
     this.stopModify(player);
@@ -96,5 +100,6 @@ export class RefereeMatchReportComponent implements OnInit {
       this.underModify.modifying = false;
       this.underModify.index = -1;
       this.minute = 1;
+      this.underModify.type = "";
   }
 }
