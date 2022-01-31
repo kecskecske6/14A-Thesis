@@ -14,4 +14,8 @@ export class TeamstoGroupsService {
   create(model: TeamstoGroupsModel): Observable<TeamstoGroupsModel> {
     return this.http.post<TeamstoGroupsModel>(`${environment.backendURL}/api/teams_to_groups/create.php`, model);
   }
+
+  getByTournamentId(id: number): Observable<TeamstoGroupsModel[]> {
+    return this.http.get<TeamstoGroupsModel[]>(`${environment.backendURL}/api/teams_to_groups/list.php?tournamentId=${id}`);
+  }
 }

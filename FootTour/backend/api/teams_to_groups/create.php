@@ -1,7 +1,7 @@
 <?php
 include_once("../../controllers/auth.php");
 include_once("../../controllers/header.php");
-include_once("../../controllers/teamstoGroups.php");
+include_once("../../controllers/teamstoGroupsController.php");
 include_once("../connect.php");
 
 $auth = new Auth();

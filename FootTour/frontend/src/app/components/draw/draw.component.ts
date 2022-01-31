@@ -85,11 +85,11 @@ export class DrawComponent implements OnInit {
 
   saveGroups(groups: Team[][]): void {
     if (groups[0].length == 2) {
-      let i = 1;
+      let i = 0;
       let groupIndex = 0;
       groups.forEach(async g => {
         let name: string = '';
-        if (this.tournament.teamsCount == 8) name = `QF${i}`;
+        if (this.tournament.teamsCount == 8) name = `QF${++i}`;
         const model = {
           tournament_id: this.router.url.substring(this.router.url.lastIndexOf('/') + 1),
           name: name
@@ -109,7 +109,6 @@ export class DrawComponent implements OnInit {
           );
           ++teamIndex;
         });
-        ++i;
         ++groupIndex;
       });
     }

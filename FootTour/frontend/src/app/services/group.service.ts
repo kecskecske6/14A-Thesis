@@ -14,4 +14,8 @@ export class GroupService {
   create(model: GroupModel): Observable<GroupModel> {
     return this.http.post<GroupModel>(`${environment.backendURL}/api/groups/create.php`, model);
   }
+
+  getByTournamentId(id: number): Observable<GroupModel[]> {
+    return this.http.get<GroupModel[]>(`${environment.backendURL}/api/groups/list.php?tournamentId=${id}`);
+  }
 }
