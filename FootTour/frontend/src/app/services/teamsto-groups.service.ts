@@ -2,16 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { GroupModel } from '../models/Group';
+import { TeamstoGroupsModel } from '../models/TeamstoGroups';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GroupService {
+export class TeamstoGroupsService {
 
   constructor(private http: HttpClient) { }
 
-  create(model: GroupModel): Observable<GroupModel> {
-    return this.http.post<GroupModel>(`${environment.backendURL}/api/groups/create.php`, model);
+  create(model: TeamstoGroupsModel): Observable<TeamstoGroupsModel> {
+    return this.http.post<TeamstoGroupsModel>(`${environment.backendURL}/api/teams_to_groups/create.php`, model);
   }
 }

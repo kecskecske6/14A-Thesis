@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Team } from 'src/app/interfaces/team';
 import { GroupModel } from 'src/app/models/Group';
+import { TeamstoGroupsModel } from 'src/app/models/TeamstoGroups';
 import { TournamentModel } from 'src/app/models/Tournament';
 import { GroupService } from 'src/app/services/group.service';
 import { TeamService } from 'src/app/services/team.service';
+import { TeamstoGroupsService } from 'src/app/services/teamsto-groups.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 
 @Component({
@@ -20,7 +22,7 @@ export class DrawComponent implements OnInit {
 
   groups: GroupModel[] = [];
 
-  constructor(private router: Router, private tournamentService: TournamentService, private teamService: TeamService, private groupService: GroupService) { }
+  constructor(private router: Router, private tournamentService: TournamentService, private teamService: TeamService, private groupService: GroupService, private teamstoGroupsService: TeamstoGroupsService) { }
 
   ngOnInit(): void {
     this.getTournamentInfo();
@@ -83,8 +85,32 @@ export class DrawComponent implements OnInit {
 
   saveGroups(groups: Team[][]): void {
     if (groups[0].length == 2) {
-      groups.forEach(g => {
-        
+      let i = 1;
+      let groupIndex = 0;
+      groups.forEach(async g => {
+        let name: string = '';
+        if (this.tournament.teamsCount == 8) name = `QF${i}`;
+        const model = {
+          tournament_id: this.router.url.substring(this.router.url.lastIndexOf('/') + 1),
+          name: name
+        }
+        await this.groupService.create(new GroupModel(model)).toPromise().then(a => {
+          this.groups.push(new GroupModel(a));
+        });
+        groups[groupIndex].forEach(t => {
+          let teamIndex = 0;
+          const teamstoGroupsModel = {
+            team_id: t.id,
+            group_id: this.groups[groupIndex].id
+          }
+          this.teamstoGroupsService.create(new TeamstoGroupsModel(teamstoGroupsModel)).subscribe(
+            result => console.log(result),
+            error => console.log(error)
+          );
+          ++teamIndex;
+        });
+        ++i;
+        ++groupIndex;
       });
     }
   }
