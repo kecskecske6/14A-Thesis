@@ -1,5 +1,4 @@
 <div id="container" class="container">
-  <form>
     <div id="head" class="mx-auto">
       <div class="row">
         <h2 class="col text-end">{{team1Name}}</h2>
@@ -190,8 +189,7 @@
         <!-- {{item.tournament}} -->
       </div>
       <div>
-        <input type="submit" class="btn btn-primary btn-lg w-25 mt-4" value="Rögzítés">
+        <input type="submit" (click)="onSubmit()" class="btn btn-primary btn-lg w-25 mt-4" value="Rögzítés">
       </div>
     </div>
-  </form>
 </div>

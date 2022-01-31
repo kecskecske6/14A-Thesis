@@ -71,5 +71,23 @@ function getTeamNameById($conn, $id){
     $result = $stmt->get_result();
     return $result->fetch_object();
 }
+
+function saveMatch($conn, $postdata){
+    $sql = "INSERT INTO foottour.matches (tournament_id, team1_id, team2_id,
+    referee_id, team1_goals, team2_goals, code) VALUES (?,?,?,?,?,?,?)";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) return false;
+    $tournamentId = htmlspecialchars(strip_tags($postdata->tournamentId));
+    $team1Id = htmlspecialchars(strip_tags($postdata->team1Id));
+    $team2Id = htmlspecialchars(strip_tags($postdata->team2Id));
+    $refereeId = htmlspecialchars(strip_tags($postdata->refereeId));
+    $team1Goals = htmlspecialchars(strip_tags($postdata->team1Goals));
+    $team2Goals = htmlspecialchars(strip_tags($postdata->team2Goals));
+    $code = htmlspecialchars(strip_tags($postdata->code));
+    $stmt->bind_param('iiiiiis',$tournamentId, $team1Id, $team2Id, $refereeId, $team1Goals,
+                        $team2Goals, $code);
+    if ($stmt->execute() === false) return false;
+    return true;
+}
 }
 ?>

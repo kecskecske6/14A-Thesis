@@ -1,9 +1,6 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Event } from '@angular/router';
-import { findIndex } from 'rxjs/operators';
 import { event } from 'src/app/models/Event';
+import { Match } from 'src/app/models/Match';
 import { Player } from 'src/app/models/Player';
 import { MatchService } from 'src/app/services/match.service';
 
@@ -22,7 +19,7 @@ export class RefereeMatchReportComponent implements OnInit {
     modifying: false
   }
   minute: number = 1;
-  matchreport!: FormGroup;
+  refereeId = -1;
   team1Name = "";
   team2Name = "";
   team1Goals = 0;
@@ -31,6 +28,7 @@ export class RefereeMatchReportComponent implements OnInit {
   team2Players: Player[] = [];
   event: event = new event();
   events: event[] = [];
+  match: Match = new Match();
   
   constructor(private matchService: MatchService) { }
 
@@ -41,6 +39,14 @@ export class RefereeMatchReportComponent implements OnInit {
   getMatchById(){
     this.matchService.getMatchById(this.id).subscribe(
       (result: any)=>{
+      this.match.id = result.id;
+      this.match.tournamentId = result.tournamentId;
+      this.match.team1Id = result.team1Id;
+      this.match.team2Id = result.team2Id;
+      this.match.refereeId = this.refereeId;
+      this.match.team1Goals = this.team1Goals;
+      this.match.team2Goals = this.team2Goals;
+      this.match.code = result.code;
       console.log(result);
       this.team1Name = result.team1Name.name;
       this.team2Name = result.team2Name.name;
@@ -53,7 +59,11 @@ export class RefereeMatchReportComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.matchreport.controls.team1Score.value);
+    this.matchService.sendMatchReport(this.match).subscribe(
+      result =>console.log(result),
+      error=> console.log(error)
+    );
+    //this.matchService.sendEvents(this.events);
   }
 
   eventAssign(player: Player, type: string, index: number, team: number){
@@ -102,14 +112,8 @@ export class RefereeMatchReportComponent implements OnInit {
     var toDelete = this.events.findIndex(element => element.type == type && element.player_id == player.id && element.minute == this.minute);
     this.events.splice(toDelete, 1);
   }
-  removeCard(player: Player, type: string){
-    if(type == "yellowCard") player.yellow_cards--;
-    else player.red_cards--;
-  }
-
 
   stopModify(player: Player){
-      // this.underModify.modifiedPlayer = player;
       this.underModify.modifying = false;
       this.underModify.index = -1;
       this.minute = 1;

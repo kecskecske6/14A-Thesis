@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { event } from '../interfaces/event';
+import { event } from '../models/Event';
+import { Match } from '../models/Match';
 import { Player } from '../models/Player';
 
 @Injectable({
@@ -15,6 +16,14 @@ export class MatchService {
 
   getMatchById(id: number): Observable<any>{
     return this.http.get<any>(`${environment.backendURL}/api/matches/getById.php?matchId=${id}`);
+  }
+
+  sendMatchReport(match: Match): Observable<any>{
+    return this.http.post<any>(`${environment.backendURL}/api/matches/save.php`, match);
+  }
+
+  sendEvents(events: event[]){
+    return this.http.post<any>(`${environment.backendURL}/api/events/save.php`, events);
   }
 
   setEventsToPlayers(events: event[], players: Player[]){
