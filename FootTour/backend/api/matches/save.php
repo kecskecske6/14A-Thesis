@@ -18,6 +18,7 @@ if($auth->authorize() != null){
         echo json_encode(array("message" => "Siekres"));
     }
     else{
+        http_response_code(404);
         echo json_encode(array("message" => "Sikertelen"));
     }
     

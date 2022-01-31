@@ -56,6 +56,7 @@ export class RefereeMatchReportComponent implements OnInit {
   }
 
   onSubmit(){
+    this.match.id = this.id;
     this.match.refereeId = this.refereeId;
     this.match.team1Goals = this.team1Goals;
     this.match.team2Goals = this.team2Goals;

@@ -19,7 +19,7 @@ export class MatchService {
   }
 
   sendMatchReport(match: Match): Observable<any>{
-    return this.http.post<any>(`${environment.backendURL}/api/matches/save.php`, match);
+    return this.http.put<any>(`${environment.backendURL}/api/matches/save.php`, match);
   }
 
   sendEvents(events: event[]){
