@@ -20,7 +20,9 @@ export class TournamentScheduleComponent implements OnInit {
 
   groups: GroupModel[] = [];
 
-  pairs: (TeamModel | undefined)[][] = [];
+  pairs1: (TeamModel | undefined)[] = [];
+
+  pairs2: (TeamModel | undefined)[] = [];
 
   constructor(private teamstoGroupsService: TeamstoGroupsService, private router: Router, private teamService: TeamService, private groupService: GroupService) { }
 
@@ -66,18 +68,18 @@ export class TournamentScheduleComponent implements OnInit {
     console.log(this.groups);
   }
 
-  makePairs(): void {
-    let i = 0;
-    this.groups.forEach(g => {
-      let groupId = this.groups.find(g => g.name == `QF${i}`)?.id;
-      let teamstoGroups = this.teamstoGroups.filter(ttg => ttg.groupId == groupId);
-      let teams: (TeamModel | undefined)[] = [];
-      teamstoGroups.forEach(ttg => {
-        teams.push(this.teams.find(t => t.id == ttg.teamId));
-      });
-      this.pairs.push(teams);
-      ++i;
+  getPairs(): void {
+    for (let j = 0; j < this.teamstoGroups.length; j++)
+      if (j % 2 == 0) this.pairs1.push(this.teams.find(t => t.id == this.teamstoGroups[j].teamId));
+      else this.pairs2.push(this.teams.find(t => t.id == this.teamstoGroups[j].teamId));
+  }
+
+  getTeam(pair: GroupModel): string {
+    let teams = '';
+    this.teamstoGroups.filter(ttg => ttg.groupId == pair.id).forEach(ttg => {
+      teams += this.teams.find(t => t.id == ttg.teamId)?.name + '\n';
     });
+    return teams;
   }
 
 }
