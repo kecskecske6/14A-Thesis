@@ -43,9 +43,6 @@ export class RefereeMatchReportComponent implements OnInit {
       this.match.tournamentId = result.tournamentId;
       this.match.team1Id = result.team1Id;
       this.match.team2Id = result.team2Id;
-      this.match.refereeId = this.refereeId;
-      this.match.team1Goals = this.team1Goals;
-      this.match.team2Goals = this.team2Goals;
       this.match.code = result.code;
       console.log(result);
       this.team1Name = result.team1Name.name;
@@ -59,6 +56,9 @@ export class RefereeMatchReportComponent implements OnInit {
   }
 
   onSubmit(){
+    this.match.refereeId = this.refereeId;
+    this.match.team1Goals = this.team1Goals;
+    this.match.team2Goals = this.team2Goals;
     this.matchService.sendMatchReport(this.match).subscribe(
       result =>console.log(result),
       error=> console.log(error)

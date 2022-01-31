@@ -84,7 +84,7 @@ function saveMatch($conn, $postdata){
     $team1Goals = htmlspecialchars(strip_tags($postdata->team1Goals));
     $team2Goals = htmlspecialchars(strip_tags($postdata->team2Goals));
     $code = htmlspecialchars(strip_tags($postdata->code));
-    $stmt->bind_param('iiiiiis',$tournamentId, $team1Id, $team2Id, $refereeId, $team1Goals,
+    $stmt->bind_param("iiiiiis", $tournamentId, $team1Id, $team2Id, $refereeId, $team1Goals,
                         $team2Goals, $code);
     if ($stmt->execute() === false) return false;
     return true;
