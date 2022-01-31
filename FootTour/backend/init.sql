@@ -33,6 +33,9 @@ CREATE TABLE foottour.tournaments (
   teams_count INT(11) NOT NULL,
   type VARCHAR(255) NOT NULL,
   groups_amount INT(11) NOT NULL DEFAULT 0,
+  group_matches INT(11) NOT NULL DEFAULT 1,
+  knockout_matches INT(11) NOT NULL DEFAULT 1,
+  final_matches INT(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (id)
 )
 ENGINE = INNODB;

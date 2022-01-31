@@ -97,7 +97,7 @@ export class DrawComponent implements OnInit {
         await this.groupService.create(new GroupModel(model)).toPromise().then(a => {
           this.groups.push(new GroupModel(a));
         });
-        groups[groupIndex].forEach(t => {
+        g.forEach(t => {
           let teamIndex = 0;
           const teamstoGroupsModel = {
             team_id: t.id,

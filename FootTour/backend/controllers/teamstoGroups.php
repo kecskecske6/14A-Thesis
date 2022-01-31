@@ -3,7 +3,7 @@
   class TeamstoGroupsController{
 
     function getById($conn, $id){
-        $sql = "SELECT * from foottour.groups WHERE id = ?";
+        $sql = "SELECT * from foottour.teams_to_groups WHERE id = ?";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
         $id = htmlspecialchars(strip_tags($id));
