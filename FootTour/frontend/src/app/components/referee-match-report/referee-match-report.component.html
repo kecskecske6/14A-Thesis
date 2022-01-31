@@ -19,10 +19,12 @@
             <th scope="col">Mezszám</th>
             <th scope="col" class="text-start">Név</th>
             <th scope="col"></th>
-            <th scope="col" class="text-center" *ngIf="underModify.modifying && underModify.team == 1">Perc</th>
-            <th scope="col" class="text-center" *ngIf="!underModify.modifying  || (underModify.modifying && underModify.team != 1)">Gól</th>
-            <th scope="col">Sárga</th>
-            <th scope="col">Piros</th>
+            <th scope="col" class="text-center" *ngIf="underModify.modifying && underModify.team == 1 && underModify.type == 'goal'">Perc</th>
+            <th scope="col" class="text-center" *ngIf="!underModify.modifying  || (underModify.modifying && underModify.team != 1)  || underModify.type != 'goal'">Gól</th>
+            <th scope="col" class="text-center" *ngIf="underModify.modifying && underModify.team == 1 && underModify.type == 'yellowCard'">Perc</th>
+            <th scope="col" class="text-center" *ngIf="!underModify.modifying  || (underModify.modifying && underModify.team != 1) || underModify.type != 'yellowCard'">Sárga</th>
+            <th scope="col" class="text-center" *ngIf="underModify.modifying && underModify.team == 1 && underModify.type == 'redCard'">Perc</th>
+            <th scope="col" class="text-center" *ngIf="!underModify.modifying  || (underModify.modifying && underModify.team != 1) || underModify.type != 'redCard'">Piros</th>
           </tr>
         </thead>
         <tbody class="align-middle">
@@ -30,13 +32,27 @@
             <td class="col-1">{{player.kit_number}}</td>
             <td class="col-2 text-start">{{player.name}}</td>
             <td class="col-5">
-              <div class="col-3 float-end w-100" *ngIf="player.number_of_goals_in_a_match.length > 0">
+              <div class="col-3 float-end w-auto" *ngIf="player.number_of_goals_in_a_match.length > 0">
                 <div class="float-end m-1" *ngFor="let goals of player.number_of_goals_in_a_match; index as i">
                   <img class="ms-1" src="../../../assets/match report/ball_icon.png" alt="">
                   {{player.number_of_goals_in_a_match[i]}}'
-                  <i class="bi bi-trash" (click)="deleteGoal(player, i, team1Name)"></i>
+                  <i class="bi bi-trash" (click)="deleteEvent(player, 'goal', i, team1Name)"></i>
                 </div>
               </div>
+                <div class="col-3 float-end w-auto" *ngIf="player.number_of_yellows_in_a_match.length > 0">
+                  <div class="float-end m-1" *ngFor="let goals of player.number_of_yellows_in_a_match; index as i">
+                  <img class="ms-1" src="../../../assets/match report/yellow_card.png">
+                  {{player.number_of_yellows_in_a_match[i]}}'
+                  <i class="bi bi-trash" (click)="deleteEvent(player, 'yellowCard', i, team1Name)"></i>
+                </div>
+              </div>
+              <div class="col-3 float-end w-auto" *ngIf="player.redCard > 0">
+                <div class="float-end m-1">
+                  <img class="ms-1" src="../../../assets/match report/red_card.png">
+                  {{player.redCard}}'
+                  <i class="bi bi-trash" (click)="deleteEvent(player, 'redCard', i, team1Name)"></i>
+              </div>
+            </div>
             </td>
             <!--Gól rögzítés-->
             <ng-template [ngIf]="!underModify.modifying || underModify.team != 1 || underModify.index != i || underModify.type != 'goal'" [ngIfElse]="goalModify">
@@ -56,26 +72,25 @@
             <!--Sárga rögzítés-->
             <td class="col-1 align-middle">
               <ng-template [ngIf]="!underModify.modifying || underModify.team != 1 || underModify.index != i || underModify.type != 'yellowCard'" [ngIfElse]="yellowPlus1">
-                <i (click)="eventAssign(player, 'yellowCard', i,1)" class="bi bi-plus-circle"></i>
-                <i *ngIf="player.number_of_yellows_in_a_match.length == 1" class="bi bi-dash-circle" (click)="removeCard(player, 'redCard')"></i>
+                <i *ngIf="player.number_of_yellows_in_a_match.length != 2 && player.redCard == 0" (click)="eventAssign(player, 'yellowCard', i,1)" class="bi bi-plus-circle"></i>
               </ng-template>
               <ng-template #yellowPlus1>
                 <input type="number" min="1" max="120" name="yellowMinute" id="inYellowMinute" placeholder="Perc"
                 [(ngModel)]="minute">
-              <i class="bi bi-check-circle ms-2" (click)="saveEvent(player, 'goal', team1Name)"></i>
-              <i class="bi bi-x-circle ms-2" (click)="stopModify(player)"></i>
-              </ng-template>
-              <ng-template #yellowPlus2>
-
+                <i class="bi bi-check-circle ms-2" (click)="saveEvent(player, 'yellowCard', team1Name)"></i>
+                <i class="bi bi-x-circle ms-2" (click)="stopModify(player)"></i>
               </ng-template>
             </td>
             <!--Piros rögzítés-->
             <td class="col-1 align-middle">
-              <ng-template [ngIf]="player.red_cards > 0" [ngIfElse]="redPlus">
-                <img src="../../../assets/match report/red_card.png">
-                <i class="bi bi-dash-circle" (click)="removeCard(player, 'redCard')"></i>
+              <ng-template [ngIf]="!underModify.modifying || underModify.team != 1 || underModify.index != i || underModify.type != 'redCard'" [ngIfElse]="redPlus1">
+                <i *ngIf="player.redCard == 0" (click)="eventAssign(player, 'redCard', i, 1)" class="bi bi-plus-circle"></i>
               </ng-template>
-              <ng-template #redPlus><i class="bi bi-plus-circle" (click)="eventAssign(player, 'redCard', i,1)"></i>
+              <ng-template #redPlus1>
+                <input type="number" min="1" max="120" name="redMinute" id="inRedMinute" placeholder="Perc"
+                [(ngModel)]="minute">
+                <i class="bi bi-check-circle ms-2" (click)="saveEvent(player, 'redCard', team1Name)"></i>
+                <i class="bi bi-x-circle ms-2" (click)="stopModify(player)"></i>
               </ng-template>
             </td>
           </tr>
@@ -84,61 +99,85 @@
 
       <!--Második csapat-->
 
-      <div id="team2name" class="teamName mt-5">{{team2Name}}</div>
+      <div id="team1name" class="teamName mt-5">{{team2Name}}</div>
       <table class="table col-lg-12 mb-5 mt-3 mx-auto">
         <thead>
           <tr>
             <th scope="col">Mezszám</th>
             <th scope="col" class="text-start">Név</th>
             <th scope="col"></th>
-            <th scope="col" class="text-center" *ngIf="underModify.modifying && underModify.team == 2">Perc</th>
-            <th scope="col" class="text-center" *ngIf="!underModify.modifying  || (underModify.modifying && underModify.team != 2)">Gól</th>
-            <th scope="col">Sárga</th>
-            <th scope="col">Piros</th>
+            <th scope="col" class="text-center" *ngIf="underModify.modifying && underModify.team == 1 && underModify.type == 'goal'">Perc</th>
+            <th scope="col" class="text-center" *ngIf="!underModify.modifying  || (underModify.modifying && underModify.team != 1)  || underModify.type != 'goal'">Gól</th>
+            <th scope="col" class="text-center" *ngIf="underModify.modifying && underModify.team == 1 && underModify.type == 'yellowCard'">Perc</th>
+            <th scope="col" class="text-center" *ngIf="!underModify.modifying  || (underModify.modifying && underModify.team != 1) || underModify.type != 'yellowCard'">Sárga</th>
+            <th scope="col" class="text-center" *ngIf="underModify.modifying && underModify.team == 1 && underModify.type == 'redCard'">Perc</th>
+            <th scope="col" class="text-center" *ngIf="!underModify.modifying  || (underModify.modifying && underModify.team != 1) || underModify.type != 'redCard'">Piros</th>
           </tr>
         </thead>
         <tbody class="align-middle">
-          <tr class="align-middle" *ngFor="let player2 of team2Players; let j = index" [attr.data-index]="j">
-            <td class="col-1">{{player2.kit_number}}</td>
-            <td class="col-2 text-start">{{player2.name}}</td>
+          <tr class="align-middle" *ngFor="let player of team2Players; let i = index" [attr.data-index]="i">
+            <td class="col-1">{{player.kit_number}}</td>
+            <td class="col-2 text-start">{{player.name}}</td>
             <td class="col-5">
-              <div class="col-3 float-end w-100" *ngIf="player2.number_of_goals_in_a_match.length > 0">
-                <div class="float-end m-1" *ngFor="let goals of player2.number_of_goals_in_a_match; index as j">
-                  <img class="m-1" src="../../../assets/match report/ball_icon.png" alt="">
-                  {{player2.number_of_goals_in_a_match[j]}}'
-                  <i class="bi bi-trash" (click)="deleteGoal(player2, j, team2Name)"></i>
+              <div class="col-3 float-end w-auto" *ngIf="player.number_of_goals_in_a_match.length > 0">
+                <div class="float-end m-1" *ngFor="let goals of player.number_of_goals_in_a_match; index as i">
+                  <img class="ms-1" src="../../../assets/match report/ball_icon.png" alt="">
+                  {{player.number_of_goals_in_a_match[i]}}'
+                  <i class="bi bi-trash" (click)="deleteEvent(player, 'goal', i, team2Name)"></i>
                 </div>
               </div>
+                <div class="col-3 float-end w-auto" *ngIf="player.number_of_yellows_in_a_match.length > 0">
+                  <div class="float-end m-1" *ngFor="let goals of player.number_of_yellows_in_a_match; index as i">
+                  <img class="ms-1" src="../../../assets/match report/yellow_card.png">
+                  {{player.number_of_yellows_in_a_match[i]}}'
+                  <i class="bi bi-trash" (click)="deleteEvent(player, 'yellowCard', i, team2Name)"></i>
+                </div>
+              </div>
+              <div class="col-3 float-end w-auto" *ngIf="player.redCard > 0">
+                <div class="float-end m-1">
+                  <img class="ms-1" src="../../../assets/match report/red_card.png">
+                  {{player.redCard}}'
+                  <i class="bi bi-trash" (click)="deleteEvent(player, 'redCard', i, team2Name)"></i>
+              </div>
+            </div>
             </td>
-            <ng-template [ngIf]="!underModify.modifying || underModify.team != 2 || underModify.index != j" [ngIfElse]="goalModify2">
+            <!--Gól rögzítés-->
+            <ng-template [ngIf]="!underModify.modifying || underModify.team != 2 || underModify.index != i || underModify.type != 'goal'" [ngIfElse]="goalModify2">
               <td class="col-1 align-middle">
                 <!-- <input type="number" class="inputTeamScore" name="team1score" id="team1Score"> -->
-                <i class="bi bi-plus-circle" (click)="eventAssign(player2, 'goal', j,2)"></i>
+                <i class="bi bi-plus-circle" (click)="eventAssign(player, 'goal', i, 2)"></i>
               </td>
             </ng-template>
             <ng-template #goalModify2>
               <td class="col-3 align-middle">
                 <input type="number" min="1" max="120" name="goalMinute" id="inGoalMinute" placeholder="Perc"
                   [(ngModel)]="minute">
-                <i class="bi bi-check-circle ms-2" (click)="saveEvent(player2, 'goal', team2Name)"></i>
-                <i class="bi bi-x-circle ms-2" (click)="stopModify(player2)"></i>
+                <i class="bi bi-check-circle ms-2" (click)="saveEvent(player, 'goal', team2Name)"></i>
+                <i class="bi bi-x-circle ms-2" (click)="stopModify(player)"></i>
               </td>
             </ng-template>
-
+            <!--Sárga rögzítés-->
             <td class="col-1 align-middle">
-              <ng-template [ngIf]="player2.yellow_cards > 0" [ngIfElse]="yellowPlus2">
-                <img src="../../../assets/match report/yellow_card.png">
-                <i class="bi bi-dash-circle" (click)="removeCard(player2, 'yellowCard')"></i>
+              <ng-template [ngIf]="!underModify.modifying || underModify.team != 2 || underModify.index != i || underModify.type != 'yellowCard'" [ngIfElse]="yellowPlus2">
+                <i *ngIf="player.number_of_yellows_in_a_match.length != 2 && player.redCard == 0" (click)="eventAssign(player, 'yellowCard', i, 2)" class="bi bi-plus-circle"></i>
               </ng-template>
-              <ng-template #yellowPlus2><i (click)="eventAssign(player2, 'yellowCard', j,2)" class="bi bi-plus-circle"></i>
+              <ng-template #yellowPlus2>
+                <input type="number" min="1" max="120" name="yellowMinute" id="inYellowMinute" placeholder="Perc"
+                [(ngModel)]="minute">
+                <i class="bi bi-check-circle ms-2" (click)="saveEvent(player, 'yellowCard', team2Name)"></i>
+                <i class="bi bi-x-circle ms-2" (click)="stopModify(player)"></i>
               </ng-template>
             </td>
+            <!--Piros rögzítés-->
             <td class="col-1 align-middle">
-              <ng-template [ngIf]="player2.red_cards > 0" [ngIfElse]="redPlus2">
-                <img src="../../../assets/match report/red_card.png">
-                <i class="bi bi-dash-circle" (click)="removeCard(player2, 'redCard')"></i>
+              <ng-template [ngIf]="!underModify.modifying || underModify.team != 2 || underModify.index != i || underModify.type != 'redCard'" [ngIfElse]="redPlus2">
+                <i *ngIf="player.redCard == 0" (click)="eventAssign(player, 'redCard', i, 2)" class="bi bi-plus-circle"></i>
               </ng-template>
-              <ng-template #redPlus2><i class="bi bi-plus-circle" (click)="eventAssign(player2, 'redCard', j, 2)"></i>
+              <ng-template #redPlus2>
+                <input type="number" min="1" max="120" name="redMinute" id="inRedMinute" placeholder="Perc"
+                [(ngModel)]="minute">
+                <i class="bi bi-check-circle ms-2" (click)="saveEvent(player, 'redCard', team2Name)"></i>
+                <i class="bi bi-x-circle ms-2" (click)="stopModify(player)"></i>
               </ng-template>
             </td>
           </tr>

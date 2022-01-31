@@ -2,6 +2,7 @@ import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Event } from '@angular/router';
+import { findIndex } from 'rxjs/operators';
 import { event } from 'src/app/models/Event';
 import { Player } from 'src/app/models/Player';
 import { MatchService } from 'src/app/services/match.service';
@@ -74,9 +75,12 @@ export class RefereeMatchReportComponent implements OnInit {
         if(teamName == this.team1Name) this.team1Goals++;
         else this.team2Goals++;
       }
-      else if(type == "yellowCard") player.number_of_yellows_in_a_match.push(this.minute);
+      else if(type == "yellowCard"){
+        player.number_of_yellows_in_a_match.push(this.minute);
+        if(player.number_of_yellows_in_a_match.length == 2) player.redCard = this.minute;
+      } 
       else{
-        //Piros lap
+        player.redCard = this.minute;
       }
     this.events.push(this.event);
     console.log(this.events);
@@ -84,10 +88,19 @@ export class RefereeMatchReportComponent implements OnInit {
     }
   }
 
-  deleteGoal(player: Player, index: number, teamName: string){
-    player.number_of_goals_in_a_match.splice(index, 1);
-    if(teamName == this.team1Name) this.team1Goals--;
-    else this.team2Goals--;
+  deleteEvent(player: Player, type: string, index: number, teamName: string){
+    if(type == "goal"){
+      player.number_of_goals_in_a_match.splice(index, 1);
+      if(teamName == this.team1Name) this.team1Goals--;
+      else this.team2Goals--;
+    }
+    else if(type == "yellowCard") player.number_of_yellows_in_a_match.splice(index,1);
+    else {
+      if(player.number_of_yellows_in_a_match.length == 2) player.number_of_yellows_in_a_match.splice(player.number_of_yellows_in_a_match.length-1, 1);
+      player.redCard = 0;
+    }
+    var toDelete = this.events.findIndex(element => element.type == type && element.player_id == player.id && element.minute == this.minute);
+    this.events.splice(toDelete, 1);
   }
   removeCard(player: Player, type: string){
     if(type == "yellowCard") player.yellow_cards--;
