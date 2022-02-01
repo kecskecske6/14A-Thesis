@@ -62,8 +62,12 @@ export class AuthService {
     return localStorage.getItem('access_token')!;
   }
 
-  getId(): number{
-    return parseInt(localStorage.getItem('id')!);
+  getId(){
+    try {
+      return parseInt(localStorage.getItem('id')!);
+    } catch (error) {
+      throw error;
+    }
   }
 
   getData(data : any): Observable<LoginResponse> {

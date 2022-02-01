@@ -57,7 +57,7 @@
             <ng-template [ngIf]="!underModify.modifying || underModify.team != 1 || underModify.index != i || underModify.type != 'goal'" [ngIfElse]="goalModify">
               <td class="col-1 align-middle">
                 <!-- <input type="number" class="inputTeamScore" name="team1score" id="team1Score"> -->
-                <i class="bi bi-plus-circle" (click)="eventAssign(player, 'goal', i, 1)"></i>
+                <i class="bi bi-plus-circle" (click)="eventAssign('goal', i, 1)"></i>
               </td>
             </ng-template>
             <ng-template #goalModify>
@@ -71,7 +71,7 @@
             <!--Sárga rögzítés-->
             <td class="col-1 align-middle">
               <ng-template [ngIf]="!underModify.modifying || underModify.team != 1 || underModify.index != i || underModify.type != 'yellowCard'" [ngIfElse]="yellowPlus1">
-                <i *ngIf="player.number_of_yellows_in_a_match.length != 2 && player.redCard == 0" (click)="eventAssign(player, 'yellowCard', i,1)" class="bi bi-plus-circle"></i>
+                <i *ngIf="player.number_of_yellows_in_a_match.length != 2 && player.redCard == 0" (click)="eventAssign('yellowCard', i, 1)" class="bi bi-plus-circle"></i>
               </ng-template>
               <ng-template #yellowPlus1>
                 <input type="number" min="1" max="120" name="yellowMinute" id="inYellowMinute" placeholder="Perc"
@@ -83,7 +83,7 @@
             <!--Piros rögzítés-->
             <td class="col-1 align-middle">
               <ng-template [ngIf]="!underModify.modifying || underModify.team != 1 || underModify.index != i || underModify.type != 'redCard'" [ngIfElse]="redPlus1">
-                <i *ngIf="player.redCard == 0" (click)="eventAssign(player, 'redCard', i, 1)" class="bi bi-plus-circle"></i>
+                <i *ngIf="player.redCard == 0" (click)="eventAssign('redCard', i, 1)" class="bi bi-plus-circle"></i>
               </ng-template>
               <ng-template #redPlus1>
                 <input type="number" min="1" max="120" name="redMinute" id="inRedMinute" placeholder="Perc"
@@ -144,7 +144,7 @@
             <ng-template [ngIf]="!underModify.modifying || underModify.team != 2 || underModify.index != i || underModify.type != 'goal'" [ngIfElse]="goalModify2">
               <td class="col-1 align-middle">
                 <!-- <input type="number" class="inputTeamScore" name="team1score" id="team1Score"> -->
-                <i class="bi bi-plus-circle" (click)="eventAssign(player, 'goal', i, 2)"></i>
+                <i class="bi bi-plus-circle" (click)="eventAssign('goal', i, 2)"></i>
               </td>
             </ng-template>
             <ng-template #goalModify2>
@@ -158,7 +158,7 @@
             <!--Sárga rögzítés-->
             <td class="col-1 align-middle">
               <ng-template [ngIf]="!underModify.modifying || underModify.team != 2 || underModify.index != i || underModify.type != 'yellowCard'" [ngIfElse]="yellowPlus2">
-                <i *ngIf="player.number_of_yellows_in_a_match.length != 2 && player.redCard == 0" (click)="eventAssign(player, 'yellowCard', i, 2)" class="bi bi-plus-circle"></i>
+                <i *ngIf="player.number_of_yellows_in_a_match.length != 2 && player.redCard == 0" (click)="eventAssign('yellowCard', i, 2)" class="bi bi-plus-circle"></i>
               </ng-template>
               <ng-template #yellowPlus2>
                 <input type="number" min="1" max="120" name="yellowMinute" id="inYellowMinute" placeholder="Perc"
@@ -170,7 +170,7 @@
             <!--Piros rögzítés-->
             <td class="col-1 align-middle">
               <ng-template [ngIf]="!underModify.modifying || underModify.team != 2 || underModify.index != i || underModify.type != 'redCard'" [ngIfElse]="redPlus2">
-                <i *ngIf="player.redCard == 0" (click)="eventAssign(player, 'redCard', i, 2)" class="bi bi-plus-circle"></i>
+                <i *ngIf="player.redCard == 0" (click)="eventAssign('redCard', i, 2)" class="bi bi-plus-circle"></i>
               </ng-template>
               <ng-template #redPlus2>
                 <input type="number" min="1" max="120" name="redMinute" id="inRedMinute" placeholder="Perc"
@@ -184,7 +184,7 @@
       </table>
       <div>
         <div>
-          <h5>Játékvezető: <input type="text" name="referee" id="inputRefereeName"></h5>
+          <h5>Játékvezető: {{refereeName}}</h5>
         </div>
         <!-- {{item.tournament}} -->
       </div>
