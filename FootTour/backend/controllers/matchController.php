@@ -75,7 +75,6 @@ function getTeamNameById($conn, $id){
 function saveMatch($conn, $postdata){
     $sql = "UPDATE foottour.matches SET `tournament_id` = ?, `team1_id`= ?, `team2_id`= ?,
      `referee_id`= ?, `team1_goals`= ?, `team2_goals`= ?, `code`= ? WHERE `id` = ?";
-
     $stmt = $conn->prepare($sql);
     if ($stmt === false) return false;;
     $tournamentId = htmlspecialchars(strip_tags($postdata->tournamentId));
@@ -88,6 +87,8 @@ function saveMatch($conn, $postdata){
     $id = htmlspecialchars(strip_tags($postdata->id));
 
     $stmt->bind_param('iiiiiisi',$tournamentId, $team1Id, $team2Id, $refereeId, $team1Goals, $team2Goals, $code, $id);
+    $stmt->execute();
+    var_dump($stmt->error);
     if ($stmt->execute() === false) return false;
     return true;
 }

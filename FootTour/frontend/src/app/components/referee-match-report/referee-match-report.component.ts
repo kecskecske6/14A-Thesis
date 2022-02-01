@@ -3,6 +3,7 @@ import { event } from 'src/app/models/Event';
 import { Match } from 'src/app/models/Match';
 import { Player } from 'src/app/models/Player';
 import { MatchService } from 'src/app/services/match.service';
+import { AuthService} from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-referee-match-report',
@@ -19,7 +20,6 @@ export class RefereeMatchReportComponent implements OnInit {
     modifying: false
   }
   minute: number = 1;
-  refereeId = -1;
   team1Name = "";
   team2Name = "";
   team1Goals = 0;
@@ -30,7 +30,7 @@ export class RefereeMatchReportComponent implements OnInit {
   events: event[] = [];
   match: Match = new Match();
   
-  constructor(private matchService: MatchService) { }
+  constructor(private matchService: MatchService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getMatchById();
@@ -44,6 +44,7 @@ export class RefereeMatchReportComponent implements OnInit {
       this.match.team1Id = result.team1Id;
       this.match.team2Id = result.team2Id;
       this.match.code = result.code;
+      this.match.refereeId = this.authService.getId();
       console.log(result);
       this.team1Name = result.team1Name.name;
       this.team2Name = result.team2Name.name;
@@ -57,7 +58,6 @@ export class RefereeMatchReportComponent implements OnInit {
 
   onSubmit(){
     this.match.id = this.id;
-    this.match.refereeId = this.refereeId;
     this.match.team1Goals = this.team1Goals;
     this.match.team2Goals = this.team2Goals;
     this.matchService.sendMatchReport(this.match).subscribe(
