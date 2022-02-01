@@ -5,6 +5,7 @@ import { Player } from 'src/app/models/Player';
 import { MatchService } from 'src/app/services/match.service';
 import { AuthService} from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-referee-match-report',
@@ -29,10 +30,13 @@ export class RefereeMatchReportComponent implements OnInit {
   team1Players: Player[] = [];
   team2Players: Player[] = [];
   event: event = new event();
+  event2: event = new event();
   events: event[] = [];
   match: Match = new Match();
   
-  constructor(private matchService: MatchService, private userService: UserService, private authService: AuthService) { }
+  constructor(private matchService: MatchService,
+              private router: Router, 
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getMatchById();
@@ -46,7 +50,7 @@ export class RefereeMatchReportComponent implements OnInit {
       this.match.team1Id = result.team1Id;
       this.match.team2Id = result.team2Id;
       this.match.code = result.code;
-      this.match.refereeId = this.authService.getId();
+      this.match.refereeId = result.refereeId;
       this.refereeName = result.refereeName.name;
       console.log(result);
       this.team1Name = result.team1Name.name;
@@ -68,8 +72,14 @@ export class RefereeMatchReportComponent implements OnInit {
       error=> console.log(error)
     );
     this.matchService.sendEvents(this.events).subscribe(
-      result => console.log(result),
-      error => console.log(error)
+      result =>{ 
+        console.log(result);
+        this.router.navigate(["matchreport/", this.id]);
+      },
+      error => {
+        console.log(error);
+        this.router.navigate(["matchreport/", this.id]);
+      }
     );
   }
 
@@ -94,7 +104,14 @@ export class RefereeMatchReportComponent implements OnInit {
       }
       else if(type == "yellowCard"){
         player.number_of_yellows_in_a_match.push(this.minute);
-        if(player.number_of_yellows_in_a_match.length == 2) player.redCard = this.minute;
+        if(player.number_of_yellows_in_a_match.length == 2){
+           player.redCard = this.minute;
+           this.event2.match_id = this.id;
+           this.event2.player_id = player.id;
+           this.event2.type = "redCard";
+           this.event2.minute = this.minute;
+           this.events.push(this.event2);
+          }
       } 
       else{
         player.redCard = this.minute;

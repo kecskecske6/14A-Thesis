@@ -38,7 +38,7 @@ export class MatchService {
                   player.number_of_goals_in_a_match.push(event.minute);
                 break;
               case "yellowCard":
-                  player.yellow_cards = event.minute;
+                  player.number_of_yellows_in_a_match.push(event.minute);
                 break;
               case "redCard":
                   player.red_cards = event.minute;

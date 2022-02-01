@@ -25,11 +25,11 @@
           <table class="table col-lg-12 mt-3 mx-auto">
               <thead></thead>
               <tbody>
-                <tr *ngFor="let player of team2PlayersWithEvents">
+                <tr *ngFor="let player of team2PlayersWithEvents let i = index" [attr.data-index]="i">
                     <th class="col-1" scope="row">{{player.kit_number}}</th>
                     <td class="col-6 text-start">{{player.name}}</td>
                     <td class="col-3"><div *ngFor="let number of player.number_of_goals_in_a_match; index as i" class="float-start m-1"><img src="../../../assets/match report/ball_icon.png" alt="">{{player.number_of_goals_in_a_match[i]}}'</div></td>
-                    <td class="col-1" ><div *ngIf="player.yellow_cards > 0"><img  src="../../../assets/match report/yellow_card.png" alt="">{{player.yellow_cards}}'</div></td>
+                    <td class="col-1" ><div *ngIf="player.number_of_yellows_in_a_match.length > 0"><div *ngFor="let goals of player.number_of_yellows_in_a_match; index as i"><img  src="../../../assets/match report/yellow_card.png" alt="">{{player.number_of_yellows_in_a_match[i]}}'</div></div></td>
                     <td class="col-1"><div *ngIf="player.red_cards > 0"><img src="../../../assets/match report/red_card.png" alt="">{{player.red_cards}}'</div></td>
                  
                 </tr>
