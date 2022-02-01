@@ -3,9 +3,11 @@ import { Router } from '@angular/router';
 import { GroupModel } from 'src/app/models/Group';
 import { TeamModel } from 'src/app/models/Team';
 import { TeamstoGroupsModel } from 'src/app/models/TeamstoGroups';
+import { TournamentModel } from 'src/app/models/Tournament';
 import { GroupService } from 'src/app/services/group.service';
 import { TeamService } from 'src/app/services/team.service';
 import { TeamstoGroupsService } from 'src/app/services/teamsto-groups.service';
+import { TournamentService } from 'src/app/services/tournament.service';
 
 @Component({
   selector: 'app-tournament-schedule',
@@ -20,16 +22,15 @@ export class TournamentScheduleComponent implements OnInit {
 
   groups: GroupModel[] = [];
 
-  pairs1: (TeamModel | undefined)[] = [];
+  tournament: TournamentModel = new TournamentModel();
 
-  pairs2: (TeamModel | undefined)[] = [];
-
-  constructor(private teamstoGroupsService: TeamstoGroupsService, private router: Router, private teamService: TeamService, private groupService: GroupService) { }
+  constructor(private teamstoGroupsService: TeamstoGroupsService, private router: Router, private teamService: TeamService, private groupService: GroupService, private tournamentService: TournamentService) { }
 
   ngOnInit(): void {
     this.getTeamstoGroups();
     this.getTeams();
     this.getGroups();
+    this.getTournament();
   }
 
   getTeamstoGroups(): void {
@@ -41,7 +42,6 @@ export class TournamentScheduleComponent implements OnInit {
       },
       error => console.log(error)
     );
-    console.log(this.teamstoGroups);
   }
 
   getTeams(): void {
@@ -53,7 +53,6 @@ export class TournamentScheduleComponent implements OnInit {
       },
       error => console.log(error)
     );
-    console.log(this.teams);
   }
 
   getGroups(): void {
@@ -65,13 +64,13 @@ export class TournamentScheduleComponent implements OnInit {
       },
       error => console.log(error)
     );
-    console.log(this.groups);
   }
 
-  getPairs(): void {
-    for (let j = 0; j < this.teamstoGroups.length; j++)
-      if (j % 2 == 0) this.pairs1.push(this.teams.find(t => t.id == this.teamstoGroups[j].teamId));
-      else this.pairs2.push(this.teams.find(t => t.id == this.teamstoGroups[j].teamId));
+  getTournament(): void {
+    this.tournamentService.getById(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
+      result => this.tournament = new TournamentModel(result),
+      error => console.log(error)
+    );
   }
 
   getTeam(pair: GroupModel): string {
@@ -80,6 +79,11 @@ export class TournamentScheduleComponent implements OnInit {
       teams += this.teams.find(t => t.id == ttg.teamId)?.name + '\n';
     });
     return teams;
+  }
+
+  getIndexofTeam(team: string, group: GroupModel): number {
+    const teams = this.getTeam(group);
+    return teams.split('\n').indexOf(team);
   }
 
 }

@@ -49,6 +49,7 @@ export class DrawComponent implements OnInit {
         } while (doAgain);
         groups[Math.floor(i / this.tournament.groupsAmount)].push(team);
       }
+      this.saveGroups(groups);
     }
     else {
       const pairs: Team[][] = [];
@@ -93,7 +94,7 @@ export class DrawComponent implements OnInit {
         const model = {
           tournament_id: this.router.url.substring(this.router.url.lastIndexOf('/') + 1),
           name: name
-        }
+        };
         await this.groupService.create(new GroupModel(model)).toPromise().then(a => {
           this.groups.push(new GroupModel(a));
         });
@@ -102,7 +103,39 @@ export class DrawComponent implements OnInit {
           const teamstoGroupsModel = {
             team_id: t.id,
             group_id: this.groups[groupIndex].id
-          }
+          };
+          this.teamstoGroupsService.create(new TeamstoGroupsModel(teamstoGroupsModel)).subscribe(
+            result => console.log(result),
+            error => console.log(error)
+          );
+          ++teamIndex;
+        });
+        ++groupIndex;
+      });
+    }
+    else {
+      const groupLetters = ['A', 'B', 'C', 'D'];
+      if (this.tournament.teamsCount == 32 && this.tournament.groupsAmount == 4) {
+        const groupLetters2 = ['E', 'F', 'G', 'H'];
+        groupLetters.push(...groupLetters2);
+      }
+      let i = -1;
+      let groupIndex = 0;
+      groups.forEach(async g => {
+        let name = `GS${groupLetters[++i]}`;
+        const model = {
+          tournament_id: this.router.url.substring(this.router.url.lastIndexOf('/') + 1),
+          name: name
+        };
+        await this.groupService.create(new GroupModel(model)).toPromise().then(a => {
+          this.groups.push(new GroupModel(a));
+        });
+        g.forEach(t => {
+          let teamIndex = 0;
+          const teamstoGroupsModel = {
+            team_id: t.id,
+            group_id: this.groups[groupIndex].id
+          };
           this.teamstoGroupsService.create(new TeamstoGroupsModel(teamstoGroupsModel)).subscribe(
             result => console.log(result),
             error => console.log(error)
