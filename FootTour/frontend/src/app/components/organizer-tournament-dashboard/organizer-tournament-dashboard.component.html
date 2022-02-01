@@ -16,7 +16,7 @@
             <div class="text-center mt-3">Kezdési időpont: {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}</div>
             <hr class="mx-auto">
             <div class="text-center">
-                  <input type="button" class="btn btn-primary" value="Sorsolás" [routerLink]="'/draw/' + 1">
+                  <input type="button" class="btn btn-primary" value="Sorsolás" [routerLink]="'/draw/' + tournament.id">
             </div>
       </div>
 </div>

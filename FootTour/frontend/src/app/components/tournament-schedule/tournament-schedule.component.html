@@ -3,13 +3,13 @@
     <h2 class="text-center">{{tournament.name}}</h2>
     <br>
     <div *ngIf="tournament.type == 'Csoportkör és kieséses'" class="row">
-      <div *ngFor="let group of groups" class="card text-dark bg-light m-5 mb-3 mx-auto" style="max-width: 18rem;">
+      <div *ngFor="let group of groups" class="card text-dark bg-light m-5 mb-3 mx-auto" style="max-width: 45rem;">
         <div class="card-header">{{group.name[2]}} csoport</div>
         <div class="card-body">
           <table class="text-dark">
             <tr>
               <th>#</th>
-              <th>Név</th>
+              <th style="width: 200px;">Név</th>
               <th>M</th>
               <th>Gy</th>
               <th>D</th>
@@ -17,14 +17,11 @@
               <th>GK</th>
               <th>P</th>
             </tr>
-            <tr *ngFor="let group of groups">
-              <td>{{getTeam(group).split("\n")}}</td>
+            <tr *ngFor="let team of getTeam(group).split('\n').slice(0, -1); index as i">
+              <td>{{i + 1}}</td>
+              <td>{{team}}</td>
             </tr>
           </table>
-          <div>{{getTeam(group).split("\n")[0]}}</div>
-          <div>{{getTeam(group).split("\n")[1]}}</div>
-          <div>{{getTeam(group).split("\n")[2]}}</div>
-          <div>{{getTeam(group).split("\n")[3]}}</div>
         </div>
       </div>
     </div>

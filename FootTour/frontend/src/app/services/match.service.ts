@@ -3,6 +3,7 @@ import { Injectable, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { Event } from '../interfaces/event';
+import { MatchModel } from '../models/Match';
 import { PlayerModel } from '../models/Player';
 
 @Injectable({
@@ -46,5 +47,9 @@ export class MatchService {
         console.log(player.number_of_goals_in_a_match);
       });
       return players;
+  }
+
+  create(model: MatchModel): Observable<MatchModel> {
+    return this.http.post<MatchModel>(`${environment.backendURL}/api/matches/create.php`, model);
   }
 }

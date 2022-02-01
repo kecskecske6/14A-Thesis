@@ -71,5 +71,32 @@ function getTeamNameById($conn, $id){
     $result = $stmt->get_result();
     return $result->fetch_object();
 }
+
+function createMatch($conn, $data) {
+    $sql = "INSERT into foottour.matches (referee_id, team1_goals, team2_goals, code, group_id) values (?, ?, ?, ?, ?);";
+    $stmt = $conn->prepare($sql);
+    if ($stmt == false) return false;
+    $refereeId = htmlspecialchars(strip_tags($data->refereeId));
+    $team1Goals = htmlspecialchars(strip_tags($data->team1Goals));
+    $team2Goals = htmlspecialchars(strip_tags($data->team2Goals));
+    $code = htmlspecialchars(strip_tags($data->code));
+    $groupId = htmlspecialchars(strip_tags($data->groupId));
+    $stmt->bind_param("iiisi", $refereeId, $team1Goals, $team2Goals, $code, $groupId);
+    if ($stmt->execute() == false) return false;
+    $match = array();
+    return $this->getByIdActual($conn, $stmt->insert_id);
+}
+
+function getByIdActual($conn, $id){
+    $sql = "SELECT * from foottour.matches WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) return false;
+    $id = htmlspecialchars(strip_tags($id));
+    $stmt->bind_param("i",$id);
+    if ($stmt->execute() === false) return false;
+    $result = $stmt->get_result();
+    return $result->fetch_object();
+}
+
 }
 ?>

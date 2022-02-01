@@ -14,6 +14,9 @@
         if (isset($_GET["id"])) {
             echo json_encode($uc->getNameById($conn, $_GET["id"]));
         }
+        elseif (isset($_GET["type"])) {
+            echo json_encode($uc->getByType($conn, $_GET["type"]));
+        }
     }else{
         http_response_code(405);
     }

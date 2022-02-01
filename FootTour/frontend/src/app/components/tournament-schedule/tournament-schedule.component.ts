@@ -81,9 +81,4 @@ export class TournamentScheduleComponent implements OnInit {
     return teams;
   }
 
-  getIndexofTeam(team: string, group: GroupModel): number {
-    const teams = this.getTeam(group);
-    return teams.split('\n').indexOf(team);
-  }
-
 }

@@ -67,6 +67,9 @@ CREATE TABLE foottour.matches (
   team2_goals INT(11) NOT NULL,
   code VARCHAR(50) NOT NULL,
   group_id INT(11) NOT NULL,
+  time DATETIME NOT NULL,
+  team1_id INT(11) NOT NULL,
+  team2_id INT(11) NOT NULL,
   PRIMARY KEY (id)
 )
 ENGINE = INNODB;
@@ -147,6 +150,14 @@ ALTER TABLE foottour.matches
 ALTER TABLE foottour.matches 
   ADD CONSTRAINT FK_matches_referee_id FOREIGN KEY (referee_id)
     REFERENCES foottour.users(id) ON DELETE NO ACTION;
+
+ALTER TABLE foottour.matches 
+  ADD CONSTRAINT FK_matches_team1_id FOREIGN KEY (team1_id)
+    REFERENCES foottour.teams(id) ON DELETE NO ACTION;
+
+ALTER TABLE foottour.matches 
+  ADD CONSTRAINT FK_matches_team2_id FOREIGN KEY (team2_id)
+    REFERENCES foottour.teams(id) ON DELETE NO ACTION;
 
 ALTER TABLE foottour.events 
   ADD CONSTRAINT FK_events_match_id FOREIGN KEY (match_id)

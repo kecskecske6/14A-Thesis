@@ -1,28 +1,28 @@
 <div class="container">
-    <h2 class="text-center">Mikulás kupa</h2>
+    <h2 class="text-center">{{tournament.name}}</h2>
     <hr>
     <br>
     <p class="text-center">Típus: {{tournament.type}}</p>
     <div *ngIf="tournament.type == 'Csoportkör és kieséses'">
         <label for="number">Csoportok létszáma:</label>
-        <select name="number" id="number" class="form-select">
+        <select [(ngModel)]="tournament.groupsAmount" name="number" id="number" class="form-select">
             <option value="four">4</option>
-            <option value="eight">8</option>
+            <option *ngIf="tournament.teamsCount == 32" value="eight">8</option>
         </select>
         <label for="matches">Csoportkör meccsek:</label>
-        <select name="matches" id="matches" class="form-select">
+        <select [(ngModel)]="tournament.groupMatches" name="matches" id="matches" class="form-select">
             <option value="one">1</option>
             <option value="two">2</option>
         </select>
     </div>
     <div *ngIf="tournament.type.includes('kieséses')">
         <label for="knockout">Kieséses szakasz meccsek:</label>
-        <select name="knockout" id="knockout" class="form-select">
+        <select [(ngModel)]="tournament.knockoutMatches" name="knockout" id="knockout" class="form-select">
             <option value="one">1</option>
             <option value="two">2</option>
         </select>
         <label for="final">Döntő meccsek:</label>
-        <select name="final" id="final" class="form-select">
+        <select [(ngModel)]="tournament.finalMatches" name="final" id="final" class="form-select">
             <option value="one">1</option>
             <option value="two">2</option>
         </select>

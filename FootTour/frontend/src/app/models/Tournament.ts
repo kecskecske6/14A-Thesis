@@ -15,6 +15,9 @@ export class TournamentModel implements Tournament {
     description = '';
     type = '';
     groupsAmount = 0;
+    groupMatches = 0;
+    knockoutMatches = 0;
+    finalMatches = 0;
 
     constructor(model: any = undefined) {
         if (model) {
@@ -32,6 +35,9 @@ export class TournamentModel implements Tournament {
             this.description = model.description;
             this.type = model.type;
             this.groupsAmount = Number(model.groups_amount);
+            this.groupMatches = Number(model.group_matches);
+            this.knockoutMatches = Number(model.knockout_matches);
+            this.finalMatches = Number(model.final_matches);
         }
     }
 }

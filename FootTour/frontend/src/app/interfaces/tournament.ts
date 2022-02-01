@@ -13,4 +13,7 @@ export interface Tournament {
     description: string;
     type: string;
     groupsAmount: number;
+    groupMatches: number;
+    knockoutMatches: number;
+    finalMatches: number;
 }
