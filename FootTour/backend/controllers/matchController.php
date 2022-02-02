@@ -73,7 +73,7 @@ function getTeamNameById($conn, $id){
 }
 
 function createMatch($conn, $data) {
-    $sql = "INSERT into foottour.matches (referee_id, team1_goals, team2_goals, code, group_id) values (?, ?, ?, ?, ?);";
+    $sql = "INSERT into foottour.matches (referee_id, team1_goals, team2_goals, code, group_id, time, team1_id, team2_id) values (?, ?, ?, ?, ?, ?, ?, ?);";
     $stmt = $conn->prepare($sql);
     if ($stmt == false) return false;
     $refereeId = htmlspecialchars(strip_tags($data->refereeId));
@@ -81,9 +81,11 @@ function createMatch($conn, $data) {
     $team2Goals = htmlspecialchars(strip_tags($data->team2Goals));
     $code = htmlspecialchars(strip_tags($data->code));
     $groupId = htmlspecialchars(strip_tags($data->groupId));
-    $stmt->bind_param("iiisi", $refereeId, $team1Goals, $team2Goals, $code, $groupId);
+    $time = htmlspecialchars(strip_tags($data->time));
+    $team1Id = htmlspecialchars(strip_tags($data->team1Id));
+    $team2Id = htmlspecialchars(strip_tags($data->team2Id));
+    $stmt->bind_param("iiisisii", $refereeId, $team1Goals, $team2Goals, $code, $groupId, $time, $team1Id, $team2Id);
     if ($stmt->execute() == false) return false;
-    $match = array();
     return $this->getByIdActual($conn, $stmt->insert_id);
 }
 
