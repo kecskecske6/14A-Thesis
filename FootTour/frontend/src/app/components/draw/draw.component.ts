@@ -93,25 +93,27 @@ export class DrawComponent implements OnInit {
     if (groups[0].length == 2) {
       let i = 0;
       let groupIndex = 0;
-      groups.forEach(async g => {
+      groups.forEach(g => {
         let name: string = '';
         if (this.tournament.teamsCount == 8) name = `QF${++i}`;
         const model = {
           tournament_id: this.router.url.substring(this.router.url.lastIndexOf('/') + 1),
           name: name
         };
-        await this.groupService.create(new GroupModel(model)).toPromise().then(a => {
-          this.groups.push(new GroupModel(a));
-        });
-        g.forEach(async t => {
+        this.groupService.create(new GroupModel(model)).subscribe(
+          result => this.groups.push(new GroupModel(result)),
+          error => console.log(error)
+        );
+        g.forEach(t => {
           let teamIndex = 0;
           const teamstoGroupsModel = {
             team_id: t.id,
             group_id: this.groups[groupIndex].id
           };
-          await this.teamstoGroupsService.create(new TeamstoGroupsModel(teamstoGroupsModel)).toPromise().then(result => {
-            this.teamstoGroups.push(new TeamstoGroupsModel(result));
-          });
+          this.teamstoGroupsService.create(new TeamstoGroupsModel(teamstoGroupsModel)).subscribe(
+            result => this.teamstoGroups.push(new TeamstoGroupsModel(result)),
+            error => console.log(error)
+          );
           ++teamIndex;
         });
         ++groupIndex;
@@ -126,15 +128,16 @@ export class DrawComponent implements OnInit {
       }
       let i = -1;
       let groupIndex = 0;
-      groups.forEach(async g => {
+      groups.forEach(g => {
         let name = `GS${groupLetters[++i]}`;
         const model = {
           tournament_id: this.router.url.substring(this.router.url.lastIndexOf('/') + 1),
           name: name
         };
-        await this.groupService.create(new GroupModel(model)).toPromise().then(a => {
-          this.groups.push(new GroupModel(a));
-        });
+        this.groupService.create(new GroupModel(model)).subscribe(
+          result => this.groups.push(new GroupModel(result)),
+          error => console.log(error)
+        );
         g.forEach(t => {
           let teamIndex = 0;
           const teamstoGroupsModel = {

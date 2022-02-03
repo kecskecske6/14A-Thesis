@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/interfaces/user';
 import { TournamentModel } from 'src/app/models/Tournament';
 import { AuthService } from 'src/app/services/auth.service';
 import { TournamentService } from 'src/app/services/tournament.service';
@@ -16,7 +14,7 @@ export class OrganizerEarlierTournamentsComponent implements OnInit {
   tournaments: TournamentModel[] = [];
   organizer: string = '';
 
-  constructor(private http: HttpClient, private tournamentService: TournamentService, private auth: AuthService, private userService: UserService) { }
+  constructor(private tournamentService: TournamentService, private auth: AuthService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.getTournaments();
@@ -32,7 +30,6 @@ export class OrganizerEarlierTournamentsComponent implements OnInit {
       error => {
         console.log(error);
       });
-      console.log(this.tournaments);
   }
 
   getOrganizerName(): void {
