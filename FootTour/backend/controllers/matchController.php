@@ -90,7 +90,7 @@ function createMatch($conn, $data) {
 }
 
 function getByIdActual($conn, $id){
-    $sql = "SELECT * from foottour.matches WHERE id = ?";
+    $sql = "SELECT * from foottour.matches WHERE id = ?;";
     $stmt = $conn->prepare($sql);
     if ($stmt === false) return false;
     $id = htmlspecialchars(strip_tags($id));

@@ -35,6 +35,7 @@ export class DrawComponent implements OnInit {
   ngOnInit(): void {
     this.getTournamentInfo();
     this.getTeams();
+    this.getReferees();
   }
 
   draw() {
@@ -102,16 +103,15 @@ export class DrawComponent implements OnInit {
         await this.groupService.create(new GroupModel(model)).toPromise().then(a => {
           this.groups.push(new GroupModel(a));
         });
-        g.forEach(t => {
+        g.forEach(async t => {
           let teamIndex = 0;
           const teamstoGroupsModel = {
             team_id: t.id,
             group_id: this.groups[groupIndex].id
           };
-          this.teamstoGroupsService.create(new TeamstoGroupsModel(teamstoGroupsModel)).subscribe(
-            result => this.teamstoGroups.push(new TeamstoGroupsModel(result)),
-            error => console.log(error)
-          );
+          await this.teamstoGroupsService.create(new TeamstoGroupsModel(teamstoGroupsModel)).toPromise().then(result => {
+            this.teamstoGroups.push(new TeamstoGroupsModel(result));
+          });
           ++teamIndex;
         });
         ++groupIndex;
@@ -163,6 +163,7 @@ export class DrawComponent implements OnInit {
             doAgain = false;
             for (let j = 0; j < orderedTeams.length; j++) if (orderedTeams[j] == team) doAgain = true;
           } while (doAgain);
+          orderedTeams.push(team);
         }
         const model = {
           referee_id: this.referees[Math.floor(Math.random() * this.referees.length)].id,
@@ -171,7 +172,8 @@ export class DrawComponent implements OnInit {
           team1_goals: 0,
           team2_goals: 0,
           code: `${g.name}-1`,
-          group_id: g.id
+          group_id: g.id,
+          time: new Date()
         };
         this.matchService.create(new MatchModel(model)).subscribe(
           result => console.log(result),
@@ -185,7 +187,8 @@ export class DrawComponent implements OnInit {
             team1_goals: 0,
             team2_goals: 0,
             code: `${g.name}-2`,
-            group_id: g.id
+            group_id: g.id,
+            time: new Date()
           };
           this.matchService.create(new MatchModel(model)).subscribe(
             result => console.log(result),

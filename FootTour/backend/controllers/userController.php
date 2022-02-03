@@ -14,16 +14,20 @@ class UserController{
 
     function getByType($conn, $type) {
         $sql = "";
-        if ($type = "organizer")
+        if ($type == "organizer")
         $sql = "SELECT * from foottour.users where is_organizer = true;";
-        elseif ($type = "referee")
+        elseif ($type == "referee")
         $sql = "SELECT * from foottour.users where is_referee = true;";
         else $sql = "SELECT * from foottour.users where is_leader = true;";
         $stmt = $conn->prepare($sql);
         if ($stmt == false) return false;
         if ($stmt->execute() == false) return false;
         $result = $stmt->get_result();
-        return $result->fetch_object();
+        $users = array();
+        while($row = $result->fetch_object()){
+            array_push($users,$row);
+        }
+        return $users;
     }
 }
 ?>
