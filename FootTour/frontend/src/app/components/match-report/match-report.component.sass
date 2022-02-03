@@ -1,4 +1,6 @@
 $teamNameFontSize: 2rem
+$normalScreenFontSize: 1.2rem
+$smallScreenFontSize: 0.8rem
     
 #container
     max-width: 1440px
@@ -23,7 +25,18 @@ table
     font-size: $teamNameFontSize
     font-weight: bold
 
+#eventContainer
+    @media (max-width: 550px)
+        width: 100%
+        font-size: $smallScreenFontSize
+
+    font-size: $normalScreenFontSize
+    width: 75%
+
 img
+    @media (max-width: 550px)
+        width: 16px
+        height: 16px
     //kissebb kijelzőn kisebbre állítani
-    width: 16px
-    height: 16px
+    width: 32px
+    height: 32px
