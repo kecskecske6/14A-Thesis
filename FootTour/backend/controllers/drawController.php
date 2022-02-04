@@ -1,16 +1,21 @@
 <?php
     include_once "groupController.php";
     include_once "teamstoGroupsController.php";
+    include_once "userController.php";
+    include_once "matchController.php";
     class DrawController{
         function makeDraw($conn, $data) {
             $gc = new GroupController();
             $ttgc = new TeamstoGroupsController();
+            $uc = new UserController();
+            $mc = new MatchController();
+            $matches = array();
             if ($data->tournament->type == "Csoportkör és kieséses") {
                 $groups = array();
             }
             else {
                 $groups = array();
-                for ($i = 0; $i < $data->tournament->teamsCount / 2; $i++) array_push($groups, array());
+                for ($i = 0; $i < $data->tournament->teams_count / 2; $i++) array_push($groups, array());
                 for ($i=0; $i < count($data->teams); $i++) { 
                     $team = $data->teams[0];
                     $doAgain = false;
@@ -24,13 +29,44 @@
                 $i = 1;
                 foreach ($groups as $key => $g) {
                     $name = "";
-                    if ($data->tournament->teamsCount == 8) $name = "QF" . $i;
-                    $group = $gc->createGroup($conn, array("tournamentId" => $data->tournament->type, "name" => $name));
+                    if ($data->tournament->teams_count == 8) $name = "QF" . $i;
+                    $group = $gc->createGroup($conn, (object)array("tournamentId" => $data->tournament->id, "name" => $name));
                     foreach ($g as $key => $t) {
-                        $ttgc->createGroup($conn, array("teamId" => $t->id, "groupId" => $group->id));
+                        $ttgc->createGroup($conn, (object)array("teamId" => $t->id, "groupId" => $group->id));
                     }
+                    ++$i;
+                }
+                $groupsGenerated = $gc->getByTournamentId($conn, $data->tournament->id);
+                var_dump($groupsGenerated);
+                foreach ($groupsGenerated as $key => $g) {
+                    $orderedTeams = array();
+                    $sql = "SELECT team_id FROM foottour.teams_to_groups WHERE group_id = ?;";
+                    $stmt = $conn->prepare($sql);
+                    if ($stmt == false) return false;
+                    $groupId = htmlspecialchars(strip_tags($g->id));
+                    $stmt->bind_param("i", $groupId);
+                    if ($stmt->execute() == false) return false;
+                    $result = $stmt->get_result();
+                    $teamIds = array();
+                    while ($row = $result->fetch_object()) array_push($teamIds, $row);
+                    for ($i=0; $i < 2; $i++) { 
+                        $team = 1;
+                        $doAgain = false;
+                        do {
+                            $team = $teamIds[rand(0, count($teamIds) - 1)]->team_id;
+                            $doAgain = false;
+                            for ($j=0; $j < count($orderedTeams); $j++) { 
+                                if ($orderedTeams[$j] == $team) $doAgain = true;
+                            }
+                        } while ($doAgain);
+                        array_push($orderedTeams, $team);
+                    }
+                    $referees = $uc->getByType($conn, "referee");
+                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[0], "team2Id" => $orderedTeams[1], "team1Goals" => 0, "team2Goals" => 0, "code" => $g->name . "-1", "groupId" => $g->id, "time" => "2022.02.04 19:00:00"));
+                    array_push($matches, $match);
                 }
             }
+            return $matches;
         }
     }
 ?>
