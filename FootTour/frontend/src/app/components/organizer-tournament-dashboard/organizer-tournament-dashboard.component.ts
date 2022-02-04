@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Team } from 'src/app/interfaces/team';
 import { TournamentModel } from 'src/app/models/Tournament';
+import { AuthService } from 'src/app/services/auth.service';
 import { TeamService } from 'src/app/services/team.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 
@@ -49,7 +50,7 @@ export class OrganizerTournamentDashboardComponent implements OnInit {
   ]*/
 
 
-  constructor(private teamService: TeamService, private tournamentService: TournamentService) { }
+  constructor(private authService: AuthService, private teamService: TeamService, private tournamentService: TournamentService) { }
   /*ngOnInit(): void {
     this.getTournaments();
   }
@@ -68,14 +69,24 @@ export class OrganizerTournamentDashboardComponent implements OnInit {
   getTeams(): void {
     this.teamService.getAllByTournamentId(4).subscribe(
       (data: Team[]) => this.teams = data,
-      err => console.log(err)
+      error=>{
+        console.log(error);
+        if(error.status == 401){
+          this.authService.logout();
+        }
+      }
     );
   }
 
   getTournamentInfo(): void {
     this.tournamentService.getById(4).subscribe(
       (data: TournamentModel) => this.tournament = data,
-      err => console.log(err)
+      error=>{
+        console.log(error);
+        if(error.status == 401){
+          this.authService.logout();
+        }
+      }
     );
   }
 
