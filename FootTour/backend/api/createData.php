@@ -1,5 +1,8 @@
 <?php
     include_once "connect.php";
+    $db = new DB();
+    $conn = $db->getConnection();
+    
     $sql = "INSERT into foottour.users (name, email, password, is_deleted, is_organizer, is_referee, is_leader) values ('Teszt Elek', 'teszt@elek.hu', 'ElekSecret', false, true, false, false)";
     if ($conn->query($sql) === TRUE) {
         echo "Success!";
