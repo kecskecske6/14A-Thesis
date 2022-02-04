@@ -5,6 +5,7 @@ import { MatchService } from 'src/app/services/match.service';
 import { PlayerService } from 'src/app/services/player.service';
 import { UserService } from 'src/app/services/user.service';
 import { event } from 'src/app/interfaces/event';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-match-report',
@@ -26,7 +27,7 @@ export class MatchReportComponent implements OnInit {
   team2PlayersWithEvents: Player[] =[];
   events: event[] = [];
 
-  constructor(private matchService: MatchService, private playerService: PlayerService, private userService: UserService) { }
+  constructor(private authService: AuthService, private matchService: MatchService, private playerService: PlayerService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.getMatchById();
@@ -50,6 +51,9 @@ export class MatchReportComponent implements OnInit {
       },
       error=>{
         console.log(error);
+        if(error.status == 401){
+          this.authService.logout();
+        }
       }
     )
   }

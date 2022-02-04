@@ -23,4 +23,7 @@ $conn = $db->getConnection();
 if($auth->authorize() != null){
     echo json_encode($mc->getById($conn, $_GET['matchId'], $match, $uc, $tc, $ec));
 }
+else{
+    http_response_code(401);
+}
 ?>

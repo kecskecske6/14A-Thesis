@@ -36,7 +36,8 @@ export class RefereeMatchReportComponent implements OnInit {
   match: Match = new Match();
   
   constructor(private matchService: MatchService,
-              private router: Router) { }
+              private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getMatchById();
@@ -61,6 +62,9 @@ export class RefereeMatchReportComponent implements OnInit {
     },
     error=>{
       console.log(error);
+      if(error.status == 401){
+        this.authService.logout();
+      }
     });
   }
 
@@ -70,16 +74,23 @@ export class RefereeMatchReportComponent implements OnInit {
     this.match.team2Goals = this.team2Goals;
     this.matchService.sendMatchReport(this.match).subscribe(
       result =>console.log(result),
-      error=> console.log(error)
+      error=>{
+        console.log(error);
+        if(error.status == 401){
+          this.authService.logout();
+        }
+      }
     );
     this.matchService.sendEvents(this.events).subscribe(
       result =>{ 
         console.log(result);
         this.router.navigate(["matchreport/", this.id]);
       },
-      error => {
+      error=>{
         console.log(error);
-        this.router.navigate(["matchreport/", this.id]);
+        if(error.status == 401){
+          this.authService.logout();
+        }
       }
     );
   }
@@ -119,7 +130,7 @@ export class RefereeMatchReportComponent implements OnInit {
       }
     this.events.push(this.event);
     console.log(this.events);
-    this.stopModify(player);
+    this.stopModify();
     }
   }
 
@@ -138,7 +149,7 @@ export class RefereeMatchReportComponent implements OnInit {
     this.events.splice(toDelete, 1);
   }
 
-  stopModify(player: Player){
+  stopModify(){
       this.underModify.modifying = false;
       this.underModify.index = -1;
       this.minute = 1;
