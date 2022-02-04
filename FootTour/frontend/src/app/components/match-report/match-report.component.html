@@ -8,31 +8,38 @@
     </div>
     <hr class="mx-auto">
     <div id="body" class="row text-center">
-        <div id="team1name"  class="teamName mt-5">{{team1Name}}</div>
-         <table class="table col-lg-12 mb-5 mt-3 mx-auto">
-            <thead></thead>
-            <tbody>
-              <tr *ngFor="let player of team1PlayersWithEvents">
-                <th class="col-1" scope="row">{{player.kit_number}}</th>
-                    <td class="col-6 text-start">{{player.name}}</td>
-                    <td class="col-3"><div *ngFor="let number of player.number_of_goals_in_a_match; index as i" class="float-start m-1"><img src="../../../assets/match report/ball_icon.png" alt="">{{player.number_of_goals_in_a_match[i]}}'</div></td>
-                    <td class="col-1" ><div *ngIf="player.yellow_cards > 0"><img  src="../../../assets/match report/yellow_card.png" alt="">{{player.yellow_cards}}'</div></td>
-                    <td class="col-1"><div *ngIf="player.red_cards > 0"><img src="../../../assets/match report/red_card.png" alt="">{{player.red_cards}}'</div></td>
+      <div class="teamName mt-5">{{team1Name}}</div>
+      <table class="table col-lg-12 mt-3 mx-auto">
+          <thead></thead>
+          <tbody>
+            <tr *ngFor="let player of team1PlayersWithEvents let i = index" [attr.data-index]="i">
+              <th class="col-1 align-middle" scope="row">{{player.kit_number}}</th>
+              <td class="col-4 text-start align-middle">{{player.name}}</td>
+                <td class="col-7 text-end container align-middle">
+                  <div id="eventContainer" class="row row-cols-4 w-100 me-1 justify-content-end float-end align-items-end">
+                    <ng-container *ngIf="player.number_of_yellows_in_a_match.length > 0"><div class="col m-2 p-0" *ngFor="let goals of player.number_of_yellows_in_a_match; index as i"><img  src="../../../assets/match report/yellow_card.png" alt="">{{player.number_of_yellows_in_a_match[i]}}'</div></ng-container>
+                    <div *ngIf="player.red_cards > 0" class="col m-2 p-0"><img src="../../../assets/match report/red_card.png" alt="">{{player.red_cards}}'</div>
+                    <div *ngFor="let number of player.number_of_goals_in_a_match; index as i" class="col m-2 p-0"><img src="../../../assets/match report/ball_icon.png" alt="">{{player.number_of_goals_in_a_match[i]}}'</div>
+                  </div>
+                </td>
               </tr>
-            </tbody>
-          </table>
+         </tbody>
+        </table> 
           <div class="teamName mt-5">{{team2Name}}</div>
           <table class="table col-lg-12 mt-3 mx-auto">
               <thead></thead>
               <tbody>
-                <tr *ngFor="let player of team2PlayersWithEvents">
-                    <th class="col-1" scope="row">{{player.kit_number}}</th>
-                    <td class="col-6 text-start">{{player.name}}</td>
-                    <td class="col-3"><div *ngFor="let number of player.number_of_goals_in_a_match; index as i" class="float-start m-1"><img src="../../../assets/match report/ball_icon.png" alt="">{{player.number_of_goals_in_a_match[i]}}'</div></td>
-                    <td class="col-1" ><div *ngIf="player.yellow_cards > 0"><img  src="../../../assets/match report/yellow_card.png" alt="">{{player.yellow_cards}}'</div></td>
-                    <td class="col-1"><div *ngIf="player.red_cards > 0"><img src="../../../assets/match report/red_card.png" alt="">{{player.red_cards}}'</div></td>
-                 
-                </tr>
+                <tr *ngFor="let player of team2PlayersWithEvents let i = index" [attr.data-index]="i">
+                  <th class="col-1 align-middle" scope="row">{{player.kit_number}}</th>
+                  <td class="col-4 text-start align-middle">{{player.name}}</td>
+                    <td class="col-7 text-end container align-middle">
+                      <div id="eventContainer" class="row row-cols-4 me-1 justify-content-end float-end align-items-end">
+                        <ng-container *ngIf="player.number_of_yellows_in_a_match.length > 0"><div class="col m-2 p-0" *ngFor="let goals of player.number_of_yellows_in_a_match; index as i"><img  src="../../../assets/match report/yellow_card.png" alt="">{{player.number_of_yellows_in_a_match[i]}}'</div></ng-container>
+                        <div *ngIf="player.red_cards > 0" class="col m-2 p-0"><img src="../../../assets/match report/red_card.png" alt="">{{player.red_cards}}'</div>
+                        <div *ngFor="let number of player.number_of_goals_in_a_match; index as i" class="col m-2 p-0"><img src="../../../assets/match report/ball_icon.png" alt="">{{player.number_of_goals_in_a_match[i]}}'</div>
+                      </div>
+                    </td>
+                  </tr>
              </tbody>
             </table> 
             <div>

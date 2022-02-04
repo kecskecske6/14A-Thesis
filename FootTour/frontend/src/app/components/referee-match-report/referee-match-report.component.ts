@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { event } from 'src/app/models/Event';
+import { Match } from 'src/app/models/Match';
+import { Player } from 'src/app/models/Player';
+import { MatchService } from 'src/app/services/match.service';
+import { AuthService} from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-referee-match-report',
@@ -7,111 +14,134 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RefereeMatchReportComponent implements OnInit {
 
-  match = [
-    {
-      team1name: 'ittASöröm',
-      team2name: 'AS Róka',
-      team1goals: 3,
-      team2goals: 1,
-      referee : "Vak János",
-      tournament: "Mikulás kupa"
-    }
-  ]
-
-  players = [
-    {
-      team: 'ittASöröm',
-      name: 'Teszt Elek',
-      number: 1,
-      goals: [0,1,2],
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'ittASöröm',
-      name: 'Kandisz Nóra',
-      number: 5,
-      goals: null,
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'ittASöröm',
-      name: 'Pofáz Zoltán',
-      number: 7,
-      goals: null,
-      yellow_card: true,
-      red_card: false
-    },
-    {
-      team: 'ittASöröm',
-      name: 'Élő Erik',
-      number: 10,
-      goals: [0],
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'ittASöröm',
-      name: 'Kiss Béla',
-      number: 18,
-      goals: null,
-      yellow_card: false,
-      red_card: true
-    },
-    {
-      team: 'ittASöröm',
-      name: 'David Villa',
-      number: 95,
-      goals: null,
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'AS Róka',
-      name: 'Lakatos Tihamér',
-      number: 1,
-      goals: null,
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'AS Róka',
-      name: 'Lakatos Ákos',
-      number: 4,
-      goals: null,
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'AS Róka',
-      name: 'Lakatos Norbert',
-      number: 9,
-      goals: null,
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'AS Róka',
-      name: 'Lakatos Ábrahám',
-      number: 10,
-      goals: null,
-      yellow_card: false,
-      red_card: false
-    },
-    {
-      team: 'AS Róka',
-      name: 'Lakatos Zsolt',
-      number: 16,
-      goals: [0],
-      yellow_card: true,
-      red_card: false
-    },
-  ]
-
-  constructor() { }
+  id = 1;
+  underModify = {
+    team: 1,
+    index: -1,
+    type: "",
+    modifying: false
+  }
+  minute: number = 1;
+  tournamentName = "";
+  refereeName = "";
+  team1Name = "";
+  team2Name = "";
+  team1Goals = 0;
+  team2Goals = 0;
+  team1Players: Player[] = [];
+  team2Players: Player[] = [];
+  event: event = new event();
+  event2: event = new event();
+  events: event[] = [];
+  match: Match = new Match();
+  
+  constructor(private matchService: MatchService,
+              private router: Router) { }
 
   ngOnInit(): void {
+    this.getMatchById();
   }
 
+  getMatchById(){
+    this.matchService.getMatchById(this.id).subscribe(
+      (result: any)=>{
+      this.match.id = result.id;
+      this.match.tournamentId = result.tournamentId;
+      this.match.team1Id = result.team1Id;
+      this.match.team2Id = result.team2Id;
+      this.match.code = result.code;
+      this.match.refereeId = result.refereeId;
+      this.refereeName = result.refereeName.name;
+      this.tournamentName = result.tournamentName.name;
+      console.log(result);
+      this.team1Name = result.team1Name.name;
+      this.team2Name = result.team2Name.name;
+      this.team1Players = this.matchService.setPlayerProperties(result.team1Players);
+      this.team2Players = this.matchService.setPlayerProperties(result.team2Players);
+    },
+    error=>{
+      console.log(error);
+    });
+  }
+
+  onSubmit(){
+    this.match.id = this.id;
+    this.match.team1Goals = this.team1Goals;
+    this.match.team2Goals = this.team2Goals;
+    this.matchService.sendMatchReport(this.match).subscribe(
+      result =>console.log(result),
+      error=> console.log(error)
+    );
+    this.matchService.sendEvents(this.events).subscribe(
+      result =>{ 
+        console.log(result);
+        this.router.navigate(["matchreport/", this.id]);
+      },
+      error => {
+        console.log(error);
+        this.router.navigate(["matchreport/", this.id]);
+      }
+    );
+  }
+
+  eventAssign(type: string, index: number, team: number){
+    this.underModify.type = type;
+    this.underModify.index = index;
+    this.underModify.modifying = true;
+    this.underModify.team = team;
+  }
+
+  saveEvent(player: Player, type: string, teamName: string){
+    if(this.minute > 0 && this.minute < 120){
+      this.event = new event;
+      this.event.match_id = this.id;
+      this.event.player_id = player.id;
+      this.event.type = type;
+      this.event.minute = this.minute;
+      if(type == "goal"){
+        player.number_of_goals_in_a_match.push(this.minute);
+        if(teamName == this.team1Name) this.team1Goals++;
+        else this.team2Goals++;
+      }
+      else if(type == "yellowCard"){
+        player.number_of_yellows_in_a_match.push(this.minute);
+        if(player.number_of_yellows_in_a_match.length == 2){
+           player.redCard = this.minute;
+           this.event2.match_id = this.id;
+           this.event2.player_id = player.id;
+           this.event2.type = "redCard";
+           this.event2.minute = this.minute;
+           this.events.push(this.event2);
+          }
+      } 
+      else{
+        player.redCard = this.minute;
+      }
+    this.events.push(this.event);
+    console.log(this.events);
+    this.stopModify(player);
+    }
+  }
+
+  deleteEvent(player: Player, type: string, index: number, teamName: string){
+    if(type == "goal"){
+      player.number_of_goals_in_a_match.splice(index, 1);
+      if(teamName == this.team1Name) this.team1Goals--;
+      else this.team2Goals--;
+    }
+    else if(type == "yellowCard") player.number_of_yellows_in_a_match.splice(index,1);
+    else {
+      if(player.number_of_yellows_in_a_match.length == 2) player.number_of_yellows_in_a_match.splice(player.number_of_yellows_in_a_match.length-1, 1);
+      player.redCard = 0;
+    }
+    var toDelete = this.events.findIndex(element => element.type == type && element.player_id == player.id && element.minute == this.minute);
+    this.events.splice(toDelete, 1);
+  }
+
+  stopModify(player: Player){
+      this.underModify.modifying = false;
+      this.underModify.index = -1;
+      this.minute = 1;
+      this.underModify.type = "";
+  }
 }
