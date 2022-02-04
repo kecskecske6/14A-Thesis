@@ -7,6 +7,8 @@ include_once "../../controllers/header.php";
 
 $auth = new Auth();
 $ec = new EventController();
+$db = new DB();
+$conn = $db->getConnection();
 
 
 if($auth->authorize() != null){

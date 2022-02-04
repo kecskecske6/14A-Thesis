@@ -8,6 +8,8 @@ use \Firebase\JWT\JWT;
 define('SECRET_KEY', 'FootTourSecret');
 define('ALGORITHM', 'HS256');
 
+$db = new DB();
+$conn = $db->getConnection();
 $postdata = file_get_contents("php://input");
 
 

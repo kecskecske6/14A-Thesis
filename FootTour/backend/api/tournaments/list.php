@@ -8,6 +8,8 @@
     $auth = new Auth();
     $tc = new TournamentController();
     $tournament = new Tournament();
+    $db = new DB();
+    $conn = $db->getConnection();
 
     if($auth->authorize() != null){
         if(isset($_GET)){
