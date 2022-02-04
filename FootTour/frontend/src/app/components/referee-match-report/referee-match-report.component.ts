@@ -22,6 +22,7 @@ export class RefereeMatchReportComponent implements OnInit {
     modifying: false
   }
   minute: number = 1;
+  tournamentName = "";
   refereeName = "";
   team1Name = "";
   team2Name = "";
@@ -35,8 +36,7 @@ export class RefereeMatchReportComponent implements OnInit {
   match: Match = new Match();
   
   constructor(private matchService: MatchService,
-              private router: Router, 
-              private authService: AuthService) { }
+              private router: Router) { }
 
   ngOnInit(): void {
     this.getMatchById();
@@ -52,6 +52,7 @@ export class RefereeMatchReportComponent implements OnInit {
       this.match.code = result.code;
       this.match.refereeId = result.refereeId;
       this.refereeName = result.refereeName.name;
+      this.tournamentName = result.tournamentName.name;
       console.log(result);
       this.team1Name = result.team1Name.name;
       this.team2Name = result.team2Name.name;

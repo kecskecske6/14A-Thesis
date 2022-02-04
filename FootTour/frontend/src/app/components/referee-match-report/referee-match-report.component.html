@@ -186,10 +186,11 @@
         <div>
           <h5>Játékvezető: {{refereeName}}</h5>
         </div>
-        <!-- {{item.tournament}} -->
+        {{tournamentName}}
       </div>
-      <div>
-        <input type="submit" (click)="onSubmit()" class="btn btn-primary btn-lg w-25 mt-4" value="Rögzítés">
+      <div id="submitButtonContainer" class="w-50 mx-auto">
+        <input type="submit" (click)="onSubmit()" class="btn btn-primary btn-lg w-100 mt-4" value="Rögzítés">
+
       </div>
     </div>
 </div>

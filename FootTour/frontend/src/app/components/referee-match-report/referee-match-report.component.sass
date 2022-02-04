@@ -15,21 +15,23 @@ div
 hr
     color: red
     height: 3px
-    width: 80%
 
 table
     max-width: 800px
     color: white
-    font-size: $smallScreenFontSize
+    @media( max-width: 560px)
+        font-size: $smallScreenFontSize
 
 .teamName
     font-size: $teamNameFontSize
     font-weight: bold
 
 img
-    height: 16px
-    width:  16px
-
+    @media( max-width: 560px)
+        height: 16px
+        width:  16px
+    height: 32px
+    width: 32px
 #inGoalMinute
     width: 60px
 
@@ -44,3 +46,6 @@ i.bi-trash:hover
 
 th
     font-size: $smallScreenFontSize
+
+#submitButtonContainer
+    max-width: 220px
