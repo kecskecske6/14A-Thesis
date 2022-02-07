@@ -6,7 +6,7 @@
             <div class="col-12 col-md-6 w-100 bg-primary">
                 <h4 class="text-center">Játékosok listája</h4>
                 <ul>
-                    <li></li>
+                    <li *ngFor="let player of players let i = index" [attr.data-index]="i">{{player.name}}</li>
                 </ul>
             </div>
         </div>
