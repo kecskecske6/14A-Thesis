@@ -1,13 +1,18 @@
 <?php
-    header('Access-Control-Allow-Origin: *');
-    $conn = new mysqli('localhost', 'root', '');
-    mysqli_set_charset($conn, 'utf8');
+    class DB{
+        private $conn;
 
-    if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+        function __construct()
+        {
+            $config = parse_ini_file('config.ini');
+            $this->conn = new mysqli($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']);
+            mysqli_set_charset($this->conn, 'utf8');
+            if ($this->conn->connect_error) die("Connection failed: " . $this->conn->connect_error);
+        }
 
-    $sql = "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'foottour'";
-    $result = $conn->query($sql);
-    if ($result->num_rows != 1) {
-        include_once "createDb.php";
+        function getConnection()
+        {
+            return $this->conn;
+        }
     }
 ?>

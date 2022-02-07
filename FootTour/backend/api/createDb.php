@@ -1,4 +1,7 @@
 <?php
+    $db = new DB();
+    $conn = $db->getConnection();
+
     if ($conn->query("DROP DATABASE IF EXISTS foottour") !== TRUE)
         die($conn->error);
     $file = explode(";", file_get_contents("../init.sql"));

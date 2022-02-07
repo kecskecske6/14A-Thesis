@@ -28,7 +28,12 @@ export class AvailableTournamentsComponent implements OnInit {
           this.tournaments.push(new TournamentModel(t));
         });
       },
-      err => console.log(err)
+      error => {
+        console.log(error);
+        if (error.status == 401) {
+          this.auth.logout();
+        }
+      }
     );
   }
 

@@ -1,5 +1,9 @@
 <?php
     include_once "connect.php";
+    
+    $db = new DB();
+    $conn = $db->getConnection();
+
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Request-Method: POST");
     header("Access-Control-Allow-Headers: *");

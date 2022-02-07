@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'database/tournaments/:tournamentinfo', canActivate:[AuthGuard], component: TournamentInfoComponent },
   { path: 'matchreport/:id', canActivate:[AuthGuard], component: MatchReportComponent },
   { path: 'mytournaments/:id', canActivate:[AuthGuard], component: OrganizerTournamentDashboardComponent },
-  { path: 'matchreport/referee', canActivate:[AuthGuard], component: RefereeMatchReportComponent },
+  { path: 'referee/:id', canActivate:[AuthGuard], component: RefereeMatchReportComponent },
   { path: 'schedule/:id', canActivate:[AuthGuard], component: TournamentScheduleComponent },
   { path: 'draw/:id', canActivate:[AuthGuard], component: DrawComponent }
 ];

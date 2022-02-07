@@ -8,6 +8,9 @@
     $tc = new TeamController();
     $team = new Team();
     $auth = new Auth();
+    $db = new DB();
+    $conn = $db->getConnection();
+    
     if($auth->authorize() != null){
         if (isset($_GET)) {
             if (isset($_GET["tournamentId"])) {

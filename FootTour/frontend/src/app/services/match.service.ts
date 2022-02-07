@@ -18,7 +18,14 @@ export class MatchService {
     return this.http.get<any>(`${environment.backendURL}/api/matches/getById.php?matchId=${id}`);
   }
 
-  setEventsToPlayers(events: Event[], players: PlayerModel[]){
+sendMatchReport(match: MatchModel): Observable<any>{
+  return this.http.put<any>(`${environment.backendURL}/api/matches/save.php`, match);
+}
+
+sendEvents(events: Event[]){
+  return this.http.post<any>(`${environment.backendURL}/api/events/save.php`, events);
+}  
+setEventsToPlayers(events: Event[], players: PlayerModel[]){
       players.forEach(player => {
         player.goals=0;
         player.yellowCards = 0;
@@ -35,6 +42,7 @@ export class MatchService {
                 break;
               case "yellowCard":
                   player.yellowCards = event.minute;
+                  player.number_of_yellows_in_a_match.push(event.minute);
                 break;
               case "redCard":
                   player.redCards = event.minute;
@@ -51,5 +59,13 @@ export class MatchService {
 
   create(model: MatchModel): Observable<MatchModel> {
     return this.http.post<MatchModel>(`${environment.backendURL}/api/matches/create.php`, model);
+  }
+  setPlayerProperties(players: PlayerModel[]){
+    players.forEach(player => {
+      player.number_of_goals_in_a_match = [];
+      player.number_of_yellows_in_a_match = [];
+      player.redCard = 0;
+    });
+    return players;
   }
 }
