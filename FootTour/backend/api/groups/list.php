@@ -8,6 +8,8 @@
     $gc = new GroupController();
     $group = new Group();
     $auth = new Auth();
+    $db = new DB();
+    $conn = $db->getConnection();
     if($auth->authorize() != null){
         if (isset($_GET)) {
             if (isset($_GET["tournamentId"])) {

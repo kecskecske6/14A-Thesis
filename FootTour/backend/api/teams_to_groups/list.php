@@ -8,6 +8,8 @@
     $ttgc = new TeamstoGroupsController();
     $teamstoGroups = new TeamstoGroups();
     $auth = new Auth();
+    $db = new DB();
+    $conn = $db->getConnection();
     if($auth->authorize() != null){
         if (isset($_GET)) {
             if (isset($_GET["tournamentId"])) {
