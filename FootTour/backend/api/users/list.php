@@ -9,7 +9,7 @@
     $uc = new UserController();
     $user = new User();
     $db = new DB();
-    $conn = $conn->getConnection();
+    $conn = $db->getConnection();
 
 
     if($auth->authorize() != null){
