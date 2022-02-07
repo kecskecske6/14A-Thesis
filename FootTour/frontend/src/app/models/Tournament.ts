@@ -1,19 +1,26 @@
-export class TournamentModel{
+import { Tournament } from "../interfaces/tournament";
+
+export class TournamentModel implements Tournament {
     id = 0;
     organizerId = 0;
     startDate: Date = new Date();
     endDate: Date = new Date();
     name = '';
     location = '';
-    bestPlayer: string |null = null;
-    topScorer: string |null = null;
-    bestGoalkeeper: string |null = null;
+    bestPlayer: string | null = null;
+    topScorer: string | null = null;
+    bestGoalkeeper: string | null = null;
     entryFee = 0;
     teamsCount = 0;
     description = '';
+    type = '';
+    groupsAmount = 0;
+    groupMatches = 0;
+    knockoutMatches = 0;
+    finalMatches = 0;
 
-    constructor(model: any = undefined){
-        if(model){
+    constructor(model: any = undefined) {
+        if (model) {
             this.id = Number(model.id);
             this.organizerId = Number(model.organizerId);
             this.startDate = new Date(model.startDate);
@@ -26,6 +33,11 @@ export class TournamentModel{
             this.entryFee = Number(model.entryFee);
             this.teamsCount = Number(model.teamsCount);
             this.description = model.description;
+            this.type = model.type;
+            this.groupsAmount = Number(model.groupsAmount);
+            this.groupMatches = Number(model.groupMatches);
+            this.knockoutMatches = Number(model.knockoutMatches);
+            this.finalMatches = Number(model.finalMatches);
         }
     }
 }

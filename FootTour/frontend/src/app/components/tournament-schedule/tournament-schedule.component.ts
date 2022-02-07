@@ -1,4 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { GroupModel } from 'src/app/models/Group';
+import { TeamModel } from 'src/app/models/Team';
+import { TeamstoGroupsModel } from 'src/app/models/TeamstoGroups';
+import { TournamentModel } from 'src/app/models/Tournament';
+import { GroupService } from 'src/app/services/group.service';
+import { TeamService } from 'src/app/services/team.service';
+import { TeamstoGroupsService } from 'src/app/services/teamsto-groups.service';
+import { TournamentService } from 'src/app/services/tournament.service';
 
 @Component({
   selector: 'app-tournament-schedule',
@@ -7,9 +16,69 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TournamentScheduleComponent implements OnInit {
 
-  constructor() { }
+  teamstoGroups: TeamstoGroupsModel[] = [];
+
+  teams: TeamModel[] = [];
+
+  groups: GroupModel[] = [];
+
+  tournament: TournamentModel = new TournamentModel();
+
+  constructor(private teamstoGroupsService: TeamstoGroupsService, private router: Router, private teamService: TeamService, private groupService: GroupService, private tournamentService: TournamentService) { }
 
   ngOnInit(): void {
+    this.getTeamstoGroups();
+    this.getTeams();
+    this.getGroups();
+    this.getTournament();
+  }
+
+  getTeamstoGroups(): void {
+    this.teamstoGroupsService.getByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
+      result => {
+        result.forEach(ttg => {
+          this.teamstoGroups.push(new TeamstoGroupsModel(ttg));
+        });
+      },
+      error => console.log(error)
+    );
+  }
+
+  getTeams(): void {
+    this.teamService.getAllByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
+      result => {
+        result.forEach(t => {
+          this.teams.push(new TeamModel(t));
+        });
+      },
+      error => console.log(error)
+    );
+  }
+
+  getGroups(): void {
+    this.groupService.getByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
+      result => {
+        result.forEach(g => {
+          this.groups.push(new GroupModel(g));
+        });
+      },
+      error => console.log(error)
+    );
+  }
+
+  getTournament(): void {
+    this.tournamentService.getById(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
+      result => this.tournament = new TournamentModel(result),
+      error => console.log(error)
+    );
+  }
+
+  getTeam(pair: GroupModel): string {
+    let teams = '';
+    this.teamstoGroups.filter(ttg => ttg.groupId == pair.id).forEach(ttg => {
+      teams += this.teams.find(t => t.id == ttg.teamId)?.name + '\n';
+    });
+    return teams;
   }
 
 }

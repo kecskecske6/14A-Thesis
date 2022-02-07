@@ -25,7 +25,7 @@
     }
     
     function getByOrganizerId($conn, $id){
-            $sql = "SELECT * from foottour.tournaments WHERE organizer_Id = ?";
+            $sql = "SELECT * from foottour.tournaments WHERE organizerId = ?";
             $stmt = $conn->prepare($sql);
             if ($stmt === false) return false;
             $id = htmlspecialchars(strip_tags($id));
@@ -40,8 +40,8 @@
     }
 
     function createTournament($conn, $postdata){
-        $sql = "INSERT INTO foottour.tournaments (organizer_id, start_date, end_date, name,
-        location, entry_fee, description, teams_count) VALUES (?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO foottour.tournaments (organizerId, startDate, endDate, name,
+        location, entryFee, description, teamsCount) VALUES (?,?,?,?,?,?,?,?)";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
         $organizerId = htmlspecialchars(strip_tags($postdata->organizerId));
@@ -62,11 +62,11 @@
 
 
     function modifyTournament($conn, $postdata){
-        $sql = "UPDATE foottour.tournaments SET `start_date` = ?,
-        `end_date` = ?, `name` = ?, `location` = ?,
-        `best_player` = ?, `best_goalkeeper` = ?, `top_scorer` = ?,
-        `entry_fee` = ?, `description` = ?, `teams_count` = ? 
-        WHERE `organizer_id` = ? AND `id` = ?";
+        $sql = "UPDATE foottour.tournaments SET `startDate` = ?,
+        `endDate` = ?, `name` = ?, `location` = ?,
+        `bestPlayer` = ?, `bestGoalkeeper` = ?, `topScorer` = ?,
+        `entryFee` = ?, `description` = ?, `teamsCount` = ? 
+        WHERE `organizerId` = ? AND `id` = ?";
         
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;

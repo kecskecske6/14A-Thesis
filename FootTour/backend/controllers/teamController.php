@@ -3,8 +3,13 @@
 class TeamController{
     
     function getTeamsByTournamentId($conn, $tournamentId){
-        $sql = "SELECT * FROM foottour.teams_to_tournaments INNER JOIN foottour.tournaments
-          ON teams_to_tournaments.tournament_id = tournaments.id WHERE tournaments.id = ?";
+        $sql = "SELECT
+        foottour.teams.*
+      FROM foottour.teams_to_tournaments
+        INNER JOIN foottour.teams
+          ON foottour.teams_to_tournaments.teamId = foottour.teams.id
+        INNER JOIN foottour.tournaments
+          ON foottour.teams_to_tournaments.tournamentId = foottour.tournaments.id WHERE foottour.tournaments.id = ?;";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
 

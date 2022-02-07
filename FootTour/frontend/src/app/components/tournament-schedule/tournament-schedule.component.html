@@ -1,54 +1,74 @@
 <div id="container" class="d-flex mt-5 mx-auto">
-    <div class="col mx-auto">
-        <div class="row">
-            <div *ngFor="let number of [0,1,2,3]" class="card text-dark bg-light m-5 mb-3 mx-auto" style="max-width: 18rem;">
-                <div class="card-header">A csoport</div>
-                <div class="card-body">
-                    <div>ittASöröm</div>
-                    <div>AS Róka</div>
-                    <div>Argentin tangó</div>
-                    <div>Mikk Makk</div>
-                </div>
-            </div>
-        </div>
-        <div class="row"><hr class="mx-auto"></div>
-        <h2 class="text-center mb-4">Legjobb 8</h2>
-        <table class="table table-borderless mx-auto">
-            <tbody>
-              <tr *ngFor="let number of [0,1,2,3]" class="row-12">
-                <th class="text-end col-4">ittASöröm</th>
-                <td class="text-end col-1">3</td>
-                <td class="text-center col-1">-</td>
-                <td class="text-start col-1">1</td>
-                <td class="text-start col-4">AS Róka</td>
-              </tr>
-            </tbody>
+  <div class="col mx-auto">
+    <h2 class="text-center">{{tournament.name}}</h2>
+    <br>
+    <div *ngIf="tournament.type == 'Csoportkör és kieséses'" class="row">
+      <div *ngFor="let group of groups" class="card text-dark bg-light m-5 mb-3 mx-auto" style="max-width: 45rem;">
+        <div class="card-header">{{group.name[2]}} csoport</div>
+        <div class="card-body">
+          <table class="text-dark">
+            <tr>
+              <th>#</th>
+              <th style="width: 200px;">Név</th>
+              <th>M</th>
+              <th>Gy</th>
+              <th>D</th>
+              <th>V</th>
+              <th>GK</th>
+              <th>P</th>
+            </tr>
+            <tr *ngFor="let team of getTeam(group).split('\n').slice(0, -1); index as i">
+              <td>{{i + 1}}</td>
+              <td>{{team}}</td>
+            </tr>
           </table>
-          <div class="row"><hr class="mx-auto"></div>
-          <h2 class="text-center mb-4">Legjobb 4</h2>
-          <table class="table table-borderless mx-auto">
-              <tbody>
-                <tr *ngFor="let number of [0,1]" class="row-12">
-                  <th class="text-end col-4">ittASöröm</th>
-                  <td class="text-end col-1">5</td>
-                  <td class="text-center col-1">-</td>
-                  <td class="text-start col-1">1</td>
-                  <td class="text-start col-4">AS Róka</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="row"><hr class="mx-auto"></div>
-            <h2 class="text-center mb-4">Döntő</h2>
-            <table class="table table-borderless mx-auto">
-                <tbody>
-                  <tr class="row-12">
-                    <th class="text-end col-4">ittASöröm</th>
-                    <td class="text-end col-1">6</td>
-                    <td class="text-center col-1">-</td>
-                    <td class="text-start col-1">0</td>
-                    <td class="text-start col-4">AS Róka</td>
-                  </tr>
-                </tbody>
-              </table>
+        </div>
+      </div>
     </div>
+    <div class="row">
+      <hr class="mx-auto">
+    </div>
+    <h2 class="text-center mb-4">Negyeddöntők</h2>
+    <table class="table table-borderless mx-auto">
+      <tbody>
+        <tr *ngFor="let pair of groups" class="row-12">
+          <th class="text-end col-4">{{getTeam(pair).split("\n")[0]}}</th>
+          <td class="text-end col-1">3</td>
+          <td class="text-center col-1">-</td>
+          <td class="text-start col-1">1</td>
+          <td class="text-start col-4">{{getTeam(pair).split("\n")[1]}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <hr class="mx-auto">
+    </div>
+    <h2 class="text-center mb-4">Legjobb 4</h2>
+    <table class="table table-borderless mx-auto">
+      <tbody>
+        <tr *ngFor="let number of [0,1]" class="row-12">
+          <th class="text-end col-4">ittASöröm</th>
+          <td class="text-end col-1">5</td>
+          <td class="text-center col-1">-</td>
+          <td class="text-start col-1">1</td>
+          <td class="text-start col-4">AS Róka</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <hr class="mx-auto">
+    </div>
+    <h2 class="text-center mb-4">Döntő</h2>
+    <table class="table table-borderless mx-auto">
+      <tbody>
+        <tr class="row-12">
+          <th class="text-end col-4">ittASöröm</th>
+          <td class="text-end col-1">6</td>
+          <td class="text-center col-1">-</td>
+          <td class="text-start col-1">0</td>
+          <td class="text-start col-4">AS Róka</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

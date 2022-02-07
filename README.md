@@ -10,7 +10,7 @@ The **application** is available [here](https://github.com/kecskecske6/FootTour 
 
 ## Who do?
 
-**FootTour** us made by two people: Szebik Levente Róbert and Tankovits Bence.
+**FootTour** is made by two people: Szebik Levente Róbert and Tankovits Bence.
 
 Their work includes:
 
