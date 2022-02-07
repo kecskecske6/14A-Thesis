@@ -7,9 +7,9 @@ class TeamController{
         foottour.teams.*
       FROM foottour.teams_to_tournaments
         INNER JOIN foottour.teams
-          ON foottour.teams_to_tournaments.team_id = foottour.teams.id
+          ON foottour.teams_to_tournaments.teamId = foottour.teams.id
         INNER JOIN foottour.tournaments
-          ON foottour.teams_to_tournaments.tournament_id = foottour.tournaments.id WHERE foottour.tournaments.id = ?;";
+          ON foottour.teams_to_tournaments.tournamentId = foottour.tournaments.id WHERE foottour.tournaments.id = ?;";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
 

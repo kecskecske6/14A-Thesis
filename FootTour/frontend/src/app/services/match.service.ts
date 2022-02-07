@@ -27,7 +27,7 @@ export class MatchService {
       players.forEach(player => {
         player.number_of_goals_in_a_match = [];
         events.forEach(event => {
-          if(player.id == event.player_id){
+          if(player.id == event.playerId){
             switch (event.type) {
               case "goal":
                   player.goals++;

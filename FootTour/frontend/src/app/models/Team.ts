@@ -7,7 +7,7 @@ export class TeamModel implements Team {
     constructor(model: any = undefined) {
         if (model) {
             this.id = Number(model.id);
-            this.leaderId = Number(model.leader_id);
+            this.leaderId = Number(model.leaderId);
             this.name = model.name;
         }
     }

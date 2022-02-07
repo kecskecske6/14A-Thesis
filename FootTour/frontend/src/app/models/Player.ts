@@ -13,10 +13,10 @@ export class PlayerModel implements Player {
     constructor(player: any = undefined) {
         this.id = player.id;
         this.name = player.name;
-        this.birthDate = player.birth_date;
+        this.birthDate = player.birthDate;
         this.goals = player.goals;
-        this.yellowCards = player.yellow_cards;
-        this.redCards = player.red_cards;
-        this.kitNumber = player.kit_number;
+        this.yellowCards = player.yellowCards;
+        this.redCards = player.redCards;
+        this.kitNumber = player.kitNumber;
     }
 }

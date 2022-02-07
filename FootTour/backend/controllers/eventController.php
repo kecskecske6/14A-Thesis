@@ -2,7 +2,7 @@
 
 class EventController{
     function getEventsByMatchId($conn, $id){
-        $sql = "SELECT * FROM foottour.events WHERE match_id = ?";
+        $sql = "SELECT * FROM foottour.events WHERE matchId = ?";
 
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;

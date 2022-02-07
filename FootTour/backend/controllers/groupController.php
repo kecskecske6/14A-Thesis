@@ -14,7 +14,7 @@
     }
 
     function createGroup($conn, $postdata){
-        $sql = "INSERT INTO foottour.groups (tournament_id, name) VALUES (?,?)";
+        $sql = "INSERT INTO foottour.groups (tournamentId, name) VALUES (?,?)";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
         $tournamentId = htmlspecialchars(strip_tags($postdata->tournamentId));
@@ -27,7 +27,7 @@
     }
 
     function getByTournamentId($conn, $id) {
-        $sql = "SELECT * from foottour.groups where tournament_id = ?;";
+        $sql = "SELECT * from foottour.groups where tournamentId = ?;";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
 

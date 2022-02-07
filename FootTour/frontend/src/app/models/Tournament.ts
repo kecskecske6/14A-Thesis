@@ -22,22 +22,22 @@ export class TournamentModel implements Tournament {
     constructor(model: any = undefined) {
         if (model) {
             this.id = Number(model.id);
-            this.organizerId = Number(model.organizer_id);
-            this.startDate = new Date(model.start_date);
-            this.endDate = new Date(model.end_date);
+            this.organizerId = Number(model.organizerId);
+            this.startDate = new Date(model.startDate);
+            this.endDate = new Date(model.endDate);
             this.name = model.name;
             this.location = model.location;
-            this.bestPlayer = model.best_player;
-            this.topScorer = model.top_scorer;
-            this.bestGoalkeeper = model.best_goalkeeper;
-            this.entryFee = Number(model.entry_fee);
-            this.teamsCount = Number(model.teams_count);
+            this.bestPlayer = model.bestPlayer;
+            this.topScorer = model.topScorer;
+            this.bestGoalkeeper = model.bestGoalkeeper;
+            this.entryFee = Number(model.entryFee);
+            this.teamsCount = Number(model.teamsCount);
             this.description = model.description;
             this.type = model.type;
-            this.groupsAmount = Number(model.groups_amount);
-            this.groupMatches = Number(model.group_matches);
-            this.knockoutMatches = Number(model.knockout_matches);
-            this.finalMatches = Number(model.final_matches);
+            this.groupsAmount = Number(model.groupsAmount);
+            this.groupMatches = Number(model.groupMatches);
+            this.knockoutMatches = Number(model.knockoutMatches);
+            this.finalMatches = Number(model.finalMatches);
         }
     }
 }

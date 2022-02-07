@@ -8,8 +8,8 @@ export class TeamstoGroupsModel implements TeamstoGroups {
     constructor(model: any = undefined) {
         if (model) {
             this.id = Number(model.id);
-            this.teamId = Number(model.team_id);
-            this.groupId = Number(model.group_id);
+            this.teamId = Number(model.teamId);
+            this.groupId = Number(model.groupId);
         }
     }
 }

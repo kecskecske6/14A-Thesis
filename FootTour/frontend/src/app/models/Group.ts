@@ -8,7 +8,7 @@ export class GroupModel implements Group {
     constructor(model: any = undefined) {
         if (model) {
             this.id = Number(model.id);
-            this.tournamentId = Number(model.tournament_id);
+            this.tournamentId = Number(model.tournamentId);
             this.name = model.name;
         }
     }

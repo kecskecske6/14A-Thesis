@@ -13,14 +13,14 @@ export class MatchModel implements Match {
 
     constructor(match: any = undefined) {
         if (match) {
-            this.id = match.id;
-            this.team1Id = match.team1_id;
-            this.team2Id = match.team2_id;
-            this.refereeId = match.referee_id;
-            this.team1Goals = match.team1_goals;
-            this.team2Goals = match.team2_goals;
+            this.id = Number(match.id);
+            this.team1Id = Number(match.team1Id);
+            this.team2Id = Number(match.team2Id);
+            this.refereeId = Number(match.refereeId);
+            this.team1Goals = Number(match.team1Goals);
+            this.team2Goals = Number(match.team2Goals);
             this.code = match.code;
-            this.groupId = Number(match.group_id);
+            this.groupId = Number(match.groupId);
             this.time = new Date(match.time);
         }
     }

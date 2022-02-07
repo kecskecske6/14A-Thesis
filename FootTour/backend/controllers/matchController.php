@@ -34,18 +34,18 @@ function getPlayersByMatchId($conn, $id, $teamId){
     $sql = "SELECT
     players.id,
     players.name,
-    players.kit_number
+    players.kitNumber
   FROM foottour.players_to_teams
     INNER JOIN foottour.players
-        ON players_to_teams.player_id = players.id 
+        ON players_to_teams.playerId = players.id 
     INNER JOIN foottour.teams
-        ON players_to_teams.team_id = teams.id
+        ON players_to_teams.teamId = teams.id
     INNER JOIN foottour.teams_to_tournaments
-        ON teams_to_tournaments.team_id = teams.id
+        ON teams_to_tournaments.teamId = teams.id
     INNER JOIN foottour.tournaments
-        ON teams_to_tournaments.tournament_id = tournaments.id
+        ON teams_to_tournaments.tournamentId = tournaments.id
     INNER JOIN foottour.matches
-        ON matches.tournament_id = tournaments.id
+        ON matches.tournamentId = tournaments.id
       WHERE matches.id = ? AND teams.id = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt === false) return false;
@@ -73,7 +73,7 @@ function getTeamNameById($conn, $id){
 }
 
 function createMatch($conn, $data) {
-    $sql = "INSERT into foottour.matches (referee_id, team1_goals, team2_goals, code, group_id, time, team1_id, team2_id) values (?, ?, ?, ?, ?, ?, ?, ?);";
+    $sql = "INSERT into foottour.matches (refereeId, team1Goals, team2Goals, code, groupId, time, team1Id, team2Id) values (?, ?, ?, ?, ?, ?, ?, ?);";
     $stmt = $conn->prepare($sql);
     if ($stmt == false) return false;
     $refereeId = htmlspecialchars(strip_tags($data->refereeId));

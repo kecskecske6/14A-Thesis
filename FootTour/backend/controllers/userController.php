@@ -15,10 +15,10 @@ class UserController{
     function getByType($conn, $type) {
         $sql = "";
         if ($type == "organizer")
-        $sql = "SELECT * from foottour.users where is_organizer = true;";
+        $sql = "SELECT * from foottour.users where isOrganizer = true;";
         elseif ($type == "referee")
-        $sql = "SELECT * from foottour.users where is_referee = true;";
-        else $sql = "SELECT * from foottour.users where is_leader = true;";
+        $sql = "SELECT * from foottour.users where isReferee = true;";
+        else $sql = "SELECT * from foottour.users where isLeader = true;";
         $stmt = $conn->prepare($sql);
         if ($stmt == false) return false;
         if ($stmt->execute() == false) return false;

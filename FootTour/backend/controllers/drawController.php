@@ -15,7 +15,7 @@
             }
             else {
                 $groups = array();
-                for ($i = 0; $i < $data->tournament->teams_count / 2; $i++) array_push($groups, array());
+                for ($i = 0; $i < $data->tournament->teamsCount / 2; $i++) array_push($groups, array());
                 for ($i=0; $i < count($data->teams); $i++) { 
                     $team = $data->teams[0];
                     $doAgain = false;
@@ -29,7 +29,7 @@
                 $i = 1;
                 foreach ($groups as $key => $g) {
                     $name = "";
-                    if ($data->tournament->teams_count == 8) $name = "QF" . $i;
+                    if ($data->tournament->teamsCount == 8) $name = "QF" . $i;
                     $group = $gc->createGroup($conn, (object)array("tournamentId" => $data->tournament->id, "name" => $name));
                     foreach ($g as $key => $t) {
                         $ttgc->createGroup($conn, (object)array("teamId" => $t->id, "groupId" => $group->id));
@@ -37,10 +37,9 @@
                     ++$i;
                 }
                 $groupsGenerated = $gc->getByTournamentId($conn, $data->tournament->id);
-                var_dump($groupsGenerated);
                 foreach ($groupsGenerated as $key => $g) {
                     $orderedTeams = array();
-                    $sql = "SELECT team_id FROM foottour.teams_to_groups WHERE group_id = ?;";
+                    $sql = "SELECT teamId FROM foottour.teams_to_groups WHERE groupId = ?;";
                     $stmt = $conn->prepare($sql);
                     if ($stmt == false) return false;
                     $groupId = htmlspecialchars(strip_tags($g->id));
@@ -53,7 +52,7 @@
                         $team = 1;
                         $doAgain = false;
                         do {
-                            $team = $teamIds[rand(0, count($teamIds) - 1)]->team_id;
+                            $team = $teamIds[rand(0, count($teamIds) - 1)]->teamId;
                             $doAgain = false;
                             for ($j=0; $j < count($orderedTeams); $j++) { 
                                 if ($orderedTeams[$j] == $team) $doAgain = true;
@@ -64,6 +63,11 @@
                     $referees = $uc->getByType($conn, "referee");
                     $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[0], "team2Id" => $orderedTeams[1], "team1Goals" => 0, "team2Goals" => 0, "code" => $g->name . "-1", "groupId" => $g->id, "time" => "2022.02.04 19:00:00"));
                     array_push($matches, $match);
+                    if ($data->tournament->knockoutMatches == 2)
+                    {
+                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[1], "team2Id" => $orderedTeams[0], "team1Goals" => 0, "team2Goals" => 0, "code" => $g->name . "-2", "groupId" => $g->id, "time" => "2022.02.04 19:00:00"));
+                        array_push($matches, $match);
+                    }
                 }
             }
             return $matches;
