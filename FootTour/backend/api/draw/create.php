@@ -6,6 +6,8 @@ include_once("../connect.php");
 
 $auth = new Auth();
 $dc = new DrawController();
+$db = new DB();
+$conn = $db->getConnection();
 
 if($auth->authorize() != null){
     $postdata = json_decode(file_get_contents("php://input"));
