@@ -28,7 +28,7 @@
         </thead>
         <tbody class="align-middle">
           <tr class="align-middle" *ngFor="let player of team1Players; let i = index" [attr.data-index]="i">
-            <td class="col-1">{{player.kit_number}}</td>
+            <td class="col-1">{{player.kitNumber}}</td>
             <td class="col-1 text-start">{{player.name}}</td>
             <td class="col-6">
               <div class="col-3 float-end w-auto" *ngIf="player.number_of_goals_in_a_match.length > 0">
@@ -115,7 +115,7 @@
         </thead>
         <tbody class="align-middle">
           <tr class="align-middle" *ngFor="let player of team2Players; let i = index" [attr.data-index]="i">
-            <td class="col-1">{{player.kit_number}}</td>
+            <td class="col-1">{{player.kitNumber}}</td>
             <td class="col-2 text-start">{{player.name}}</td>
             <td class="col-5">
               <div class="col-3 float-end w-auto" *ngIf="player.number_of_goals_in_a_match.length > 0">
