@@ -8,6 +8,9 @@
     $auth = new Auth();
     $uc = new UserController();
     $user = new User();
+    $db = new DB();
+    $conn = $conn->getConnection();
+
 
     if($auth->authorize() != null){
         if(isset($_GET)){
