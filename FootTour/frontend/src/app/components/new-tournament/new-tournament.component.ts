@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TournamentModel } from 'src/app/models/Tournament';
+import { TournamentService } from 'src/app/services/tournament.service';
 
 @Component({
   selector: 'app-new-tournament',
@@ -11,7 +12,7 @@ export class NewTournamentComponent implements OnInit {
   tournamentModel = {
     name: '',
     location: {
-      postalCode: 0,
+      postalCode: 9021,
       city: '',
       street: ''
     },
@@ -19,12 +20,19 @@ export class NewTournamentComponent implements OnInit {
     startDate: new Date(),
     startTime: new Date().getTime(),
     finalDate: new Date(),
-    finalTime: new Date().getTime()
+    finalTime: new Date().getTime(),
+    entryFee: 0,
+    teamsCount: 8,
+    type: 'Egyenes kieséses'
   }
 
-  constructor() { }
+  constructor(private tournamentService: TournamentService) { }
 
   ngOnInit(): void {
+  }
+
+  create(): void {
+    
   }
 
 }

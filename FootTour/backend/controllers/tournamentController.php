@@ -41,7 +41,7 @@
 
     function createTournament($conn, $postdata){
         $sql = "INSERT INTO foottour.tournaments (organizerId, startDate, endDate, name,
-        location, entryFee, description, teamsCount) VALUES (?,?,?,?,?,?,?,?)";
+        location, entryFee, description, teamsCount, type) VALUES (?,?,?,?,?,?,?,?, ?);";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
         $organizerId = htmlspecialchars(strip_tags($postdata->organizerId));
@@ -52,9 +52,10 @@
         $entryFee = htmlspecialchars(strip_tags($postdata->entryFee));
         $description = htmlspecialchars(strip_tags($postdata->description));
         $teamsCount = htmlspecialchars(strip_tags($postdata->teamsCount));
+        $type = htmlspecialchars(strip_tags($postdata->type));
 
-        $stmt->bind_param("issssisi",$organizerId, $startDate, $endDate, $name, $location, $entryFee,
-                        $description, $teamsCount);
+        $stmt->bind_param("issssisis",$organizerId, $startDate, $endDate, $name, $location, $entryFee,
+                        $description, $teamsCount, $type);
         if ($stmt->execute() === false) return false;
         
         return $this->getById($conn, $stmt->insert_id);
