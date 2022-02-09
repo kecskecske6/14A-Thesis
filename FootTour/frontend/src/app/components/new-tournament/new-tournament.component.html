@@ -4,6 +4,8 @@
     <form>
         <div class="row">
             <div class="col-6">
+                <h5>Alapadatok</h5>
+                <hr>
                 <label for="name">Torna neve</label>
                 <input type="text" name="name" id="name" [(ngModel)]="tournamentModel.name">
                 <br>
@@ -59,8 +61,8 @@
         </div>
         <br>
         <div id="buttons">
-            <button id="confirm" (click)="create()">Rögzítés</button>
-            <button id="cancel">Mégsem</button>
+            <button id="confirm" (click)="create()" routerLink="/mytournaments">Rögzítés</button>
+            <button id="cancel" routerLink="/mytournaments">Mégsem</button>
         </div>
     </form>
 </div>

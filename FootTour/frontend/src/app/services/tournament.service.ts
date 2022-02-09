@@ -24,7 +24,7 @@ export class TournamentService {
     return this.http.get<Tournament[]>(`${environment.backendURL}/api/tournaments/list.php?userId=${id}`);
   }
 
-  create(model: TournamentModel): Observable<TournamentModel> {
+  create(model: any): Observable<TournamentModel> {
     return this.http.post<TournamentModel>(`${environment.backendURL}/api/tournaments/create.php`, model);
   }
 
