@@ -1,8 +1,8 @@
 <div id="container" class="pt-5 mx-auto">
-    <h1 class="text-center">Aktuális tornáim</h1>
-    
+  <h1 class="text-center">Aktuális tornáim</h1>
+
   <div class="row row-cols-auto justify-content-around mx-auto">
-  <div class="card m-4 col" style="width: 18rem;" *ngFor="let tournament of tournaments">
+    <div class="card m-4 col" style="width: 18rem;" *ngFor="let tournament of tournaments">
       <img src="../../../assets/logo.png" class="card-img-top" alt="...">
       <hr class="mb-1">
       <div class="card-body text-center">
@@ -13,16 +13,17 @@
           Nevezési díj: {{tournament.entryFee}} Ft<br>
           Időpont: {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}
         </p>
-        <input type="button" class="btn btn-primary btn-large" value="Részletek" [routerLink]="'/mytournaments/' + tournament.id">
+        <input type="button" class="btn btn-primary btn-large" value="Részletek"
+          [routerLink]="'/mytournaments/' + tournament.id">
       </div>
+    </div>
   </div>
-  </div>
-  </div>
-  <div id="container" class="pt-5 mx-auto">
-    <h1 class="text-center">Korábbi tornáim</h1>
-    
+</div>
+<div id="container" class="pt-5 mx-auto">
+  <h1 class="text-center">Korábbi tornáim</h1>
+
   <div class="row row-cols-auto justify-content-around mx-auto">
-  <div class="card m-4 col" style="width: 18rem;" *ngFor="let tournament of tournaments">
+    <div class="card m-4 col" style="width: 18rem;" *ngFor="let tournament of earlierTournaments">
       <img src="../../../assets/logo.png" class="card-img-top" alt="...">
       <hr class="mb-1">
       <div class="card-body text-center">
@@ -35,6 +36,9 @@
         </p>
         <input type="button" class="btn btn-primary btn-large" value="Részletek">
       </div>
+    </div>
   </div>
+  <div>
+    <button id="new" routerLink="/newtournament">+</button>
   </div>
-  </div>
+</div>

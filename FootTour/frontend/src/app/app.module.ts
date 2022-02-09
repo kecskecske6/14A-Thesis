@@ -21,6 +21,7 @@ import { TournamentScheduleComponent } from './components/tournament-schedule/to
 import { DrawComponent } from './components/draw/draw.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { TokenInterceptor } from './auth/token.interceptor';
+import { NewTournamentComponent } from './components/new-tournament/new-tournament.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { TokenInterceptor } from './auth/token.interceptor';
     OrganizerEarlierTournamentsComponent,
     RefereeMatchReportComponent,
     TournamentScheduleComponent,
-    DrawComponent
+    DrawComponent,
+    NewTournamentComponent
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class OrganizerEarlierTournamentsComponent implements OnInit {
 
   tournaments: TournamentModel[] = [];
+  earlierTournaments: TournamentModel[] = [];
   organizer: string = '';
 
   constructor(private tournamentService: TournamentService, private auth: AuthService, private userService: UserService) { }
@@ -24,7 +25,8 @@ export class OrganizerEarlierTournamentsComponent implements OnInit {
     this.tournamentService.getAllByUserId(Number(this.auth.getId())).subscribe(
       (result: TournamentModel[]) => {
         result.forEach(t => {
-          this.tournaments.push(new TournamentModel(t));
+          if (new Date(t.endDate).getTime() < new Date().getTime()) this.earlierTournaments.push(new TournamentModel(t));
+          else this.tournaments.push(new TournamentModel(t));
         });
       },
       error => {

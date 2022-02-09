@@ -1,0 +1,36 @@
+<div class="container">
+    <h2>Új torna létrehozása</h2>
+    <form>
+        <label for="name">Torna neve</label>
+        <input type="text" name="name" id="name" [(ngModel)]="tournamentModel.name">
+        <br>
+        <label for="description">Leírás</label>
+        <textarea name="description" id="description" cols="30" rows="10" [(ngModel)]="tournamentModel.description"></textarea>
+        <br>
+        <h5>Helyszín</h5>
+        <hr>
+        <label for="postalcode">Irányítószám</label>
+        <input type="number" name="postalcode" id="postalcode" [(ngModel)]="tournamentModel.location.postalCode">
+        <br>
+        <label for="city">Település</label>
+        <input type="text" name="city" id="city" [(ngModel)]="tournamentModel.location.city">
+        <br>
+        <label for="street">Utca, házszám</label>
+        <input type="text" name="street" id="street" [(ngModel)]="tournamentModel.location.street">
+        <br>
+        <h5>Időpont</h5>
+        <hr>
+        <label for="startdate">Kezdési dátum</label>
+        <input type="date" name="startdate" id="startdate" [(ngModel)]="tournamentModel.startDate">
+        <br>
+        <label for="starttime">Kezdési időpont</label>
+        <input type="time" name="starttime" id="starttime" [(ngModel)]="tournamentModel.startTime">
+        <br>
+        <label for="finaldate">Döntő dátum</label>
+        <input type="date" name="finaldate" id="finaldate" [(ngModel)]="tournamentModel.finalDate">
+        <br>
+        <label for="finaltime">Döntő időpont</label>
+        <input type="time" name="finaltime" id="finaltime" [(ngModel)]="tournamentModel.finalTime">
+        <br>
+    </form>
+</div>
