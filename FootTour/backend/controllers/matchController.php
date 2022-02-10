@@ -127,5 +127,19 @@ function saveMatch($conn, $postdata){
     if ($stmt->execute() === false) return false;
     return true;
 }
+
+function getByTournamentId($conn, $id) {
+    $sql = "SELECT matches.* from foottour.matches inner join foottour.groups on matches.groupId = groups.id where foottour.groups.tournamentId = ?;";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) return false;
+    $id = htmlspecialchars(strip_tags($id));
+    $stmt->bind_param("i",$id);
+    if ($stmt->execute() === false) return false;
+    $result = $stmt->get_result();
+    $matches = array();
+    while ($row = $result->fetch_object()) array_push($matches, $row);
+    return $matches;
+}
+
 }
 ?>

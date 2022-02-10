@@ -28,6 +28,34 @@
     <div class="row">
       <hr class="mx-auto">
     </div>
+    <table class="mx-auto">
+      <thead>
+        <tr>
+          <th *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"
+            [attr.colspan]="tournament.knockoutMatches == 2 ? 4 : 2">Legjobb 32</th>
+          <th *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses'"
+            [attr.colspan]="tournament.knockoutMatches == 2 ? 4 : 2">Nyolcaddöntők</th>
+          <th [attr.colspan]="tournament.knockoutMatches == 2 ? 4 : 2">Negyeddöntők</th>
+          <th [attr.colspan]="tournament.knockoutMatches == 2 ? 4 : 2">Elődöntők</th>
+          <th [attr.colspan]="tournament.knockoutMatches == 2 ? 4 : 2">Döntő</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let pair of groups">
+        <tr style="height: 20px;">
+
+        </tr>
+        <tr>
+          <td>{{getTeam(pair).split("\n")[0]}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>{{getTeam(pair).split("\n")[1]}}</td>
+        </tr>
+        <tr style="height: 20px;">
+
+        </tr>
+      </tbody>
+    </table>
     <h2 class="text-center mb-4">Negyeddöntők</h2>
     <table class="table table-borderless mx-auto">
       <tbody>
