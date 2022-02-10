@@ -7,16 +7,16 @@
                 <h5>Alapadatok</h5>
                 <hr>
                 <label for="name">Torna neve</label>
-                <input type="text" name="name" id="name" [(ngModel)]="tournamentModel.name">
+                <input required type="text" name="name" id="name" [(ngModel)]="tournamentModel.name">
                 <br>
                 <div id="description-container">
                     <label for="description">Leírás</label>
-                    <textarea name="description" id="description" cols="25" rows="4"
+                    <textarea required name="description" id="description" cols="25" rows="4"
                         [(ngModel)]="tournamentModel.description"></textarea>
                 </div>
                 <br>
                 <label for="fee">Nevezési díj</label>
-                <input type="number" name="fee" id="fee" [(ngModel)]="tournamentModel.entryFee">
+                <input required type="number" name="fee" id="fee" [(ngModel)]="tournamentModel.entryFee">
                 <br>
                 <label for="count">Csapatok száma</label>
                 <select name="count" id="count" [(ngModel)]="tournamentModel.teamsCount">
@@ -28,40 +28,40 @@
                 <label for="type">Típus</label>
                 <select name="type" id="type">
                     <option value="Egyenes kieséses">Egyenes kieséses</option>
-                    <option value="Csoportkör és kieséses">Csoportkör és kieséses</option>
+                    <option [disabled]="tournamentModel.teamsCount == 8" value="Csoportkör és kieséses">Csoportkör és kieséses</option>
                 </select>
             </div>
             <div class="col-6">
                 <h5>Helyszín</h5>
                 <hr>
                 <label for="postalcode">Irányítószám</label>
-                <input type="number" name="postalcode" id="postalcode"
+                <input required type="number" name="postalcode" id="postalcode"
                     [(ngModel)]="tournamentModel.location.postalCode">
                 <br>
                 <label for="city">Település</label>
-                <input type="text" name="city" id="city" [(ngModel)]="tournamentModel.location.city">
+                <input required type="text" name="city" id="city" [(ngModel)]="tournamentModel.location.city">
                 <br>
                 <label for="street">Utca, házszám</label>
-                <input type="text" name="street" id="street" [(ngModel)]="tournamentModel.location.street">
+                <input required type="text" name="street" id="street" [(ngModel)]="tournamentModel.location.street">
                 <br>
                 <h5>Időpont</h5>
                 <hr>
                 <label for="startdate">Kezdési dátum</label>
-                <input type="date" name="startdate" id="startdate" [(ngModel)]="tournamentModel.startDate">
+                <input required type="date" name="startdate" id="startdate" [(ngModel)]="tournamentModel.startDate">
                 <br>
                 <label for="starttime">Kezdési időpont</label>
-                <input type="time" name="starttime" id="starttime" [(ngModel)]="tournamentModel.startTime">
+                <input required type="time" name="starttime" id="starttime" [(ngModel)]="tournamentModel.startTime">
                 <br>
                 <label for="finaldate">Döntő dátum</label>
-                <input type="date" name="finaldate" id="finaldate" [(ngModel)]="tournamentModel.finalDate">
+                <input required type="date" name="finaldate" id="finaldate" [(ngModel)]="tournamentModel.finalDate">
                 <br>
                 <label for="finaltime">Döntő időpont</label>
-                <input type="time" name="finaltime" id="finaltime" [(ngModel)]="tournamentModel.finalTime">
+                <input required type="time" name="finaltime" id="finaltime" [(ngModel)]="tournamentModel.finalTime">
             </div>
         </div>
         <br>
         <div id="buttons">
-            <button id="confirm" (click)="create()" routerLink="/mytournaments">Rögzítés</button>
+            <input type="submit" value="Rögzítés" id="confirm" (click)="create()">
             <button id="cancel" routerLink="/mytournaments">Mégsem</button>
         </div>
     </form>

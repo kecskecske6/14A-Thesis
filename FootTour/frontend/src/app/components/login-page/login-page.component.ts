@@ -38,7 +38,7 @@ export class LoginPageComponent implements OnInit {
         this.authService.setUser(response);
         localStorage.setItem("name", response.name);
         this.userService.SetUser(response.name);
-        this.router.navigate(['/schedule/1']);
+        this.router.navigate(['/mytournaments']);
       }
     },
     error =>{
