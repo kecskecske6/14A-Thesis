@@ -1,14 +1,17 @@
 <h2 class="w-100 text-center bg-danger">Példa Torna</h2>
-<div class="d-flex w-100 mx-auto h-50 bg-info justify-content-center ">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-6 w-100 bg-danger">Jelentkezés</div>
-            <div class="col-12 col-md-6 w-100 bg-primary">
-                <h4 class="text-center">Játékosok listája</h4>
-                <ul>
-                    <li *ngFor="let player of players let i = index" [attr.data-index]="i">{{player.name}}</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+<table class="table col-lg-12 mb-5 mt-3 mx-auto">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center">Mezszám</th>
+        <th scope="col" class="text-center">Név</th>
+        <th scope="col">asd</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row"><input type="number" name="" id=""></th>
+            <td><input type="text" name="" id=""></td>
+            <td>asd</td>
+        </tr>
+    </tbody>
+</table>
