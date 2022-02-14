@@ -31,14 +31,12 @@
     <table class="mx-auto">
       <thead>
         <tr>
-          <th *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"
-            colspan="4">Legjobb 32</th>
-          <th></th>
-          <th></th>
-          <th *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses'"
-            colspan="4">Nyolcaddöntők</th>
-          <th></th>
-          <th></th>
+          <th *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'" colspan="4">Legjobb 32</th>
+          <th *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"></th>
+          <th *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"></th>
+          <th *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32" colspan="4">Nyolcaddöntők</th>
+          <th *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32"></th>
+          <th *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32"></th>
           <th colspan="4">Negyeddöntők</th>
           <th></th>
           <th></th>
@@ -50,19 +48,24 @@
       </thead>
       <tbody *ngFor="let pair of groups; index as i">
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td [attr.class]="i % 2 == 1 ? 'border-right' : ''"></td>
-          <td></td>
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"></td>
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"></td>
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"></td>
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"></td>
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'" [attr.class]="i % 2 == 1 ? 'border-right' : ''"></td>
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32" [attr.class]="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && i % 2 == 1 || tournament.teamsCount == 16 && tournament.type == 'Egyenes kieséses' ? 'background' : ''" [innerText]="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && i % 2 == 1 || tournament.teamsCount == 16 && tournament.type == 'Egyenes kieséses' ? 'NyolcaddöntőTeam' : ''"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32" [attr.class]="i % 2 == 1 ? 'background' : ''"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32" [attr.class]="i % 2 == 1 ? 'background' : ''"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32" [attr.class]="i % 2 == 1 ? 'background' : ''"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32" [attr.class]="i % 4 == 1 ? 'border-right' : ''"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32" [attr.class]="i % 4 == 2 ? 'border-right' : ''"></td>
         </tr>
         <tr>
-          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"
-            class="background" style="border-bottom: 1px solid black;">
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'" class="background black-bottom">
             {{getTeam(pair).split("\n")[0]}}</td>
-          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"
-            class="background" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3" style="border-bottom: 1px solid black;"></td>
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'" class="background black-bottom"
+            [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"></td>
           <td
             *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
             class="background">
@@ -71,33 +74,49 @@
             *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
             class="background">
           </td>
-          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'" class="border-bottom" [attr.class]="i % 2 == 1 ? 'border-right border-bottom' : 'border-bottom'"></td>
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'" class="border-bottom"
+            [attr.class]="i % 2 == 1 ? 'border-right border-bottom' : 'border-bottom'"></td>
           <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32" [attr.class]="i % 4 == 1 || i % 4 == 2 ? 'border-right' : ''"></td>
         </tr>
         <tr>
-          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"
-            class="background">
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'" class="background">
             {{getTeam(pair).split("\n")[1]}}</td>
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'" class="background"
+            [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"></td>
+          <td
+            *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
+            class="background">
+          </td>
+          <td
+            *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
+            class="background">
+          </td>
           <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"
-            class="background" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"></td>
-          <td
-            *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
-            class="background">
-          </td>
-          <td
-            *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
-            class="background">
-          </td>
-          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'" [attr.class]="i % 2 == 0 ? 'border-right' : ''"></td>
+            [attr.class]="i % 2 == 0 ? 'border-right' : ''"></td>
           <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32" [attr.class]="i % 4 == 1 || i % 4 == 2 ? 'border-right' : ''"></td>
         </tr>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td [attr.class]="i % 2 == 0 ? 'border-right' : ''"></td>
-          <td [attr.class]="i % 2 == 0 ? 'border-bottom' : ''"></td>
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"></td>
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"></td>
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"></td>
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'"></td>
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'" [attr.class]="i % 2 == 0 ? 'border-right' : ''"></td>
+          <td *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses'" [attr.class]="i % 2 == 0 ? 'border-bottom' : ''"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32" [attr.class]="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && i % 2 == 0 || tournament.teamsCount == 16 && tournament.type == 'Egyenes kieséses' ? 'background black-bottom' : ''" [innerText]="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && i % 2 == 0 || tournament.teamsCount == 16 && tournament.type == 'Egyenes kieséses' ? 'NyolcaddöntőTeam' : ''"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32" [attr.class]="i % 2 == 0 ? 'background black-bottom' : ''"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32" [attr.class]="i % 2 == 0 ? 'background black-bottom' : ''"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32" [attr.class]="i % 2 == 0 ? 'background black-bottom' : ''"></td>
+          <td *ngIf="tournament.teamsCount != 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32" [attr.class]="i % 4 == 2 ? 'border-bottom border-right' : i % 4 == 0 ? 'border-bottom' : ''"></td>
         </tr>
       </tbody>
     </table>
