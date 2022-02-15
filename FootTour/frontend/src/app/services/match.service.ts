@@ -18,6 +18,14 @@ export class MatchService {
     return this.http.get<any>(`${environment.backendURL}/api/matches/getById.php?matchId=${id}`);
   }
 
+  getByTournamentId(id: number): Observable<MatchModel[]> {
+    return this.http.get<MatchModel[]>(`${environment.backendURL}/api/matches/getByTournamentId.php?tournamentId=${id}`);
+  }
+
+  getByType(id: number, type: string): Observable<MatchModel[]> {
+    return this.http.get<MatchModel[]>(`${environment.backendURL}/api/matches/getByType.php?tournamentId=${id}&type=${type}`);
+  }
+
 sendMatchReport(match: MatchModel): Observable<any>{
   return this.http.put<any>(`${environment.backendURL}/api/matches/save.php`, match);
 }

@@ -18,4 +18,8 @@ export class GroupService {
   getByTournamentId(id: number): Observable<GroupModel[]> {
     return this.http.get<GroupModel[]>(`${environment.backendURL}/api/groups/list.php?tournamentId=${id}`);
   }
+
+  getByType(id: number, type: string): Observable<GroupModel[]> {
+    return this.http.get<GroupModel[]>(`${environment.backendURL}/api/groups/list.php?tournamentId=${id}&type=${type}`);
+  }
 }

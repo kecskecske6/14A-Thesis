@@ -42,5 +42,19 @@
         }
         return $groups;
     }
+
+    function getByType($conn, $id, $type) {
+        $sql = "SELECT * from foottour.groups where tournamentId = ? and name like ?;";
+        $stmt = $conn->prepare($sql);
+        if ($stmt == false) return false;
+        $tournamentId = htmlspecialchars(strip_tags($id));
+        $name = htmlspecialchars(strip_tags($type));
+        $stmt->bind_param("is", $tournamentId, $name);
+        if ($stmt->execute() == false) return false;
+        $result = $stmt->get_result();
+        $groups = array();
+        while ($row = $result->fetch_object()) array_push($groups, $row);
+        return $groups;
+    }
 }
 ?>

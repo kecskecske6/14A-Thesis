@@ -10,17 +10,18 @@
     $auth = new Auth();
     $db = new DB();
     $conn = $db->getConnection();
-    if($auth->authorize() != null){
+    if ($auth->authorize() != null) {
         if (isset($_GET)) {
-            if (isset($_GET["tournamentId"])) {
-            echo json_encode($gc->getByTournamentId($conn, $_GET["tournamentId"]));
-        }
-        else{
-            http_response_code(400);
+            if (isset($_GET["tournamentId"]) and isset($_GET["type"])) {
+                echo json_encode($gc->getByType($conn, $_GET["tournamentId"], $_GET["type"]));
+            }
+            else if (isset($_GET["tournamentId"])) {
+                echo json_encode($gc->getByTournamentId($conn, $_GET["tournamentId"]));
+            } else {
+                http_response_code(400);
+            }
+        } else {
+            http_response_code(401);
         }
     }
-    else{
-        http_response_code(401);
-    }
-}
 ?>

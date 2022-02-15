@@ -12,6 +12,7 @@ import { RefereeMatchReportComponent } from './components/referee-match-report/r
 import { TournamentScheduleComponent } from './components/tournament-schedule/tournament-schedule.component';
 import { DrawComponent } from './components/draw/draw.component';
 import { AuthGuard } from './guards/auth.guard';
+import { NewTournamentComponent } from './components/new-tournament/new-tournament.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent },
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'mytournaments/:id', canActivate:[AuthGuard], component: OrganizerTournamentDashboardComponent },
   { path: 'referee/:id', canActivate:[AuthGuard], component: RefereeMatchReportComponent },
   { path: 'schedule/:id', canActivate:[AuthGuard], component: TournamentScheduleComponent },
-  { path: 'draw/:id', canActivate:[AuthGuard], component: DrawComponent }
+  { path: 'draw/:id', canActivate:[AuthGuard], component: DrawComponent },
+  { path: 'newtournament', canActivate: [AuthGuard], component: NewTournamentComponent }
 ];
 
 @NgModule({
