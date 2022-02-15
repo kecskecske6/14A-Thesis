@@ -30,6 +30,8 @@
                 foreach ($groups as $key => $g) {
                     $name = "";
                     if ($data->tournament->teamsCount == 8) $name = "QF" . $i;
+                    else if ($data->tournament->teamsCount == 16) $name = "R16" . $i;
+                    else $name = "R32" . $i;
                     $group = $gc->createGroup($conn, (object)array("tournamentId" => $data->tournament->id, "name" => $name));
                     foreach ($g as $key => $t) {
                         $ttgc->createGroup($conn, (object)array("teamId" => $t->id, "groupId" => $group->id));

@@ -132,9 +132,23 @@ function getByTournamentId($conn, $id) {
     $sql = "SELECT matches.* from foottour.matches inner join foottour.groups on matches.groupId = groups.id where foottour.groups.tournamentId = ?;";
     $stmt = $conn->prepare($sql);
     if ($stmt === false) return false;
-    $id = htmlspecialchars(strip_tags($id));
-    $stmt->bind_param("i",$id);
+    $tournamentId = htmlspecialchars(strip_tags($id));
+    $stmt->bind_param("i",$tournamentId);
     if ($stmt->execute() === false) return false;
+    $result = $stmt->get_result();
+    $matches = array();
+    while ($row = $result->fetch_object()) array_push($matches, $row);
+    return $matches;
+}
+
+function getByType($conn, $id, $type) {
+    $sql = "SELECT matches.* from foottour.matches inner join foottour.groups on matches.groupId = groups.id where foottour.groups.tournamentId = ? and foottour.matches.code like ?;";
+    $stmt = $conn->prepare($sql);
+    if ($stmt == false) return false;
+    $tournamentId = htmlspecialchars(strip_tags($id));
+    $matchType = htmlspecialchars(strip_tags($type));
+    $stmt->bind_param("is", $tournamentId, $matchType);
+    if ($stmt->execute() == false) return false;
     $result = $stmt->get_result();
     $matches = array();
     while ($row = $result->fetch_object()) array_push($matches, $row);

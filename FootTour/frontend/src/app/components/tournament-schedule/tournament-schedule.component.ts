@@ -26,7 +26,15 @@ export class TournamentScheduleComponent implements OnInit {
 
   tournament: TournamentModel = new TournamentModel();
 
-  matches: MatchModel[] = [];
+  matchesR32: MatchModel[] = [];
+
+  matchesR16: MatchModel[] = [];
+
+  matchesQF: MatchModel[] = [];
+
+  matchesSF: MatchModel[] = [];
+
+  matchesF: MatchModel[] = [];
 
   constructor(private teamstoGroupsService: TeamstoGroupsService, private router: Router, private teamService: TeamService, private groupService: GroupService, private tournamentService: TournamentService, private matchService: MatchService) { }
 
@@ -39,8 +47,24 @@ export class TournamentScheduleComponent implements OnInit {
   }
 
   getMatches(): void {
-    this.matchService.getByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
-      result => result.forEach(m => this.matches.push(new MatchModel(m))),
+    this.matchService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'R32%').subscribe(
+      result => result.forEach(m => this.matchesR32.push(new MatchModel(m))),
+      error => console.log(error)
+    );
+    this.matchService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'R16%').subscribe(
+      result => result.forEach(m => this.matchesR16.push(new MatchModel(m))),
+      error => console.log(error)
+    );
+    this.matchService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'QF%').subscribe(
+      result => result.forEach(m => this.matchesQF.push(new MatchModel(m))),
+      error => console.log(error)
+    );
+    this.matchService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'SF%').subscribe(
+      result => result.forEach(m => this.matchesSF.push(new MatchModel(m))),
+      error => console.log(error)
+    );
+    this.matchService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'F%').subscribe(
+      result => result.forEach(m => this.matchesF.push(new MatchModel(m))),
       error => console.log(error)
     );
   }
@@ -85,12 +109,8 @@ export class TournamentScheduleComponent implements OnInit {
     );
   }
 
-  getTeam(pair: GroupModel): string {
-    let teams = '';
-    this.teamstoGroups.filter(ttg => ttg.groupId == pair.id).forEach(ttg => {
-      teams += this.teams.find(t => t.id == ttg.teamId)?.name + '\n';
-    });
-    return teams;
+  getTeam(id: number): string | undefined {
+    return this.teams.find(t => t.id == id)?.name;
   }
 
 }
