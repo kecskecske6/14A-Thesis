@@ -67,7 +67,7 @@
                     array_push($matches, $match);
                     if ($data->tournament->knockoutMatches == 2)
                     {
-                        $d = DateTime::createFromFormat("Y-m-d H:i:s", $data->tournament->startDate);
+                        $d = new DateTime($data->tournament->startDate);
                         $d = $d->getTimestamp() + 3 * 3600;
                         $dt = new DateTime();
                         $dt->setTimestamp($d);

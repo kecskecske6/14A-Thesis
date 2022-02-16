@@ -6,6 +6,7 @@ import { PlayerService } from 'src/app/services/player.service';
 import { UserService } from 'src/app/services/user.service';
 import { Event } from 'src/app/interfaces/event';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-match-report',
@@ -27,14 +28,14 @@ export class MatchReportComponent implements OnInit {
   team2PlayersWithEvents: PlayerModel[] =[];
   events: Event[] = [];
 
-  constructor(private authService: AuthService, private matchService: MatchService, private playerService: PlayerService, private userService: UserService) { }
+  constructor(private authService: AuthService, private matchService: MatchService, private playerService: PlayerService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.getMatchById();
   }
 
   getMatchById(){
-    this.matchService.getMatchById(this.id).subscribe(
+    this.matchService.getMatchById(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
       (result: any) =>{
         console.log(result);
         this.team1Name = result.team1Name.name;
