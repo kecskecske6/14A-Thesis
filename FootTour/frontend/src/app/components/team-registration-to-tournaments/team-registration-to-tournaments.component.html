@@ -2,16 +2,21 @@
 <table class="table col-lg-12 mb-5 mt-3 mx-auto">
     <thead>
       <tr>
-        <th scope="col" class="text-center">Mezszám</th>
-        <th scope="col" class="text-center">Név</th>
-        <th scope="col">asd</th>
+        <th scope="col" class="text-center col-2">Mezszám</th>
+        <th scope="col" class="text-center col">Név</th>
+        <th scope="col" class="col-1"></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="align-middle text-center">
         <tr>
-            <th scope="row"><input type="number" name="" id=""></th>
-            <td><input type="text" name="" id=""></td>
-            <td>asd</td>
+            <th scope="row"><input [(ngModel)] = 'number' type="number" class="w-75" name="" id=""></th>
+            <td><input [(ngModel)] = 'name' type="text" class="w-75" name="" id=""></td>
+            <td class="pb-3 text-start"><i (click)="savePlayer()" class="bi bi-check-circle"></i></td>
+        </tr>
+        <tr *ngFor="let player of players let i = index" [attr.data-index]="i">
+          <th class="align-middle" scope="row">{{player.kit_number}}</th>
+          <td class="text-start align-middle">{{player.name}}</td>
+          <td><i class="bi bi-trash"></i></td>
         </tr>
     </tbody>
 </table>

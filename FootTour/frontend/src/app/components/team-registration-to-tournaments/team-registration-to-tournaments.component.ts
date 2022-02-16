@@ -8,11 +8,28 @@ import { Player } from 'src/app/models/Player';
 })
 export class TeamRegistrationToTournamentsComponent implements OnInit {
 
-  players: Player [] = []; 
+  players: Player [] = [];
+  player!: Player;
+  number: number = 0;
+  name: string = "";
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  savePlayer(){
+    if(this.name != "" && this.number > 0 && this.number < 99){
+      this.player.kit_number = this.number;
+      this.player.name = this.name;
+      this.players.push(this.player);
+      this.number = 0;
+      this.name = "";
+    }
+    else{
+      console.log("Rosszu")
+      //TODO helytelen adat alert
+    }
   }
 
 }
