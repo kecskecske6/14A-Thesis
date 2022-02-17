@@ -28,4 +28,8 @@ export class TournamentService {
     return this.http.post<TournamentModel>(`${environment.backendURL}/api/tournaments/create.php`, model);
   }
 
+  modify(model: TournamentModel): Observable<TournamentModel> {
+    return this.http.post<TournamentModel>(`${environment.backendURL}/api/tournaments/modify.php`, model);
+  }
+
 }

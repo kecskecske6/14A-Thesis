@@ -108,7 +108,19 @@ export class TournamentScheduleComponent implements OnInit {
   }
 
   getTeam(id: number): string {
-    return this.teams.find(t => t.id == this.matches.filter(m => m.groupId == id)[0].team1Id)?.name + "\n" + this.teams.find(t => t.id == this.matches.filter(m => m.groupId == id)[0].team2Id)?.name;
+    return this.teams.find(t => t.id == this.matches.filter(m => m.groupId == id)[0].team1Id)?.name + '\n' + this.teams.find(t => t.id == this.matches.filter(m => m.groupId == id)[0].team2Id)?.name;
+  }
+
+  getGoals(id: number, no: number): string {
+    return this.matches.filter(m => m.groupId == id)[no].team1Goals + '\n' + this.matches.filter(m => m.groupId == id)[no].team2Goals;
+  }
+
+  getOverallGoals(id: number): string {
+    return this.matches.filter(m => m.groupId == id)[0].team1Goals + this.matches.filter(m => m.groupId == id)[1].team1Goals + '\n' + (this.matches.filter(m => m.groupId == id)[0].team2Goals + this.matches.filter(m => m.groupId == id)[1].team2Goals);
+  }
+
+  getMatchId(id: number): string {
+    return this.matches.filter(m => m.groupId == id)[0].id + '\n' + this.matches.filter(m => m.groupId == id)[1].id;
   }
 
 }

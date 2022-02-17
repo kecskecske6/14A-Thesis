@@ -65,8 +65,8 @@
     function modifyTournament($conn, $postdata){
         $sql = "UPDATE foottour.tournaments SET `startDate` = ?,
         `endDate` = ?, `name` = ?, `location` = ?,
-        `bestPlayer` = ?, `bestGoalkeeper` = ?, `topScorer` = ?,
-        `entryFee` = ?, `description` = ?, `teamsCount` = ? 
+        `bestPlayer` = ?, `topScorer` = ?, `bestGoalkeeper` = ?,
+        `entryFee` = ?, `description` = ?, `teamsCount` = ?, type = ?, groupsAmount = ?, groupMatches = ?, knockoutMatches = ?, finalMatches = ? 
         WHERE `organizerId` = ? AND `id` = ?";
         
         $stmt = $conn->prepare($sql);
@@ -84,10 +84,15 @@
         $entryFee = htmlspecialchars(strip_tags($postdata->entryFee));
         $description = htmlspecialchars(strip_tags($postdata->description));
         $teamsCount = htmlspecialchars(strip_tags($postdata->teamsCount));
+        $type = htmlspecialchars(strip_tags($postdata->type));
+        $groupsAmount = htmlspecialchars(strip_tags($postdata->groupsAmount));
+        $groupMatches = htmlspecialchars(strip_tags($postdata->groupMatches));
+        $knockoutMatches = htmlspecialchars(strip_tags($postdata->knockoutMatches));
+        $finalMatches = htmlspecialchars(strip_tags($postdata->finalMatches));
 
-        $stmt->bind_param("sssssssisiii",$startDate, $endDate, $name, $location, 
-                            $bestPlayer, $bestGoalkeeper, $topScorer, $entryFee, $description,
-                            $teamsCount, $organizerId, $id);
+        $stmt->bind_param("sssssssisisiiiiii",$startDate, $endDate, $name, $location, 
+                            $bestPlayer, $topScorer, $bestGoalkeeper, $entryFee, $description,
+                            $teamsCount, $type, $groupsAmount, $groupMatches, $knockoutMatches, $finalMatches, $organizerId, $id);
         if ($stmt->execute() === false) return false;
         
         return array("message"=> "Sikeresen módosította a tornát");
