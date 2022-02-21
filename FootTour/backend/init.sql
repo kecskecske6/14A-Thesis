@@ -36,6 +36,7 @@ CREATE TABLE foottour.tournaments (
   groupMatches INT(11) NOT NULL DEFAULT 1,
   knockoutMatches INT(11) NOT NULL DEFAULT 1,
   finalMatches INT(11) NOT NULL DEFAULT 1,
+  fields INT(11) NOT NULL,
   PRIMARY KEY (id)
 )
 ENGINE = INNODB;
@@ -53,9 +54,6 @@ CREATE TABLE foottour.players (
   name VARCHAR(50) NOT NULL,
   birthDate DATETIME NOT NULL,
   goals INT(11) NOT NULL,
-  yellowCards INT(11) NOT NULL,
-  redCards INT(11) NOT NULL,
-  kitNumber INT(11) NOT NULL,
   PRIMARY KEY (id)
 )
 ENGINE = INNODB;

@@ -63,11 +63,17 @@
                         array_push($orderedTeams, $team);
                     }
                     $referees = $uc->getByType($conn, "referee");
-                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[0], "team2Id" => $orderedTeams[1], "team1Goals" => 0, "team2Goals" => 0, "code" => $g->name . "-1", "groupId" => $g->id, "time" => "2022.02.04 19:00:00"));
+                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[0], "team2Id" => $orderedTeams[1], "team1Goals" => 0, "team2Goals" => 0, "code" => $g->name . "-1", "groupId" => $g->id, "time" => $data->tournament->startDate));
                     array_push($matches, $match);
                     if ($data->tournament->knockoutMatches == 2)
                     {
-                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[1], "team2Id" => $orderedTeams[0], "team1Goals" => 0, "team2Goals" => 0, "code" => $g->name . "-2", "groupId" => $g->id, "time" => "2022.02.04 19:00:00"));
+                        $d = new DateTime($data->tournament->startDate);
+                        $fd = new DateTime($data->tournament->endDate);
+                        $difference = ($fd->getTimestamp() - $d->getTimestamp()) / 14;
+                        $d = $d->getTimestamp() + $difference;
+                        $dt = new DateTime();
+                        $dt->setTimestamp($d);
+                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[1], "team2Id" => $orderedTeams[0], "team1Goals" => 0, "team2Goals" => 0, "code" => $g->name . "-2", "groupId" => $g->id, "time" => $dt->format("Y-m-d H:i:s")));
                         array_push($matches, $match);
                     }
                 }

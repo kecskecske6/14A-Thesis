@@ -30,6 +30,10 @@ export class DrawComponent implements OnInit {
       result => console.log(result),
       error => console.log(error)
     );
+    this.tournamentService.modify(this.tournament).subscribe(
+      result => console.log(result),
+      error => console.log(error)
+    );
     this.router.navigate(['/schedule/' + this.router.url.substring(this.router.url.lastIndexOf('/') + 1)]);
   }
 

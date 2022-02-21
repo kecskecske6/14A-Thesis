@@ -26,15 +26,17 @@ export class TournamentScheduleComponent implements OnInit {
 
   tournament: TournamentModel = new TournamentModel();
 
-  matchesR32: MatchModel[] = [];
+  matches: MatchModel[] = [];
 
-  matchesR16: MatchModel[] = [];
+  groupsR32: GroupModel[] = [];
 
-  matchesQF: MatchModel[] = [];
+  groupsR16: GroupModel[] = [];
 
-  matchesSF: MatchModel[] = [];
+  groupsQF: GroupModel[] = [];
 
-  matchesF: MatchModel[] = [];
+  groupsSF: GroupModel[] = [];
+
+  groupsF: GroupModel[] = [];
 
   constructor(private teamstoGroupsService: TeamstoGroupsService, private router: Router, private teamService: TeamService, private groupService: GroupService, private tournamentService: TournamentService, private matchService: MatchService) { }
 
@@ -47,24 +49,8 @@ export class TournamentScheduleComponent implements OnInit {
   }
 
   getMatches(): void {
-    this.matchService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'R32%').subscribe(
-      result => result.forEach(m => this.matchesR32.push(new MatchModel(m))),
-      error => console.log(error)
-    );
-    this.matchService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'R16%').subscribe(
-      result => result.forEach(m => this.matchesR16.push(new MatchModel(m))),
-      error => console.log(error)
-    );
-    this.matchService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'QF%').subscribe(
-      result => result.forEach(m => this.matchesQF.push(new MatchModel(m))),
-      error => console.log(error)
-    );
-    this.matchService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'SF%').subscribe(
-      result => result.forEach(m => this.matchesSF.push(new MatchModel(m))),
-      error => console.log(error)
-    );
-    this.matchService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'F%').subscribe(
-      result => result.forEach(m => this.matchesF.push(new MatchModel(m))),
+    this.matchService.getByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
+      result => result.forEach(m => this.matches.push(new MatchModel(m))),
       error => console.log(error)
     );
   }
@@ -92,12 +78,24 @@ export class TournamentScheduleComponent implements OnInit {
   }
 
   getGroups(): void {
-    this.groupService.getByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
-      result => {
-        result.forEach(g => {
-          this.groups.push(new GroupModel(g));
-        });
-      },
+    this.groupService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'R32%').subscribe(
+      result => result.forEach(g => this.groupsR32.push(new GroupModel(g))),
+      error => console.log(error)
+    );
+    this.groupService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'R16%').subscribe(
+      result => result.forEach(g => this.groupsR16.push(new GroupModel(g))),
+      error => console.log(error)
+    );
+    this.groupService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'QF%').subscribe(
+      result => result.forEach(g => this.groupsQF.push(new GroupModel(g))),
+      error => console.log(error)
+    );
+    this.groupService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'SF%').subscribe(
+      result => result.forEach(g => this.groupsSF.push(new GroupModel(g))),
+      error => console.log(error)
+    );
+    this.groupService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'F%').subscribe(
+      result => result.forEach(g => this.groupsF.push(new GroupModel(g))),
       error => console.log(error)
     );
   }
@@ -109,8 +107,20 @@ export class TournamentScheduleComponent implements OnInit {
     );
   }
 
-  getTeam(id: number): string | undefined {
-    return this.teams.find(t => t.id == id)?.name;
+  getTeam(id: number): string {
+    return this.teams.find(t => t.id == this.matches.filter(m => m.groupId == id)[0].team1Id)?.name + '\n' + this.teams.find(t => t.id == this.matches.filter(m => m.groupId == id)[0].team2Id)?.name;
+  }
+
+  getGoals(id: number, no: number): string {
+    return this.matches.filter(m => m.groupId == id)[no].team1Goals + '\n' + this.matches.filter(m => m.groupId == id)[no].team2Goals;
+  }
+
+  getOverallGoals(id: number): string {
+    return this.matches.filter(m => m.groupId == id)[0].team1Goals + this.matches.filter(m => m.groupId == id)[1].team1Goals + '\n' + (this.matches.filter(m => m.groupId == id)[0].team2Goals + this.matches.filter(m => m.groupId == id)[1].team2Goals);
+  }
+
+  getMatchId(id: number): string {
+    return this.matches.filter(m => m.groupId == id)[0].id + '\n' + this.matches.filter(m => m.groupId == id)[1].id;
   }
 
 }

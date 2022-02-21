@@ -42,7 +42,7 @@
           <th [attr.colspan]="tournament.finalMatches== 2 ? 4 : 2">Döntő</th>
         </tr>
       </thead>
-      <tbody *ngFor="let pair of matchesR32; index as i">
+      <tbody *ngFor="let pair of groupsR32; index as i">
         <tr>
           <td></td>
           <td></td>
@@ -76,16 +76,19 @@
           <td [attr.class]="i == 8 ? 'background' : ''"></td>
         </tr>
         <tr>
-          <td class="background black-bottom">
-            {{getTeam(pair.team1Id)}}</td>
-          <td class="background black-bottom" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"></td>
+          <td class="background">
+            {{getTeam(pair.id).split("\n")[0]}}</td>
+          <td class="background" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"
+            [routerLink]="'/referee/' + getMatchId(pair.id).split('\n')[0]">{{getGoals(pair.id,
+            0).split("\n")[0]}}</td>
           <td
             *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
-            class="background">
+            class="background" [routerLink]="'/referee/' + getMatchId(pair.id).split('\n')[1]">{{getGoals(pair.id,
+            1).split("\n")[0]}}
           </td>
           <td
             *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
-            class="background">
+            class="background">{{getOverallGoals(pair.id).split("\n")[0]}}
           </td>
           <td class="border-bottom" [attr.class]="i % 2 == 1 ? 'border-right border-bottom' : 'border-bottom'"></td>
           <td></td>
@@ -111,15 +114,17 @@
         </tr>
         <tr>
           <td class="background">
-            {{getTeam(pair.team2Id)}}</td>
-          <td class="background" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"></td>
+            {{getTeam(pair.id).split("\n")[1]}}</td>
+          <td class="background" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"
+            [routerLink]="'/referee/' + getMatchId(pair.id).split('\n')[0]">{{getGoals(pair.id, 0).split("\n")[1]}}</td>
           <td
             *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
-            class="background">
+            class="background" [routerLink]="'/referee/' + getMatchId(pair.id).split('\n')[1]">{{getGoals(pair.id,
+            1).split("\n")[1]}}
           </td>
           <td
             *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
-            class="background">
+            class="background">{{getOverallGoals(pair.id).split("\n")[1]}}
           </td>
           <td [attr.class]="i % 2 == 0 ? 'border-right' : ''"></td>
           <td></td>
@@ -150,41 +155,40 @@
           <td></td>
           <td [attr.class]="i % 2 == 0 ? 'border-right' : ''"></td>
           <td [attr.class]="i % 2 == 0 ? 'border-bottom' : ''"></td>
-          <td [attr.class]="i % 2 == 0 ? 'background black-bottom' : ''"
-            [innerText]="i % 2 == 0 ? 'NyolcaddöntőTeam' : ''"></td>
-          <td [attr.class]="i % 2 == 0 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 2 == 0 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 2 == 0 ? 'background black-bottom' : ''"></td>
+          <td [attr.class]="i % 2 == 0 ? 'background' : ''" [innerText]="i % 2 == 0 ? 'NyolcaddöntőTeam' : ''"></td>
+          <td [attr.class]="i % 2 == 0 ? 'background' : ''"></td>
+          <td [attr.class]="i % 2 == 0 ? 'background' : ''"></td>
+          <td [attr.class]="i % 2 == 0 ? 'background' : ''"></td>
           <td
             [attr.class]="i % 2 == 0 && i % 4 == 2 ? 'border-bottom border-right' : i % 2 == 0 ? 'border-bottom' : i % 4 == 1 ? 'border-right' : ''">
           </td>
           <td [attr.class]="i % 4 == 1 ? 'border-bottom' : ''"></td>
-          <td [attr.class]="i % 4 == 1 ? 'background black-bottom' : ''"
-            [innerText]="i % 4 == 1 ? 'NegyeddöntőTeam' : ''"></td>
-          <td [attr.class]="i % 4 == 1 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 4 == 1 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 4 == 1 ? 'background black-bottom' : ''"></td>
+          <td [attr.class]="i % 4 == 1 ? 'background' : ''" [innerText]="i % 4 == 1 ? 'NegyeddöntőTeam' : ''"></td>
+          <td [attr.class]="i % 4 == 1 ? 'background' : ''"></td>
+          <td [attr.class]="i % 4 == 1 ? 'background' : ''"></td>
+          <td [attr.class]="i % 4 == 1 ? 'background' : ''"></td>
           <td
             [attr.class]="i % 8 == 5 ? 'border-bottom border-right' : i % 4 == 1 ? 'border-bottom' : i % 8 == 2 || i % 8 == 3 || i % 8 == 4 ? 'border-right' : ''">
           </td>
           <td [attr.class]="i % 8 == 3 ? 'border-bottom' : ''"></td>
-          <td [attr.class]="i % 8 == 3 ? 'background black-bottom' : ''" [innerText]="i % 8 == 3 ? 'ElődöntőTeam' : ''">
+          <td [attr.class]="i % 8 == 3 ? 'background' : ''" [innerText]="i % 8 == 3 ? 'ElődöntőTeam' : ''">
           </td>
-          <td [attr.class]="i % 8 == 3 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 8 == 3 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 8 == 3 ? 'background black-bottom' : ''"></td>
+          <td [attr.class]="i % 8 == 3 ? 'background' : ''"></td>
+          <td [attr.class]="i % 8 == 3 ? 'background' : ''"></td>
+          <td [attr.class]="i % 8 == 3 ? 'background' : ''"></td>
           <td
             [attr.class]="i == 11 ? 'border-bottom border-right' : i % 8 == 3 ? 'border-bottom' : i == 4 || i == 5 || i == 6 || i == 7 || i == 8 || i == 9 || i == 10 ? 'border-right' : ''">
           </td>
           <td [attr.class]="i == 7 ? 'border-bottom' : ''"></td>
-          <td [attr.class]="i == 7 ? 'background black-bottom' : ''" [innerText]="i == 7 ? 'DöntőTeam' : ''">
-            <td [attr.class]="i == 7 ? 'background black-bottom' : ''"></td>
-            <td [attr.class]="i == 7 ? 'background black-bottom' : ''"></td>
-            <td [attr.class]="i == 7 ? 'background black-bottom' : ''"></td>
+          <td [attr.class]="i == 7 ? 'background' : ''" [innerText]="i == 7 ? 'DöntőTeam' : ''">
+          <td [attr.class]="i == 7 ? 'background' : ''"></td>
+          <td [attr.class]="i == 7 ? 'background' : ''"></td>
+          <td [attr.class]="i == 7 ? 'background' : ''"></td>
         </tr>
       </tbody>
     </table>
-    <table class="mx-auto" *ngIf="tournament.teamsCount == 16 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32 && tournament.type == 'Csoportkör és kieséses'">
+    <table class="mx-auto"
+      *ngIf="tournament.teamsCount == 16 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 32 && tournament.type == 'Csoportkör és kieséses'">
       <thead>
         <tr>
           <th colspan="4">Nyolcaddöntők</th>
@@ -199,7 +203,7 @@
           <th [attr.colspan]="tournament.finalMatches== 2 ? 4 : 2">Döntő</th>
         </tr>
       </thead>
-      <tbody *ngFor="let pair of matchesR16; index as i">
+      <tbody *ngFor="let pair of groupsR16; index as i">
         <tr>
           <td></td>
           <td></td>
@@ -225,9 +229,9 @@
           <td [attr.class]="i % 8 == 4 ? 'background' : ''"></td>
         </tr>
         <tr>
-          <td class="background black-bottom">
-            {{getTeam(pair.team1Id)}}</td>
-          <td class="background black-bottom" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"></td>
+          <td class="background">
+            {{getTeam(pair.id).split("\n")[0]}}</td>
+          <td class="background" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"></td>
           <td
             *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
             class="background">
@@ -252,7 +256,7 @@
         </tr>
         <tr>
           <td class="background">
-            {{getTeam(pair.team2Id)}}</td>
+            {{getTeam(pair.id).split("\n")[1]}}</td>
           <td class="background" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"></td>
           <td
             *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
@@ -283,33 +287,32 @@
           <td></td>
           <td [attr.class]="i % 2 == 0 ? 'border-right' : ''"></td>
           <td [attr.class]="i % 2 == 0 ? 'border-bottom' : ''"></td>
-          <td [attr.class]="i % 2 == 0 ? 'background black-bottom' : ''"
-            [innerText]="i % 2 == 0 ? 'NyolcaddöntőTeam' : ''"></td>
-          <td [attr.class]="i % 2 == 0 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 2 == 0 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 2 == 0 ? 'background black-bottom' : ''"></td>
+          <td [attr.class]="i % 2 == 0 ? 'background' : ''" [innerText]="i % 2 == 0 ? 'NyolcaddöntőTeam' : ''"></td>
+          <td [attr.class]="i % 2 == 0 ? 'background' : ''"></td>
+          <td [attr.class]="i % 2 == 0 ? 'background' : ''"></td>
+          <td [attr.class]="i % 2 == 0 ? 'background' : ''"></td>
           <td
             [attr.class]="i % 2 == 0 && i % 4 == 2 ? 'border-bottom border-right' : i % 2 == 0 ? 'border-bottom' : i % 4 == 1 ? 'border-right' : ''">
           </td>
           <td [attr.class]="i % 4 == 1 ? 'border-bottom' : ''"></td>
-          <td [attr.class]="i % 4 == 1 ? 'background black-bottom' : ''"
-            [innerText]="i % 4 == 1 ? 'NegyeddöntőTeam' : ''"></td>
-          <td [attr.class]="i % 4 == 1 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 4 == 1 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 4 == 1 ? 'background black-bottom' : ''"></td>
+          <td [attr.class]="i % 4 == 1 ? 'background' : ''" [innerText]="i % 4 == 1 ? 'NegyeddöntőTeam' : ''"></td>
+          <td [attr.class]="i % 4 == 1 ? 'background' : ''"></td>
+          <td [attr.class]="i % 4 == 1 ? 'background' : ''"></td>
+          <td [attr.class]="i % 4 == 1 ? 'background' : ''"></td>
           <td
             [attr.class]="i % 8 == 5 ? 'border-bottom border-right' : i % 4 == 1 ? 'border-bottom' : i % 8 == 2 || i % 8 == 3 || i % 8 == 4 ? 'border-right' : ''">
           </td>
           <td [attr.class]="i % 8 == 3 ? 'border-bottom' : ''"></td>
-          <td [attr.class]="i % 8 == 3 ? 'background black-bottom' : ''" [innerText]="i % 8 == 3 ? 'ElődöntőTeam' : ''">
+          <td [attr.class]="i % 8 == 3 ? 'background' : ''" [innerText]="i % 8 == 3 ? 'ElődöntőTeam' : ''">
           </td>
-          <td [attr.class]="i % 8 == 3 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 8 == 3 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 8 == 3 ? 'background black-bottom' : ''"></td>
+          <td [attr.class]="i % 8 == 3 ? 'background' : ''"></td>
+          <td [attr.class]="i % 8 == 3 ? 'background' : ''"></td>
+          <td [attr.class]="i % 8 == 3 ? 'background' : ''"></td>
         </tr>
       </tbody>
     </table>
-    <table class="mx-auto" *ngIf="tournament.teamsCount == 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 16 && tournament.type == 'Csoportkör és kieséses'">
+    <table class="mx-auto"
+      *ngIf="tournament.teamsCount == 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 16 && tournament.type == 'Csoportkör és kieséses'">
       <thead>
         <tr>
           <th colspan="4">Negyeddöntők</th>
@@ -321,7 +324,7 @@
           <th [attr.colspan]="tournament.finalMatches== 2 ? 4 : 2">Döntő</th>
         </tr>
       </thead>
-      <tbody *ngFor="let pair of matchesQF; index as i">
+      <tbody *ngFor="let pair of groupsQF; index as i">
         <tr>
           <td></td>
           <td></td>
@@ -341,16 +344,12 @@
           <td [attr.class]="i % 4 == 2 ? 'background' : ''"></td>
         </tr>
         <tr>
-          <td class="background black-bottom">
-            {{getTeam(pair.team1Id)}}</td>
-          <td class="background black-bottom" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"></td>
-          <td
-            *ngIf="tournament.knockoutMatches == 2"
-            class="background">
+          <td class="background">
+            {{getTeam(pair.id).split("\n")[0]}}</td>
+          <td class="background" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"></td>
+          <td *ngIf="tournament.knockoutMatches == 2" class="background">
           </td>
-          <td
-            *ngIf="tournament.knockoutMatches == 2"
-            class="background">
+          <td *ngIf="tournament.knockoutMatches == 2" class="background">
           </td>
           <td class="border-bottom" [attr.class]="i % 2 == 1 ? 'border-right border-bottom' : 'border-bottom'"></td>
           <td></td>
@@ -362,15 +361,11 @@
         </tr>
         <tr>
           <td class="background">
-            {{getTeam(pair.team2Id)}}</td>
+            {{getTeam(pair.id).split("\n")[1]}}</td>
           <td class="background" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"></td>
-          <td
-            *ngIf="tournament.knockoutMatches == 2"
-            class="background">
+          <td *ngIf="tournament.knockoutMatches == 2" class="background">
           </td>
-          <td
-            *ngIf="tournament.knockoutMatches == 2"
-            class="background">
+          <td *ngIf="tournament.knockoutMatches == 2" class="background">
           </td>
           <td [attr.class]="i % 2 == 0 ? 'border-right' : ''"></td>
           <td></td>
@@ -387,20 +382,18 @@
           <td></td>
           <td [attr.class]="i % 2 == 0 ? 'border-right' : ''"></td>
           <td [attr.class]="i % 2 == 0 ? 'border-bottom' : ''"></td>
-          <td [attr.class]="i % 2 == 0 ? 'background black-bottom' : ''"
-            [innerText]="i % 2 == 0 ? 'NyolcaddöntőTeam' : ''"></td>
-          <td [attr.class]="i % 2 == 0 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 2 == 0 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 2 == 0 ? 'background black-bottom' : ''"></td>
+          <td [attr.class]="i % 2 == 0 ? 'background' : ''" [innerText]="i % 2 == 0 ? 'NyolcaddöntőTeam' : ''"></td>
+          <td [attr.class]="i % 2 == 0 ? 'background' : ''"></td>
+          <td [attr.class]="i % 2 == 0 ? 'background' : ''"></td>
+          <td [attr.class]="i % 2 == 0 ? 'background' : ''"></td>
           <td
             [attr.class]="i % 2 == 0 && i % 4 == 2 ? 'border-bottom border-right' : i % 2 == 0 ? 'border-bottom' : i % 4 == 1 ? 'border-right' : ''">
           </td>
           <td [attr.class]="i % 4 == 1 ? 'border-bottom' : ''"></td>
-          <td [attr.class]="i % 4 == 1 ? 'background black-bottom' : ''"
-            [innerText]="i % 4 == 1 ? 'NegyeddöntőTeam' : ''"></td>
-          <td [attr.class]="i % 4 == 1 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 4 == 1 ? 'background black-bottom' : ''"></td>
-          <td [attr.class]="i % 4 == 1 ? 'background black-bottom' : ''"></td>
+          <td [attr.class]="i % 4 == 1 ? 'background' : ''" [innerText]="i % 4 == 1 ? 'NegyeddöntőTeam' : ''"></td>
+          <td [attr.class]="i % 4 == 1 ? 'background' : ''"></td>
+          <td [attr.class]="i % 4 == 1 ? 'background' : ''"></td>
+          <td [attr.class]="i % 4 == 1 ? 'background' : ''"></td>
         </tr>
       </tbody>
     </table>
