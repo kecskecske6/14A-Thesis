@@ -2,7 +2,11 @@
 class MatchController{
  
 function getById($conn, $id, $match, $userController, $tournamentController, $ec){
-    $sql = "SELECT * FROM foottour.matches WHERE id = ?";
+    $sql = "SELECT matches.*, tournaments.id FROM foottour.matches 
+            INNER JOIN groups
+                ON matches.groupId = groups.id
+            INNER JOIN tournaments
+                ON groups.tournamentId = tournaments.id WHERE matches.id = ?";
 
     $stmt = $conn->prepare($sql);
     if ($stmt === false) return false;
@@ -12,19 +16,19 @@ function getById($conn, $id, $match, $userController, $tournamentController, $ec
     $result = $stmt->get_result();
         $row = mysqli_fetch_row($result);
         $match->id = $row[0];
-        $match->tournamentId = $row[1];
-        $match->team1Id = $row[2];
-        $match->team2Id = $row[3];
-        $match->refereeId = $row[4];
-        $match->team1Goals = $row[5];
-        $match->team2Goals = $row[6];
-        $match->code = $row[7];
-        $match->team1Players = $this->getPlayersByMatchId($conn, $id, $row[2]);
-        $match->team2Players = $this->getPlayersByMatchId($conn, $id, $row[3]);
+        $match->tournamentId = $row[9];
+        $match->team1Id = $row[7];
+        $match->team2Id = $row[8];
+        $match->refereeId = $row[1];
+        $match->team1Goals = $row[2];
+        $match->team2Goals = $row[3];
+        $match->code = $row[4];
+        $match->team1Players = $this->getPlayersByMatchId($conn, $row[9], $row[7]);
+        $match->team2Players = $this->getPlayersByMatchId($conn, $row[9], $row[8]);
         $match->team1Name = $this->getTeamNameById($conn, $match->team1Id);
         $match->team2Name = $this->getTeamNameById($conn, $match->team2Id);
-        $match->refereeName = $userController->getNameById($conn, $row[4]);
-        $match->tournamentName = $tournamentController->getNameById($conn, $row[1]);
+        $match->refereeName = $userController->getNameById($conn, $row[1]);
+        $match->tournamentName = $tournamentController->getNameById($conn, $row[9]);
         $match->events = $ec->getEventsByMatchId($conn, $row[0]);
         return $match;
 }
@@ -32,21 +36,25 @@ function getById($conn, $id, $match, $userController, $tournamentController, $ec
 
 function getPlayersByMatchId($conn, $id, $teamId){
     $sql = "SELECT
-    players.id,
     players.name,
-    players.kit_number
-  FROM foottour.players_to_teams
-    INNER JOIN foottour.players
-        ON players_to_teams.player_id = players.id 
-    INNER JOIN foottour.teams
-        ON players_to_teams.team_id = teams.id
-    INNER JOIN foottour.teams_to_tournaments
-        ON teams_to_tournaments.team_id = teams.id
-    INNER JOIN foottour.tournaments
-        ON teams_to_tournaments.tournament_id = tournaments.id
-    INNER JOIN foottour.matches
-        ON matches.tournament_id = tournaments.id
-      WHERE matches.id = ? AND teams.id = ?";
+    players.id,
+    kit_numbers_to_players.kitNumber
+    FROM foottour.kit_numbers_to_players
+        INNER JOIN foottour.players
+        ON kit_numbers_to_players.playerId = players.id
+        INNER JOIN foottour.players_to_teams
+        ON players_to_teams.playerId = players.id
+        INNER JOIN foottour.teams
+        ON players_to_teams.teamId = teams.id
+        INNER JOIN foottour.teams_to_tournaments
+        ON teams_to_tournaments.teamId = teams.id
+        INNER JOIN foottour.tournaments
+        ON teams_to_tournaments.tournamentId = tournaments.id
+        INNER JOIN foottour.groups
+        ON groups.tournamentId = tournaments.id
+        INNER JOIN foottour.matches
+        ON matches.groupId = groups.id
+        WHERE kit_numbers_to_players.tournamentId = ? AND teams.id = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt === false) return false;
     $id = htmlspecialchars(strip_tags($id));
