@@ -30,6 +30,9 @@
                     <option value="Egyenes kieséses">Egyenes kieséses</option>
                     <option [disabled]="tournamentModel.teamsCount == 8" value="Csoportkör és kieséses">Csoportkör és kieséses</option>
                 </select>
+                <br>
+                <label for="fields">Pályák száma</label>
+                <input type="number" name="fields" id="fields" required [(ngModel)]="tournamentModel.fields">
             </div>
             <div class="col-6">
                 <h5>Helyszín</h5>
