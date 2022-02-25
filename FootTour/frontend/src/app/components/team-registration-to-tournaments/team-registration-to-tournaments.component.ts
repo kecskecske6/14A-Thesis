@@ -9,7 +9,8 @@ import { Player } from 'src/app/models/Player';
 export class TeamRegistrationToTournamentsComponent implements OnInit {
 
   players: Player [] = [];
-  player!: Player;
+  player2!: Player;
+  player: Player = new Player();
   number: number = 0;
   name: string = "";
 

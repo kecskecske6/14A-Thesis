@@ -11,12 +11,14 @@ export class Player{
     redCard = 0;
 
     constructor(player: any = undefined){
-        this.id = player.id;
-        this.name = player.name;
-        this.birth_date = player.birth_date;
-        this.goals = player.goals;
-        this.yellow_cards = player.yellow_cards;
-        this.red_cards = player.red_cards;
-        this.kit_number = player.kit_number;
+        if (player){
+            this.id = player.id;
+            this.name = player.name;
+            this.birth_date = player.birth_date;
+            this.goals = player.goals;
+            this.yellow_cards = player.yellow_cards;
+            this.red_cards = player.red_cards;
+            this.kit_number = player.kit_number;
+        }
     }
 }
