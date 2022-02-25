@@ -78,6 +78,10 @@ export class TournamentScheduleComponent implements OnInit {
   }
 
   getGroups(): void {
+    this.groupService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'GS%').subscribe(
+      result => result.forEach(g => this.groups.push(new GroupModel(g))),
+      error => console.log(error)
+    );
     this.groupService.getByType(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)), 'R32%').subscribe(
       result => result.forEach(g => this.groupsR32.push(new GroupModel(g))),
       error => console.log(error)
@@ -121,6 +125,28 @@ export class TournamentScheduleComponent implements OnInit {
 
   getMatchId(id: number): string {
     return this.matches.filter(m => m.groupId == id)[0].id + '\n' + this.matches.filter(m => m.groupId == id)[1].id;
+  }
+
+  getMatchesByGroupId(id: number): MatchModel[] {
+    return this.matches.filter(m => m.groupId == id);
+  }
+
+  getTeamById(id: number): string | undefined {
+    return this.teams.find(t => t.id == id)?.name;
+  }
+
+  getTeamsByGroupId(id: number): any[] {
+    const teamIds: number[] = [];
+    const teams: (TeamModel | undefined)[] = [];
+    this.teamstoGroups.filter(ttg => ttg.groupId == id).forEach(ttg => teamIds.push(ttg.teamId));
+    teamIds.forEach(tid => teams.push(this.teams.find(t => t.id == tid)));
+    const stats: any[] = [];
+    teams.forEach(t => {
+      stats.push({
+        name: t?.name
+      });
+    });
+    return stats;
   }
 
 }
