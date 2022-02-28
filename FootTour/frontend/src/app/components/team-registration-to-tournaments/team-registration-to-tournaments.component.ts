@@ -13,6 +13,7 @@ export class TeamRegistrationToTournamentsComponent implements OnInit {
   player: Player = new Player();
   number: number = 0;
   name: string = "";
+  teamName: string = "";
 
   constructor() { }
 
@@ -21,16 +22,32 @@ export class TeamRegistrationToTournamentsComponent implements OnInit {
 
   savePlayer(){
     if(this.name != "" && this.number > 0 && this.number < 99){
-      this.player.kit_number = this.number;
-      this.player.name = this.name;
-      this.players.push(this.player);
-      this.number = 0;
-      this.name = "";
+      if(!this.checkDuplicateNumbers()){
+        this.player.kit_number = this.number;
+        this.player.name = this.name;
+        this.players.push(this.player);
+        this.player = new Player();
+        this.number = 0;
+        this.name = "";
+        console.log(this.players);
+      }
+      else{
+        console.log("Már létezik ilyen mezszámú játékos!");
+      }
     }
     else{
       console.log("Rosszu")
       //TODO helytelen adat alert
     }
+  }
+
+  deletePlayer(index: number){
+    this.players.splice(index,1);
+  }
+
+  checkDuplicateNumbers(){
+    if(this.players.some(p => p.kit_number === this.number)) return true;
+    return false;
   }
 
 }

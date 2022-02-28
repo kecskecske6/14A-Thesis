@@ -1,8 +1,9 @@
 <h2 class="w-100 text-center bg-danger">Példa Torna</h2>
+<div class="mx-auto text-center w-75"><input [(ngModel)] = 'teamName' type="text" class="w-50 text-center" placeholder="Csapatnév" name="" id="inTeamName"></div>
 <table class="table col-lg-12 mb-5 mt-3 mx-auto">
     <thead>
       <tr>
-        <th scope="col" class="text-center col-2">Mezszám</th>
+        <th scope="col" class="text-center col-1">Mezszám</th>
         <th scope="col" class="text-center col">Név</th>
         <th scope="col" class="col-1"></th>
       </tr>
@@ -15,8 +16,8 @@
         </tr>
         <tr *ngFor="let player of players let i = index" [attr.data-index]="i">
           <th class="align-middle" scope="row">{{player.kit_number}}</th>
-          <td class="text-start align-middle">{{player.name}}</td>
-          <td><i class="bi bi-trash"></i></td>
+          <td class="text-center align-middle">{{player.name}}</td>
+          <td><i (click)="deletePlayer(i)" class="bi bi-trash me-3"></i></td>
         </tr>
     </tbody>
 </table>
