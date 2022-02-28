@@ -120,7 +120,7 @@ export class TournamentScheduleComponent implements OnInit {
   }
 
   getOverallGoals(id: number): string {
-    return this.matches.filter(m => m.groupId == id)[0].team1Goals + this.matches.filter(m => m.groupId == id)[1].team1Goals + '\n' + (this.matches.filter(m => m.groupId == id)[0].team2Goals + this.matches.filter(m => m.groupId == id)[1].team2Goals);
+    return this.matches.filter(m => m.groupId == id)[0].team1Goals?.toString() ?? '-' + this.matches.filter(m => m.groupId == id)[1].team1Goals?.toString() ?? '-' + '\n' + (this.matches.filter(m => m.groupId == id)[0].team2Goals?.toString() ?? '-' + this.matches.filter(m => m.groupId == id)[1].team2Goals?.toString() ?? '-');
   }
 
   getMatchId(id: number): string {
@@ -142,11 +142,35 @@ export class TournamentScheduleComponent implements OnInit {
     teamIds.forEach(tid => teams.push(this.teams.find(t => t.id == tid)));
     const stats: any[] = [];
     teams.forEach(t => {
+      const numberOfMatches = this.matches.filter(m => (m.team1Id == t?.id || m.team2Id == t?.id) && m.team1Goals != null).length;
+      const numberOfWins = this.matches.filter(m => m.team1Goals != null && m.team2Goals != null && (m.team1Id == t?.id && m.team1Goals > m.team2Goals || m.team2Id == t?.id && m.team2Goals > m.team1Goals)).length;
+      const numberOfDraws = this.matches.filter(m => m.team1Goals != null && m.team2Goals != null && ((m.team1Id == t?.id || m.team2Id == t?.id) && m.team2Goals == m.team1Goals)).length;
+      const numberOfLosses = numberOfMatches - numberOfWins - numberOfDraws;
+      const matches = this.matches.filter(m => (m.team1Id == t?.id || m.team2Id == t?.id) && m.team1Goals != null);
+      let numberOfGoals = 0;
+      let numberOfReceivedGoals = 0;
+      matches.forEach(m => {
+        if (m.team1Id == t?.id) {
+          numberOfGoals += m.team1Goals ?? 0;
+          numberOfReceivedGoals += m.team2Goals ?? 0;
+        }
+        else {
+          numberOfGoals += m.team2Goals ?? 0;
+          numberOfReceivedGoals += m.team1Goals ?? 0;
+        }
+      });
       stats.push({
-        name: t?.name
+        name: t?.name,
+        matches: numberOfMatches,
+        wins: numberOfWins,
+        draws: numberOfDraws,
+        losses: numberOfLosses,
+        goalsFor: numberOfGoals,
+        goalsAgainst: numberOfReceivedGoals,
+        points: numberOfWins * 3 + numberOfDraws
       });
     });
-    return stats;
+    return stats.sort((a, b) => b.points - a.points).sort((a, b) => (b.goalsFor - b.goalsAgainst) - (a.goalsFor - a.goalsAgainst)).sort((a, b) => b.goalsFor - a.goalsFor).sort((a, b) => b.wins - a.wins);
   }
 
 }

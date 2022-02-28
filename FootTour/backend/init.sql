@@ -61,8 +61,8 @@ ENGINE = INNODB;
 CREATE TABLE foottour.matches (
   id INT(11) NOT NULL AUTO_INCREMENT,
   refereeId INT(11) NOT NULL,
-  team1Goals INT(11) NOT NULL DEFAULT 0,
-  team2Goals INT(11) NOT NULL DEFAULT 0,
+  team1Goals INT(11) DEFAULT NULL,
+  team2Goals INT(11) DEFAULT NULL,
   code VARCHAR(50) NOT NULL,
   groupId INT(11) NOT NULL,
   time DATETIME NOT NULL,
@@ -209,3 +209,7 @@ ALTER TABLE foottour.referees_to_tournaments
 ALTER TABLE foottour.referees_to_tournaments 
   ADD CONSTRAINT FK_referees_to_tournaments_tournamentId FOREIGN KEY (tournamentId)
     REFERENCES foottour.tournaments(id) ON DELETE NO ACTION;
+
+INSERT INTO foottour.users (name, email, password, isDeleted, isOrganizer, isReferee, isLeader, confirmation) VALUES ('Admin', 'admin', 'admin', 0, 1, 1, 1, 0);
+INSERT INTO foottour.users (name, email, password, isDeleted, isOrganizer, isReferee, isLeader, confirmation) VALUES ('Szebik Levente Róbert', 'levente011@gmail.com', 'levente011', 0, 1, 1, 0, 0);
+INSERT INTO foottour.users (name, email, password, isDeleted, isOrganizer, isReferee, isLeader, confirmation) VALUES ('Tankovits Bence', 'kecskecske6@gmail.com', 'kecskecske6', 0, 1, 0, 1, 0);
