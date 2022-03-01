@@ -15,7 +15,7 @@ export class TeamService {
     return this.http.get<Team[]>(`${environment.backendURL}/api/teams/list.php?tournamentId=${id}`);
   }
 
-  registerTeam(team: Team){
-    return this.http.post<any>(`${environment.backendURL}/api/teams/register.php`, team);
+  registerTeam(team: any){
+    return this.http.post<any>(`${environment.backendURL}/api/teams/registerToTournament.php`, team);
   }
 }

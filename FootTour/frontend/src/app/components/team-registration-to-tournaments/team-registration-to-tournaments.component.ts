@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Player } from 'src/app/models/Player';
+import { TeamService } from 'src/app/services/team.service';
+import { AuthService} from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-team-registration-to-tournaments',
@@ -16,7 +19,9 @@ export class TeamRegistrationToTournamentsComponent implements OnInit {
   tournamentId = 1;
   tournamentName = "Példa Torna"
 
-  constructor() { }
+  constructor(private router: Router,
+              private teamService: TeamService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -58,7 +63,24 @@ export class TeamRegistrationToTournamentsComponent implements OnInit {
   registerTeam(){
     if(this.players.length > 4)
     {
-
+      const postData = {
+        leaderId: this.authService.getId(),
+        tournamentId: this.tournamentId,
+        teamName: this.teamName,
+        players: this.players
+      }
+      console.log(postData);
+      this.teamService.registerTeam(postData).subscribe( 
+      result =>{ 
+        console.log(result);
+      },
+      error=>{
+        console.log(error);
+        if(error.status == 401){
+          this.authService.logout();
+        }
+      }
+    );
     }
     else{
       console.log("Nem regisztrált elegendő játékost");

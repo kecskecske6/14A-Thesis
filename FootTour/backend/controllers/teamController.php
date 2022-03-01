@@ -32,38 +32,37 @@ class TeamController{
     }
 
     function teamToTournament($conn, $teamId, $tournamentId){
-        $sql = "INSERT INTO foottour.teams_to_tournaments (teamId, tournamentId)
-                VALUES(?,?)";
+        $sql = "INSERT INTO foottour.teams_to_tournaments (teamId, tournamentId) VALUES(?,?)";
 
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
 
-        $stmt->bind_param("ii", $$teamId, $tournamentId);
+        $stmt->bind_param("ii", $teamId, $tournamentId);
         if ($stmt->execute() === false) return false;
 
         return true;
     }
 
     function registerTeam($conn, $postdata, $pc){
-        $sql = "INSERT INTO foottour.teams (leaderId, name)
-        VALUES (?,?)";
+        $sql = "INSERT INTO foottour.teams (leaderId, name) VALUES (?,?)";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
-
-        $leaderId = htmlspecialchars(strip_tags($postdata->leaderId));
+        $leaderId = (int)htmlspecialchars(strip_tags($postdata->leaderId));
         $tournamentId = htmlspecialchars(strip_tags($postdata->tournamentId));
-
-        $stmt->bind_param("is", $leaderId, $tournamentId);
+        $teamName = htmlspecialchars(strip_tags($postdata->teamName));
+        
+        $stmt->bind_param("is", $leaderId, $teamName);
         if ($stmt->execute() === false) return false;
-
+        
         $teamId = htmlspecialchars(strip_tags($stmt->insert_id));
-
+        
         if(!$this->teamToTournament($conn, $teamId, $tournamentId)) return false;
+        echo "alma";
         
         foreach($postdata->players as &$row){
             $name = htmlspecialchars(strip_tags($row->name));
             $kitNumber = htmlspecialchars(strip_tags($row->kitNumber));
-            if(!$pc->register($conn, $name, $kitNumber, $tournamentId)) return false;
+            if(!$pc->register($conn, $name, $kitNumber, $tournamentId, $teamId)) return false;
         }
 
         return $this->getById($conn, $stmt->insert_id);

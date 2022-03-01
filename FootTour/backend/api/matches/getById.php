@@ -16,7 +16,7 @@ $match = new MatchClass();
 $mc = new MatchController();
 $uc = new UserController();
 $tc = new TournamentController();
-$ec = new eventController();
+$ec = new EventController();
 $db = new DB();
 $conn = $db->getConnection();
 
