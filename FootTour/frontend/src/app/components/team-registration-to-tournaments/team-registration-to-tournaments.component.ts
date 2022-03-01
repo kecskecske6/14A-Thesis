@@ -9,7 +9,6 @@ import { Player } from 'src/app/models/Player';
 export class TeamRegistrationToTournamentsComponent implements OnInit {
 
   players: Player [] = [];
-  player2!: Player;
   player: Player = new Player();
   number: number = 0;
   name: string = "";
@@ -50,6 +49,20 @@ export class TeamRegistrationToTournamentsComponent implements OnInit {
   checkDuplicateNumbers(){
     if(this.players.some(p => p.kit_number === this.number)) return true;
     return false;
+  }
+
+  saveTeamName(teamName: string){
+    this.teamName = teamName;
+  }
+
+  registerTeam(){
+    if(this.players.length > 4)
+    {
+
+    }
+    else{
+      console.log("Nem regisztrált elegendő játékost");
+    }
   }
 
 }
