@@ -51,7 +51,6 @@ ENGINE = INNODB;
 CREATE TABLE foottour.players (
   id INT(11) NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
-  birthDate DATETIME NOT NULL,
   goals INT(11) NOT NULL,
   PRIMARY KEY (id)
 )
