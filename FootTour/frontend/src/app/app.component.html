@@ -31,7 +31,7 @@
       <input *ngIf="!userService.userName" type="button" value="Belépés" class="btn-outline-success btn-light btn button" routerLink="/login" (click)="setTitle('Belépés')">
       <input *ngIf="!userService.userName" type="button" value="Regisztráció" class="btn btn-success button" routerLink="/register" (click)="setTitle('Regisztráció')">
 
-      <div *ngIf="userService.userName">
+      <div *ngIf="userService.userName" class="me-3">
       <a class="dropdown-toggle" data-bs-toggle="dropdown" role="button" >{{userService.userName}}</a>
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
         <li (click)="logOutOnClick()" class="dropdown-item">Kijelentkezés</li>

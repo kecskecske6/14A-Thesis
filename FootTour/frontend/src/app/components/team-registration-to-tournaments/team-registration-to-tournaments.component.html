@@ -1,17 +1,16 @@
-<h2 class="w-100 text-center bg-danger">Példa Torna</h2>
-<div class="text-center w-100"><input [(ngModel)] = 'teamName' type="text" class="w-50 text-center" placeholder="Csapatnév" name="" id="inTeamName"></div>
+<div class="w-100 mx-auto text-center"><h2 class="ms-4">{{tournamentName}}</h2></div>
 <table class="table col-lg-12 mb-5 mt-3 mx-auto">
     <thead>
       <tr>
         <th scope="col" class="text-center col-1">Mezszám</th>
-        <th scope="col" class="text-center col">Név</th>
+        <th scope="col" class="text-center col-10">Név</th>
         <th scope="col" class="col-1"></th>
       </tr>
     </thead>
     <tbody class="align-middle text-center">
         <tr>
-            <th scope="row"><input [(ngModel)] = 'number' type="number" class="w-75 text-center ps-3" name="" id="" placeholder="10"></th>
-            <td class="text-center pe-4"><input [(ngModel)] = 'name' type="text" name="" id="inPlayerName" placeholder="Játékos neve"></td>
+            <th scope="row"><input [(ngModel)] = 'number' type="number" class="w-75 text-center" name="" id="" placeholder="10"></th>
+            <td class="text-center"><input [(ngModel)] = 'name' class="w-75" type="text" name="" id="inPlayerName" placeholder="Játékos neve"></td>
             <td class="pb-3 text-start"><i (click)="savePlayer()" class="bi bi-check-circle"></i></td>
         </tr>
         <tr *ngFor="let player of players let i = index" [attr.data-index]="i">

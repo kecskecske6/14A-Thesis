@@ -15,6 +15,7 @@ export class TeamRegistrationToTournamentsComponent implements OnInit {
   name: string = "";
   teamName: string = "";
   tournamentId = 1;
+  tournamentName = "Példa Torna"
 
   constructor() { }
 
