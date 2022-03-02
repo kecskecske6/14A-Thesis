@@ -15,19 +15,25 @@ export class TeamRegistrationToTournamentsComponent implements OnInit {
   player: Player = new Player();
   number: number = 0;
   name: string = "";
-  teamName: string = "";
+  teamName: string = "asd";
   tournamentId = 1;
   tournamentName = "Példa Torna"
+  underModify = {
+    status: false,
+    index: -1,
+    name: "",
+    kitNumber: 0
+  }
 
   constructor(private router: Router,
               private teamService: TeamService,
-              private authService: AuthService) { }
+              private authService: AuthService) {}
 
   ngOnInit(): void {
   }
 
   savePlayer(){
-    if(this.name != "" && this.number > 0 && this.number < 99){
+    if(this.name != "" && this.number > 0 && this.number < 100 && this.underModify.status == false){
       if(!this.checkDuplicateNumbers()){
         this.player.kit_number = this.number;
         this.player.name = this.name;
@@ -85,6 +91,26 @@ export class TeamRegistrationToTournamentsComponent implements OnInit {
     else{
       console.log("Nem regisztrált elegendő játékost");
     }
+  }
+
+  modify(player: Player){
+    this.underModify.status = true;
+    this.underModify.name = player.name;
+    this.underModify.kitNumber = player.kit_number;
+  }
+
+  stopModifyWithSave(index: number, player: Player){
+    player.name = this.underModify.name;
+    player.kit_number = this.underModify.kitNumber;
+    this.players[index] = player;
+
+    this.stopModify();
+  }
+
+  stopModify(){
+    this.underModify.status = false;
+    this.underModify.name = "";
+    this.underModify.kitNumber = 0;
   }
 
 }
