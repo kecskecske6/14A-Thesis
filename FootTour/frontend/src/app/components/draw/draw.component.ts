@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Team } from 'src/app/interfaces/team';
 import { TeamModel } from 'src/app/models/Team';
 import { TournamentModel } from 'src/app/models/Tournament';
 import { DrawService } from 'src/app/services/draw.service';

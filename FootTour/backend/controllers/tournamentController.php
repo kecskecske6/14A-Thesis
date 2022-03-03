@@ -67,7 +67,7 @@
         $sql = "UPDATE foottour.tournaments SET `startDate` = ?,
         `endDate` = ?, `name` = ?, `location` = ?,
         `bestPlayer` = ?, `topScorer` = ?, `bestGoalkeeper` = ?,
-        `entryFee` = ?, `description` = ?, `teamsCount` = ?, type = ?, groupsAmount = ?, groupMatches = ?, knockoutMatches = ?, finalMatches = ?, fields = ? 
+        `entryFee` = ?, `description` = ?, `teamsCount` = ?, type = ?, groupMatches = ?, knockoutMatches = ?, finalMatches = ?, fields = ? 
         WHERE `organizerId` = ? AND `id` = ?";
         
         $stmt = $conn->prepare($sql);
@@ -86,18 +86,17 @@
         $description = htmlspecialchars(strip_tags($postdata->description));
         $teamsCount = htmlspecialchars(strip_tags($postdata->teamsCount));
         $type = htmlspecialchars(strip_tags($postdata->type));
-        $groupsAmount = htmlspecialchars(strip_tags($postdata->groupsAmount));
         $groupMatches = htmlspecialchars(strip_tags($postdata->groupMatches));
         $knockoutMatches = htmlspecialchars(strip_tags($postdata->knockoutMatches));
         $finalMatches = htmlspecialchars(strip_tags($postdata->finalMatches));
         $fields = htmlspecialchars(strip_tags($postdata->fields));
 
-        $stmt->bind_param("sssssssisisiiiiiii",$startDate, $endDate, $name, $location, 
+        $stmt->bind_param("sssssssisisiiiiii",$startDate, $endDate, $name, $location, 
                             $bestPlayer, $topScorer, $bestGoalkeeper, $entryFee, $description,
-                            $teamsCount, $type, $groupsAmount, $groupMatches, $knockoutMatches, $finalMatches, $organizerId, $id, $fields);
+                            $teamsCount, $type, $groupMatches, $knockoutMatches, $finalMatches, $fields, $organizerId, $id);
         if ($stmt->execute() === false) return false;
         
-        return $this->getById($conn, $stmt->insert_id);
+        return $this->getById($conn, $id);
     }
 
     function getTournamentByName($conn, $name){

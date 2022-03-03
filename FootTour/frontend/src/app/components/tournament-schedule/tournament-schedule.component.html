@@ -17,6 +17,28 @@
               <th>GK</th>
               <th>P</th>
             </tr>
+            <tr *ngFor="let team of getTeamsByGroupId(group.id); index as i">
+              <td>{{i + 1}}</td>
+              <td>{{team.name}}</td>
+              <td>{{team.matches}}</td>
+              <td>{{team.wins}}</td>
+              <td>{{team.draws}}</td>
+              <td>{{team.losses}}</td>
+              <td>{{team.goalsFor}} : {{team.goalsAgainst}}</td>
+              <td>{{team.points}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="card-footer">Mérkőzések</div>
+        <div class="card-body">
+          <table>
+            <tr *ngFor="let match of getMatchesByGroupId(group.id)" [routerLink]="'/referee/' + match.id">
+              <td style="text-align: right;">{{getTeamById(match.team1Id)}}</td>
+              <td>{{match.team1Goals ?? '-'}}</td>
+              <td>:</td>
+              <td>{{match.team2Goals ?? '-'}}</td>
+              <td>{{getTeamById(match.team2Id)}}</td>
+            </tr>
           </table>
         </div>
       </div>

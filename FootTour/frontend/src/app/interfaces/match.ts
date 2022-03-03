@@ -3,8 +3,8 @@ export interface Match {
     team1Id: number;
     team2Id: number;
     refereeId: number;
-    team1Goals: number;
-    team2Goals: number;
+    team1Goals: number | null;
+    team2Goals: number | null;
     code: string;
     groupId: number;
     time: Date;
