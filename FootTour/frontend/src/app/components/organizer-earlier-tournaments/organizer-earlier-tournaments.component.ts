@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Tournament } from 'src/app/interfaces/tournament';
+import { TournamentModel } from 'src/app/models/Tournament';
 import { AuthService } from 'src/app/services/auth.service';
 import { TournamentService } from 'src/app/services/tournament.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-organizer-earlier-tournaments',
@@ -11,23 +11,36 @@ import { TournamentService } from 'src/app/services/tournament.service';
 })
 export class OrganizerEarlierTournamentsComponent implements OnInit {
 
-  tournaments: Tournament[] = [];
+  tournaments: TournamentModel[] = [];
+  earlierTournaments: TournamentModel[] = [];
+  organizer: string = '';
 
-  constructor(private tournamentService: TournamentService, private authService: AuthService) {}
+  constructor(private tournamentService: TournamentService, private auth: AuthService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.getTournaments();
+    this.getOrganizerName();
   }
-  getTournaments() : void{
-    this.tournamentService.getAllByUserId(Number(this.authService.getId())).subscribe(
-      (result: Tournament[])=>{
-        this.tournaments = result;
+  getTournaments(): void {
+    this.tournamentService.getAllByUserId(Number(this.auth.getId())).subscribe(
+      (result: TournamentModel[]) => {
+        result.forEach(t => {
+          if (new Date(t.endDate).getTime() < new Date().getTime()) this.earlierTournaments.push(new TournamentModel(t));
+          else this.tournaments.push(new TournamentModel(t));
+        });
       },
-      error=>{
+      error => {
         console.log(error);
         if(error.status == 401){
-          this.authService.logout();
+          this.auth.logout();
         }
       });
+  }
+
+  getOrganizerName(): void {
+    this.userService.getById(Number(this.auth.getId())).subscribe(
+      result => this.organizer = result.name,
+      error => console.log(error)
+    );
   }
 }

@@ -1,4 +1,4 @@
-export interface player{
+export interface Player {
     id: number,
     name: string,
     birthDate: Date,

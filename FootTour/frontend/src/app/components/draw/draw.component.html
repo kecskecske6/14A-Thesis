@@ -1,37 +1,29 @@
 <div class="container">
-    <h2 class="text-center">Mikulás kupa</h2>
-    <hr>
-    <br>
-    <label for="type">Típus:</label>
-    <select #t (change)="set(t.value)" class="form-select" name="type" id="type">
-        <option *ngFor="let c of types" [ngValue]="c">{{c.name}}</option>
+  <h2 class="text-center">{{tournament.name}}</h2>
+  <hr>
+  <br>
+  <p class="text-center">Típus: {{tournament.type}}</p>
+  <div *ngIf="tournament.type == 'Csoportkör és kieséses'">
+    <label for="matches">Csoportkör meccsek:</label>
+    <select [(ngModel)]="tournament.groupMatches" name="matches" id="matches" class="form-select">
+      <option value="1">1</option>
+      <option value="2">2</option>
     </select>
-    <div *ngIf="tournament.type == 'Csoportkör és kieséses'">
-        <label for="number">Csoportok létszáma:</label>
-        <select name="number" id="number" class="form-select">
-            <option value="four">4</option>
-            <option value="eight">8</option>
-        </select>
-        <label for="matches">Csoportkör meccsek:</label>
-        <select name="matches" id="matches" class="form-select">
-            <option value="one">1</option>
-            <option value="two">2</option>
-        </select>
-    </div>
-    <div *ngIf="tournament.type.includes('kieséses')">
-        <label for="knockout">Kieséses szakasz meccsek:</label>
-        <select name="knockout" id="knockout" class="form-select">
-            <option value="one">1</option>
-            <option value="two">2</option>
-        </select>
-        <label for="final">Döntő meccsek:</label>
-        <select name="final" id="final" class="form-select">
-            <option value="one">1</option>
-            <option value="two">2</option>
-        </select>
-    </div>
-    <hr>
-    <div class="text-center">
-        <input type="button" value="Sorsolás" class="btn btn-primary" (click)="draw()">
-    </div>
+  </div>
+  <div *ngIf="tournament.type.includes('kieséses')">
+    <label for="knockout">Kieséses szakasz meccsek:</label>
+    <select [(ngModel)]="tournament.knockoutMatches" name="knockout" id="knockout" class="form-select">
+      <option value="1">1</option>
+      <option value="2">2</option>
+    </select>
+    <label for="final">Döntő meccsek:</label>
+    <select [(ngModel)]="tournament.finalMatches" name="final" id="final" class="form-select">
+      <option value="1">1</option>
+      <option value="2">2</option>
+    </select>
+  </div>
+  <hr>
+  <div class="text-center">
+    <input type="button" value="Sorsolás" class="btn btn-primary" (click)="draw()">
+  </div>
 </div>

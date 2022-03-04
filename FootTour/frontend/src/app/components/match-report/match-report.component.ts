@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Player } from 'src/app/models/Player';
-import { Match } from 'src/app/models/Match';
+import { PlayerModel } from 'src/app/models/Player';
+import { MatchModel } from 'src/app/models/Match';
 import { MatchService } from 'src/app/services/match.service';
 import { PlayerService } from 'src/app/services/player.service';
 import { UserService } from 'src/app/services/user.service';
-import { event } from 'src/app/interfaces/event';
+import { Event } from 'src/app/interfaces/event';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-match-report',
@@ -20,21 +21,21 @@ export class MatchReportComponent implements OnInit {
   team2Goals = -2;
   tournamentName = "Lébény Kupa"; //TODO
   id = 1;
-  match!: Match;
-  team1Players: Player[] = [];
-  team2Players: Player[] = [];
-  team1PlayersWithEvents: Player[] = [];
-  team2PlayersWithEvents: Player[] =[];
-  events: event[] = [];
+  match!: MatchModel;
+  team1Players: PlayerModel[] = [];
+  team2Players: PlayerModel[] = [];
+  team1PlayersWithEvents: PlayerModel[] = [];
+  team2PlayersWithEvents: PlayerModel[] =[];
+  events: Event[] = [];
 
-  constructor(private authService: AuthService, private matchService: MatchService, private playerService: PlayerService, private userService: UserService) { }
+  constructor(private authService: AuthService, private matchService: MatchService, private playerService: PlayerService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.getMatchById();
   }
 
   getMatchById(){
-    this.matchService.getMatchById(this.id).subscribe(
+    this.matchService.getMatchById(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
       (result: any) =>{
         console.log(result);
         this.team1Name = result.team1Name.name;

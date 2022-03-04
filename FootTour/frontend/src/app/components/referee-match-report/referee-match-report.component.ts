@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { event } from 'src/app/models/Event';
-import { Match } from 'src/app/models/Match';
-import { Player } from 'src/app/models/Player';
+import { EventModel } from 'src/app/models/Event';
+import { MatchModel } from 'src/app/models/Match';
+import { PlayerModel } from 'src/app/models/Player';
 import { MatchService } from 'src/app/services/match.service';
 import { AuthService} from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -28,12 +28,12 @@ export class RefereeMatchReportComponent implements OnInit {
   team2Name = "";
   team1Goals = 0;
   team2Goals = 0;
-  team1Players: Player[] = [];
-  team2Players: Player[] = [];
-  event: event = new event();
-  event2: event = new event();
-  events: event[] = [];
-  match: Match = new Match();
+  team1Players: PlayerModel[] = [];
+  team2Players: PlayerModel[] = [];
+  event: EventModel = new EventModel();
+  event2: EventModel = new EventModel();
+  events: EventModel[] = [];
+  match: MatchModel = new MatchModel();
   
   constructor(private matchService: MatchService,
               private router: Router,
@@ -44,10 +44,9 @@ export class RefereeMatchReportComponent implements OnInit {
   }
 
   getMatchById(){
-    this.matchService.getMatchById(this.id).subscribe(
+    this.matchService.getMatchById(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
       (result: any)=>{
       this.match.id = result.id;
-      this.match.tournamentId = result.tournamentId;
       this.match.team1Id = result.team1Id;
       this.match.team2Id = result.team2Id;
       this.match.code = result.code;
@@ -102,11 +101,11 @@ export class RefereeMatchReportComponent implements OnInit {
     this.underModify.team = team;
   }
 
-  saveEvent(player: Player, type: string, teamName: string){
+  saveEvent(player: PlayerModel, type: string, teamName: string){
     if(this.minute > 0 && this.minute < 120){
-      this.event = new event;
-      this.event.match_id = this.id;
-      this.event.player_id = player.id;
+      this.event = new EventModel;
+      this.event.matchId = this.id;
+      this.event.playerId = player.id;
       this.event.type = type;
       this.event.minute = this.minute;
       if(type == "goal"){
@@ -118,8 +117,8 @@ export class RefereeMatchReportComponent implements OnInit {
         player.number_of_yellows_in_a_match.push(this.minute);
         if(player.number_of_yellows_in_a_match.length == 2){
            player.redCard = this.minute;
-           this.event2.match_id = this.id;
-           this.event2.player_id = player.id;
+           this.event2.matchId = this.id;
+           this.event2.playerId = player.id;
            this.event2.type = "redCard";
            this.event2.minute = this.minute;
            this.events.push(this.event2);
@@ -134,7 +133,7 @@ export class RefereeMatchReportComponent implements OnInit {
     }
   }
 
-  deleteEvent(player: Player, type: string, index: number, teamName: string){
+  deleteEvent(player: PlayerModel, type: string, index: number, teamName: string){
     if(type == "goal"){
       player.number_of_goals_in_a_match.splice(index, 1);
       if(teamName == this.team1Name) this.team1Goals--;
@@ -145,7 +144,7 @@ export class RefereeMatchReportComponent implements OnInit {
       if(player.number_of_yellows_in_a_match.length == 2) player.number_of_yellows_in_a_match.splice(player.number_of_yellows_in_a_match.length-1, 1);
       player.redCard = 0;
     }
-    var toDelete = this.events.findIndex(element => element.type == type && element.player_id == player.id && element.minute == this.minute);
+    var toDelete = this.events.findIndex(element => element.type == type && element.playerId == player.id && element.minute == this.minute);
     this.events.splice(toDelete, 1);
   }
 

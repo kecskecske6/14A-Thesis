@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { User } from '../interfaces/user';
+import { UserModel } from '../models/User';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -16,6 +17,10 @@ export class UserService {
   
   insert(data: any): Observable<User> {
     return this.http.post<User>(`${environment.backendURL}/api/store.php`, data);
+  }
+
+  getById(id: number): Observable<User> {
+    return this.http.get<User>(`${environment.backendURL}/api/users/list.php?id=${id}`);
   }
 
   SetUser(name : string){
@@ -33,5 +38,9 @@ export class UserService {
   logOutUser(){
    localStorage.clear();
    this.userName = null;
+  }
+
+  getByType(type: string): Observable<UserModel[]> {
+    return this.http.get<UserModel[]>(`${environment.backendURL}/api/users/list.php?type=${type}`);
   }
 }

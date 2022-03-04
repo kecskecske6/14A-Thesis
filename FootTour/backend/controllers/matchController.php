@@ -2,12 +2,13 @@
 class MatchController{
  
 function getById($conn, $id, $match, $userController, $tournamentController, $ec){
+
     $sql = "SELECT matches.*, tournaments.id FROM foottour.matches 
             INNER JOIN groups
                 ON matches.groupId = groups.id
             INNER JOIN tournaments
                 ON groups.tournamentId = tournaments.id WHERE matches.id = ?";
-
+  
     $stmt = $conn->prepare($sql);
     if ($stmt === false) return false;
     $id = htmlspecialchars(strip_tags($id));
@@ -25,6 +26,8 @@ function getById($conn, $id, $match, $userController, $tournamentController, $ec
         $match->code = $row[4];
         $match->team1Players = $this->getPlayersByMatchId($conn, $row[9], $row[7]);
         $match->team2Players = $this->getPlayersByMatchId($conn, $row[9], $row[8]);
+        $match->groupId = $row[5];
+        $match->time = $row[6];
         $match->team1Name = $this->getTeamNameById($conn, $match->team1Id);
         $match->team2Name = $this->getTeamNameById($conn, $match->team2Id);
         $match->refereeName = $userController->getNameById($conn, $row[1]);
@@ -55,6 +58,7 @@ function getPlayersByMatchId($conn, $id, $teamId){
         INNER JOIN foottour.matches
         ON matches.groupId = groups.id
         WHERE kit_numbers_to_players.tournamentId = ? AND teams.id = ?";
+
     $stmt = $conn->prepare($sql);
     if ($stmt === false) return false;
     $id = htmlspecialchars(strip_tags($id));
@@ -80,9 +84,35 @@ function getTeamNameById($conn, $id){
     return $result->fetch_object();
 }
 
+function createMatch($conn, $data) {
+    $sql = "INSERT into foottour.matches (refereeId, code, groupId, time, team1Id, team2Id) values (?, ?, ?, ?, ?, ?);";
+    $stmt = $conn->prepare($sql);
+    if ($stmt == false) return false;
+    $refereeId = htmlspecialchars(strip_tags($data->refereeId));
+    $code = htmlspecialchars(strip_tags($data->code));
+    $groupId = htmlspecialchars(strip_tags($data->groupId));
+    $time = htmlspecialchars(strip_tags($data->time));
+    $team1Id = htmlspecialchars(strip_tags($data->team1Id));
+    $team2Id = htmlspecialchars(strip_tags($data->team2Id));
+    $stmt->bind_param("isisii", $refereeId, $code, $groupId, $time, $team1Id, $team2Id);
+    if ($stmt->execute() == false) return false;
+    return $this->getByIdActual($conn, $stmt->insert_id);
+}
+
+function getByIdActual($conn, $id){
+    $sql = "SELECT * from foottour.matches WHERE id = ?;";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) return false;
+    $id = htmlspecialchars(strip_tags($id));
+    $stmt->bind_param("i",$id);
+    if ($stmt->execute() === false) return false;
+    $result = $stmt->get_result();
+    return $result->fetch_object();
+}
+
 function saveMatch($conn, $postdata){
-    $sql = "UPDATE foottour.matches SET `tournament_id` = ?, `team1_id`= ?, `team2_id`= ?,
-     `referee_id`= ?, `team1_goals`= ?, `team2_goals`= ?, `code`= ? WHERE `id` = ?";
+    $sql = "UPDATE foottour.matches SET `tournamentId` = ?, `team1Id`= ?, `team2Id`= ?,
+     `refereeId`= ?, `team1Goals`= ?, `team2Goals`= ?, `code`= ? WHERE `id` = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt === false) return false;;
     $tournamentId = htmlspecialchars(strip_tags($postdata->tournamentId));
@@ -100,5 +130,33 @@ function saveMatch($conn, $postdata){
     if ($stmt->execute() === false) return false;
     return true;
 }
+
+function getByTournamentId($conn, $id) {
+    $sql = "SELECT matches.* from foottour.matches inner join foottour.groups on matches.groupId = groups.id where foottour.groups.tournamentId = ?;";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) return false;
+    $tournamentId = htmlspecialchars(strip_tags($id));
+    $stmt->bind_param("i",$tournamentId);
+    if ($stmt->execute() === false) return false;
+    $result = $stmt->get_result();
+    $matches = array();
+    while ($row = $result->fetch_object()) array_push($matches, $row);
+    return $matches;
+}
+
+function getByType($conn, $id, $type) {
+    $sql = "SELECT matches.* from foottour.matches inner join foottour.groups on matches.groupId = groups.id where foottour.groups.tournamentId = ? and foottour.matches.code like ?;";
+    $stmt = $conn->prepare($sql);
+    if ($stmt == false) return false;
+    $tournamentId = htmlspecialchars(strip_tags($id));
+    $matchType = htmlspecialchars(strip_tags($type));
+    $stmt->bind_param("is", $tournamentId, $matchType);
+    if ($stmt->execute() == false) return false;
+    $result = $stmt->get_result();
+    $matches = array();
+    while ($row = $result->fetch_object()) array_push($matches, $row);
+    return $matches;
+}
+
 }
 ?>
