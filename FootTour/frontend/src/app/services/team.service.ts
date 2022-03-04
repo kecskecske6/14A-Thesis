@@ -14,4 +14,8 @@ export class TeamService {
   getAllByTournamentId(id: number): Observable<TeamModel[]> {
     return this.http.get<TeamModel[]>(`${environment.backendURL}/api/teams/list.php?tournamentId=${id}`);
   }
+
+  registerTeam(team: any){
+    return this.http.post<any>(`${environment.backendURL}/api/teams/registerToTournament.php`, team);
+  }
 }

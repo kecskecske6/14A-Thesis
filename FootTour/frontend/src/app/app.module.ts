@@ -21,6 +21,7 @@ import { TournamentScheduleComponent } from './components/tournament-schedule/to
 import { DrawComponent } from './components/draw/draw.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { TokenInterceptor } from './auth/token.interceptor';
+import { TeamRegistrationToTournamentsComponent } from './components/team-registration-to-tournaments/team-registration-to-tournaments.component';
 import { NewTournamentComponent } from './components/new-tournament/new-tournament.component';
 
 @NgModule({
@@ -37,6 +38,7 @@ import { NewTournamentComponent } from './components/new-tournament/new-tourname
     RefereeMatchReportComponent,
     TournamentScheduleComponent,
     DrawComponent,
+    TeamRegistrationToTournamentsComponent,
     NewTournamentComponent
   ],
   imports: [

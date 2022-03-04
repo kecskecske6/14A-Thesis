@@ -12,13 +12,16 @@ export class PlayerModel implements Player {
     number_of_yellows_in_a_match: number[] = [];
     redCard = 0;
 
+    constructor(player: any = undefined){
+        if (player){
+            this.id = player.id;
+            this.name = player.name;
+            this.goals = player.goals;
+        }
+    }
     constructor(player: any = undefined) {
         this.id = player.id;
         this.name = player.name;
-        this.birthDate = player.birthDate;
         this.goals = player.goals;
-        this.yellowCards = player.yellowCards;
-        this.redCards = player.redCards;
-        this.kitNumber = player.kitNumber;
     }
 }

@@ -12,6 +12,7 @@ import { RefereeMatchReportComponent } from './components/referee-match-report/r
 import { TournamentScheduleComponent } from './components/tournament-schedule/tournament-schedule.component';
 import { DrawComponent } from './components/draw/draw.component';
 import { AuthGuard } from './guards/auth.guard';
+import { TeamRegistrationToTournamentsComponent } from './components/team-registration-to-tournaments/team-registration-to-tournaments.component';
 import { NewTournamentComponent } from './components/new-tournament/new-tournament.component';
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'referee/:id', canActivate:[AuthGuard], component: RefereeMatchReportComponent },
   { path: 'schedule/:id', canActivate:[AuthGuard], component: TournamentScheduleComponent },
   { path: 'draw/:id', canActivate:[AuthGuard], component: DrawComponent },
+  { path: 'teamregistartion', canActivate:[AuthGuard], component: TeamRegistrationToTournamentsComponent },
   { path: 'newtournament', canActivate: [AuthGuard], component: NewTournamentComponent }
 ];
 
