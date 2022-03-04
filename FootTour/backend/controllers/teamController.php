@@ -62,7 +62,6 @@ class TeamController{
         $teamId = htmlspecialchars(strip_tags($stmt->insert_id));
         
         if(!$this->teamToTournament($conn, $teamId, $tournamentId)) return false;
-        echo "alma";
         
         foreach($postdata->players as &$row){
             $name = htmlspecialchars(strip_tags($row->name));

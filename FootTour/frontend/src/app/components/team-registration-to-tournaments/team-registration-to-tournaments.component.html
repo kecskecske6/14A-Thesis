@@ -18,7 +18,7 @@
           <tr *ngFor="let player of players let i = index" [attr.data-index]="i">
             <ng-template [ngIf] = "underModify.status == false || underModify.index != i" [ngIfElse] = "modifyPlayer">
             <!-- Csak azt az egyet modosítsd -->
-            <th class="align-middle pe-2" scope="row">{{player.kit_number}}</th>
+            <th class="align-middle pe-2" scope="row">{{player.kitNumber}}</th>
             <td class="text-center align-middle">{{player.name}}</td>
             <td>
               <i (click)="modify(i, players[i])" class="bi bi-pencil me-1 text-start"></i>

@@ -3,7 +3,6 @@ import { Player } from "../interfaces/player";
 export class PlayerModel implements Player {
     id = -1;
     name = " ";
-    birthDate = new Date();
     goals = -1;
     yellowCards = -1;
     redCards = -1;
@@ -17,11 +16,7 @@ export class PlayerModel implements Player {
             this.id = player.id;
             this.name = player.name;
             this.goals = player.goals;
+            this.kitNumber = player.kitNumber;
         }
-    }
-    constructor(player: any = undefined) {
-        this.id = player.id;
-        this.name = player.name;
-        this.goals = player.goals;
     }
 }
