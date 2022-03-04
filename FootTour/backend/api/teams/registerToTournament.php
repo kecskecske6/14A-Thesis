@@ -19,7 +19,8 @@
             http_response_code(400);
             echo json_encode(array("message" => "Bad JSON format!"));
         }
-        else{
+        else
+        {
             if($tc->registerTeam($conn,$postdata,$pc)) echo json_encode(array("message" => "Sikeres regisztráció!"));
             else{
                 http_response_code(500);

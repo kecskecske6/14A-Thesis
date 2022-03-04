@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Player } from 'src/app/models/Player';
+import { PlayerModel } from 'src/app/models/Player';
 import { TeamService } from 'src/app/services/team.service';
 import { AuthService} from 'src/app/services/auth.service';
 
@@ -11,8 +11,8 @@ import { AuthService} from 'src/app/services/auth.service';
 })
 export class TeamRegistrationToTournamentsComponent implements OnInit {
 
-  players: Player [] = [];
-  player: Player = new Player();
+  players: PlayerModel [] = [];
+  player: PlayerModel = new PlayerModel();
   number: number = 0;
   name: string = "";
   teamName: string = "";
@@ -36,10 +36,10 @@ export class TeamRegistrationToTournamentsComponent implements OnInit {
   savePlayer(){
     if(this.name != "" && this.number > 0 && this.number < 100 && this.underModify.status == false){
       if(!this.checkDuplicateNumbers()){
-        this.player.kit_number = this.number;
+        this.player.kitNumber = this.number;
         this.player.name = this.name;
         this.players.push(this.player);
-        this.player = new Player();
+        this.player = new PlayerModel();
         this.number = 0;
         this.name = "";
         console.log(this.players);
@@ -59,7 +59,7 @@ export class TeamRegistrationToTournamentsComponent implements OnInit {
   }
 
   checkDuplicateNumbers(){
-    if(this.players.some(p => p.kit_number === this.number)) return true;
+    if(this.players.some(p => p.kitNumber === this.number)) return true;
     return false;
   }
 
@@ -94,17 +94,17 @@ export class TeamRegistrationToTournamentsComponent implements OnInit {
     }
   }
 
-  modify(index: number, player: Player){
+  modify(index: number, player: PlayerModel){
     this.underModify.status = true;
     this.underModify.index = index;
     this.underModify.name = player.name;
-    this.underModify.kitNumber = player.kit_number;
+    this.underModify.kitNumber = player.kitNumber;
   }
 
-  stopModifyWithSave(index: number, player: Player){
+  stopModifyWithSave(index: number, player: PlayerModel){
     if(!this.checkDuplicateNumbers()){
     player.name = this.underModify.name;
-    player.kit_number = this.underModify.kitNumber;
+    player.kitNumber = this.underModify.kitNumber;
     this.players[index] = player;
     this.stopModify();
     }
