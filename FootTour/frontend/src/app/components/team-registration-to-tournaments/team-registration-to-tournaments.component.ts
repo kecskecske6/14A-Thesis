@@ -15,7 +15,8 @@ export class TeamRegistrationToTournamentsComponent implements OnInit {
   player: Player = new Player();
   number: number = 0;
   name: string = "";
-  teamName: string = "asd";
+  teamName: string = "";
+  //Beállítani a componenstől kapott adatokkal
   tournamentId = 1;
   tournamentName = "Példa Torna"
   underModify = {
@@ -93,24 +94,28 @@ export class TeamRegistrationToTournamentsComponent implements OnInit {
     }
   }
 
-  modify(player: Player){
+  modify(index: number, player: Player){
     this.underModify.status = true;
+    this.underModify.index = index;
     this.underModify.name = player.name;
     this.underModify.kitNumber = player.kit_number;
   }
 
   stopModifyWithSave(index: number, player: Player){
+    if(!this.checkDuplicateNumbers()){
     player.name = this.underModify.name;
     player.kit_number = this.underModify.kitNumber;
     this.players[index] = player;
-
     this.stopModify();
+    }
+    else console.log("Már létezik ilyen mezszámú játékos!");
   }
 
   stopModify(){
     this.underModify.status = false;
     this.underModify.name = "";
     this.underModify.kitNumber = 0;
+    this.underModify.index = -1;
   }
 
 }

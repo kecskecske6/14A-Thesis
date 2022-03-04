@@ -16,12 +16,12 @@
               <td class="pb-3 text-center"><i *ngIf="!underModify.status" (click)="savePlayer()" class="bi bi-check-circle"></i></td>
           </tr>
           <tr *ngFor="let player of players let i = index" [attr.data-index]="i">
-            <ng-template [ngIf] = "underModify.status == false" [ngIfElse] = "modifyPlayer">
+            <ng-template [ngIf] = "underModify.status == false || underModify.index != i" [ngIfElse] = "modifyPlayer">
             <!-- Csak azt az egyet modosítsd -->
             <th class="align-middle pe-2" scope="row">{{player.kit_number}}</th>
             <td class="text-center align-middle">{{player.name}}</td>
             <td>
-              <i (click)="modify(players[i])" class="bi bi-pencil me-1 text-start"></i>
+              <i (click)="modify(i, players[i])" class="bi bi-pencil me-1 text-start"></i>
               <i (click)="deletePlayer(i)" class="bi bi-trash ms-1 text-end"></i>
             </td>
           </ng-template>
