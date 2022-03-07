@@ -23,6 +23,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { TeamRegistrationToTournamentsComponent } from './components/team-registration-to-tournaments/team-registration-to-tournaments.component';
 import { NewTournamentComponent } from './components/new-tournament/new-tournament.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { NewTournamentComponent } from './components/new-tournament/new-tourname
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    CommonModule,
     RouterModule,
     RecaptchaModule,
     RecaptchaFormsModule,
