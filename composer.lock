@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4647b6f6c7d5fa8b15f30e3f07ba6c35",
+    "content-hash": "328773619bdcf0c7be8d9e428e6344fd",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -62,7 +62,9 @@
                 "source": "https://github.com/firebase/php-jwt/tree/v5.5.1"
             },
             "time": "2021-11-08T20:18:51+00:00"
-        },
+        }
+    ],
+    "packages-dev": [
         {
             "name": "heroku/heroku-buildpack-php",
             "version": "v212",
@@ -109,7 +111,6 @@
             "time": "2022-02-25T17:31:55+00:00"
         }
     ],
-    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],
