@@ -17,14 +17,14 @@ Their work includes:
 - Levente:
     - Registration and login system
     - Web development
-        - Making of tournaments
+        - Match report
         - Registering to tournaments
         - Online broadcasting
 - Bence:
-    - Desktop companion app
+    - Making of tournaments
     - Web development
         - Drawing system
-        - Match report
+        - Main page
         - Statistics
 
 ## What do?
