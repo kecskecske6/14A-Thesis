@@ -1,4 +1,9 @@
 <div id="container" class="pt-5 mx-auto">
+  <form class="d-flex">
+    <input class="form-control me-2" type="search" placeholder="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+  
   <h1 class="text-center">Elérhető tornák</h1>
 <div class="row row-cols-auto justify-content-around mx-auto">
 <div class="card m-4 col" style="width: 18rem;" *ngFor="let tournament of tournaments">
@@ -16,5 +21,8 @@
       [routerLink]="'/database/tournaments/' + tournament.id">
     </div>
 </div>
+</div>
+<div id="searchIcon" class="text-white text-center">
+  <i class="bi bi-search"></i>
 </div>
 </div>
