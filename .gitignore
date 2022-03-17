@@ -45,4 +45,4 @@ frontend/.DS_Store
 frontend/Thumbs.db
 
 # backend ignores
-vendor
+backend/vendor
