@@ -2,7 +2,7 @@
 include_once("../controllers/header.php");
 include_once("connect.php");
 include_once("../classes/user.php");
-require_once("../../vendor/autoload.php");
+require_once("../vendor/autoload.php");
 use \Firebase\JWT\JWT;
 
 define('SECRET_KEY', 'FootTourSecret');
