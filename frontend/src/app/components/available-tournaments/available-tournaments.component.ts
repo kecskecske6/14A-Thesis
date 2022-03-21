@@ -44,4 +44,19 @@ export class AvailableTournamentsComponent implements OnInit {
     );
   }
 
+  getBySearchParameter(searchparameter: any): void{
+    this.tournaments = [];
+    this.tournamentService.getBySearchParameter(searchparameter).subscribe(
+      result =>{
+        result.forEach(t => {
+          this.tournaments.push(new TournamentModel(t));
+        })
+      },
+      error =>{
+        if(error.status == 401){
+          this.auth.logout();
+        }
+      });
+  }
+
 }

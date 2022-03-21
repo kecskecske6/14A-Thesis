@@ -124,5 +124,21 @@
         $result = $stmt->get_result();
         return $result->fetch_object();
     }
+
+    function getBySearchParameter($conn, $parameter){
+        $sql = "SELECT * from foottour.tournaments WHERE name LIKE %?%"; //rossz a wildcard
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
+        echo "alma";
+        $parameter = htmlspecialchars(strip_tags($parameter));
+        $stmt->bind_param("s", $parameter);
+        if ($stmt->execute() === false) return false;
+        $result = $stmt->get_result();
+        $tournaments = array();
+        while($row = $result->fetch_object()){
+            array_push($tournaments,$row);
+        }
+        return $tournaments;
+    }
 }
 ?>

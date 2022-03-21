@@ -22,6 +22,9 @@
         elseif(isset($_GET["name"])){
             echo json_encode($tc->getTournamentByName($conn, $_GET["name"]));
         }
+        elseif(isset($_GET["parameter"])){
+            echo json_encode($tc->getBySearchParameter($conn, $_GET["parameter"]));
+        }
         else{
             echo json_encode($tc->getAll($conn));
         }
