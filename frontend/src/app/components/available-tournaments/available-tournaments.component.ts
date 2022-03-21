@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { TournamentModel } from 'src/app/models/Tournament';
 import { AuthService } from 'src/app/services/auth.service';
 import { TournamentService } from 'src/app/services/tournament.service';
@@ -44,10 +45,16 @@ export class AvailableTournamentsComponent implements OnInit {
     );
   }
 
-  getBySearchParameter(searchparameter: any): void{
+  getBySearchParameter(searchparameter: string): void{
     this.tournaments = [];
+    if(moment(searchparameter, "YYYY.MM.DD", false).isValid() ||
+    moment(searchparameter, "YYYY.MM", false).isValid() ||
+    moment(searchparameter, "YYYY", false).isValid()){
+      searchparameter = searchparameter.replace(".", "-");
+      searchparameter = searchparameter.replace("/","-");
+    }
     this.tournamentService.getBySearchParameter(searchparameter).subscribe(
-      result =>{
+      (result) =>{
         result.forEach(t => {
           this.tournaments.push(new TournamentModel(t));
         })

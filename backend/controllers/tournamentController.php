@@ -126,12 +126,12 @@
     }
 
     function getBySearchParameter($conn, $parameter){
-        $sql = "SELECT * from foottour.tournaments WHERE name LIKE %?%"; //rossz a wildcard
+        $sql = "SELECT * from foottour.tournaments WHERE name LIKE ? OR location LIKE ? OR startDATE LIKE ?";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
-        echo "alma";
         $parameter = htmlspecialchars(strip_tags($parameter));
-        $stmt->bind_param("s", $parameter);
+        $parameter = "%". $parameter . "%";
+        $stmt->bind_param("sss", $parameter, $parameter, $parameter);
         if ($stmt->execute() === false) return false;
         $result = $stmt->get_result();
         $tournaments = array();
