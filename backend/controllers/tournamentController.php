@@ -126,12 +126,12 @@
     }
 
     function getBySearchParameter($conn, $parameter){
-        $sql = "SELECT * from foottour.tournaments WHERE name LIKE ? OR location LIKE ? OR startDATE LIKE ?";
+        $sql = "SELECT * from foottour.tournaments WHERE name LIKE ? OR location LIKE ? OR startDATE LIKE ? OR entryFee LIKE ?";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
         $parameter = htmlspecialchars(strip_tags($parameter));
         $parameter = "%". $parameter . "%";
-        $stmt->bind_param("sss", $parameter, $parameter, $parameter);
+        $stmt->bind_param("ssss", $parameter, $parameter, $parameter, $parameter);
         if ($stmt->execute() === false) return false;
         $result = $stmt->get_result();
         $tournaments = array();

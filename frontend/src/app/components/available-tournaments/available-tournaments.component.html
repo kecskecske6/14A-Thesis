@@ -1,10 +1,54 @@
 <div id="container" class="pt-5 mx-auto">
-  <form class="d-flex">
-    <input class="form-control me-2" type="search" placeholder="Search" #parameter>
-    <button class="btn btn-outline-success" type="submit" (click)="getBySearchParameter(parameter.value)">Search</button>
-  </form>
-  
+
   <h1 class="text-center">Elérhető tornák</h1>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown">
+        //dropdown
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+        <ul class="navbar-nav bg-danger text-center w-100 mx-auto">
+
+          <li class="nav-item">
+            <select id="federations">
+              <option value="0">Bárhol</option>
+              <option value="1">Bács-Kiskun</option>
+              <option value="2">Baranya</option>
+              <option value="3">Békés</option>
+              <option value="4">Borsod-Abaúj-Zemplén</option>
+              <option value="5">Budapest</option>
+              <option value="6">Csongrád</option>
+              <option value="7">Fejér</option>
+              <option value="8">Győr-Moson-Sopron</option>
+              <option value="9">Hajdú-Bihar</option>
+              <option value="10">Heves</option>
+              <option value="11">Jász-Nagykun-Szolnok</option>
+              <option value="12">Komárom-Esztergom</option>
+              <option value="13">Nógrád</option>
+              <option value="14">Somogy</option>
+              <option value="15">Szabolcs-Szatmár-Bereg</option>
+              <option value="16">Tolna</option>
+              <option value="17">Vas</option>
+              <option value="18">Veszprém</option>
+              <option value="19">Zala</option>
+            </select>
+          </li>
+
+          <li class="nav-item mx-auto bg-light w-25">
+            <input type="range" class="form-range" value="0" min="0" max="60000" step="500" oninput="this.nextElementSibling.value = this.value">
+            <output>0</output>
+          </li>
+
+          <li class="nav-item mx-auto">
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" #parameter>
+              <button class="btn btn-outline-success" type="submit" (click)="getBySearchParameter(parameter.value)">Search</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 <div class="row row-cols-auto justify-content-around mx-auto">
 <div class="card m-4 col" style="width: 18rem;" *ngFor="let tournament of tournaments">
     <img src="../../../assets/logo.png" class="card-img-top" alt="...">
