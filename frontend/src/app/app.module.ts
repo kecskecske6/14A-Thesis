@@ -24,6 +24,7 @@ import { TokenInterceptor } from './auth/token.interceptor';
 import { TeamRegistrationToTournamentsComponent } from './components/team-registration-to-tournaments/team-registration-to-tournaments.component';
 import { NewTournamentComponent } from './components/new-tournament/new-tournament.component';
 import { CommonModule } from '@angular/common';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { CommonModule } from '@angular/common';
     RecaptchaFormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgxSliderModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

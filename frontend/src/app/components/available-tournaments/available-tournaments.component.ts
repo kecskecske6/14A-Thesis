@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { Options } from '@angular-slider/ngx-slider';
 import { TournamentModel } from 'src/app/models/Tournament';
 import { AuthService } from 'src/app/services/auth.service';
 import { TournamentService } from 'src/app/services/tournament.service';
@@ -14,6 +15,19 @@ export class AvailableTournamentsComponent implements OnInit {
 
   tournaments: TournamentModel[] = [];
   organizer = '';
+  value: number = 0;
+  highValue: number = 50000;
+  options: Options = {
+    floor: 0,
+    ceil: 50000,
+    step: 1000,
+    getPointerColor: string =>{
+      return "green"
+    },
+    getSelectionBarColor: string =>{
+      return "green"
+    }
+  };
 
   constructor(private tournamentService: TournamentService, private userService: UserService, private auth: AuthService) { }
 

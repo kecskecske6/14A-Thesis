@@ -15,10 +15,6 @@ form
     max-width: 250px
     min-width: 250px
 
-input
-    &[type="range"]
-        width: 250px
-
 #container
     max-width: 1464px
     position: relative
@@ -27,3 +23,10 @@ input
 select
     width: 250px
     height: 2.4rem
+
+::ng-deep
+    .custom-slider
+        .ngx-slider-pointer
+            background: rgb(255, 255, 0) !important
+        .ngx-slider-tick
+            background: rgb(255, 255, 0) !important
