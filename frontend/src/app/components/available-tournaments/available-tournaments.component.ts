@@ -19,13 +19,16 @@ export class AvailableTournamentsComponent implements OnInit {
   highValue: number = 50000;
   options: Options = {
     floor: 0,
-    ceil: 50000,
+    ceil: 30000,
     step: 1000,
     getPointerColor: string =>{
       return "green"
     },
     getSelectionBarColor: string =>{
       return "green"
+    },
+    translate: (value: number): string => {
+      return '<span style="color: white">' + value + '</span>'
     }
   };
 

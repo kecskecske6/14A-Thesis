@@ -7,41 +7,41 @@
         //dropdown
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-        <ul class="navbar-nav bg-danger text-center w-100 mx-auto">
-
-          <li class="nav-item">
-            <select id="federations">
-              <option value="0">Bárhol</option>
-              <option value="1">Bács-Kiskun</option>
-              <option value="2">Baranya</option>
-              <option value="3">Békés</option>
-              <option value="4">Borsod-Abaúj-Zemplén</option>
-              <option value="5">Budapest</option>
-              <option value="6">Csongrád</option>
-              <option value="7">Fejér</option>
-              <option value="8">Győr-Moson-Sopron</option>
-              <option value="9">Hajdú-Bihar</option>
-              <option value="10">Heves</option>
-              <option value="11">Jász-Nagykun-Szolnok</option>
-              <option value="12">Komárom-Esztergom</option>
-              <option value="13">Nógrád</option>
-              <option value="14">Somogy</option>
-              <option value="15">Szabolcs-Szatmár-Bereg</option>
-              <option value="16">Tolna</option>
-              <option value="17">Vas</option>
-              <option value="18">Veszprém</option>
-              <option value="19">Zala</option>
-            </select>
+        <ul class="navbar-nav text-center w-100 mx-auto">
+          <li class="nav-item w-25">
+            <div class="mt-3">
+              <select id="federations">
+                <option value="0">Bárhol</option>
+                <option value="1">Bács-Kiskun</option>
+                <option value="2">Baranya</option>
+                <option value="3">Békés</option>
+                <option value="4">Borsod-Abaúj-Zemplén</option>
+                <option value="5">Budapest</option>
+                <option value="6">Csongrád</option>
+                <option value="7">Fejér</option>
+                <option value="8">Győr-Moson-Sopron</option>
+                <option value="9">Hajdú-Bihar</option>
+                <option value="10">Heves</option>
+                <option value="11">Jász-Nagykun-Szolnok</option>
+                <option value="12">Komárom-Esztergom</option>
+                <option value="13">Nógrád</option>
+                <option value="14">Somogy</option>
+                <option value="15">Szabolcs-Szatmár-Bereg</option>
+                <option value="16">Tolna</option>
+                <option value="17">Vas</option>
+                <option value="18">Veszprém</option>
+                <option value="19">Zala</option>
+              </select>
+            </div>
           </li>
-
-          <li class="nav-item mx-auto w-50">
+          <li class="nav-item mx-auto w-25">
             <div class="custom-slider">
               <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
             </div>
           </li>
 
           <li class="nav-item mx-auto">
-            <form class="d-flex">
+            <form class="d-flex mt-3">
               <input class="form-control me-2" type="search" placeholder="Search" #parameter>
               <button class="btn btn-outline-success" type="submit" (click)="getBySearchParameter(parameter.value)">Search</button>
             </form>
