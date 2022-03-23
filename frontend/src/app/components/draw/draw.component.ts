@@ -21,7 +21,6 @@ export class DrawComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTournamentInfo();
-    this.getTeams();
   }
 
   draw() {
@@ -38,14 +37,17 @@ export class DrawComponent implements OnInit {
 
   getTournamentInfo(): void {
     this.tournamentService.getById(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
-      (data: TournamentModel) => this.tournament = new TournamentModel(data),
+      (data: TournamentModel) => {
+        this.tournament = new TournamentModel(data);
+        this.getTeams();
+      },
       err => console.log(err)
     );
   }
 
   getTeams(): void {
     this.teamService.getAllByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
-      (data: TeamModel[]) => this.teams = data,
+      (data: TeamModel[]) => this.teams = data.slice(0, this.tournament.teamsCount),
       err => console.log(err)
     );
   }

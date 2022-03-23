@@ -17,18 +17,17 @@ export class OrganizerTournamentDashboardComponent implements OnInit {
   tournament: TournamentModel = new TournamentModel();
 
   constructor(private teamService: TeamService, private tournamentService: TournamentService, private router: Router, private authService: AuthService) { }
-  
+
   ngOnInit(): void {
-    this.getTeams();
     this.getTournamentInfo();
   }
 
   getTeams(): void {
     this.teamService.getAllByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
-      (data: Team[]) => this.teams = data,
-      error=>{
+      (data: Team[]) => this.teams = data.slice(0, this.tournament.teamsCount),
+      error => {
         console.log(error);
-        if(error.status == 401){
+        if (error.status == 401) {
           this.authService.logout();
         }
       }
@@ -37,7 +36,10 @@ export class OrganizerTournamentDashboardComponent implements OnInit {
 
   getTournamentInfo(): void {
     this.tournamentService.getById(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
-      (data: TournamentModel) => this.tournament = new TournamentModel(data),
+      (data: TournamentModel) => {
+        this.tournament = new TournamentModel(data);
+        this.getTeams();
+      },
       error => {
         console.log(error);
         if (error.status == 401) this.authService.logout();
