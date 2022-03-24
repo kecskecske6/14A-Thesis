@@ -70,7 +70,7 @@
                     array_push($matches, $match);
                     $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[1], "team2Id" => $orderedTeams[3], "code" => $g->name . "3-2", "groupId" => $g->id, "time" => $data->tournament->startDate));
                     array_push($matches, $match);
-                    if ($data->tournament->knockoutMatches == 2)
+                    if ($data->tournament->groupMatches == 2)
                     {
                         $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[1], "team2Id" => $orderedTeams[0], "code" => $g->name . "4-1", "groupId" => $g->id, "time" => $data->tournament->startDate));
                         array_push($matches, $match);

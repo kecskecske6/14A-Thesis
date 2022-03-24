@@ -1102,7 +1102,7 @@ insert into teams_to_tournaments (id, teamId, tournamentId) values (48, 797, 3);
 insert into teams_to_tournaments (id, teamId, tournamentId) values (49, 142, 4);
 insert into teams_to_tournaments (id, teamId, tournamentId) values (50, 613, 4);
 insert into teams_to_tournaments (id, teamId, tournamentId) values (51, 736, 4);
-insert into teams_to_tournaments (id, teamId, tournamentId) values (52, 736, 4);
+insert into teams_to_tournaments (id, teamId, tournamentId) values (52, 735, 4);
 insert into teams_to_tournaments (id, teamId, tournamentId) values (53, 13, 4);
 insert into teams_to_tournaments (id, teamId, tournamentId) values (54, 55, 4);
 insert into teams_to_tournaments (id, teamId, tournamentId) values (55, 30, 4);
