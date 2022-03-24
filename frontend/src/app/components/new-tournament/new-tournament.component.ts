@@ -41,7 +41,8 @@ export class NewTournamentComponent implements OnInit {
     if (this.tournamentModel.fields < 1) return alert('Legalább 1 pályának lennie kell!');
     const actualModel = {
       name: this.tournamentModel.name,
-      location: `${this.tournamentModel.location.postalCode} ${this.tournamentModel.location.city}, ${this.tournamentModel.location.street} (${this.tournamentModel.location.county})`,
+      location: `${this.tournamentModel.location.postalCode} ${this.tournamentModel.location.city}, ${this.tournamentModel.location.street}`,
+      county: this.tournamentModel.location.county,
       description: this.tournamentModel.description,
       startDate: new Date(new Date(this.tournamentModel.startDate).getTime() + Number(this.tournamentModel.startTime.split(':')[0]) * 3600000 + Number(this.tournamentModel.startTime.split(':')[1]) * 60000),
       endDate: new Date(new Date(this.tournamentModel.finalDate).getTime() + Number(this.tournamentModel.finalTime.split(':')[0]) * 3600000 + Number(this.tournamentModel.finalTime.split(':')[1]) * 60000),
