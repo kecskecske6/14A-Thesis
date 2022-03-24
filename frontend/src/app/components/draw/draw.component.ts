@@ -47,7 +47,7 @@ export class DrawComponent implements OnInit {
 
   getTeams(): void {
     this.teamService.getAllByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
-      (data: TeamModel[]) => this.teams = data.slice(0, this.tournament.teamsCount),
+      (data: TeamModel[]) => this.teams = data,
       err => console.log(err)
     );
   }

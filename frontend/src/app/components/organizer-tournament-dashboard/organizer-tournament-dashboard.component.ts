@@ -24,7 +24,7 @@ export class OrganizerTournamentDashboardComponent implements OnInit {
 
   getTeams(): void {
     this.teamService.getAllByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
-      (data: Team[]) => this.teams = data.slice(0, this.tournament.teamsCount),
+      (data: Team[]) => this.teams = data,
       error => {
         console.log(error);
         if (error.status == 401) {

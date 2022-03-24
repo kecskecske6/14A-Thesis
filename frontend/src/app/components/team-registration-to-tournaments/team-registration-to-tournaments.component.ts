@@ -37,7 +37,10 @@ export class TeamRegistrationToTournamentsComponent implements OnInit {
 
   getTournamentInfo() {
     this.tournamentService.getById(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
-      result => this.tournamentId = result.id,
+      result => {
+        this.tournamentId = result.id;
+        this.tournamentName = result.name;
+      },
       error => console.log(error)
     );
   }
