@@ -1,5 +1,10 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css")
 
+$breakpoint-sm: 576px
+$breakpoint-md: 768px
+$breakpoint-lg: 992px
+$breakpoint-xl: 1200px
+
 body
     height: 80%
 
@@ -22,14 +27,29 @@ form
     top: 5%
 
 select
-    width: 250px
+    width: 150px
     height: 2.4rem
 
 ::ng-deep
     .custom-slider
+        width: 400px
+        @media ( max-width: 400px)
+            width: 300px
+            
         .ngx-slider-pointer
             background: green !important
             // height: 24px !important
             // width: 24px !important
         .ngx-slider-pointer:after
             display: none
+            
+    .mat-form-field
+        font-size: 18px
+    .mat-form-field-label
+        color: #01A310 !important
+    .mat-form-field-underline
+        background-color: #01A310 !important
+
+mat-datepicker-toggle
+    color: #01A310 !important
+    font-size: 24px

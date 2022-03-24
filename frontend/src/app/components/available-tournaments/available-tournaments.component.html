@@ -1,13 +1,13 @@
 <div id="container" class="pt-5 mx-auto">
   <h1 class="text-center">Elérhető tornák</h1>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
     <div class="container-fluid">
       <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown">
         //dropdown
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
         <ul class="navbar-nav text-center w-100 mx-auto">
-          <li class="nav-item w-25">
+          <li class="nav-item mx-auto">
             <div class="mt-3">
               <select id="federations">
                 <option value="0">Bárhol</option>
@@ -33,17 +33,20 @@
               </select>
             </div>
           </li>
-          <li class="nav-item mx-auto w-25">
-            <div class="custom-slider">
+          <li class="nav-item mx-auto">
+            <div class="custom-slider mx-auto">
               <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
             </div>
           </li>
-          <li class="nav-item mx-auto w-25">
+          <li class="nav-item mx-auto w-auto">
             <mat-form-field>
-              <ngx-multiple-dates [matDatepicker]="picker" placeholder="Excluded Dates" name="excludedDates"></ngx-multiple-dates>
+              <ngx-multiple-dates [matDatepicker]="picker" [(ngModel)]="model" [color]="datePickerColor" placeholder="Kiválasztott napok" name="excludedDates"></ngx-multiple-dates>
               <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
+          </li>
+          <li class="nav-item mx-auto pb-4 mt-0">
+            <button type="button" id="btnFilterSearch" class="btn btn-outline-success float-start mt-3">Szűrés</button>
           </li>
           <li class="nav-item mx-auto">
             <form class="d-flex mt-3">
