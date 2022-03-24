@@ -5,6 +5,7 @@ export interface Tournament {
   endDate: Date;
   name: string;
   location: string;
+  county: string;
   bestPlayer: string | null;
   topScorer: string | null;
   bestGoalkeeper: string | null;

@@ -41,7 +41,7 @@
 
     function createTournament($conn, $postdata){
         $sql = "INSERT INTO foottour.tournaments (organizerId, startDate, endDate, name,
-        location, entryFee, description, teamsCount, type, fields) VALUES (?,?,?,?,?,?,?,?, ?, ?);";
+        location, county, entryFee, description, teamsCount, type, fields) VALUES (?,?,?,?,?,?,?,?, ?, ?, ?);";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
         $organizerId = htmlspecialchars(strip_tags($postdata->organizerId));
@@ -49,13 +49,14 @@
         $endDate = htmlspecialchars(strip_tags($postdata->endDate));
         $name = htmlspecialchars(strip_tags($postdata->name));
         $location = htmlspecialchars(strip_tags($postdata->location));
+        $county = htmlspecialchars(strip_tags($postdata->county));
         $entryFee = htmlspecialchars(strip_tags($postdata->entryFee));
         $description = htmlspecialchars(strip_tags($postdata->description));
         $teamsCount = htmlspecialchars(strip_tags($postdata->teamsCount));
         $type = htmlspecialchars(strip_tags($postdata->type));
         $fields = htmlspecialchars(strip_tags($postdata->fields));
 
-        $stmt->bind_param("issssisisi",$organizerId, $startDate, $endDate, $name, $location, $entryFee,
+        $stmt->bind_param("isssssisisi",$organizerId, $startDate, $endDate, $name, $location, $county, $entryFee,
                         $description, $teamsCount, $type, $fields);
         if ($stmt->execute() === false) return false;
         
@@ -65,7 +66,7 @@
 
     function modifyTournament($conn, $postdata){
         $sql = "UPDATE foottour.tournaments SET `startDate` = ?,
-        `endDate` = ?, `name` = ?, `location` = ?,
+        `endDate` = ?, `name` = ?, `location` = ?, county = ?,
         `bestPlayer` = ?, `topScorer` = ?, `bestGoalkeeper` = ?,
         `entryFee` = ?, `description` = ?, `teamsCount` = ?, type = ?, groupMatches = ?, knockoutMatches = ?, finalMatches = ?, fields = ? 
         WHERE `organizerId` = ? AND `id` = ?";
@@ -79,6 +80,7 @@
         $endDate = htmlspecialchars(strip_tags($postdata->endDate));
         $name = htmlspecialchars(strip_tags($postdata->name));
         $location = htmlspecialchars(strip_tags($postdata->location));
+        $county = htmlspecialchars(strip_tags($postdata->county));
         $bestPlayer = htmlspecialchars(strip_tags($postdata->bestPlayer));
         $bestGoalkeeper = htmlspecialchars(strip_tags($postdata->bestGoalkeeper));
         $topScorer = htmlspecialchars(strip_tags($postdata->topScorer));
@@ -91,7 +93,7 @@
         $finalMatches = htmlspecialchars(strip_tags($postdata->finalMatches));
         $fields = htmlspecialchars(strip_tags($postdata->fields));
 
-        $stmt->bind_param("sssssssisisiiiiii",$startDate, $endDate, $name, $location, 
+        $stmt->bind_param("ssssssssisisiiiiii",$startDate, $endDate, $name, $location, $county,
                             $bestPlayer, $topScorer, $bestGoalkeeper, $entryFee, $description,
                             $teamsCount, $type, $groupMatches, $knockoutMatches, $finalMatches, $fields, $organizerId, $id);
         if ($stmt->execute() === false) return false;
