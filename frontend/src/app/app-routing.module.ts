@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'referee/:id', canActivate:[AuthGuard], component: RefereeMatchReportComponent },
   { path: 'schedule/:id', canActivate:[AuthGuard], component: TournamentScheduleComponent },
   { path: 'draw/:id', canActivate:[AuthGuard], component: DrawComponent },
-  { path: 'teamregistartion', canActivate:[AuthGuard], component: TeamRegistrationToTournamentsComponent },
+  { path: 'teamregistration/:id', canActivate:[AuthGuard], component: TeamRegistrationToTournamentsComponent },
   { path: 'newtournament', canActivate: [AuthGuard], component: NewTournamentComponent }
 ];
 

@@ -1,21 +1,24 @@
 <div id="container" class="d-flex mx-auto">
-    <div class="col">
-    <div id="infoHead" class="text-center">
-    <h2>{{tournament.name}}</h2>
+   <div class="col">
+      <div id="infoHead" class="text-center">
+         <h2>{{tournament.name}}</h2>
+      </div>
+      <div class="text-center mt-5">Szervező: {{organizerName}}</div>
+      <hr class="mx-auto">
+      <div class="text-center mt-3">Helyszín: {{tournament.location}}</div>
+      <hr class="mx-auto">
+      <div class="text-center mt-3">Nevezési díj: {{tournament.entryFee}}Ft</div>
+      <hr class="mx-auto">
+      <div class="text-center mt-3">Csapatok száma: {{teams.length}}/{{tournament.teamsCount}}</div>
+      <hr class="mx-auto">
+      <div class="text-center mt-3">Kezdési időpont: {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}</div>
+      <hr class="mx-auto">
+      <div class="text-center mt-3">Leírás</div>
+      <div id="description" class=" mx-auto mt-3">
+         {{tournament.description}}
+      </div>
+      <div *ngIf="teams.length < tournament.teamsCount" class="text-center">
+         <button class="btn btn-success mt-3" [routerLink]="'/teamregistration/' + tournament.id">Jelentkezem</button>
+      </div>
    </div>
-         <div class="text-center mt-5">Szervező: {{tournament.organizerId}}</div>
-         <hr class="mx-auto">
-         <div class="text-center mt-3">Helyszín: {{tournament.location}}</div>
-         <hr class="mx-auto">
-         <div class="text-center mt-3">Nevezési díj: {{tournament.entryFee}}Ft</div>
-         <hr class="mx-auto">
-         <div class="text-center mt-3">Csapatok száma: {{teams.length}}/{{tournament.teamsCount}}</div>
-         <hr class="mx-auto">
-         <div class="text-center mt-3">Kezdési időpont: {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}</div>
-         <hr class="mx-auto">
-         <div class="text-center mt-3">Leírás</div>
-         <div id="description" class=" mx-auto mt-3">
-            {{tournament.description}}
-         </div>
-</div>
 </div>

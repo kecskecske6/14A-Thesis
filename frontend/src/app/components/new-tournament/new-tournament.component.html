@@ -3,63 +3,71 @@
     <br>
     <form>
         <div class="row">
-            <div class="col-6">
-                <h5>Alapadatok</h5>
-                <hr>
-                <label for="name">Torna neve</label>
-                <input required type="text" name="name" id="name" [(ngModel)]="tournamentModel.name">
-                <br>
-                <div id="description-container">
-                    <label for="description">Leírás</label>
-                    <textarea required name="description" id="description" cols="25" rows="4"
-                        [(ngModel)]="tournamentModel.description"></textarea>
+            <div class="col-12 col-md-6">
+                <div class="mx-auto" style="width: fit-content;">
+                    <h5>Alapadatok</h5>
+                    <hr>
+                    <label for="name">Torna neve</label>
+                    <input required type="text" name="name" id="name" [(ngModel)]="tournamentModel.name">
+                    <br>
+                    <div id="description-container">
+                        <label for="description">Leírás</label>
+                        <textarea required name="description" id="description" cols="25" rows="4"
+                            [(ngModel)]="tournamentModel.description"></textarea>
+                    </div>
+                    <br>
+                    <label for="fee">Nevezési díj</label>
+                    <input required type="number" name="fee" id="fee" [(ngModel)]="tournamentModel.entryFee">
+                    <br>
+                    <label for="count">Csapatok száma</label>
+                    <select name="count" id="count" [(ngModel)]="tournamentModel.teamsCount">
+                        <option value="8">8</option>
+                        <option value="16">16</option>
+                        <option value="32">32</option>
+                    </select>
+                    <br>
+                    <label for="type">Típus</label>
+                    <select name="type" id="type">
+                        <option value="Egyenes kieséses">Egyenes kieséses</option>
+                        <option [disabled]="tournamentModel.teamsCount == 8" value="Csoportkör és kieséses">Csoportkör
+                            és kieséses</option>
+                    </select>
+                    <br>
+                    <label for="fields">Pályák száma</label>
+                    <input type="number" name="fields" id="fields" required [(ngModel)]="tournamentModel.fields">
                 </div>
-                <br>
-                <label for="fee">Nevezési díj</label>
-                <input required type="number" name="fee" id="fee" [(ngModel)]="tournamentModel.entryFee">
-                <br>
-                <label for="count">Csapatok száma</label>
-                <select name="count" id="count" [(ngModel)]="tournamentModel.teamsCount">
-                    <option value="8">8</option>
-                    <option value="16">16</option>
-                    <option value="32">32</option>
-                </select>
-                <br>
-                <label for="type">Típus</label>
-                <select name="type" id="type">
-                    <option value="Egyenes kieséses">Egyenes kieséses</option>
-                    <option [disabled]="tournamentModel.teamsCount == 8" value="Csoportkör és kieséses">Csoportkör és kieséses</option>
-                </select>
-                <br>
-                <label for="fields">Pályák száma</label>
-                <input type="number" name="fields" id="fields" required [(ngModel)]="tournamentModel.fields">
             </div>
-            <div class="col-6">
-                <h5>Helyszín</h5>
-                <hr>
-                <label for="postalcode">Irányítószám</label>
-                <input required type="number" name="postalcode" id="postalcode"
-                    [(ngModel)]="tournamentModel.location.postalCode">
-                <br>
-                <label for="city">Település</label>
-                <input required type="text" name="city" id="city" [(ngModel)]="tournamentModel.location.city">
-                <br>
-                <label for="street">Utca, házszám</label>
-                <input required type="text" name="street" id="street" [(ngModel)]="tournamentModel.location.street">
-                <br>
-                <h5>Időpont</h5>
-                <hr>
-                <label for="startdate">Kezdési dátum</label>
-                <input required type="date" name="startdate" id="startdate" [(ngModel)]="tournamentModel.startDate">
-                <br>
-                <label for="starttime">Kezdési időpont</label>
-                <input required type="time" name="starttime" id="starttime" [(ngModel)]="tournamentModel.startTime">
-                <br>
-                <label for="finaldate">Döntő dátum</label>
-                <input required type="date" name="finaldate" id="finaldate" [(ngModel)]="tournamentModel.finalDate">
-                <br>
-                <label for="finaltime">Döntő időpont</label>
-                <input required type="time" name="finaltime" id="finaltime" [(ngModel)]="tournamentModel.finalTime">
+            <div class="col-12 col-md-6">
+                <div class="mx-auto" style="width: fit-content;">
+                    <h5>Helyszín</h5>
+                    <hr>
+                    <label for="county">Megye</label>
+                    <input required type="text" name="county" id="county" [(ngModel)]="tournamentModel.location.county">
+                    <br>
+                    <label for="postalcode">Irányítószám</label>
+                    <input required type="number" name="postalcode" id="postalcode"
+                        [(ngModel)]="tournamentModel.location.postalCode">
+                    <br>
+                    <label for="city">Település</label>
+                    <input required type="text" name="city" id="city" [(ngModel)]="tournamentModel.location.city">
+                    <br>
+                    <label for="street">Utca, házszám</label>
+                    <input required type="text" name="street" id="street" [(ngModel)]="tournamentModel.location.street">
+                    <br>
+                    <h5>Időpont</h5>
+                    <hr>
+                    <label for="startdate">Kezdési dátum</label>
+                    <input required type="date" name="startdate" id="startdate" [(ngModel)]="tournamentModel.startDate">
+                    <br>
+                    <label for="starttime">Kezdési időpont</label>
+                    <input required type="time" name="starttime" id="starttime" [(ngModel)]="tournamentModel.startTime">
+                    <br>
+                    <label for="finaldate">Döntő dátum</label>
+                    <input required type="date" name="finaldate" id="finaldate" [(ngModel)]="tournamentModel.finalDate">
+                    <br>
+                    <label for="finaltime">Döntő időpont</label>
+                    <input required type="time" name="finaltime" id="finaltime" [(ngModel)]="tournamentModel.finalTime">
+                </div>
             </div>
         </div>
         <br>
