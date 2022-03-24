@@ -1,5 +1,4 @@
 <div id="container" class="pt-5 mx-auto">
-
   <h1 class="text-center">Elérhető tornák</h1>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
@@ -39,7 +38,13 @@
               <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
             </div>
           </li>
-
+          <li class="nav-item mx-auto w-25">
+            <mat-form-field>
+              <ngx-multiple-dates [matDatepicker]="picker" placeholder="Excluded Dates" name="excludedDates"></ngx-multiple-dates>
+              <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </li>
           <li class="nav-item mx-auto">
             <form class="d-flex mt-3">
               <input class="form-control me-2" type="search" placeholder="Search" #parameter>

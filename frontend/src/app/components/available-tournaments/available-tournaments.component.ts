@@ -5,6 +5,8 @@ import { TournamentModel } from 'src/app/models/Tournament';
 import { AuthService } from 'src/app/services/auth.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 import { UserService } from 'src/app/services/user.service';
+import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-available-tournaments',
@@ -17,6 +19,7 @@ export class AvailableTournamentsComponent implements OnInit {
   organizer = '';
   value: number = 0;
   highValue: number = 50000;
+  pickedDates: Date[] = [];
   options: Options = {
     floor: 0,
     ceil: 30000,
@@ -30,6 +33,13 @@ export class AvailableTournamentsComponent implements OnInit {
     translate: (value: number): string => {
       return '<span style="color: white">' + value + '</span>'
     }
+  };
+  dateclass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
+    if (view === 'month'){
+      const date = cellDate.getDate();
+      return '';
+    }
+    return '';
   };
 
   constructor(private tournamentService: TournamentService, private userService: UserService, private auth: AuthService) { }
