@@ -155,13 +155,20 @@
     }
 
     function getByFilters($conn, $county, $min, $max){
-        $sql = "SELECT * from foottour.tournaments WHERE county = ? AND entryFee >= ? AND entryFee <= ?";
+        if($county == "0")
+            $sql = "SELECT * from foottour.tournaments WHERE entryFee >= ? AND entryFee <= ?";
+        else{
+            $sql = "SELECT * from foottour.tournaments WHERE county = ? AND entryFee >= ? AND entryFee <= ?";
+            $county = htmlspecialchars(strip_tags($county));
+        }
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
-        $county = htmlspecialchars(strip_tags($county));
         $min = htmlspecialchars(strip_tags($min));
         $max = htmlspecialchars(strip_tags($max));
-        $stmt->bind_param("sii", $county, $min, $max);
+        if($county == "0")
+            $stmt->bind_param("ii", $min, $max);
+        else
+            $stmt->bind_param("sii", $county, $min, $max);
         if ($stmt->execute() === false) return false;
         $result = $stmt->get_result();
         $tournaments = array();

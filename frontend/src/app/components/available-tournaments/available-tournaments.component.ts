@@ -94,6 +94,7 @@ export class AvailableTournamentsComponent implements OnInit {
     this.tournamentService.getByFilters(county, value, highValue).subscribe(
       (result) =>{
         result.forEach(t => {
+          console.log(t);
           this.tournaments.push(new TournamentModel(t));
         })
       },
