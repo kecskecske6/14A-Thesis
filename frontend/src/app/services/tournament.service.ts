@@ -28,6 +28,14 @@ export class TournamentService {
     return this.http.get<Tournament[]>(`${environment.backendURL}/api/tournaments/list.php?parameter=${parameter}`);
   }
 
+  getAvailable(): Observable<Tournament[]>{
+    return this.http.get<Tournament[]>(`${environment.backendURL}/api/tournaments/getAvailable.php`);
+  }
+
+  getByFilters(county: string, min: number, max: number): Observable<Tournament[]>{
+    return this.http.get<Tournament[]>(`${environment.backendURL}/api/tournaments/list.php?county=${county}&min=${min}&max=${max}`);
+  }
+
   create(model: any): Observable<TournamentModel> {
     return this.http.post<TournamentModel>(`${environment.backendURL}/api/tournaments/create.php`, model);
   }

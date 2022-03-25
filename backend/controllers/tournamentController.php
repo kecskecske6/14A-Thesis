@@ -140,5 +140,35 @@
         }
         return $tournaments;
     }
+
+    function getAvailable($conn){
+        $sql = "SELECT * from foottour.tournaments WHERE startDate > NOW()";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
+        if ($stmt->execute() === false) return false;
+        $result = $stmt->get_result();
+        $tournaments = array();
+        while($row = $result->fetch_object()){
+            array_push($tournaments,$row);
+        }
+        return $tournaments;
+    }
+
+    function getByFilters($conn, $county, $min, $max){
+        $sql = "SELECT * from foottour.tournaments WHERE county = ? AND entryFee >= ? AND entryFee <= ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
+        $county = htmlspecialchars(strip_tags($county));
+        $min = htmlspecialchars(strip_tags($min));
+        $max = htmlspecialchars(strip_tags($max));
+        $stmt->bind_param("sii", $county, $min, $max);
+        if ($stmt->execute() === false) return false;
+        $result = $stmt->get_result();
+        $tournaments = array();
+        while($row = $result->fetch_object()){
+            array_push($tournaments,$row);
+        }
+        return $tournaments;
+    }
 }
 ?>

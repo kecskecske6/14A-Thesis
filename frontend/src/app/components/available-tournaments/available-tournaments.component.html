@@ -9,27 +9,27 @@
         <ul class="navbar-nav text-center w-100 mx-auto">
           <li class="nav-item mx-auto">
             <div class="mt-3">
-              <select id="federations">
+              <select id="federations" #federations>
                 <option value="0">Bárhol</option>
-                <option value="1">Bács-Kiskun</option>
-                <option value="2">Baranya</option>
-                <option value="3">Békés</option>
-                <option value="4">Borsod-Abaúj-Zemplén</option>
-                <option value="5">Budapest</option>
-                <option value="6">Csongrád</option>
-                <option value="7">Fejér</option>
-                <option value="8">Győr-Moson-Sopron</option>
-                <option value="9">Hajdú-Bihar</option>
-                <option value="10">Heves</option>
-                <option value="11">Jász-Nagykun-Szolnok</option>
-                <option value="12">Komárom-Esztergom</option>
-                <option value="13">Nógrád</option>
-                <option value="14">Somogy</option>
-                <option value="15">Szabolcs-Szatmár-Bereg</option>
-                <option value="16">Tolna</option>
-                <option value="17">Vas</option>
-                <option value="18">Veszprém</option>
-                <option value="19">Zala</option>
+                <option value="Bács-Kiskun">Bács-Kiskun</option>
+                <option value="Baranya">Baranya</option>
+                <option value="Békés">Békés</option>
+                <option value="Borsod-Abaúj-Zemplén">Borsod-Abaúj-Zemplén</option>
+                <option value="Budapest">Budapest</option>
+                <option value="Csongrád">Csongrád</option>
+                <option value="Fejér">Fejér</option>
+                <option value="Győr-Moson-Sopron">Győr-Moson-Sopron</option>
+                <option value="Hajdú-Bihar">Hajdú-Bihar</option>
+                <option value="Heves">Heves</option>
+                <option value="Jász-Nagykun-Szolnok">Jász-Nagykun-Szolnok</option>
+                <option value="Komárom-Esztergom">Komárom-Esztergom</option>
+                <option value="Nógrád">Nógrád</option>
+                <option value="Somogy">Somogy</option>
+                <option value="Szabolcs-Szatmár-Bereg">Szabolcs-Szatmár-Bereg</option>
+                <option value="Tolna">Tolna</option>
+                <option value="Vas">Vas</option>
+                <option value="Veszprém">Veszprém</option>
+                <option value="Zala">Zala</option>
               </select>
             </div>
           </li>
@@ -46,7 +46,7 @@
             </mat-form-field>
           </li>
           <li class="nav-item mx-auto pb-4 mt-0">
-            <button type="button" id="btnFilterSearch" class="btn btn-outline-success float-start mt-3">Szűrés</button>
+            <button type="button" id="btnFilterSearch" (click)="getByFilters(federations.value, value, highValue)" class="btn btn-outline-success float-start mt-3">Szűrés</button>
           </li>
           <li class="nav-item mx-auto">
             <form class="d-flex mt-3">

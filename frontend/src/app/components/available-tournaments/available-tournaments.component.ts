@@ -17,7 +17,7 @@ export class AvailableTournamentsComponent implements OnInit {
   tournaments: TournamentModel[] = [];
   organizer = '';
   value: number = 0;
-  highValue: number = 50000;
+  highValue: number = 30000;
   pickedDates: Date[] = [];
   model: Date[] = [];
   datePickerColor: ThemePalette = 'primary';
@@ -41,10 +41,12 @@ export class AvailableTournamentsComponent implements OnInit {
   ngOnInit(): void {
     this.getTournaments();
     this.getOrganizerName();
+    var date = new Date();
+    console.log(date);
   }
 
   getTournaments(): void {
-    this.tournamentService.getAll().subscribe(
+    this.tournamentService.getAvailable().subscribe(
       (data: TournamentModel[]) => {
         data.forEach(t => {
           this.tournaments.push(new TournamentModel(t));
@@ -75,6 +77,21 @@ export class AvailableTournamentsComponent implements OnInit {
       searchparameter = searchparameter.replace("/","-");
     }
     this.tournamentService.getBySearchParameter(searchparameter).subscribe(
+      (result) =>{
+        result.forEach(t => {
+          this.tournaments.push(new TournamentModel(t));
+        })
+      },
+      error =>{
+        if(error.status == 401){
+          this.auth.logout();
+        }
+      });
+  }
+
+  getByFilters(county: string, value: number, highValue: number){
+    this.tournaments = [];
+    this.tournamentService.getByFilters(county, value, highValue).subscribe(
       (result) =>{
         result.forEach(t => {
           this.tournaments.push(new TournamentModel(t));

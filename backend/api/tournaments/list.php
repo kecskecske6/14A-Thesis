@@ -25,6 +25,9 @@
         elseif(isset($_GET["parameter"])){
             echo json_encode($tc->getBySearchParameter($conn, $_GET["parameter"]));
         }
+        elseif(isset($_GET["county"]) && isset($_GET["min"]) && isset($_GET["max"])){
+            echo json_encode($tc->getByFilters($conn, $_GET["county"], $_GET["min"], $_GET["max"]));
+        }
         else{
             echo json_encode($tc->getAll($conn));
         }
