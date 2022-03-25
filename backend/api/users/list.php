@@ -21,7 +21,8 @@
             echo json_encode($uc->getByType($conn, $_GET["type"]));
         }
     }else{
-        http_response_code(405);
+        $postdata = json_decode(file_get_contents("php://input"));
+        echo json_encode($uc->register($conn, $postdata));
     }
     }
     else{

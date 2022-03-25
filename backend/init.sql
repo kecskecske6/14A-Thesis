@@ -10,7 +10,7 @@ CREATE TABLE foottour.users (
   id INT(11) NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
   email VARCHAR(50) NOT NULL,
-  password VARCHAR(50) NOT NULL,
+  password VARCHAR(255) NOT NULL,
   isDeleted TINYINT(1) NOT NULL,
   isOrganizer TINYINT(1) NOT NULL,
   isReferee TINYINT(1) NOT NULL,
