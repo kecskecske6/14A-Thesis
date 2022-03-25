@@ -18,7 +18,7 @@ export class AvailableTournamentsComponent implements OnInit {
   organizer = '';
   value: number = 0;
   highValue: number = 30000;
-  pickedDates: Date[] = [];
+  pickedDates: string[] = [];
   model: Date[] = [];
   datePickerColor: ThemePalette = 'primary';
   options: Options = {
@@ -89,9 +89,24 @@ export class AvailableTournamentsComponent implements OnInit {
       });
   }
 
+  formatDate(date: Date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
   getByFilters(county: string, value: number, highValue: number){
     this.tournaments = [];
-    this.tournamentService.getByFilters(county, value, highValue).subscribe(
+    this.model.forEach(m => this.pickedDates.push(this.formatDate(m)));
+    this.tournamentService.getByFilters(county, value, highValue, this.pickedDates).subscribe(
       (result) =>{
         result.forEach(t => {
           console.log(t);

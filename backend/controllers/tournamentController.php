@@ -154,9 +154,9 @@
         return $tournaments;
     }
 
-    function getByFilters($conn, $county, $min, $max){
+    function getByFilters($conn, $county, $min, $max, $pickedDates){
         if($county == "0")
-            $sql = "SELECT * from foottour.tournaments WHERE entryFee >= ? AND entryFee <= ?";
+            $sql = "SELECT * from foottour.tournaments WHERE entryFee >= ? AND entryFee <= ? AND startDate LIKE ?";
         else{
             $sql = "SELECT * from foottour.tournaments WHERE county = ? AND entryFee >= ? AND entryFee <= ?";
             $county = htmlspecialchars(strip_tags($county));
@@ -166,7 +166,7 @@
         $min = htmlspecialchars(strip_tags($min));
         $max = htmlspecialchars(strip_tags($max));
         if($county == "0")
-            $stmt->bind_param("ii", $min, $max);
+            $stmt->bind_param("iis", $min, $max, $pickedDates);
         else
             $stmt->bind_param("sii", $county, $min, $max);
         if ($stmt->execute() === false) return false;

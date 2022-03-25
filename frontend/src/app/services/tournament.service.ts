@@ -32,8 +32,8 @@ export class TournamentService {
     return this.http.get<Tournament[]>(`${environment.backendURL}/api/tournaments/getAvailable.php`);
   }
 
-  getByFilters(county: string, min: number, max: number): Observable<Tournament[]>{
-    return this.http.get<Tournament[]>(`${environment.backendURL}/api/tournaments/list.php?county=${county}&min=${min}&max=${max}`);
+  getByFilters(county: string, min: number, max: number, pickedDates: string[]): Observable<Tournament[]>{
+    return this.http.get<Tournament[]>(`${environment.backendURL}/api/tournaments/list.php?county=${county}&min=${min}&max=${max}&pickedDates=${pickedDates}`);
   }
 
   create(model: any): Observable<TournamentModel> {
