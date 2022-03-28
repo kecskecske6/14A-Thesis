@@ -15,6 +15,7 @@ import { ThemePalette } from '@angular/material/core';
 export class AvailableTournamentsComponent implements OnInit {
 
   tournaments: TournamentModel[] = [];
+  pageOfItems: Array<TournamentModel> = Array();
   organizer = '';
   value: number = 0;
   highValue: number = 30000;
@@ -126,5 +127,9 @@ export class AvailableTournamentsComponent implements OnInit {
       console.log("baj van");
       
     }
+  }
+
+  onChangePage(pageOfItems: Array<TournamentModel>){
+    this.pageOfItems = pageOfItems;
   }
 }
