@@ -2,14 +2,14 @@
   <h1 class="text-center">Elérhető tornák</h1>
   <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
     <div class="container-fluid">
-      <button class="navbar-toggler mx-auto btn btn-success dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown">
+      <button class="navbar-toggler mx-auto btn btn-success dropdown-toggle" id="btnFilterToggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown">
         Szűrők
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
         <ul class="navbar-nav text-center w-100 mx-auto">
           <li class="nav-item mx-auto">
             <div class="mt-3">
-              <select id="federations" #federations>
+              <select title="Federations" id="federations" #federations>
                 <option value="0">Bárhol</option>
                 <option value="Bács-Kiskun">Bács-Kiskun</option>
                 <option value="Baranya">Baranya</option>
@@ -50,8 +50,8 @@
           </li>
           <li class="nav-item mx-auto">
             <form class="d-flex mt-3">
-              <input class="form-control me-2" type="search" placeholder="Search" #parameter>
-              <button class="btn btn-outline-success" type="submit" (click)="getBySearchParameter(parameter.value)">Search</button>
+              <input class="form-control me-2" type="search" placeholder="Tornakereső" #parameter>
+              <button class="btn btn-outline-success" type="submit" (click)="getBySearchParameter(parameter.value)">Keresés</button>
             </form>
           </li>
         </ul>
