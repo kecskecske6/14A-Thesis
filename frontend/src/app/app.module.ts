@@ -30,7 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
-import { JwPaginationModule } from 'jw-angular-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -64,7 +64,7 @@ import { JwPaginationModule } from 'jw-angular-pagination';
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    JwPaginationModule,
+    NgxPaginationModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
