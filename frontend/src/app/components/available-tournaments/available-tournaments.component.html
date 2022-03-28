@@ -2,8 +2,8 @@
   <h1 class="text-center">Elérhető tornák</h1>
   <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
     <div class="container-fluid">
-      <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown">
-        //dropdown
+      <button class="navbar-toggler mx-auto btn btn-success dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown">
+        Szűrők
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
         <ul class="navbar-nav text-center w-100 mx-auto">
@@ -40,7 +40,7 @@
           </li>
           <li class="nav-item mx-auto w-auto">
             <mat-form-field>
-              <ngx-multiple-dates [matDatepicker]="picker" [(ngModel)]="model" [color]="datePickerColor" placeholder="Kiválasztott napok" name="excludedDates"></ngx-multiple-dates>
+              <ngx-multiple-dates [matDatepicker]="picker" maxlength="3" [(ngModel)]="model" [color]="datePickerColor" placeholder="Kiválasztott napok" name="excludedDates"></ngx-multiple-dates>
               <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>

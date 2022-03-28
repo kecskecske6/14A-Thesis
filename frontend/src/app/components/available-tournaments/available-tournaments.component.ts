@@ -104,19 +104,27 @@ export class AvailableTournamentsComponent implements OnInit {
 }
 
   getByFilters(county: string, value: number, highValue: number){
-    this.tournaments = [];
-    this.model.forEach(m => this.pickedDates.push(this.formatDate(m)));
-    this.tournamentService.getByFilters(county, value, highValue, this.pickedDates).subscribe(
-      (result) =>{
-        result.forEach(t => {
-          console.log(t);
-          this.tournaments.push(new TournamentModel(t));
+    if(this.model.length < 4){
+      this.pickedDates = [];
+      this.tournaments = [];
+      this.model.forEach(m => this.pickedDates.push(this.formatDate(m)));
+      this.tournamentService.getByFilters(county, value, highValue, this.pickedDates).subscribe(
+        (result) =>{
+          result.forEach(t => {
+            console.log(t);
+            this.tournaments.push(new TournamentModel(t));
         })
-      },
-      error =>{
-        if(error.status == 401){
-          this.auth.logout();
-        }
-      });
+        },
+        error =>{
+          if(error.status == 401){
+            this.auth.logout();
+          }
+        });
+    }
+    else{
+      //Hibaüzenetet kiírni
+      console.log("baj van");
+      
+    }
   }
 }

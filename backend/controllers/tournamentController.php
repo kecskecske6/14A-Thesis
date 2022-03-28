@@ -156,19 +156,26 @@
 
     function getByFilters($conn, $county, $min, $max, $pickedDates){
         if($county == "0")
-            $sql = "SELECT * from foottour.tournaments WHERE entryFee >= ? AND entryFee <= ? AND startDate LIKE ?";
+            $sql = "SELECT * from foottour.tournaments WHERE entryFee >= ? AND entryFee <= ? AND (startDATE LIKE ? OR startDATE LIKE ? OR startDATE LIKE ?)";
         else{
-            $sql = "SELECT * from foottour.tournaments WHERE county = ? AND entryFee >= ? AND entryFee <= ?";
+            $sql = "SELECT * from foottour.tournaments WHERE county = ? AND entryFee >= ? AND entryFee <= ? AND (startDATE LIKE ? OR startDATE LIKE ? OR startDATE LIKE ?)";
             $county = htmlspecialchars(strip_tags($county));
         }
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
         $min = htmlspecialchars(strip_tags($min));
         $max = htmlspecialchars(strip_tags($max));
+        $pickedDates = explode(",", $pickedDates);
+        $pickedDates1 = htmlspecialchars(strip_tags($pickedDates[0]));
+        $pickedDates2 = htmlspecialchars(strip_tags($pickedDates[1]));
+        $pickedDates3 = htmlspecialchars(strip_tags($pickedDates[2]));
+        $pickedDates1 = "%". $pickedDates1 . "%";
+        $pickedDates2 = "%". $pickedDates2 . "%";
+        $pickedDates3 = "%". $pickedDates3 . "%";
         if($county == "0")
-            $stmt->bind_param("iis", $min, $max, $pickedDates);
+            $stmt->bind_param("iisss", $min, $max, $pickedDates1, $pickedDates2, $pickedDates3);
         else
-            $stmt->bind_param("sii", $county, $min, $max);
+            $stmt->bind_param("siisss", $county, $min, $max, $pickedDates1, $pickedDates2, $pickedDates3);
         if ($stmt->execute() === false) return false;
         $result = $stmt->get_result();
         $tournaments = array();
