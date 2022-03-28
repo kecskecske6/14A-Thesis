@@ -35,7 +35,7 @@ export class AuthService {
 
   loginForm(data : any): Observable<LoginResponse> {
     return this.http
-      .post<LoginResponse>(environment.backendURL + '/api/' + 'login.php', data, this.httpOptions)
+      .post<LoginResponse>(environment.backendURL + '/api/' + 'users/list.php', data, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)

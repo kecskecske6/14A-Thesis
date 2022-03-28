@@ -16,7 +16,7 @@ export class UserService {
   }
   
   insert(data: any): Observable<User> {
-    return this.http.post<User>(`${environment.backendURL}/api/store.php`, data);
+    return this.http.post<User>(`${environment.backendURL}/api/users/create.php`, data);
   }
 
   getById(id: number): Observable<User> {

@@ -12,20 +12,19 @@
     $conn = $db->getConnection();
 
 
-    if($auth->authorize() != null){
-        if(isset($_GET)){
-        if (isset($_GET["id"])) {
-            echo json_encode($uc->getNameById($conn, $_GET["id"]));
+    if ($auth->authorize() != null) {
+        if (isset($_GET)) {
+            if (isset($_GET["id"])) {
+                echo json_encode($uc->getNameById($conn, $_GET["id"]));
+            } elseif (isset($_GET["type"])) {
+                echo json_encode($uc->getByType($conn, $_GET["type"]));
+            }
+        } else {
+            http_response_code(405);
         }
-        elseif (isset($_GET["type"])) {
-            echo json_encode($uc->getByType($conn, $_GET["type"]));
-        }
-    }else{
-        $postdata = json_decode(file_get_contents("php://input"));
-        echo json_encode($uc->register($conn, $postdata));
-    }
-    }
-    else{
-        http_response_code(401);
+    } else {
+        $postdata = json_decode(file_get_contents('php://input'));
+        if (isset($postdata) && !empty($postdata)) echo json_encode($uc->login($conn, $postdata));
+        else http_response_code(401);
     }
 ?>

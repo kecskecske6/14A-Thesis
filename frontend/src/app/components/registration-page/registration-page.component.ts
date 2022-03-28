@@ -12,7 +12,8 @@ export class RegistrationPageComponent implements OnInit {
   model = {
     email: '',
     password: '',
-    passwordAgain: ''
+    passwordAgain: '',
+    name: 'Kis Pista'
   }
 
   token: string | undefined;
