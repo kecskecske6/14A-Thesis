@@ -24,6 +24,13 @@ import { TokenInterceptor } from './auth/token.interceptor';
 import { TeamRegistrationToTournamentsComponent } from './components/team-registration-to-tournaments/team-registration-to-tournaments.component';
 import { NewTournamentComponent } from './components/new-tournament/new-tournament.component';
 import { CommonModule } from '@angular/common';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { NgxMultipleDatesModule } from 'ngx-multiple-dates';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -52,13 +59,20 @@ import { CommonModule } from '@angular/common';
     RecaptchaFormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgxSliderModule,
+    NgxMultipleDatesModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    NgxPaginationModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
           return localStorage.getItem('access_token');
         }
       }
-    })
+    }),
+    BrowserAnimationsModule
   ],
   providers: [{ provide: RECAPTCHA_SETTINGS, useValue: { siteKey: "6LfQDTgdAAAAALWxXWzzcQLexj0O6P7C-CGXXNHW", } as RecaptchaSettings, }, Title, 
               {provide: HTTP_INTERCEPTORS, useClass:TokenInterceptor, multi: true }],

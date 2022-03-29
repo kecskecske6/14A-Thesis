@@ -1,7 +1,65 @@
 <div id="container" class="pt-5 mx-auto">
   <h1 class="text-center">Elérhető tornák</h1>
+  <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+    <div class="container-fluid">
+      <button class="navbar-toggler mx-auto btn btn-success dropdown-toggle" id="btnFilterToggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown">
+        Szűrők
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+        <ul class="navbar-nav text-center w-100 mx-auto">
+          <li class="nav-item mx-auto">
+            <div class="mt-3">
+              <select title="Federations" id="federations" #federations>
+                <option value="0">Bárhol</option>
+                <option value="Bács-Kiskun">Bács-Kiskun</option>
+                <option value="Baranya">Baranya</option>
+                <option value="Békés">Békés</option>
+                <option value="Borsod-Abaúj-Zemplén">Borsod-Abaúj-Zemplén</option>
+                <option value="Budapest">Budapest</option>
+                <option value="Csongrád">Csongrád</option>
+                <option value="Fejér">Fejér</option>
+                <option value="Győr-Moson-Sopron">Győr-Moson-Sopron</option>
+                <option value="Hajdú-Bihar">Hajdú-Bihar</option>
+                <option value="Heves">Heves</option>
+                <option value="Jász-Nagykun-Szolnok">Jász-Nagykun-Szolnok</option>
+                <option value="Komárom-Esztergom">Komárom-Esztergom</option>
+                <option value="Nógrád">Nógrád</option>
+                <option value="Somogy">Somogy</option>
+                <option value="Szabolcs-Szatmár-Bereg">Szabolcs-Szatmár-Bereg</option>
+                <option value="Tolna">Tolna</option>
+                <option value="Vas">Vas</option>
+                <option value="Veszprém">Veszprém</option>
+                <option value="Zala">Zala</option>
+              </select>
+            </div>
+          </li>
+          <li class="nav-item mx-auto">
+            <div class="custom-slider mx-auto">
+              <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
+            </div>
+          </li>
+          <li class="nav-item mx-auto w-auto">
+            <mat-form-field>
+              <ngx-multiple-dates [matDatepicker]="picker" maxlength="3" [(ngModel)]="model" [color]="datePickerColor" placeholder="Kiválasztott napok" name="excludedDates"></ngx-multiple-dates>
+              <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </li>
+          <li class="nav-item mx-auto pb-4 mt-0">
+            <button type="button" id="btnFilterSearch" (click)="getByFilters(federations.value, value, highValue)" class="btn btn-outline-success float-start mt-3">Szűrés</button>
+          </li>
+          <li class="nav-item mx-auto">
+            <form class="d-flex mt-3">
+              <input class="form-control me-2" type="search" placeholder="Tornakereső" #parameter>
+              <button class="btn btn-outline-success" type="submit" (click)="getBySearchParameter(parameter.value)">Keresés</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 <div class="row row-cols-auto justify-content-around mx-auto">
-<div class="card m-4 col" style="width: 18rem;" *ngFor="let tournament of tournaments">
+<div class="card m-4 col" style="width: 18rem;" *ngFor="let tournament of tournaments | paginate: { itemsPerPage: 15, currentPage: page }">
     <img src="../../../assets/logo.png" class="card-img-top" alt="...">
     <hr class="mb-1">
     <div class="card-body text-center">
@@ -16,5 +74,8 @@
       [routerLink]="'/database/tournaments/' + tournament.id">
     </div>
 </div>
+</div>
+<div class="pb-3 justify-content-center d-flex w-100">
+  <pagination-controls class="pe-4 mx-auto" nextLabel="Tovább" previousLabel="Vissza" (pageChange)="page = $event"></pagination-controls>
 </div>
 </div>
