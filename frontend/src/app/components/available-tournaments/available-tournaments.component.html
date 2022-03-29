@@ -59,7 +59,7 @@
     </div>
   </nav>
 <div class="row row-cols-auto justify-content-around mx-auto">
-<div class="card m-4 col" style="width: 18rem;" *ngFor="let tournament of tournaments | paginate: { itemsPerPage: 10, currentPage: page }">
+<div class="card m-4 col" style="width: 18rem;" *ngFor="let tournament of tournaments | paginate: { itemsPerPage: 15, currentPage: page }">
     <img src="../../../assets/logo.png" class="card-img-top" alt="...">
     <hr class="mb-1">
     <div class="card-body text-center">
@@ -75,5 +75,7 @@
     </div>
 </div>
 </div>
-<pagination-controls (pageChange)="page = $event"></pagination-controls>
+<div class="pb-3 justify-content-center d-flex w-100">
+  <pagination-controls nextLabel="Vissza" previousLabel="Tovább" (pageChange)="page = $event"></pagination-controls>
+</div>
 </div>
