@@ -4,6 +4,7 @@ import { Team } from 'src/app/interfaces/team';
 import { TournamentModel } from 'src/app/models/Tournament';
 import { TeamService } from 'src/app/services/team.service';
 import { TournamentService } from 'src/app/services/tournament.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-tournament-info',
@@ -14,8 +15,9 @@ export class TournamentInfoComponent implements OnInit {
 
   tournament: TournamentModel = new TournamentModel();
   teams: Team[] = [];
+  organizerName = '';
 
-  constructor(private tournamentService: TournamentService, private teamService: TeamService, private router: Router) { }
+  constructor(private tournamentService: TournamentService, private teamService: TeamService, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
     this.getTournamentInfo();
@@ -24,14 +26,24 @@ export class TournamentInfoComponent implements OnInit {
 
   getTournamentInfo(): void {
     this.tournamentService.getById(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
-      (result: TournamentModel) => this.tournament = new TournamentModel(result),
-      error => console.log(error) 
+      (result: TournamentModel) => {
+        this.tournament = new TournamentModel(result);
+        this.getOrganizerName();
+      },
+      error => console.log(error)
     );
   }
 
   getTeams(): void {
     this.teamService.getAllByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
       (result: Team[]) => this.teams = result,
+      error => console.log(error)
+    );
+  }
+
+  getOrganizerName(): void {
+    this.userService.getById(this.tournament.organizerId).subscribe(
+      result => this.organizerName = result.name,
       error => console.log(error)
     );
   }

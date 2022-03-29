@@ -7,6 +7,7 @@ export class TournamentModel implements Tournament {
   endDate: Date = new Date();
   name = '';
   location = '';
+  county = '';
   bestPlayer: string | null = null;
   topScorer: string | null = null;
   bestGoalkeeper: string | null = null;
@@ -27,6 +28,7 @@ export class TournamentModel implements Tournament {
       this.endDate = new Date(model.endDate);
       this.name = model.name;
       this.location = model.location;
+      this.county = model.county;
       this.bestPlayer = model.bestPlayer;
       this.topScorer = model.topScorer;
       this.bestGoalkeeper = model.bestGoalkeeper;
