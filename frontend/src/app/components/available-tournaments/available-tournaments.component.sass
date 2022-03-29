@@ -30,13 +30,6 @@ select
     width: 150px
     height: 2.4rem
 
-jwt-pagination
-    color: white
-    height: 200px
-    width: 200px
-    background-color: white
-    background: white
-
 ::ng-deep
     .custom-slider
         width: 400px
@@ -56,21 +49,44 @@ jwt-pagination
         color: #01A310 !important
     .mat-form-field-underline
         background-color: #01A310 !important
+    .ngx-pagination
+        width: 100% !important
+        margin: auto !important
     .ngx-pagination li
         font-size: 1.1rem
+        @media ( max-width: 400px)
+            font-size: 0.6rem
         height: 40px
         background: #0275d8
         border: 2px solid black
         text-decoration: none !important
         border-radius: 3px !important
-    .ngx-pagination li a:hover
-        color: black !important
     .ng-star-inserted li a
         color: white !important
         text-decoration: none
+    .ng-star-inserted a
+        margin-top: 5px !important
+        .current
+            margin-top: 5px !important
+    .ng-star-inserted a:hover
+        background: #0275d8 !important
+    .ng-star-inserted.current
+        padding-top: 8px !important
+    .pagination-previous.disabled
+        padding-top: 8px !important
+        &:hover
+            background-color: #0275d8 !important
+    .pagination-next.disabled
+        padding-top: 8px !important
+        &:hover
+            background-color: #0275d8 !important
     .current
         background-color: white !important
         color: black !important
+
+.ngx-pagination ul
+    width: 100% !important
+    margin: auto !important
 
 mat-datepicker-toggle
     color: #01A310 !important
