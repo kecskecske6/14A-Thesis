@@ -12,13 +12,12 @@ import { UserService } from 'src/app/services/user.service';
 export class AvailableTournamentsComponent implements OnInit {
 
   tournaments: TournamentModel[] = [];
-  organizer = '';
+  organizers: string[] = [];
 
   constructor(private tournamentService: TournamentService, private userService: UserService, private auth: AuthService) { }
 
   ngOnInit(): void {
     this.getTournaments();
-    this.getOrganizerName();
   }
 
   getTournaments(): void {
@@ -26,6 +25,7 @@ export class AvailableTournamentsComponent implements OnInit {
       (data: TournamentModel[]) => {
         data.forEach(t => {
           this.tournaments.push(new TournamentModel(t));
+          this.getOrganizerName(t.organizerId);
         });
       },
       error => {
@@ -37,9 +37,9 @@ export class AvailableTournamentsComponent implements OnInit {
     );
   }
 
-  getOrganizerName(): void {
-    this.userService.getById(Number(this.auth.getId())).subscribe(
-      result => this.organizer = result.name,
+  getOrganizerName(id: number): void {
+    this.userService.getById(id).subscribe(
+      result => this.organizers.push(result.name),
       error => console.log(error)
     );
   }

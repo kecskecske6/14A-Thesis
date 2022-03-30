@@ -1,13 +1,13 @@
 <div id="container" class="pt-5 mx-auto">
   <h1 class="text-center">Elérhető tornák</h1>
 <div class="row row-cols-auto justify-content-around mx-auto">
-<div class="card m-4 col" style="width: 18rem;" *ngFor="let tournament of tournaments">
+<div class="card m-4 col" style="width: 18rem;" *ngFor="let tournament of tournaments; index as i">
     <img src="../../../assets/logo.png" class="card-img-top" alt="...">
     <hr class="mb-1">
     <div class="card-body text-center">
       <h4 class="card-title text-center">{{tournament.name}}</h4>
       <p class="card-text mt-4 text-start">
-        Szervező: {{organizer}} <br>
+        Szervező: {{organizers[i]}} <br>
         Helyszín: {{tournament.location + ' (' + tournament.county + ')'}} <br>
         Nevezési díj: {{tournament.entryFee}} Ft<br>
         Időpont: {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}

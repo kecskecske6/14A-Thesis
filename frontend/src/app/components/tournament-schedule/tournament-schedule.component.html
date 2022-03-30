@@ -1,4 +1,4 @@
-<div id="container" class="d-flex mt-5 mx-auto">
+<div id="container" class="d-flex mt-5 mx-auto" *ngIf="loaded | async">
   <div class="col mx-auto">
     <h2 class="text-center">{{tournament.name}}</h2>
     <br>

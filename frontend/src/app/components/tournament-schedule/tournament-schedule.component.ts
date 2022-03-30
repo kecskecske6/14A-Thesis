@@ -38,6 +38,8 @@ export class TournamentScheduleComponent implements OnInit {
 
   groupsF: GroupModel[] = [];
 
+  loaded: Promise<boolean> = Promise.resolve(false);
+
   constructor(private teamstoGroupsService: TeamstoGroupsService, private router: Router, private teamService: TeamService, private groupService: GroupService, private tournamentService: TournamentService, private matchService: MatchService) { }
 
   ngOnInit(): void {
@@ -50,7 +52,10 @@ export class TournamentScheduleComponent implements OnInit {
 
   getMatches(): void {
     this.matchService.getByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
-      result => result.forEach(m => this.matches.push(new MatchModel(m))),
+      result => {
+        result.forEach(m => this.matches.push(new MatchModel(m)));
+        this.loaded = Promise.resolve(true);
+      },
       error => console.log(error)
     );
   }
