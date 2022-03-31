@@ -54,6 +54,7 @@ export class TournamentScheduleComponent implements OnInit {
     this.matchService.getByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
       result => {
         result.forEach(m => this.matches.push(new MatchModel(m)));
+        console.log(this.matches);
         this.loaded = Promise.resolve(true);
       },
       error => console.log(error)

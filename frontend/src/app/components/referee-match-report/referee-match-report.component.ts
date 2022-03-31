@@ -46,6 +46,7 @@ export class RefereeMatchReportComponent implements OnInit {
   getMatchById(){
     this.matchService.getMatchById(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
       (result: any)=>{
+      this.id = result.id;
       this.match.id = result.id;
       this.match.team1Id = result.team1Id;
       this.match.team2Id = result.team2Id;
