@@ -111,7 +111,7 @@
           </td>
           <td
             *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
-            class="background">{{getOverallGoals(pair.id).split("\n")[0]}}
+            class="background">{{getOverallGoals(pair.id, 0)}}
           </td>
           <td class="border-bottom" [attr.class]="i % 2 == 1 ? 'border-right border-bottom' : 'border-bottom'"></td>
           <td></td>
@@ -139,7 +139,8 @@
           <td class="background">
             {{getTeam(pair.id).split("\n")[1]}}</td>
           <td class="background" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"
-            [routerLink]="'/referee/' + getMatchId(pair.id).split('\n')[0]">{{getGoals(pair.id, 0).split("\n")[1] == 'null' ? '-' : getGoals(pair.id, 0).split("\n")[1]}}</td>
+            [routerLink]="'/referee/' + getMatchId(pair.id).split('\n')[0]">{{getGoals(pair.id, 0).split("\n")[1] ==
+            'null' ? '-' : getGoals(pair.id, 0).split("\n")[1]}}</td>
           <td
             *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
             class="background" [routerLink]="'/referee/' + getMatchId(pair.id).split('\n')[1]">{{getGoals(pair.id,
@@ -147,7 +148,7 @@
           </td>
           <td
             *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
-            class="background">{{getOverallGoals(pair.id).split("\n")[1]}}
+            class="background">{{getOverallGoals(pair.id, 1)}}
           </td>
           <td [attr.class]="i % 2 == 0 ? 'border-right' : ''"></td>
           <td></td>
@@ -254,14 +255,14 @@
         <tr>
           <td class="background">
             {{getTeam(pair.id).split("\n")[0]}}</td>
-          <td class="background" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"></td>
-          <td
-            *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
-            class="background">
+          <td class="background" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"
+            [routerLink]="'/referee/' + getMatchId(pair.id).split('\n')[0]">{{getGoals(pair.id,
+            0).split("\n")[0] == "null" ? "-" : getGoals(pair.id, 0).split("\n")[0]}}</td>
+          <td *ngIf="tournament.knockoutMatches == 2" class="background"
+          [routerLink]="'/referee/' + getMatchId(pair.id).split('\n')[1]">{{getGoals(pair.id, 1).split("\n")[0] == "null"
+            ? "-" : getGoals(pair.id, 1).split("\n")[0]}}
           </td>
-          <td
-            *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
-            class="background">
+          <td *ngIf="tournament.knockoutMatches == 2" class="background">{{getOverallGoals(pair.id, 0)}}
           </td>
           <td class="border-bottom" [attr.class]="i % 2 == 1 ? 'border-right border-bottom' : 'border-bottom'"></td>
           <td></td>
@@ -280,14 +281,14 @@
         <tr>
           <td class="background">
             {{getTeam(pair.id).split("\n")[1]}}</td>
-          <td class="background" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"></td>
-          <td
-            *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
-            class="background">
+          <td class="background" [attr.colspan]="tournament.knockoutMatches == 2 ? 1 : 3"
+          [routerLink]="'/referee/' + getMatchId(pair.id).split('\n')[0]">{{getGoals(pair.id,
+            0).split("\n")[1] == "null" ? "-" : getGoals(pair.id, 0).split("\n")[1]}}</td>
+          <td *ngIf="tournament.knockoutMatches == 2" class="background"
+          [routerLink]="'/referee/' + getMatchId(pair.id).split('\n')[1]">{{getGoals(pair.id, 1).split("\n")[1] == "null"
+            ? "-" : getGoals(pair.id, 1).split("\n")[1]}}
           </td>
-          <td
-            *ngIf="tournament.teamsCount == 32 && tournament.type == 'Egyenes kieséses' && tournament.knockoutMatches == 2"
-            class="background">
+          <td *ngIf="tournament.knockoutMatches == 2" class="background">{{getOverallGoals(pair.id, 1)}}
           </td>
           <td [attr.class]="i % 2 == 0 ? 'border-right' : ''"></td>
           <td></td>
@@ -335,7 +336,7 @@
       </tbody>
     </table>
     <table class="mx-auto"
-      *ngIf="tournament.teamsCount == 8 && tournament.type == 'Egyenes kieséses' || tournament.teamsCount == 16 && tournament.type == 'Csoportkör és kieséses'">
+      *ngIf="tournament.teamsCount == 8 || tournament.teamsCount == 16 && tournament.type == 'Csoportkör és kieséses'">
       <thead>
         <tr>
           <th colspan="4">Negyeddöntők</th>

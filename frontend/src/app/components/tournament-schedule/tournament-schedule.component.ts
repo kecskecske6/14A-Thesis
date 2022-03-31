@@ -125,8 +125,13 @@ export class TournamentScheduleComponent implements OnInit {
     return this.matches.filter(m => m.groupId == id)[no].team1Goals + '\n' + this.matches.filter(m => m.groupId == id)[no].team2Goals;
   }
 
-  getOverallGoals(id: number): string {
-    return this.matches.filter(m => m.groupId == id)[0].team1Goals?.toString() ?? '-' + this.matches.filter(m => m.groupId == id)[1].team1Goals?.toString() ?? '-' + '\n' + (this.matches.filter(m => m.groupId == id)[0].team2Goals?.toString() ?? '-' + this.matches.filter(m => m.groupId == id)[1].team2Goals?.toString() ?? '-');
+  getOverallGoals(id: number, team: number): string {
+    if (team == 0) {
+      if (this.matches.filter(m => m.groupId == id)[0].team1Goals == 0 && this.matches.filter(m => m.groupId == id)[1].team1Goals == null) return '0';
+      return (this.matches.filter(m => m.groupId == id)[0].team1Goals?.toString() ?? 0 + (this.matches.filter(m => m.groupId == id)[1].team1Goals?.toString() == undefined ? 0 : this.matches.filter(m => m.groupId == id)[1].team1Goals ?? 0))?.toString() == '0' ? '-' : (this.matches.filter(m => m.groupId == id)[0].team1Goals?.toString() ?? 0 + (this.matches.filter(m => m.groupId == id)[1].team1Goals?.toString() == undefined ? 0 : this.matches.filter(m => m.groupId == id)[1].team1Goals ?? 0))?.toString();
+    }
+    if (this.matches.filter(m => m.groupId == id)[0].team2Goals == 0 && this.matches.filter(m => m.groupId == id)[1].team2Goals == null) return '0';
+    return (((this.matches.filter(m => m.groupId == id)[0].team2Goals ?? 0) + (this.matches.filter(m => m.groupId == id)[1].team2Goals ?? 0)).toString() == '0' ? '-' : ((this.matches.filter(m => m.groupId == id)[0].team2Goals ?? 0) + (this.matches.filter(m => m.groupId == id)[1].team2Goals ?? 0)).toString());
   }
 
   getMatchId(id: number): string {
@@ -176,7 +181,13 @@ export class TournamentScheduleComponent implements OnInit {
         points: numberOfWins * 3 + numberOfDraws
       });
     });
-    return stats.sort((a, b) => b.points - a.points).sort((a, b) => (b.goalsFor - b.goalsAgainst) - (a.goalsFor - a.goalsAgainst)).sort((a, b) => b.goalsFor - a.goalsFor).sort((a, b) => b.wins - a.wins);
+    return stats.sort((a, b) => {
+      if (b.points - a.points != 0) return b.points - a.points > 0 ? 1 : -1;
+      if ((b.goalsFor - b.goalsAgainst) - (a.goalsFor - a.goalsAgainst) != 0) return (b.goalsFor - b.goalsAgainst) - (a.goalsFor - a.goalsAgainst) > 0 ? 1 : -1;
+      if (b.goalsFor - a.goalsFor != 0) return b.goalsFor - a.goalsFor > 0 ? 1 : -1;
+      if (b.wins - a.wins != 0) return b.wins - a.wins > 0 ? 1 : -1;
+      return 0;
+    });
   }
 
 }
