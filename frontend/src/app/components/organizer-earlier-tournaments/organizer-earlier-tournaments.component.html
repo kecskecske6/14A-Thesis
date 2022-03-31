@@ -38,7 +38,7 @@
       </div>
     </div>
   </div>
-  <div>
+  <div *ngIf="auth.permissions.isReferee != 1">
     <button id="new" routerLink="/newtournament">+</button>
   </div>
 </div>

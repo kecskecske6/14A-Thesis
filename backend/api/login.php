@@ -52,7 +52,8 @@ if(isset($postdata) && !empty($postdata))
             'time' => time(),
             'status' => "success",
             'id' => $row[0],
-            'name' => $row[1]
+            'name' => $row[1],
+            'permissions' => array($row[5],$row[6],$row[7])
         );
         echo json_encode($data_insert);
     }

@@ -6,11 +6,14 @@ import { Router } from '@angular/router';
 import { LoginResponse } from '../interfaces/loginresponse';
 import { environment } from 'src/environments/environment.prod';
 import { UserService } from './user.service';
+import { UserPermissions } from '../models/UserPermissions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  permissions!: UserPermissions;
 
   constructor(private router: Router, private http: HttpClient, private userService : UserService) { }
 
@@ -18,13 +21,6 @@ export class AuthService {
     headers: new HttpHeaders({'Content-Type' : 'application/json'})
   };
   handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('Hiba lépett fel:', error.error.message);
-    } else {
-      console.error(
-        `A szerver a következővel válaszolt: ${error.status}, ` +
-        `A body: ${error.error}`);
-    }
     if(error.status == 401){
       return throwError("Hibás felhasználónév vagy jelszó");
     }
@@ -45,7 +41,11 @@ export class AuthService {
   setUser(resp: LoginResponse) {
     localStorage.setItem('id', resp.id.toString());
     localStorage.setItem('access_token', resp.access_token);
+    localStorage.setItem('permissions', resp.permissions.toString());
+    this.permissions = new UserPermissions(resp.permissions);
   }
+
+
 
   isLoggedIn() {
     return localStorage.getItem('access_token') != null;
@@ -55,7 +55,6 @@ export class AuthService {
     localStorage.clear();
     this.router.navigate(['login']);
     this.userService.logOutUser();
-    
   }
 
   getToken(): string{

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TournamentModel } from 'src/app/models/Tournament';
+import { UserPermissions } from 'src/app/models/UserPermissions';
 import { AuthService } from 'src/app/services/auth.service';
 import { TournamentService } from 'src/app/services/tournament.service';
 import { UserService } from 'src/app/services/user.service';
@@ -15,7 +16,7 @@ export class OrganizerEarlierTournamentsComponent implements OnInit {
   earlierTournaments: TournamentModel[] = [];
   organizer: string = '';
 
-  constructor(private tournamentService: TournamentService, private auth: AuthService, private userService: UserService) { }
+  constructor(private tournamentService: TournamentService, public auth: AuthService, private userService: UserService) {}
 
   ngOnInit(): void {
     this.getTournaments();
