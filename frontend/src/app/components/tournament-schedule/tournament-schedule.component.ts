@@ -135,7 +135,7 @@ export class TournamentScheduleComponent implements OnInit {
   }
 
   getMatchId(id: number): string {
-    return this.matches.filter(m => m.groupId == id)[0].id + '\n' + this.matches.filter(m => m.groupId == id)[1].id;
+    return this.matches.filter(m => m.groupId == id)[0].id + '\n' + (this.matches.filter(m => m.groupId == id)[1] == undefined ? '' : this.matches.filter(m => m.groupId == id)[1].id.toString());
   }
 
   getMatchesByGroupId(id: number): MatchModel[] {
