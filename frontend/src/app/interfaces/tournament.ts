@@ -17,4 +17,5 @@ export interface Tournament {
   knockoutMatches: number;
   finalMatches: number;
   fields: number;
+  organizerName: string;
 }

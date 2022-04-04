@@ -1,4 +1,4 @@
-<div id="container" class="pt-5 mx-auto">
+<div class="container" class="pt-5 mx-auto">
   <h1 class="text-center">Aktuális tornáim</h1>
 
   <div class="row row-cols-auto justify-content-around mx-auto">
@@ -8,23 +8,24 @@
       <div class="card-body text-center">
         <h4 class="card-title text-center">{{tournament.name}}</h4>
         <p class="card-text mt-4 text-start">
-          Szervező: {{organizer}} <br>
+          Szervező: {{tournament.organizerName}} <br>
           Helyszín: {{tournament.location + ' (' + tournament.county + ')'}} <br>
           Nevezési díj: {{tournament.entryFee}} Ft<br>
           Időpont: {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}
         </p>
-        <div>
+        <div *ngIf="userType == organizer || userType == 'admin'; else referee">
         <input type="button" class="btn btn-primary btn-large" value="Részletek"
           [routerLink]="'/mytournaments/' + tournament.id">
         </div>
-        <div #organizer>
-
-        </div>
+        <ng-template #referee>
+          <input type="button" class="btn btn-primary btn-large" value="Részletek"
+          [routerLink]="'/schedule/' + tournament.id">
+        </ng-template>
       </div>
     </div>
   </div>
 </div>
-<div id="container" class="pt-5 mx-auto">
+<div class="container" class="pt-5 mx-auto">
   <h1 class="text-center">Korábbi tornáim</h1>
 
   <div class="row row-cols-auto justify-content-around mx-auto">
@@ -34,7 +35,7 @@
       <div class="card-body text-center">
         <h4 class="card-title text-center">{{tournament.name}}</h4>
         <p class="card-text mt-4 text-start">
-          Szervező: {{organizer}} <br>
+          Szervező: {{tournament.organizerName}} <br>
           Helyszín: {{tournament.location + ' (' + tournament.county + ')'}} <br>
           Nevezési díj: {{tournament.entryFee}} Ft<br>
           Időpont: {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}

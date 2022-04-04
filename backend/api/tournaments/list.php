@@ -20,9 +20,9 @@
         }
         elseif(isset($_GET["userId"])){
             if($uc->getType($conn, $_GET["userId"]) == "organizer" || $uc->getType($conn, $_GET["userId"]) == "admin")
-                echo json_encode($tc->getByOrganizerId($conn, $_GET["userId"]));
+                echo json_encode($tc->getByOrganizerId($conn, $_GET["userId"], $uc));
             else if ($uc->getType($conn, $_GET["userId"]) == "referee")
-                echo json_encode($tc->getByRefereeId($conn, $_GET["userId"]));
+                echo json_encode($tc->getByRefereeId($conn, $_GET["userId"], $uc));
         }
         elseif(isset($_GET["name"])){
             echo json_encode($tc->getTournamentByName($conn, $_GET["name"]));

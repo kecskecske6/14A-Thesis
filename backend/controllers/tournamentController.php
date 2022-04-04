@@ -24,7 +24,7 @@
         return $result->fetch_object();
     }
     
-    function getByOrganizerId($conn, $id){
+    function getByOrganizerId($conn, $id, $uc){
             $sql = "SELECT * from foottour.tournaments WHERE organizerId = ?";
             $stmt = $conn->prepare($sql);
             if ($stmt === false) return false;
@@ -33,13 +33,15 @@
             if ($stmt->execute() === false) return false;
             $result = $stmt->get_result();
             $tournaments = array();
+            $orgnaizerName = $uc->getNameById($conn, $id);
             while($row = $result->fetch_object()){
+                $row->organizerName = $orgnaizerName;
                 array_push($tournaments,$row);
             }
             return $tournaments;
     }
 
-    function getByRefereeId($conn, $id){
+    function getByRefereeId($conn, $id, $uc){
         $sql = "SELECT * FROM tournaments INNER JOIN referees_to_tournaments ON tournaments.id WHERE referees_to_tournaments.refereeId = ? AND tournaments.id = tournamentId;";
         $stmt = $conn->prepare($sql);
             if ($stmt === false) return false;
@@ -49,6 +51,7 @@
             $result = $stmt->get_result();
             $tournaments = array();
             while($row = $result->fetch_object()){
+                $row->organizerName = $uc->getNameById($conn, $row->organizerId);
                 array_push($tournaments,$row);
             }
             return $tournaments;

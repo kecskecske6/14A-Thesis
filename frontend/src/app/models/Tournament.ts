@@ -19,6 +19,7 @@ export class TournamentModel implements Tournament {
   knockoutMatches = 0;
   finalMatches = 0;
   fields = 0;
+  organizerName = '';
 
   constructor(model: any = undefined) {
     if (model) {
@@ -40,6 +41,7 @@ export class TournamentModel implements Tournament {
       this.knockoutMatches = Number(model.knockoutMatches);
       this.finalMatches = Number(model.finalMatches);
       this.fields = Number(model.fields);
+      this.organizerName = model.organizerName.name;
     }
   }
 }
