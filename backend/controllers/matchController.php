@@ -126,7 +126,6 @@ function saveMatch($conn, $postdata){
 
     $stmt->bind_param('iiiiiisi',$tournamentId, $team1Id, $team2Id, $refereeId, $team1Goals, $team2Goals, $code, $id);
     $stmt->execute();
-    var_dump($stmt->error);
     if ($stmt->execute() === false) return false;
     return true;
 }

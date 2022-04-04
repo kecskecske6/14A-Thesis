@@ -4,7 +4,6 @@ import { MatchModel } from 'src/app/models/Match';
 import { PlayerModel } from 'src/app/models/Player';
 import { MatchService } from 'src/app/services/match.service';
 import { AuthService} from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 
 @Component({
