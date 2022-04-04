@@ -6,14 +6,12 @@ import { Router } from '@angular/router';
 import { LoginResponse } from '../interfaces/loginresponse';
 import { environment } from 'src/environments/environment.prod';
 import { UserService } from './user.service';
-import { UserPermissions } from '../models/UserPermissions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  permissions!: UserPermissions;
 
   constructor(private router: Router, private http: HttpClient, private userService : UserService) { }
 
@@ -41,8 +39,7 @@ export class AuthService {
   setUser(resp: LoginResponse) {
     localStorage.setItem('id', resp.id.toString());
     localStorage.setItem('access_token', resp.access_token);
-    localStorage.setItem('permissions', resp.permissions.toString());
-    this.permissions = new UserPermissions(resp.permissions);
+    localStorage.setItem('userType', resp.userType);
   }
 
 

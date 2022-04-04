@@ -47,13 +47,18 @@ if(isset($postdata) && !empty($postdata))
         http_response_code(200);
         $jwt = JWT::encode($token, SECRET_KEY);
 
+        if($user->isOrganizer == 1 && $user->isReferee == 1 && $user->isLeader == 1) $userType = "admin";
+        else if($user->isOrganizer == 1) $userType = "organizer";
+        else if($user->isReferee == 1) $userType = "referee";
+        else if($user->isLeader == 1) $userType = "leader";
+
         $data_insert = array(
             'access_token' => $jwt,
             'time' => time(),
             'status' => "success",
             'id' => $row[0],
             'name' => $row[1],
-            'permissions' => array($row[5],$row[6],$row[7])
+            'userType' => $userType
         );
         echo json_encode($data_insert);
     }

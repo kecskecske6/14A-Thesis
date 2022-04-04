@@ -39,6 +39,21 @@
             return $tournaments;
     }
 
+    function getByRefereeId($conn, $id){
+        $sql = "SELECT * FROM tournaments INNER JOIN referees_to_tournaments ON tournaments.id WHERE referees_to_tournaments.refereeId = ? AND tournaments.id = tournamentId;";
+        $stmt = $conn->prepare($sql);
+            if ($stmt === false) return false;
+            $id = htmlspecialchars(strip_tags($id));
+            $stmt->bind_param("i",$id);
+            if ($stmt->execute() === false) return false;
+            $result = $stmt->get_result();
+            $tournaments = array();
+            while($row = $result->fetch_object()){
+                array_push($tournaments,$row);
+            }
+            return $tournaments;
+    }
+
     function createTournament($conn, $postdata){
         $sql = "INSERT INTO foottour.tournaments (organizerId, startDate, endDate, name,
         location, county, entryFee, description, teamsCount, type, fields) VALUES (?,?,?,?,?,?,?,?, ?, ?, ?);";

@@ -29,5 +29,20 @@ class UserController{
         }
         return $users;
     }
+
+    function getType($conn, $id){
+        $sql = "SELECT * FROM foottour.users WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        if($stmt === false) return false;
+        $id = htmlspecialchars(strip_tags($id));
+        $stmt->bind_param("i",$id);
+        if ($stmt->execute() === false) return false;
+        $result = $stmt->get_result();
+        $result = $result->fetch_object();
+        if($result->isLeader == 1 && $result->isOrganizer == 1 && $result->isReferee == 1) return "admin";
+        else if($result->isLeader == 1) return "leader";
+        else if($result->isOrganizer == 1) return "organizer";
+        else if($result->isReferee == 1) return "referee";
+    }
 }
 ?>

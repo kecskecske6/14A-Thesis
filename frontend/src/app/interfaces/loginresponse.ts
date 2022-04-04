@@ -7,5 +7,5 @@ export interface LoginResponse {
     id: number;
     status: string;
     message: string;
-    permissions: Array<number>;
+    userType: string;
 }
