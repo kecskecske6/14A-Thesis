@@ -7,5 +7,4 @@ export interface Match {
     team2Goals: number | null;
     code: string;
     groupId: number;
-    time: Date;
 }

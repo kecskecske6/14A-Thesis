@@ -9,6 +9,10 @@ import { Router } from '@angular/router';
 import { GroupModel } from 'src/app/models/Group';
 import { GroupService } from 'src/app/services/group.service';
 import { UserModel } from 'src/app/models/User';
+import { TeamstoGroupsService } from 'src/app/services/teamsto-groups.service';
+import { TeamstoGroupsModel } from 'src/app/models/TeamstoGroups';
+import { TournamentService } from 'src/app/services/tournament.service';
+import { TournamentModel } from 'src/app/models/Tournament';
 
 @Component({
   selector: 'app-referee-match-report',
@@ -39,13 +43,21 @@ export class RefereeMatchReportComponent implements OnInit {
   events: EventModel[] = [];
   match: MatchModel = new MatchModel();
   referees: UserModel[] = [];
+  tournament: TournamentModel = new TournamentModel();
 
   constructor(private matchService: MatchService,
     private router: Router,
-    private authService: AuthService, private groupService: GroupService, private userService: UserService) { }
+    private authService: AuthService, private groupService: GroupService, private userService: UserService, private teamstoGroupsService: TeamstoGroupsService, private tournamentService: TournamentService) { }
 
   ngOnInit(): void {
     this.getMatchById();
+  }
+
+  getTournament() {
+    this.tournamentService.getById(this.tournamentId).subscribe(
+      result => this.tournament = result,
+      error => console.log(error)
+    );
   }
 
   getMatchById() {
@@ -65,6 +77,7 @@ export class RefereeMatchReportComponent implements OnInit {
         this.team2Name = result.team2Name.name;
         this.team1Players = this.matchService.setPlayerProperties(result.team1Players);
         this.team2Players = this.matchService.setPlayerProperties(result.team2Players);
+        this.getTournament();
       },
       error => {
         console.log(error);
@@ -85,22 +98,54 @@ export class RefereeMatchReportComponent implements OnInit {
     this.matchService.getByType(this.tournamentId, (this.match.code.split('-')[0].slice(0, this.match.code.split('-')[0].length - 1) + '%').startsWith('G') ? (this.match.code.split('-')[0].slice(0, this.match.code.split('-')[0].length - 1) + '%').slice(0, this.match.code.split('-')[0].length - 2) + '%' : this.match.code.split('-')[0].slice(0, this.match.code.split('-')[0].length - 1) + '%').subscribe(
       result => {
         if (!result[0].code.startsWith('G') && !result[0].code.startsWith('F')) {
-          if (result.every(m => m.team1Goals != null)) {
+          if (result.filter(m => m.team1Goals == null).length == 1) {
             for (let i = 0; i < result.length; i += 2) {
               let groupModel = new GroupModel();
-              groupModel.name = result[i].code.startsWith('R32') ? 'R16' + (i / 2) : result[i].code.startsWith('R16') ? 'QF' + (i / 2) : result[i].code.startsWith('QF') ? 'SF' + (i / 2) : 'F' + (i / 2);
+              groupModel.name = result[i].code.startsWith('R32') ? 'R16' + (i / 2 + 1) : result[i].code.startsWith('R16') ? 'QF' + (i / 2 + 1) : result[i].code.startsWith('QF') ? 'SF' + (i / 2 + 1) : 'F' + (i / 2 + 1);
               groupModel.tournamentId = this.tournamentId;
               this.groupService.create(groupModel).subscribe(
                 result2 => {
                   let matchModel = new MatchModel();
-                  matchModel.code = result2.name.startsWith('R32') ? 'R16' + (i / 2) + '-1' : result2.name.startsWith('R16') ? 'QF' + (i / 2) + '-1' : result2.name.startsWith('QF') ? 'SF' + (i / 2) + '-1' : 'F' + (i / 2) + '-1';
+                  matchModel.code = result[i].code.startsWith('R32') ? 'R16' + (i / 2 + 1) + '-1' : result[i].code.startsWith('R16') ? 'QF' + (i / 2 + 1) + '-1' : result[i].code.startsWith('QF') ? 'SF' + (i / 2 + 1) + '-1' : 'F' + (i / 2 + 1) + '-1';
                   matchModel.groupId = result2.id;
                   matchModel.refereeId = this.referees[Math.floor(Math.random() * this.referees.length)].id;
                   matchModel.team1Goals = null;
                   matchModel.team1Id = result[i].team1Goals ?? 0 > (result[i].team2Goals ?? 0) ? result[i].team1Id : result[i].team2Id;
                   matchModel.team2Goals = null;
                   matchModel.team2Id = result[i + 1].team1Goals ?? 0 > (result[i + 1].team2Goals ?? 0) ? result[i + 1].team1Id : result[i + 1].team2Id;
-                  // FOLYTATNI!!!!
+                  this.matchService.create(matchModel).subscribe(
+                    result3 => {
+                      if (this.tournament.knockoutMatches == 2 && !result[0].code.startsWith('S') || this.tournament.finalMatches == 2 && result[0].code.startsWith('S')) {
+                        matchModel = new MatchModel();
+                        matchModel.code = result[i].code.startsWith('R32') ? 'R16' + (i / 2 + 1) + '-2' : result[i].code.startsWith('R16') ? 'QF' + (i / 2 + 1) + '-2' : result[i].code.startsWith('QF') ? 'SF' + (i / 2 + 1) + '-2' : 'F' + (i / 2 + 1) + '-2';
+                        matchModel.groupId = result2.id;
+                        matchModel.refereeId = this.referees[Math.floor(Math.random() * this.referees.length)].id;
+                        matchModel.team1Goals = null;
+                        matchModel.team1Id = result3.team2Id;
+                        matchModel.team2Goals = null;
+                        matchModel.team2Id = result3.team1Id;
+                        this.matchService.create(matchModel).subscribe(
+                          result4 => {},
+                          error => console.log(error)
+                        );
+                      }
+                      let teamstoGroupsModel = new TeamstoGroupsModel();
+                      teamstoGroupsModel.groupId = result2.id;
+                      teamstoGroupsModel.teamId = result3.team1Id;
+                      this.teamstoGroupsService.create(teamstoGroupsModel).subscribe(
+                        result4 => {},
+                        error => console.log(error)
+                      );
+                      teamstoGroupsModel = new TeamstoGroupsModel();
+                      teamstoGroupsModel.groupId = result2.id;
+                      teamstoGroupsModel.teamId = result3.team2Id;
+                      this.teamstoGroupsService.create(teamstoGroupsModel).subscribe(
+                        result4 => {},
+                        error => console.log(error)
+                      );
+                    },
+                    error => console.log(error)
+                  );
                 },
                 error => console.log(error)
               );

@@ -9,7 +9,6 @@ export class MatchModel implements Match {
     team2Goals: number | null = null;
     code = "";
     groupId = 0;
-    time = new Date();
 
     constructor(match: any = undefined) {
         if (match) {
@@ -21,7 +20,6 @@ export class MatchModel implements Match {
             this.team2Goals = match.team2Goals == null ? null : Number(match.team2Goals);
             this.code = match.code;
             this.groupId = Number(match.groupId);
-            this.time = new Date(match.time);
         }
     }
 }

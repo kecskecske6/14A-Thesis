@@ -190,4 +190,8 @@ export class TournamentScheduleComponent implements OnInit {
     });
   }
 
+  floor(number: number): number {
+    return Math.floor(number);
+  }
+
 }

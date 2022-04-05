@@ -41,7 +41,7 @@
 
     function createTournament($conn, $postdata){
         $sql = "INSERT INTO foottour.tournaments (organizerId, startDate, endDate, name,
-        location, county, entryFee, description, teamsCount, type, fields) VALUES (?,?,?,?,?,?,?,?, ?, ?, ?);";
+        location, county, entryFee, description, teamsCount, type) VALUES (?,?,?,?,?,?,?,?, ?, ?);";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
         $organizerId = htmlspecialchars(strip_tags($postdata->organizerId));
@@ -54,10 +54,9 @@
         $description = htmlspecialchars(strip_tags($postdata->description));
         $teamsCount = htmlspecialchars(strip_tags($postdata->teamsCount));
         $type = htmlspecialchars(strip_tags($postdata->type));
-        $fields = htmlspecialchars(strip_tags($postdata->fields));
 
-        $stmt->bind_param("isssssisisi",$organizerId, $startDate, $endDate, $name, $location, $county, $entryFee,
-                        $description, $teamsCount, $type, $fields);
+        $stmt->bind_param("isssssisis",$organizerId, $startDate, $endDate, $name, $location, $county, $entryFee,
+                        $description, $teamsCount, $type);
         if ($stmt->execute() === false) return false;
         
         return $this->getById($conn, $stmt->insert_id);
@@ -68,7 +67,7 @@
         $sql = "UPDATE foottour.tournaments SET `startDate` = ?,
         `endDate` = ?, `name` = ?, `location` = ?, county = ?,
         `bestPlayer` = ?, `topScorer` = ?, `bestGoalkeeper` = ?,
-        `entryFee` = ?, `description` = ?, `teamsCount` = ?, type = ?, groupMatches = ?, knockoutMatches = ?, finalMatches = ?, fields = ? 
+        `entryFee` = ?, `description` = ?, `teamsCount` = ?, type = ?, groupMatches = ?, knockoutMatches = ?, finalMatches = ? 
         WHERE `organizerId` = ? AND `id` = ?";
         
         $stmt = $conn->prepare($sql);
@@ -91,11 +90,10 @@
         $groupMatches = htmlspecialchars(strip_tags($postdata->groupMatches));
         $knockoutMatches = htmlspecialchars(strip_tags($postdata->knockoutMatches));
         $finalMatches = htmlspecialchars(strip_tags($postdata->finalMatches));
-        $fields = htmlspecialchars(strip_tags($postdata->fields));
 
-        $stmt->bind_param("ssssssssisisiiiiii",$startDate, $endDate, $name, $location, $county,
+        $stmt->bind_param("ssssssssisisiiiii",$startDate, $endDate, $name, $location, $county,
                             $bestPlayer, $topScorer, $bestGoalkeeper, $entryFee, $description,
-                            $teamsCount, $type, $groupMatches, $knockoutMatches, $finalMatches, $fields, $organizerId, $id);
+                            $teamsCount, $type, $groupMatches, $knockoutMatches, $finalMatches, $organizerId, $id);
         if ($stmt->execute() === false) return false;
         
         return $this->getById($conn, $id);
