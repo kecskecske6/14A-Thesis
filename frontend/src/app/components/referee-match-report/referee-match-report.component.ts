@@ -95,68 +95,69 @@ export class RefereeMatchReportComponent implements OnInit {
       result => this.referees = result,
       error => console.log(error)
     );
-    this.matchService.getByType(this.tournamentId, (this.match.code.split('-')[0].slice(0, this.match.code.split('-')[0].length - 1) + '%').startsWith('G') ? (this.match.code.split('-')[0].slice(0, this.match.code.split('-')[0].length - 1) + '%').slice(0, this.match.code.split('-')[0].length - 2) + '%' : this.match.code.split('-')[0].slice(0, this.match.code.split('-')[0].length - 1) + '%').subscribe(
-      result => {
-        if (!result[0].code.startsWith('G') && !result[0].code.startsWith('F')) {
-          if (result.filter(m => m.team1Goals == null).length == 1) {
-            for (let i = 0; i < result.length; i += 2) {
-              let groupModel = new GroupModel();
-              groupModel.name = result[i].code.startsWith('R32') ? 'R16' + (i / 2 + 1) : result[i].code.startsWith('R16') ? 'QF' + (i / 2 + 1) : result[i].code.startsWith('QF') ? 'SF' + (i / 2 + 1) : 'F' + (i / 2 + 1);
-              groupModel.tournamentId = this.tournamentId;
-              this.groupService.create(groupModel).subscribe(
-                result2 => {
-                  let matchModel = new MatchModel();
-                  matchModel.code = result[i].code.startsWith('R32') ? 'R16' + (i / 2 + 1) + '-1' : result[i].code.startsWith('R16') ? 'QF' + (i / 2 + 1) + '-1' : result[i].code.startsWith('QF') ? 'SF' + (i / 2 + 1) + '-1' : 'F' + (i / 2 + 1) + '-1';
-                  matchModel.groupId = result2.id;
-                  matchModel.refereeId = this.referees[Math.floor(Math.random() * this.referees.length)].id;
-                  matchModel.team1Goals = null;
-                  matchModel.team1Id = result[i].team1Goals ?? 0 > (result[i].team2Goals ?? 0) ? result[i].team1Id : result[i].team2Id;
-                  matchModel.team2Goals = null;
-                  matchModel.team2Id = result[i + 1].team1Goals ?? 0 > (result[i + 1].team2Goals ?? 0) ? result[i + 1].team1Id : result[i + 1].team2Id;
-                  this.matchService.create(matchModel).subscribe(
-                    result3 => {
-                      if (this.tournament.knockoutMatches == 2 && !result[0].code.startsWith('S') || this.tournament.finalMatches == 2 && result[0].code.startsWith('S')) {
-                        matchModel = new MatchModel();
-                        matchModel.code = result[i].code.startsWith('R32') ? 'R16' + (i / 2 + 1) + '-2' : result[i].code.startsWith('R16') ? 'QF' + (i / 2 + 1) + '-2' : result[i].code.startsWith('QF') ? 'SF' + (i / 2 + 1) + '-2' : 'F' + (i / 2 + 1) + '-2';
-                        matchModel.groupId = result2.id;
-                        matchModel.refereeId = this.referees[Math.floor(Math.random() * this.referees.length)].id;
-                        matchModel.team1Goals = null;
-                        matchModel.team1Id = result3.team2Id;
-                        matchModel.team2Goals = null;
-                        matchModel.team2Id = result3.team1Id;
-                        this.matchService.create(matchModel).subscribe(
-                          result4 => {},
-                          error => console.log(error)
-                        );
-                      }
-                      let teamstoGroupsModel = new TeamstoGroupsModel();
-                      teamstoGroupsModel.groupId = result2.id;
-                      teamstoGroupsModel.teamId = result3.team1Id;
-                      this.teamstoGroupsService.create(teamstoGroupsModel).subscribe(
-                        result4 => {},
-                        error => console.log(error)
-                      );
-                      teamstoGroupsModel = new TeamstoGroupsModel();
-                      teamstoGroupsModel.groupId = result2.id;
-                      teamstoGroupsModel.teamId = result3.team2Id;
-                      this.teamstoGroupsService.create(teamstoGroupsModel).subscribe(
-                        result4 => {},
+    this.matchService.sendMatchReport(this.match).subscribe(
+      resulti => {
+        this.matchService.getByType(this.tournamentId, (this.match.code.split('-')[0].slice(0, this.match.code.split('-')[0].length - 1) + '%').startsWith('G') ? (this.match.code.split('-')[0].slice(0, this.match.code.split('-')[0].length - 1) + '%').slice(0, this.match.code.split('-')[0].length - 2) + '%' : this.match.code.split('-')[0].slice(0, this.match.code.split('-')[0].length - 1) + '%').subscribe(
+          result => {
+            if (!result[0].code.startsWith('G') && !result[0].code.startsWith('F')) {
+              if (result.every(m => m.team1Goals != null)) {
+                for (let i = 0; i < result.length; i += 2) {
+                  let groupModel = new GroupModel();
+                  groupModel.name = result[i].code.startsWith('R32') ? 'R16' + (i / 2 + 1) : result[i].code.startsWith('R16') ? 'QF' + (i / 2 + 1) : result[i].code.startsWith('QF') ? 'SF' + (i / 2 + 1) : 'F' + (i / 2 + 1);
+                  groupModel.tournamentId = this.tournamentId;
+                  this.groupService.create(groupModel).subscribe(
+                    result2 => {
+                      let matchModel = new MatchModel();
+                      matchModel.code = result[i].code.startsWith('R32') ? 'R16' + (i / 2 + 1) + '-1' : result[i].code.startsWith('R16') ? 'QF' + (i / 2 + 1) + '-1' : result[i].code.startsWith('QF') ? 'SF' + (i / 2 + 1) + '-1' : 'F' + (i / 2 + 1) + '-1';
+                      matchModel.groupId = result2.id;
+                      matchModel.refereeId = this.referees[Math.floor(Math.random() * this.referees.length)].id;
+                      matchModel.team1Goals = null;
+                      matchModel.team1Id = result[i].team1Goals ?? 0 > (result[i].team2Goals ?? 0) ? result[i].team1Id : result[i].team2Id;
+                      matchModel.team2Goals = null;
+                      matchModel.team2Id = result[i + 1].team1Goals ?? 0 > (result[i + 1].team2Goals ?? 0) ? result[i + 1].team1Id : result[i + 1].team2Id;
+                      this.matchService.create(matchModel).subscribe(
+                        result3 => {
+                          if (this.tournament.knockoutMatches == 2 && !result[0].code.startsWith('S') || this.tournament.finalMatches == 2 && result[0].code.startsWith('S')) {
+                            matchModel = new MatchModel();
+                            matchModel.code = result[i].code.startsWith('R32') ? 'R16' + (i / 2 + 1) + '-2' : result[i].code.startsWith('R16') ? 'QF' + (i / 2 + 1) + '-2' : result[i].code.startsWith('QF') ? 'SF' + (i / 2 + 1) + '-2' : 'F' + (i / 2 + 1) + '-2';
+                            matchModel.groupId = result2.id;
+                            matchModel.refereeId = this.referees[Math.floor(Math.random() * this.referees.length)].id;
+                            matchModel.team1Goals = null;
+                            matchModel.team1Id = result3.team2Id;
+                            matchModel.team2Goals = null;
+                            matchModel.team2Id = result3.team1Id;
+                            this.matchService.create(matchModel).subscribe(
+                              result4 => {},
+                              error => console.log(error)
+                            );
+                          }
+                          let teamstoGroupsModel = new TeamstoGroupsModel();
+                          teamstoGroupsModel.groupId = result2.id;
+                          teamstoGroupsModel.teamId = result3.team1Id;
+                          this.teamstoGroupsService.create(teamstoGroupsModel).subscribe(
+                            result4 => {},
+                            error => console.log(error)
+                          );
+                          teamstoGroupsModel = new TeamstoGroupsModel();
+                          teamstoGroupsModel.groupId = result2.id;
+                          teamstoGroupsModel.teamId = result3.team2Id;
+                          this.teamstoGroupsService.create(teamstoGroupsModel).subscribe(
+                            result4 => {},
+                            error => console.log(error)
+                          );
+                        },
                         error => console.log(error)
                       );
                     },
                     error => console.log(error)
                   );
-                },
-                error => console.log(error)
-              );
+                }
+              }
             }
-          }
-        }
+          },
+          error => console.log(error)
+        );
       },
-      error => console.log(error)
-    );
-    this.matchService.sendMatchReport(this.match).subscribe(
-      result => console.log(result),
       error => {
         console.log(error);
         if (error.status == 401) {
