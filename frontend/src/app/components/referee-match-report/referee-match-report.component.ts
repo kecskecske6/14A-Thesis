@@ -13,6 +13,7 @@ import { TeamstoGroupsService } from 'src/app/services/teamsto-groups.service';
 import { TeamstoGroupsModel } from 'src/app/models/TeamstoGroups';
 import { TournamentService } from 'src/app/services/tournament.service';
 import { TournamentModel } from 'src/app/models/Tournament';
+import { TeamModel } from 'src/app/models/Team';
 
 @Component({
   selector: 'app-referee-match-report',
@@ -127,7 +128,7 @@ export class RefereeMatchReportComponent implements OnInit {
                             matchModel.team2Goals = null;
                             matchModel.team2Id = result3.team1Id;
                             this.matchService.create(matchModel).subscribe(
-                              result4 => {},
+                              result4 => { },
                               error => console.log(error)
                             );
                           }
@@ -135,14 +136,14 @@ export class RefereeMatchReportComponent implements OnInit {
                           teamstoGroupsModel.groupId = result2.id;
                           teamstoGroupsModel.teamId = result3.team1Id;
                           this.teamstoGroupsService.create(teamstoGroupsModel).subscribe(
-                            result4 => {},
+                            result4 => { },
                             error => console.log(error)
                           );
                           teamstoGroupsModel = new TeamstoGroupsModel();
                           teamstoGroupsModel.groupId = result2.id;
                           teamstoGroupsModel.teamId = result3.team2Id;
                           this.teamstoGroupsService.create(teamstoGroupsModel).subscribe(
-                            result4 => {},
+                            result4 => { },
                             error => console.log(error)
                           );
                         },
@@ -152,6 +153,31 @@ export class RefereeMatchReportComponent implements OnInit {
                     error => console.log(error)
                   );
                 }
+              }
+            }
+            else {
+              if (result.every(m => m.team1Goals != null)) {
+                this.groupService.getByType(this.tournamentId, 'GS%').subscribe(
+                  resultGroups => {
+                    this.teamstoGroupsService.getByTournamentId(this.tournamentId).subscribe(
+                      resultTTG => {
+                        const ttg: MatchModel[][] = [];
+                        const teamIds = [];
+                        resultGroups.forEach(g => {
+                          resultTTG.filter(t2g => t2g.groupId == g.id).forEach(t2g => teamIds.push(t2g.teamId));
+                        });
+                        const groups: TeamModel[][] = [];
+                        ttg.forEach(mg => {
+                          mg.forEach(m => {
+
+                          });
+                        });
+                      },
+                      error => console.log(error)
+                    );
+                  },
+                  error => console.log(error)
+                );
               }
             }
           },
