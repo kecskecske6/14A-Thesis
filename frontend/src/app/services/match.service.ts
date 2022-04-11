@@ -41,14 +41,15 @@ setEventsToPlayers(events: Event[], players: PlayerModel[]){
       });
       players.forEach(player => {
         player.number_of_goals_in_a_match = [];
+        player.number_of_yellows_in_a_match = [];
         events.forEach(event => {
           if(player.id == event.playerId){
             switch (event.type) {
               case "goal":
-                  player.goals++;
-                  player.number_of_goals_in_a_match.push(event.minute);
+                player.goals++;
+                player.number_of_goals_in_a_match.push(event.minute);
                 break;
-              case "yellowCard":
+                case "yellowCard":
                   player.yellowCards = event.minute;
                   player.number_of_yellows_in_a_match.push(event.minute);
                 break;
@@ -60,7 +61,6 @@ setEventsToPlayers(events: Event[], players: PlayerModel[]){
               }
             }
         });
-        console.log(player.number_of_goals_in_a_match);
       });
       return players;
   }
