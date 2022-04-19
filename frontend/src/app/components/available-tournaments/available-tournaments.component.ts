@@ -42,7 +42,6 @@ export class AvailableTournamentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTournaments();
-    this.getOrganizerName();
     var date = new Date();
     console.log(date);
   }
