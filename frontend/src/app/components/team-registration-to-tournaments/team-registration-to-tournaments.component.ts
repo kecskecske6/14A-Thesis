@@ -99,6 +99,7 @@ export class TeamRegistrationToTournamentsComponent implements OnInit {
           }
         }
       );
+      this.router.navigate(['/database/tournaments/' + this.router.url.substring(this.router.url.lastIndexOf('/') + 1)]);
     }
     else {
       console.log("Nem regisztrált elegendő játékost");

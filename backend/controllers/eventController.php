@@ -18,13 +18,13 @@ class EventController{
     }
 
     function createEvents($conn, $events){
-        $sql = "INSERT INTO foottour.events (match_id, player_id, type, minute)
+        $sql = "INSERT INTO foottour.events (matchId, playerId, type, minute)
                 VALUES (?,?,?,?)";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
         foreach($events as &$row){
-            $matchId = htmlspecialchars(strip_tags($row->match_id));
-            $playerId = htmlspecialchars(strip_tags($row->player_id));
+            $matchId = htmlspecialchars(strip_tags($row->matchId));
+            $playerId = htmlspecialchars(strip_tags($row->playerId));
             $type = htmlspecialchars(strip_tags($row->type));
             $minute = htmlspecialchars(strip_tags($row->minute));
             $stmt->bind_param("iisi",$matchId, $playerId, $type, $minute);

@@ -15,6 +15,7 @@ import { ThemePalette } from '@angular/material/core';
 export class AvailableTournamentsComponent implements OnInit {
 
   tournaments: TournamentModel[] = [];
+  organizers: string[] = [];
   page: any;
   organizer = '';
   value: number = 0;
@@ -51,6 +52,7 @@ export class AvailableTournamentsComponent implements OnInit {
       (data: TournamentModel[]) => {
         data.forEach(t => {
           this.tournaments.push(new TournamentModel(t));
+          this.getOrganizerName(t.organizerId);
         });
       },
       error => {
@@ -62,9 +64,9 @@ export class AvailableTournamentsComponent implements OnInit {
     );
   }
 
-  getOrganizerName(): void {
-    this.userService.getById(Number(this.auth.getId())).subscribe(
-      result => this.organizer = result.name,
+  getOrganizerName(id: number): void {
+    this.userService.getById(id).subscribe(
+      result => this.organizers.push(result.name),
       error => console.log(error)
     );
   }

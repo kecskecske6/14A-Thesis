@@ -38,6 +38,8 @@ export class TournamentScheduleComponent implements OnInit {
 
   groupsF: GroupModel[] = [];
 
+  loaded: Promise<boolean> = Promise.resolve(false);
+
   constructor(private teamstoGroupsService: TeamstoGroupsService, private router: Router, private teamService: TeamService, private groupService: GroupService, private tournamentService: TournamentService, private matchService: MatchService) { }
 
   ngOnInit(): void {
@@ -50,7 +52,11 @@ export class TournamentScheduleComponent implements OnInit {
 
   getMatches(): void {
     this.matchService.getByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
-      result => result.forEach(m => this.matches.push(new MatchModel(m))),
+      result => {
+        result.forEach(m => this.matches.push(new MatchModel(m)));
+        console.log(this.matches);
+        this.loaded = Promise.resolve(true);
+      },
       error => console.log(error)
     );
   }
@@ -119,12 +125,17 @@ export class TournamentScheduleComponent implements OnInit {
     return this.matches.filter(m => m.groupId == id)[no].team1Goals + '\n' + this.matches.filter(m => m.groupId == id)[no].team2Goals;
   }
 
-  getOverallGoals(id: number): string {
-    return this.matches.filter(m => m.groupId == id)[0].team1Goals?.toString() ?? '-' + this.matches.filter(m => m.groupId == id)[1].team1Goals?.toString() ?? '-' + '\n' + (this.matches.filter(m => m.groupId == id)[0].team2Goals?.toString() ?? '-' + this.matches.filter(m => m.groupId == id)[1].team2Goals?.toString() ?? '-');
+  getOverallGoals(id: number, team: number): string {
+    if (team == 0) {
+      if (this.matches.filter(m => m.groupId == id)[0].team1Goals == 0 && this.matches.filter(m => m.groupId == id)[1].team1Goals == null) return '0';
+      return (this.matches.filter(m => m.groupId == id)[0].team1Goals?.toString() ?? 0 + (this.matches.filter(m => m.groupId == id)[1].team1Goals?.toString() == undefined ? 0 : this.matches.filter(m => m.groupId == id)[1].team1Goals ?? 0))?.toString() == '0' ? '-' : (this.matches.filter(m => m.groupId == id)[0].team1Goals?.toString() ?? 0 + (this.matches.filter(m => m.groupId == id)[1].team1Goals?.toString() == undefined ? 0 : this.matches.filter(m => m.groupId == id)[1].team1Goals ?? 0))?.toString();
+    }
+    if (this.matches.filter(m => m.groupId == id)[0].team2Goals == 0 && this.matches.filter(m => m.groupId == id)[1].team2Goals == null) return '0';
+    return (((this.matches.filter(m => m.groupId == id)[0].team2Goals ?? 0) + (this.matches.filter(m => m.groupId == id)[1].team2Goals ?? 0)).toString() == '0' ? '-' : ((this.matches.filter(m => m.groupId == id)[0].team2Goals ?? 0) + (this.matches.filter(m => m.groupId == id)[1].team2Goals ?? 0)).toString());
   }
 
   getMatchId(id: number): string {
-    return this.matches.filter(m => m.groupId == id)[0].id + '\n' + this.matches.filter(m => m.groupId == id)[1].id;
+    return this.matches.filter(m => m.groupId == id)[0].id + '\n' + (this.matches.filter(m => m.groupId == id)[1] == undefined ? '' : this.matches.filter(m => m.groupId == id)[1].id.toString());
   }
 
   getMatchesByGroupId(id: number): MatchModel[] {
@@ -170,7 +181,17 @@ export class TournamentScheduleComponent implements OnInit {
         points: numberOfWins * 3 + numberOfDraws
       });
     });
-    return stats.sort((a, b) => b.points - a.points).sort((a, b) => (b.goalsFor - b.goalsAgainst) - (a.goalsFor - a.goalsAgainst)).sort((a, b) => b.goalsFor - a.goalsFor).sort((a, b) => b.wins - a.wins);
+    return stats.sort((a, b) => {
+      if (b.points - a.points != 0) return b.points - a.points > 0 ? 1 : -1;
+      if ((b.goalsFor - b.goalsAgainst) - (a.goalsFor - a.goalsAgainst) != 0) return (b.goalsFor - b.goalsAgainst) - (a.goalsFor - a.goalsAgainst) > 0 ? 1 : -1;
+      if (b.goalsFor - a.goalsFor != 0) return b.goalsFor - a.goalsFor > 0 ? 1 : -1;
+      if (b.wins - a.wins != 0) return b.wins - a.wins > 0 ? 1 : -1;
+      return 0;
+    });
+  }
+
+  floor(number: number): number {
+    return Math.floor(number);
   }
 
 }

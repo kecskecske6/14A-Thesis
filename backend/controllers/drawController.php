@@ -58,31 +58,31 @@
                         array_push($orderedTeams, $team);
                     }
                     $referees = $uc->getByType($conn, "referee");
-                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[0], "team2Id" => $orderedTeams[1], "code" => $g->name . "1-1", "groupId" => $g->id, "time" => $data->tournament->startDate));
+                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[0], "team2Id" => $orderedTeams[1], "code" => $g->name . "1-1", "groupId" => $g->id));
                     array_push($matches, $match);
-                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[3], "team2Id" => $orderedTeams[2], "code" => $g->name . "1-2", "groupId" => $g->id, "time" => $data->tournament->startDate));
+                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[3], "team2Id" => $orderedTeams[2], "code" => $g->name . "1-2", "groupId" => $g->id));
                     array_push($matches, $match);
-                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[0], "team2Id" => $orderedTeams[3], "code" => $g->name . "2-1", "groupId" => $g->id, "time" => $data->tournament->startDate));
+                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[0], "team2Id" => $orderedTeams[3], "code" => $g->name . "2-1", "groupId" => $g->id));
                     array_push($matches, $match);
-                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[1], "team2Id" => $orderedTeams[2], "code" => $g->name . "2-2", "groupId" => $g->id, "time" => $data->tournament->startDate));
+                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[1], "team2Id" => $orderedTeams[2], "code" => $g->name . "2-2", "groupId" => $g->id));
                     array_push($matches, $match);
-                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[2], "team2Id" => $orderedTeams[0], "code" => $g->name . "3-1", "groupId" => $g->id, "time" => $data->tournament->startDate));
+                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[2], "team2Id" => $orderedTeams[0], "code" => $g->name . "3-1", "groupId" => $g->id));
                     array_push($matches, $match);
-                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[1], "team2Id" => $orderedTeams[3], "code" => $g->name . "3-2", "groupId" => $g->id, "time" => $data->tournament->startDate));
+                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[1], "team2Id" => $orderedTeams[3], "code" => $g->name . "3-2", "groupId" => $g->id));
                     array_push($matches, $match);
                     if ($data->tournament->groupMatches == 2)
                     {
-                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[1], "team2Id" => $orderedTeams[0], "code" => $g->name . "4-1", "groupId" => $g->id, "time" => $data->tournament->startDate));
+                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[1], "team2Id" => $orderedTeams[0], "code" => $g->name . "4-1", "groupId" => $g->id));
                         array_push($matches, $match);
-                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[2], "team2Id" => $orderedTeams[3], "code" => $g->name . "4-2", "groupId" => $g->id, "time" => $data->tournament->startDate));
+                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[2], "team2Id" => $orderedTeams[3], "code" => $g->name . "4-2", "groupId" => $g->id));
                         array_push($matches, $match);
-                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[3], "team2Id" => $orderedTeams[0], "code" => $g->name . "5-1", "groupId" => $g->id, "time" => $data->tournament->startDate));
+                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[3], "team2Id" => $orderedTeams[0], "code" => $g->name . "5-1", "groupId" => $g->id));
                         array_push($matches, $match);
-                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[2], "team2Id" => $orderedTeams[1], "code" => $g->name . "5-2", "groupId" => $g->id, "time" => $data->tournament->startDate));
+                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[2], "team2Id" => $orderedTeams[1], "code" => $g->name . "5-2", "groupId" => $g->id));
                         array_push($matches, $match);
-                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[0], "team2Id" => $orderedTeams[2], "code" => $g->name . "6-1", "groupId" => $g->id, "time" => $data->tournament->startDate));
+                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[0], "team2Id" => $orderedTeams[2], "code" => $g->name . "6-1", "groupId" => $g->id));
                         array_push($matches, $match);
-                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[3], "team2Id" => $orderedTeams[1], "code" => $g->name . "6-2", "groupId" => $g->id, "time" => $data->tournament->startDate));
+                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[3], "team2Id" => $orderedTeams[1], "code" => $g->name . "6-2", "groupId" => $g->id));
                         array_push($matches, $match);
                     }
                 }
@@ -137,17 +137,11 @@
                         array_push($orderedTeams, $team);
                     }
                     $referees = $uc->getByType($conn, "referee");
-                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[0], "team2Id" => $orderedTeams[1], "code" => $g->name . "-1", "groupId" => $g->id, "time" => $data->tournament->startDate));
+                    $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[0], "team2Id" => $orderedTeams[1], "code" => $g->name . "-1", "groupId" => $g->id));
                     array_push($matches, $match);
                     if ($data->tournament->knockoutMatches == 2)
                     {
-                        $d = new DateTime($data->tournament->startDate);
-                        $fd = new DateTime($data->tournament->endDate);
-                        $difference = ($fd->getTimestamp() - $d->getTimestamp()) / 14;
-                        $d = $d->getTimestamp() + $difference;
-                        $dt = new DateTime();
-                        $dt->setTimestamp($d);
-                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[1], "team2Id" => $orderedTeams[0], "code" => $g->name . "-2", "groupId" => $g->id, "time" => $dt->format("Y-m-d H:i:s")));
+                        $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[1], "team2Id" => $orderedTeams[0], "code" => $g->name . "-2", "groupId" => $g->id));
                         array_push($matches, $match);
                     }
                 }
