@@ -24,6 +24,18 @@ export class TournamentService {
     return this.http.get<Tournament[]>(`${environment.backendURL}/api/tournaments/list.php?userId=${id}`);
   }
 
+  getBySearchParameter(parameter: any): Observable<Tournament[]>{
+    return this.http.get<Tournament[]>(`${environment.backendURL}/api/tournaments/list.php?parameter=${parameter}`);
+  }
+
+  getAvailable(): Observable<Tournament[]>{
+    return this.http.get<Tournament[]>(`${environment.backendURL}/api/tournaments/getAvailable.php`);
+  }
+
+  getByFilters(county: string, min: number, max: number, pickedDates: string[]): Observable<Tournament[]>{
+    return this.http.get<Tournament[]>(`${environment.backendURL}/api/tournaments/list.php?county=${county}&min=${min}&max=${max}&pickedDates=${pickedDates}`);
+  }
+
   create(model: any): Observable<TournamentModel> {
     return this.http.post<TournamentModel>(`${environment.backendURL}/api/tournaments/create.php`, model);
   }

@@ -124,5 +124,81 @@
         $result = $stmt->get_result();
         return $result->fetch_object();
     }
+
+    function getBySearchParameter($conn, $parameter){
+        $sql = "SELECT * from foottour.tournaments WHERE startDate > NOW() AND (name LIKE ? OR location LIKE ? OR startDATE LIKE ? OR entryFee LIKE ?)";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
+        $parameter = htmlspecialchars(strip_tags($parameter));
+        $parameter = "%". $parameter . "%";
+        $stmt->bind_param("ssss", $parameter, $parameter, $parameter, $parameter);
+        if ($stmt->execute() === false) return false;
+        $result = $stmt->get_result();
+        $tournaments = array();
+        while($row = $result->fetch_object()){
+            array_push($tournaments,$row);
+        }
+        return $tournaments;
+    }
+
+    function getAvailable($conn){
+        $sql = "SELECT * from foottour.tournaments WHERE startDate > NOW()";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
+        if ($stmt->execute() === false) return false;
+        $result = $stmt->get_result();
+        $tournaments = array();
+        while($row = $result->fetch_object()){
+            array_push($tournaments,$row);
+        }
+        return $tournaments;
+    }
+
+    function getByFilters($conn, $county, $min, $max, $pickedDates){
+        if($county == "0")
+            $sql = "SELECT * from foottour.tournaments WHERE entryFee >= ? AND entryFee <= ? AND (startDATE LIKE ? OR startDATE LIKE ? OR startDATE LIKE ?) AND startDate > NOW()";
+        else{
+            $sql = "SELECT * from foottour.tournaments WHERE county = ? AND entryFee >= ? AND entryFee <= ? AND (startDATE LIKE ? OR startDATE LIKE ? OR startDATE LIKE ?) AND startDate > NOW()";
+            $county = htmlspecialchars(strip_tags($county));
+        }
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
+        $min = htmlspecialchars(strip_tags($min));
+        $max = htmlspecialchars(strip_tags($max));
+        $pickedDates = explode(",", $pickedDates);
+        switch (count($pickedDates)) {
+            case '1':
+                $pickedDates1 = htmlspecialchars(strip_tags($pickedDates[0]));
+                $pickedDates1 = "%". $pickedDates1 . "%";
+                break;
+            
+            case '2':
+                $pickedDates1 = htmlspecialchars(strip_tags($pickedDates[0]));
+                $pickedDates2 = htmlspecialchars(strip_tags($pickedDates[1]));
+                $pickedDates1 = "%". $pickedDates1 . "%";
+                $pickedDates2 = "%". $pickedDates2 . "%";
+                break;
+               
+            case '3':
+                $pickedDates1 = htmlspecialchars(strip_tags($pickedDates[0]));
+                $pickedDates2 = htmlspecialchars(strip_tags($pickedDates[1]));
+                $pickedDates3 = htmlspecialchars(strip_tags($pickedDates[2]));
+                $pickedDates1 = "%". $pickedDates1 . "%";
+                $pickedDates2 = "%". $pickedDates2 . "%";
+                $pickedDates3 = "%". $pickedDates3 . "%";
+                break;
+        }
+        if($county == "0")
+            $stmt->bind_param("iisss", $min, $max, $pickedDates1, $pickedDates2, $pickedDates3);
+        else
+            $stmt->bind_param("siisss", $county, $min, $max, $pickedDates1, $pickedDates2, $pickedDates3);
+        if ($stmt->execute() === false) return false;
+        $result = $stmt->get_result();
+        $tournaments = array();
+        while($row = $result->fetch_object()){
+            array_push($tournaments,$row);
+        }
+        return $tournaments;
+    }
 }
 ?>

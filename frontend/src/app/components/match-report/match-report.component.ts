@@ -19,7 +19,7 @@ export class MatchReportComponent implements OnInit {
   refereeName = "";
   team1Goals = -1;
   team2Goals = -2;
-  tournamentName = "Lébény Kupa"; //TODO
+  tournamentName = "";
   id = 1;
   match!: MatchModel;
   team1Players: PlayerModel[] = [];

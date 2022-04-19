@@ -22,6 +22,12 @@
         elseif(isset($_GET["name"])){
             echo json_encode($tc->getTournamentByName($conn, $_GET["name"]));
         }
+        elseif(isset($_GET["parameter"])){
+            echo json_encode($tc->getBySearchParameter($conn, $_GET["parameter"]));
+        }
+        elseif(isset($_GET["county"]) && isset($_GET["min"]) && isset($_GET["max"]) && isset($_GET["pickedDates"])){
+            echo json_encode($tc->getByFilters($conn, $_GET["county"], $_GET["min"], $_GET["max"], $_GET["pickedDates"]));
+        }
         else{
             echo json_encode($tc->getAll($conn));
         }
