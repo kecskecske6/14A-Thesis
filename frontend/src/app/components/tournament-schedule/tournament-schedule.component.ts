@@ -128,10 +128,12 @@ export class TournamentScheduleComponent implements OnInit {
   getOverallGoals(id: number, team: number): string {
     if (team == 0) {
       if (this.matches.filter(m => m.groupId == id)[0].team1Goals == 0 && this.matches.filter(m => m.groupId == id)[1].team1Goals == null) return '0';
-      return (this.matches.filter(m => m.groupId == id)[0].team1Goals?.toString() ?? 0 + (this.matches.filter(m => m.groupId == id)[1].team1Goals?.toString() == undefined ? 0 : this.matches.filter(m => m.groupId == id)[1].team1Goals ?? 0))?.toString() == '0' ? '-' : (this.matches.filter(m => m.groupId == id)[0].team1Goals?.toString() ?? 0 + (this.matches.filter(m => m.groupId == id)[1].team1Goals?.toString() == undefined ? 0 : this.matches.filter(m => m.groupId == id)[1].team1Goals ?? 0))?.toString();
+      if (this.matches.filter(m => m.groupId == id)[0].team1Goals == null && this.matches.filter(m => m.groupId == id)[1].team1Goals == null) return '-';
+      return ((this.matches.filter(m => m.groupId == id)[0].team1Goals ?? 0) + (this.matches.filter(m => m.groupId == id)[1].team1Goals?.toString() == undefined ? 0 : this.matches.filter(m => m.groupId == id)[1].team1Goals ?? 0))?.toString();
     }
     if (this.matches.filter(m => m.groupId == id)[0].team2Goals == 0 && this.matches.filter(m => m.groupId == id)[1].team2Goals == null) return '0';
-    return (((this.matches.filter(m => m.groupId == id)[0].team2Goals ?? 0) + (this.matches.filter(m => m.groupId == id)[1].team2Goals ?? 0)).toString() == '0' ? '-' : ((this.matches.filter(m => m.groupId == id)[0].team2Goals ?? 0) + (this.matches.filter(m => m.groupId == id)[1].team2Goals ?? 0)).toString());
+    if (this.matches.filter(m => m.groupId == id)[0].team2Goals == null && this.matches.filter(m => m.groupId == id)[1].team2Goals == null) return '-';
+    return ((this.matches.filter(m => m.groupId == id)[0].team2Goals ?? 0) + (this.matches.filter(m => m.groupId == id)[1].team2Goals ?? 0)).toString();
   }
 
   getMatchId(id: number): string {
