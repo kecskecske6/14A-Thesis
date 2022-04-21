@@ -14,6 +14,7 @@ import { DrawComponent } from './components/draw/draw.component';
 import { AuthGuard } from './guards/auth.guard';
 import { TeamRegistrationToTournamentsComponent } from './components/team-registration-to-tournaments/team-registration-to-tournaments.component';
 import { NewTournamentComponent } from './components/new-tournament/new-tournament.component';
+import { AwardsComponent } from './components/awards/awards.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent },
@@ -28,7 +29,8 @@ const routes: Routes = [
   { path: 'schedule/:id', canActivate:[AuthGuard], component: TournamentScheduleComponent },
   { path: 'draw/:id', canActivate:[AuthGuard], component: DrawComponent },
   { path: 'teamregistration/:id', canActivate:[AuthGuard], component: TeamRegistrationToTournamentsComponent },
-  { path: 'newtournament', canActivate: [AuthGuard], component: NewTournamentComponent }
+  { path: 'newtournament', canActivate: [AuthGuard], component: NewTournamentComponent },
+  { path: 'awards/:id', canActivate: [AuthGuard], component: AwardsComponent }
 ];
 
 @NgModule({

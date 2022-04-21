@@ -40,5 +40,20 @@ class PlayerController{
 
         return true;
     }
+
+    function getByTournamentId($conn, $tournamentId) {
+        $sql = "SELECT foottour.players.* from foottour.players inner join foottour.kit_numbers_to_players on foottour.players.id = foottour.kit_numbers_to_players.playerId where kit_numbers_to_players.tournamentId = ?;";
+        $stmt = $conn->prepare($sql);
+        if ($stmt == false) return false;
+        $tournamentId = htmlspecialchars(strip_tags($tournamentId));
+        $stmt->bind_param("i", $tournamentId);
+        if ($stmt->execute() == false) return false;
+        $result = $stmt->get_result();
+        $players = array();
+        while ($row = $result->fetch_object()) {
+            array_push($players, $row);
+        }
+        return $players;
+    }
 }
 ?>

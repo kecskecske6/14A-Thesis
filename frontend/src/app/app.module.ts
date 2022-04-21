@@ -3,7 +3,6 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { environment } from '../environments/environment';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
@@ -31,6 +30,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AwardsComponent } from './components/awards/awards.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     TournamentScheduleComponent,
     DrawComponent,
     TeamRegistrationToTournamentsComponent,
-    NewTournamentComponent
+    NewTournamentComponent,
+    AwardsComponent
   ],
   imports: [
     BrowserModule,
