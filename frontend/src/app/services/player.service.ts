@@ -14,4 +14,8 @@ export class PlayerService {
   getPlayersByTeamId(id: any): Observable<any> {
     return this.http.get<Player[]>(`${environment.backendURL}/controllers/playerController.php?teamId=${id}`);
   }
+
+  getPlayersByTournamentId(id: number): Observable<Player[]> {
+    return this.http.get<Player[]>(`${environment.backendURL}/api/players/list.php?tournamentId=${id}`);
+  }
 }

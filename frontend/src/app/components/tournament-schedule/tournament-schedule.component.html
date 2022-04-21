@@ -2,6 +2,7 @@
   <div class="col mx-auto">
     <h2 class="text-center">{{tournament.name}}</h2>
     <br>
+    <button class="btn btn-primary" *ngIf="every()" [routerLink]="'/awards/' + tournament.id">Díjak kiosztása</button>
     <div *ngIf="tournament.type == 'Csoportkör és kieséses'" class="row">
       <div *ngFor="let group of groups" class="card text-dark bg-light m-5 mb-3 mx-auto" style="max-width: 45rem;">
         <div class="card-header">{{group.name[2]}} csoport</div>
@@ -219,15 +220,19 @@
           <td [attr.class]="i % 2 == 0 ? 'border-right' : ''"></td>
           <td [attr.class]="i % 2 == 0 ? 'border-bottom' : ''"></td>
           <td [attr.class]="i % 2 == 0 ? 'background' : ''"
-          [innerText]="i % 2 == 0 ? groupsR16.length > 0 ? getTeam(groupsR16[floor(i / 2)].id).split('\n')[0] : 'NyolcaddöntőTeam' : ''"></td>
+            [innerText]="i % 2 == 0 ? groupsR16.length > 0 ? getTeam(groupsR16[floor(i / 2)].id).split('\n')[0] : 'NyolcaddöntőTeam' : ''">
+          </td>
           <td [attr.class]="i % 2 == 0 ? 'background' : ''" [colSpan]="tournament.knockoutMatches == 2 ? 1 : 3"
-          [routerLink]="groupsR16.length > 0 ? '/referee/' + getMatchId(groupsR16[floor(i / 2)].id).split('\n')[0] : '/schedule/' + tournament.id"
-          [innerText]="i % 2 == 0 ? groupsR16.length > 0 ? getGoals(groupsR16[floor(i / 2)].id, 0).split('\n')[0] == 'null' ? '-' : getGoals(groupsR16[floor(i / 2)].id, 0).split('\n')[0] : '' : ''"></td>
+            [routerLink]="groupsR16.length > 0 ? '/referee/' + getMatchId(groupsR16[floor(i / 2)].id).split('\n')[0] : '/schedule/' + tournament.id"
+            [innerText]="i % 2 == 0 ? groupsR16.length > 0 ? getGoals(groupsR16[floor(i / 2)].id, 0).split('\n')[0] == 'null' ? '-' : getGoals(groupsR16[floor(i / 2)].id, 0).split('\n')[0] : '' : ''">
+          </td>
           <td [attr.class]="i % 2 == 0 ? 'background' : ''" *ngIf="tournament.knockoutMatches == 2"
-          [routerLink]="groupsR16.length > 0 ? '/referee/' + getMatchId(groupsR16[floor(i / 2)].id).split('\n')[1] : '/schedule/' + tournament.id"
-          [innerText]="i % 2 == 0 ? groupsR16.length > 0 ? getGoals(groupsR16[floor(i / 2)].id, 1).split('\n')[0] == 'null' ? '-' : getGoals(groupsR16[floor(i / 2)].id, 1).split('\n')[0] : '' : ''"></td>
+            [routerLink]="groupsR16.length > 0 ? '/referee/' + getMatchId(groupsR16[floor(i / 2)].id).split('\n')[1] : '/schedule/' + tournament.id"
+            [innerText]="i % 2 == 0 ? groupsR16.length > 0 ? getGoals(groupsR16[floor(i / 2)].id, 1).split('\n')[0] == 'null' ? '-' : getGoals(groupsR16[floor(i / 2)].id, 1).split('\n')[0] : '' : ''">
+          </td>
           <td [attr.class]="i % 2 == 0 ? 'background' : ''" *ngIf="tournament.knockoutMatches == 2"
-          [innerText]="i % 2 == 0 ? groupsR16.length > 0 ? getOverallGoals(groupsR16[floor(i / 2)].id, 0) : '' : ''"></td>
+            [innerText]="i % 2 == 0 ? groupsR16.length > 0 ? getOverallGoals(groupsR16[floor(i / 2)].id, 0) : '' : ''">
+          </td>
           <td
             [attr.class]="i % 2 == 0 && i % 4 == 2 ? 'border-bottom border-right' : i % 2 == 0 ? 'border-bottom' : i % 4 == 1 ? 'border-right' : ''">
           </td>
@@ -236,42 +241,50 @@
             [innerText]="i % 4 == 1 ? groupsQF.length > 0 ? getTeam(groupsQF[floor(i / 4)].id).split('\n')[0] : 'NegyeddöntőTeam' : ''">
           </td>
           <td [attr.class]="i % 4 == 1 ? 'background' : ''" [colSpan]="tournament.knockoutMatches == 2 ? 1 : 3"
-          [routerLink]="groupsQF.length > 0 ? '/referee/' + getMatchId(groupsQF[floor(i / 4)].id).split('\n')[0] : '/schedule/' + tournament.id"
-          [innerText]="i % 4 == 1 ? groupsQF.length > 0 ? getGoals(groupsQF[floor(i / 4)].id, 0).split('\n')[0] == 'null' ? '-' : getGoals(groupsQF[floor(i / 4)].id, 0).split('\n')[0] : '' : ''"></td>
+            [routerLink]="groupsQF.length > 0 ? '/referee/' + getMatchId(groupsQF[floor(i / 4)].id).split('\n')[0] : '/schedule/' + tournament.id"
+            [innerText]="i % 4 == 1 ? groupsQF.length > 0 ? getGoals(groupsQF[floor(i / 4)].id, 0).split('\n')[0] == 'null' ? '-' : getGoals(groupsQF[floor(i / 4)].id, 0).split('\n')[0] : '' : ''">
+          </td>
           <td [attr.class]="i % 4 == 1 ? 'background' : ''" *ngIf="tournament.knockoutMatches == 2"
-          [routerLink]="groupsQF.length > 0 ? '/referee/' + getMatchId(groupsQF[floor(i / 4)].id).split('\n')[1] : '/schedule/' + tournament.id"
-          [innerText]="i % 4 == 1 ? groupsQF.length > 0 ? getGoals(groupsQF[floor(i / 4)].id, 1).split('\n')[0] == 'null' ? '-' : getGoals(groupsQF[floor(i / 4)].id, 1).split('\n')[0] : '' : ''"></td>
+            [routerLink]="groupsQF.length > 0 ? '/referee/' + getMatchId(groupsQF[floor(i / 4)].id).split('\n')[1] : '/schedule/' + tournament.id"
+            [innerText]="i % 4 == 1 ? groupsQF.length > 0 ? getGoals(groupsQF[floor(i / 4)].id, 1).split('\n')[0] == 'null' ? '-' : getGoals(groupsQF[floor(i / 4)].id, 1).split('\n')[0] : '' : ''">
+          </td>
           <td [attr.class]="i % 4 == 1 ? 'background' : ''" *ngIf="tournament.knockoutMatches == 2"
-          [innerText]="i % 4 == 1 ? groupsQF.length > 0 ? getOverallGoals(groupsQF[floor(i / 4)].id, 0) : '' : ''"></td>
+            [innerText]="i % 4 == 1 ? groupsQF.length > 0 ? getOverallGoals(groupsQF[floor(i / 4)].id, 0) : '' : ''">
+          </td>
           <td
             [attr.class]="i % 8 == 5 ? 'border-bottom border-right' : i % 4 == 1 ? 'border-bottom' : i % 8 == 2 || i % 8 == 3 || i % 8 == 4 ? 'border-right' : ''">
           </td>
           <td [attr.class]="i % 8 == 3 ? 'border-bottom' : ''"></td>
           <td [attr.class]="i % 8 == 3 ? 'background' : ''"
-          [innerText]="i % 8 == 3 ? groupsSF.length > 0 ? getTeam(groupsSF[floor(i / 8)].id).split('\n')[0] : 'ElődöntőTeam' : ''">
+            [innerText]="i % 8 == 3 ? groupsSF.length > 0 ? getTeam(groupsSF[floor(i / 8)].id).split('\n')[0] : 'ElődöntőTeam' : ''">
           </td>
           <td [attr.class]="i % 8 == 3 ? 'background' : ''" [colSpan]="tournament.knockoutMatches == 2 ? 1 : 3"
-          [routerLink]="groupsSF.length > 0 ? '/referee/' + getMatchId(groupsSF[floor(i / 8)].id).split('\n')[0] : '/schedule/' + tournament.id"
-          [innerText]="i % 8 == 3 ? groupsSF.length > 0 ? getGoals(groupsSF[floor(i / 8)].id, 0).split('\n')[0] == 'null' ? '-' : getGoals(groupsSF[floor(i / 8)].id, 0).split('\n')[0] : '' : ''"></td>
+            [routerLink]="groupsSF.length > 0 ? '/referee/' + getMatchId(groupsSF[floor(i / 8)].id).split('\n')[0] : '/schedule/' + tournament.id"
+            [innerText]="i % 8 == 3 ? groupsSF.length > 0 ? getGoals(groupsSF[floor(i / 8)].id, 0).split('\n')[0] == 'null' ? '-' : getGoals(groupsSF[floor(i / 8)].id, 0).split('\n')[0] : '' : ''">
+          </td>
           <td [attr.class]="i % 8 == 3 ? 'background' : ''" *ngIf="tournament.knockoutMatches == 2"
-          [routerLink]="groupsSF.length > 0 ? '/referee/' + getMatchId(groupsSF[floor(i / 8)].id).split('\n')[1] : '/schedule/' + tournament.id"
-          [innerText]="i % 8 == 3 ? groupsSF.length > 0 ? getGoals(groupsSF[floor(i / 8)].id, 1).split('\n')[0] == 'null' ? '-' : getGoals(groupsSF[floor(i / 8)].id, 1).split('\n')[0] : '' : ''"></td>
+            [routerLink]="groupsSF.length > 0 ? '/referee/' + getMatchId(groupsSF[floor(i / 8)].id).split('\n')[1] : '/schedule/' + tournament.id"
+            [innerText]="i % 8 == 3 ? groupsSF.length > 0 ? getGoals(groupsSF[floor(i / 8)].id, 1).split('\n')[0] == 'null' ? '-' : getGoals(groupsSF[floor(i / 8)].id, 1).split('\n')[0] : '' : ''">
+          </td>
           <td [attr.class]="i % 8 == 3 ? 'background' : ''" *ngIf="tournament.knockoutMatches == 2"
-          [innerText]="i % 8 == 3 ? groupsSF.length > 0 ? getOverallGoals(groupsSF[floor(i / 8)].id, 0) : '' : ''"></td>
+            [innerText]="i % 8 == 3 ? groupsSF.length > 0 ? getOverallGoals(groupsSF[floor(i / 8)].id, 0) : '' : ''">
+          </td>
           <td
             [attr.class]="i == 11 ? 'border-bottom border-right' : i % 8 == 3 ? 'border-bottom' : i == 4 || i == 5 || i == 6 || i == 7 || i == 8 || i == 9 || i == 10 ? 'border-right' : ''">
           </td>
           <td [attr.class]="i == 7 ? 'border-bottom' : ''"></td>
           <td [attr.class]="i == 7 ? 'background' : ''"
-          [innerText]="i == 7 ? groupsF.length > 0 ? getTeam(groupsF[floor(i / 16)].id).split('\n')[0] : 'DöntőTeam' : ''">
+            [innerText]="i == 7 ? groupsF.length > 0 ? getTeam(groupsF[floor(i / 16)].id).split('\n')[0] : 'DöntőTeam' : ''">
           <td [attr.class]="i == 7 ? 'background' : ''" [colSpan]="tournament.finalMatches == 2 ? 1 : 3"
-          [routerLink]="groupsF.length > 0 ? '/referee/' + getMatchId(groupsF[floor(i / 16)].id).split('\n')[0] : '/schedule/' + tournament.id"
-          [innerText]="i == 7 ? groupsF.length > 0 ? getGoals(groupsF[floor(i / 16)].id, 0).split('\n')[0] == 'null' ? '-' : getGoals(groupsF[floor(i / 16)].id, 0).split('\n')[0] : '' : ''"></td>
+            [routerLink]="groupsF.length > 0 ? '/referee/' + getMatchId(groupsF[floor(i / 16)].id).split('\n')[0] : '/schedule/' + tournament.id"
+            [innerText]="i == 7 ? groupsF.length > 0 ? getGoals(groupsF[floor(i / 16)].id, 0).split('\n')[0] == 'null' ? '-' : getGoals(groupsF[floor(i / 16)].id, 0).split('\n')[0] : '' : ''">
+          </td>
           <td [attr.class]="i == 7 ? 'background' : ''" *ngIf="tournament.finalMatches == 2"
-          [routerLink]="groupsF.length > 0 ? '/referee/' + getMatchId(groupsF[floor(i / 16)].id).split('\n')[1] : '/schedule/' + tournament.id"
-          [innerText]="i == 7 ? groupsF.length > 0 ? getGoals(groupsF[floor(i / 16)].id, 1).split('\n')[0] == 'null' ? '-' : getGoals(groupsF[floor(i / 16)].id, 1).split('\n')[0] : '' : ''"></td>
+            [routerLink]="groupsF.length > 0 ? '/referee/' + getMatchId(groupsF[floor(i / 16)].id).split('\n')[1] : '/schedule/' + tournament.id"
+            [innerText]="i == 7 ? groupsF.length > 0 ? getGoals(groupsF[floor(i / 16)].id, 1).split('\n')[0] == 'null' ? '-' : getGoals(groupsF[floor(i / 16)].id, 1).split('\n')[0] : '' : ''">
+          </td>
           <td [attr.class]="i == 7 ? 'background' : ''" *ngIf="tournament.finalMatches == 2"
-          [innerText]="i == 7 ? groupsF.length > 0 ? getOverallGoals(groupsF[floor(i / 16)].id, 0) : '' : ''"></td>
+            [innerText]="i == 7 ? groupsF.length > 0 ? getOverallGoals(groupsF[floor(i / 16)].id, 0) : '' : ''"></td>
         </tr>
       </tbody>
     </table>

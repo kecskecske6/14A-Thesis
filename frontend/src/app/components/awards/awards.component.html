@@ -1,0 +1,22 @@
+<div class="container">
+    <h2>Díjak kiosztása</h2>
+    <br>
+    <form>
+        <label for="best">Legjobb játékos</label>
+        <select name="best" id="best" [(ngModel)]="tournament.bestPlayer">
+            <option *ngFor="let player of players" [value]="player.name">{{player.name}}</option>
+        </select>
+        <br>
+        <label for="topScorer">Legtöbb gól</label>
+        <select name="topScorer" id="topScorer" [(ngModel)]="tournament.topScorer">
+            <option *ngFor="let player of players" [value]="player.name">{{player.name}}</option>
+        </select>
+        <br>
+        <label for="bestGk">Legjobb kapus</label>
+        <select name="bestGk" id="bestGk" [(ngModel)]="tournament.bestGoalkeeper">
+            <option *ngFor="let player of players" [value]="player.name">{{player.name}}</option>
+        </select>
+        <br>
+        <button class="btn btn-primary" (click)="send()">Véglegesítés</button>
+    </form>
+</div>

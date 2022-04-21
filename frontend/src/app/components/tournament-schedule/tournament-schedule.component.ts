@@ -50,6 +50,10 @@ export class TournamentScheduleComponent implements OnInit {
     this.getMatches();
   }
 
+  every(): boolean {
+    return this.matches.every(m => m.team1Goals != null);
+  }
+
   getMatches(): void {
     this.matchService.getByTournamentId(Number(this.router.url.substring(this.router.url.lastIndexOf('/') + 1))).subscribe(
       result => {
