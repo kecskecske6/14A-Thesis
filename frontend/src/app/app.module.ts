@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, Title } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -75,7 +75,7 @@ import { AwardsComponent } from './components/awards/awards.component';
     }),
     BrowserAnimationsModule
   ],
-  providers: [{ provide: RECAPTCHA_SETTINGS, useValue: { siteKey: "6LfQDTgdAAAAALWxXWzzcQLexj0O6P7C-CGXXNHW", } as RecaptchaSettings, }, Title, 
+  providers: [{ provide: RECAPTCHA_SETTINGS, useValue: { siteKey: "6LfQDTgdAAAAALWxXWzzcQLexj0O6P7C-CGXXNHW", } as RecaptchaSettings, },
               {provide: HTTP_INTERCEPTORS, useClass:TokenInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })

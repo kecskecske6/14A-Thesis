@@ -23,13 +23,13 @@
           <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">Adatbázis</a>
           <div class="dropdown-menu" aria-labelledby="dropdownId">
-            <a class="dropdown-item" routerLink="/database/tournaments" (click)="setTitle('Tornák')">Tornák</a>
-            <a class="dropdown-item" routerLink="/database/players" (click)="setTitle('Játékosok')">Játékosok</a>
+            <a class="dropdown-item" routerLink="/database/tournaments">Tornák</a>
+            <a class="dropdown-item" routerLink="/database/players">Játékosok</a>
           </div>
         </li>
       </ul>
-      <input *ngIf="!userService.userName" type="button" value="Belépés" class="btn-outline-success btn-light btn button" routerLink="/login" (click)="setTitle('Belépés')">
-      <input *ngIf="!userService.userName" type="button" value="Regisztráció" class="btn btn-success button" routerLink="/register" (click)="setTitle('Regisztráció')">
+      <input *ngIf="!userService.userName" type="button" value="Belépés" class="btn-outline-success btn-light btn button" routerLink="/login">
+      <input *ngIf="!userService.userName" type="button" value="Regisztráció" class="btn btn-success button" routerLink="/register">
 
       <div *ngIf="userService.userName" class="me-3">
       <a class="dropdown-toggle" data-bs-toggle="dropdown" role="button" >{{userService.userName}}</a>
