@@ -2,16 +2,16 @@
   <h1 class="text-center">Aktuális tornáim</h1>
 
   <div class="row row-cols-auto justify-content-around mx-auto">
-    <div class="card m-4 col" style="width: 18rem;" *ngFor="let tournament of tournaments">
-      <img src="../../../assets/logo.png" class="card-img-top" alt="...">
+    <div class="card m-4 col" style="width: 20rem;" *ngFor="let tournament of tournaments">
+      <span class="mx-auto mt-5 mb-4 cardhead">FOOT TOUR</span>
       <hr class="mb-1">
       <div class="card-body text-center">
         <h4 class="card-title text-center">{{tournament.name}}</h4>
         <p class="card-text mt-4 text-start">
-          Szervező: {{organizer}} <br>
-          Helyszín: {{tournament.location + ' (' + tournament.county + ')'}} <br>
-          Nevezési díj: {{tournament.entryFee}} Ft<br>
-          Időpont: {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}
+          <b> Szervező: </b> {{organizer}} <br>
+          <b> Helyszín: </b> {{tournament.location + ' (' + tournament.county + ')'}} <br>
+          <b> Nevezési díj: </b> {{tournament.entryFee}} Ft<br>
+          <b> Időpont: </b> {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}
         </p>
         <input type="button" class="btn btn-primary btn-large" value="Részletek"
           [routerLink]="'/mytournaments/' + tournament.id">
@@ -23,16 +23,16 @@
   <h1 class="text-center">Korábbi tornáim</h1>
 
   <div class="row row-cols-auto justify-content-around mx-auto">
-    <div class="card m-4 col" style="width: 18rem;" *ngFor="let tournament of earlierTournaments">
-      <img src="../../../assets/logo.png" class="card-img-top" alt="...">
+    <div class="card m-4 col" style="width: 20rem;" *ngFor="let tournament of earlierTournaments">
+      <span class="mx-auto mt-5 mb-4 cardhead">FOOT TOUR</span>
       <hr class="mb-1">
       <div class="card-body text-center">
         <h4 class="card-title text-center">{{tournament.name}}</h4>
         <p class="card-text mt-4 text-start">
-          Szervező: {{organizer}} <br>
-          Helyszín: {{tournament.location + ' (' + tournament.county + ')'}} <br>
-          Nevezési díj: {{tournament.entryFee}} Ft<br>
-          Időpont: {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}
+          <b> Szervező: </b> {{organizer}} <br>
+          <b> Helyszín: </b> {{tournament.location + ' (' + tournament.county + ')'}} <br>
+          <b> Nevezési díj: </b> {{tournament.entryFee}} Ft<br>
+          <b> Időpont: </b> {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}
         </p>
         <input type="button" class="btn btn-primary btn-large" value="Részletek">
       </div>
