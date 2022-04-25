@@ -16,12 +16,14 @@ export class TournamentInfoComponent implements OnInit {
   tournament: TournamentModel = new TournamentModel();
   teams: Team[] = [];
   organizerName = '';
+  type: string = '';
 
   constructor(private tournamentService: TournamentService, private teamService: TeamService, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
     this.getTournamentInfo();
     this.getTeams();
+    this.type = localStorage.getItem('type')!;
   }
 
   getTournamentInfo(): void {

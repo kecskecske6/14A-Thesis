@@ -7,25 +7,11 @@
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
       <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="#about">Az oldalról</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#aboutus">Rólunk</a>
-        </li>
-        <li class="nav-item">
-          <a href="#contact" class="nav-link">Kapcsolat</a>
-        </li>
         <li *ngIf="userService.userName" class="nav-item">
           <a routerLink="/mytournaments" class="nav-link">Tornáim</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">Adatbázis</a>
-          <div class="dropdown-menu" aria-labelledby="dropdownId">
-            <a class="dropdown-item" routerLink="/database/tournaments">Tornák</a>
-            <a class="dropdown-item" routerLink="/database/players">Játékosok</a>
-          </div>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/database/tournaments">Elérhető tornák</a>
         </li>
       </ul>
       <input *ngIf="!userService.userName" type="button" value="Belépés" class="btn-outline-success btn-light btn button" routerLink="/login">

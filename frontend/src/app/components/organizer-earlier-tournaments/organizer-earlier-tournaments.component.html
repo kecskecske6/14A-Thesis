@@ -34,11 +34,11 @@
           <b> Nevezési díj: </b> {{tournament.entryFee}} Ft<br>
           <b> Időpont: </b> {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}
         </p>
-        <input type="button" class="btn btn-primary btn-large" value="Részletek">
+        <input type="button" class="btn btn-primary btn-large" [routerLink]="'/schedule/' + tournament.id" value="Részletek">
       </div>
     </div>
   </div>
-  <div>
+  <div *ngIf="type == 'organizer'">
     <button id="new" routerLink="/newtournament">+</button>
   </div>
 </div>

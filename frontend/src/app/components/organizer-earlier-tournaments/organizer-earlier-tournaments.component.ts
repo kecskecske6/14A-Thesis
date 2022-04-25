@@ -14,12 +14,14 @@ export class OrganizerEarlierTournamentsComponent implements OnInit {
   tournaments: TournamentModel[] = [];
   earlierTournaments: TournamentModel[] = [];
   organizer: string = '';
+  type: string = '';
 
   constructor(private tournamentService: TournamentService, private auth: AuthService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.getTournaments();
     this.getOrganizerName();
+    this.type = localStorage.getItem('type')!;
   }
   getTournaments(): void {
     this.tournamentService.getAllByUserId(Number(this.auth.getId())).subscribe(

@@ -3,6 +3,8 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 use \Firebase\JWT\JWT;
 
+use function PHPSTORM_META\type;
+
 define('SECRET_KEY', 'FootTourSecret');
 define('ALGORITHM', 'HS256');
 
@@ -35,6 +37,23 @@ class UserController{
             array_push($users,$row);
         }
         return $users;
+    }
+
+    function getTypeOfTheUser($conn, $id){
+        $sql = "SELECT * FROM foottour.users WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        if($stmt === false) return false;
+        $id = htmlspecialchars(strip_tags($id));
+        $stmt->bind_param("i",$id);
+        if ($stmt->execute() === false) return false;
+        $result = $stmt->get_result();
+        $result = $result->fetch_object();
+        if($result->isOrganizer == true)
+            return "organizer";
+        elseif($result->isReferee == true)
+            return "referee";
+        else
+            return "leader";
     }
 
     function login($conn, $postdata)
@@ -72,12 +91,14 @@ class UserController{
             );
             http_response_code(200);
             $jwt = JWT::encode($token, SECRET_KEY);
+            $uc = new UserController();
             $data_insert = array(
                 'access_token' => $jwt,
                 'time' => time(),
                 'status' => "success",
                 'id' => $row[0],
-                'name' => $row[1]
+                'name' => $row[1],
+                'type' => $uc->getTypeOfTheUser($conn, $row[0])
             );
             return $data_insert;
         }

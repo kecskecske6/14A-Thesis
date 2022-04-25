@@ -23,8 +23,8 @@
         {
             if($tc->registerTeam($conn,$postdata,$pc)) echo json_encode(array("message" => "Sikeres regisztráció!"));
             else{
-                http_response_code(500);
-                echo json_encode(array("message" => "Unexpected error!"));
+                http_response_code(400);
+                echo json_encode(array("message" => "Már regisztrált erre a tornára!"));
             }
         }
     }

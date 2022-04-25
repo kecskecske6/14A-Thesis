@@ -7,4 +7,5 @@ export interface LoginResponse {
     id: number;
     status: string;
     message: string;
+    type: string;
 }
