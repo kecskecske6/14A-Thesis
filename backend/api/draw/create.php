@@ -9,7 +9,7 @@ $dc = new DrawController();
 $db = new DB();
 $conn = $db->getConnection();
 
-if($auth->authorize() != null){
+if($auth->authorize() == "organizer"){
     $postdata = json_decode(file_get_contents("php://input"));
     echo json_encode($dc->makeDraw($conn, $postdata));
 }

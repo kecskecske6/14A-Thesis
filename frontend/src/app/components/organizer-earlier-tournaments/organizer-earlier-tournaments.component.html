@@ -8,7 +8,7 @@
       <div class="card-body text-center">
         <h4 class="card-title text-center">{{tournament.name}}</h4>
         <p class="card-text mt-4 text-start">
-          <b> Szervező: </b> {{organizer}} <br>
+          <b> Szervező: </b> {{tournament.organizerName}} <br>
           <b> Helyszín: </b> {{tournament.location + ' (' + tournament.county + ')'}} <br>
           <b> Nevezési díj: </b> {{tournament.entryFee}} Ft<br>
           <b> Időpont: </b> {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}
@@ -29,16 +29,16 @@
       <div class="card-body text-center">
         <h4 class="card-title text-center">{{tournament.name}}</h4>
         <p class="card-text mt-4 text-start">
-          <b> Szervező: </b> {{organizer}} <br>
+          <b> Szervező: </b> {{tournament.organizerName}} <br>
           <b> Helyszín: </b> {{tournament.location + ' (' + tournament.county + ')'}} <br>
           <b> Nevezési díj: </b> {{tournament.entryFee}} Ft<br>
           <b> Időpont: </b> {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}
         </p>
-        <input type="button" class="btn btn-primary btn-large" value="Részletek">
+        <input type="button" class="btn btn-primary btn-large" [routerLink]="'/schedule/' + tournament.id" value="Részletek">
       </div>
     </div>
   </div>
-  <div>
+  <div *ngIf="type == 'organizer'">
     <button id="new" routerLink="/newtournament">+</button>
   </div>
 </div>

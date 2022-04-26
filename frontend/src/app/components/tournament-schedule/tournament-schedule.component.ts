@@ -18,6 +18,8 @@ import { TournamentService } from 'src/app/services/tournament.service';
 })
 export class TournamentScheduleComponent implements OnInit {
 
+  type: string = '';
+
   teamstoGroups: TeamstoGroupsModel[] = [];
 
   teams: TeamModel[] = [];
@@ -48,6 +50,7 @@ export class TournamentScheduleComponent implements OnInit {
     this.getGroups();
     this.getTournament();
     this.getMatches();
+    this.type = localStorage.getItem('type')!;
   }
 
   every(): boolean {

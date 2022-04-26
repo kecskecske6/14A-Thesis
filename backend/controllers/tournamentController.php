@@ -1,5 +1,4 @@
 <?php
-
   class TournamentController{
 
     function getAll($conn) {
@@ -24,19 +23,62 @@
         return $result->fetch_object();
     }
     
-    function getByOrganizerId($conn, $id){
-            $sql = "SELECT * from foottour.tournaments WHERE organizerId = ?";
-            $stmt = $conn->prepare($sql);
-            if ($stmt === false) return false;
-            $id = htmlspecialchars(strip_tags($id));
-            $stmt->bind_param("i",$id);
-            if ($stmt->execute() === false) return false;
-            $result = $stmt->get_result();
-            $tournaments = array();
-            while($row = $result->fetch_object()){
-                array_push($tournaments,$row);
-            }
-            return $tournaments;
+    function getByOrganizerId($conn, $id, $uc){
+        $sql = "SELECT * from foottour.tournaments WHERE organizerId = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
+        $id = htmlspecialchars(strip_tags($id));
+        $stmt->bind_param("i",$id);
+        if ($stmt->execute() === false) return false;
+        $result = $stmt->get_result();
+        $tournaments = array();
+        while($row = $result->fetch_object()){
+            $row->organizerName = $uc->getNameById($conn,$row->organizerId);
+            array_push($tournaments,$row);
+        }
+        return $tournaments;
+    }
+
+    function getByLeaderId($conn, $id, $uc){
+        $sql = "SELECT tournaments.* FROM teams_to_tournaments
+                INNER JOIN tournaments
+                    ON teams_to_tournaments.tournamentId = tournaments.id
+                INNER JOIN teams
+                    ON teams_to_tournaments.teamId = teams.id
+                WHERE teams.leaderId = ?";
+         $stmt = $conn->prepare($sql);
+         if ($stmt === false) return false;
+         $id = htmlspecialchars(strip_tags($id));
+         $stmt->bind_param("i",$id);
+         if ($stmt->execute() === false) return false;
+         $result = $stmt->get_result();
+         $tournaments = array();
+         while($row = $result->fetch_object()){
+            $row->organizerName = $uc->getNameById($conn,$row->organizerId);
+            array_push($tournaments,$row);
+         }
+         return $tournaments;
+    }
+
+    function getByRefereeId($conn, $id, $uc){
+        $sql = "SELECT
+        tournaments.*
+      FROM referees_to_tournaments
+        INNER JOIN tournaments
+          ON referees_to_tournaments.tournamentId = tournaments.id
+      WHERE referees_to_tournaments.refereeId = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
+        $id = htmlspecialchars(strip_tags($id));
+        $stmt->bind_param("i",$id);
+        if ($stmt->execute() === false) return false;
+        $result = $stmt->get_result();
+        $tournaments = array();
+        while($row = $result->fetch_object()){
+           $row->organizerName = $uc->getNameById($conn,$row->organizerId);
+           array_push($tournaments,$row);
+        }
+        return $tournaments;
     }
 
     function createTournament($conn, $postdata){
@@ -141,7 +183,7 @@
         return $tournaments;
     }
 
-    function getAvailable($conn){
+    function getAvailable($conn, $uc){
         $sql = "SELECT * from foottour.tournaments WHERE startDate > NOW()";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
@@ -149,6 +191,7 @@
         $result = $stmt->get_result();
         $tournaments = array();
         while($row = $result->fetch_object()){
+            $row->organizerName = $uc->getNameById($conn,$row->organizerId);
             array_push($tournaments,$row);
         }
         return $tournaments;

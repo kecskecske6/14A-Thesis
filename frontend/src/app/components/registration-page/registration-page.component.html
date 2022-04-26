@@ -6,6 +6,14 @@
         <form class="d-flex row justify-content-center align-items-center">
             <div id="registerFormBody">
                 <div class="mb-4 mt-4 col-md-12">
+                    <label for="registerInputName" class="form-label">Név</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope-fill d-flex"></i></span>
+                        <input id="registerInputName" type="text" class="form-control" name="name"
+                            placeholder="Kis Pista" [(ngModel)]="model.name">
+                    </div>
+                </div>
+                <div class="mb-4 mt-4 col-md-12">
                     <label for="registerInputEmail" class="form-label">Email</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-envelope-fill d-flex"></i></span>

@@ -41,7 +41,7 @@
             JWT::$leeway = 10;
             $decoded = JWT::decode($jwt, $key, array('HS256'));
             if(checkExpire($jwt, $key, $decoded) == true){
-            return $decoded;
+            return $decoded->type;
             }
             else{
               return null;

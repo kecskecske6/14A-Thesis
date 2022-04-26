@@ -20,17 +20,17 @@ const routes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegistrationPageComponent },
-  { path: 'database/tournaments',canActivate:[AuthGuard], component: AvailableTournamentsComponent },
-  { path: 'mytournaments', canActivate:[AuthGuard], component: OrganizerEarlierTournamentsComponent },
-  { path: 'database/tournaments/:tournamentinfo', canActivate:[AuthGuard], component: TournamentInfoComponent },
-  { path: 'matchreport/:id', canActivate:[AuthGuard], component: MatchReportComponent },
-  { path: 'mytournaments/:id', canActivate:[AuthGuard], component: OrganizerTournamentDashboardComponent },
-  { path: 'referee/:id', canActivate:[AuthGuard], component: RefereeMatchReportComponent },
-  { path: 'schedule/:id', canActivate:[AuthGuard], component: TournamentScheduleComponent },
-  { path: 'draw/:id', canActivate:[AuthGuard], component: DrawComponent },
-  { path: 'teamregistration/:id', canActivate:[AuthGuard], component: TeamRegistrationToTournamentsComponent },
-  { path: 'newtournament', canActivate: [AuthGuard], component: NewTournamentComponent },
-  { path: 'awards/:id', canActivate: [AuthGuard], component: AwardsComponent }
+  { path: 'availabletournaments', component: AvailableTournamentsComponent },
+  { path: 'mytournaments', canActivate:[AuthGuard], data:{role: "any"}, component: OrganizerEarlierTournamentsComponent },
+  { path: 'tournament/:tournamentinfo', component: TournamentInfoComponent },
+  { path: 'matchreport/:id', component: MatchReportComponent },
+  { path: 'mytournaments/:id', canActivate:[AuthGuard], data:{role: "any"}, component: OrganizerTournamentDashboardComponent },
+  { path: 'referee/:id', canActivate:[AuthGuard], data:{role: "referee"}, component: RefereeMatchReportComponent },
+  { path: 'schedule/:id', component: TournamentScheduleComponent },
+  { path: 'draw/:id', canActivate:[AuthGuard], data:{role: "organizer"}, component: DrawComponent },
+  { path: 'teamregistration/:id', canActivate:[AuthGuard], data:{role: "leader"}, component: TeamRegistrationToTournamentsComponent },
+  { path: 'newtournament', canActivate: [AuthGuard], data:{role: "organizer"}, component: NewTournamentComponent },
+  { path: 'awards/:id', canActivate: [AuthGuard], data:{role: "organizer"}, component: AwardsComponent }
 ];
 
 @NgModule({

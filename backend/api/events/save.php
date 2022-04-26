@@ -11,7 +11,7 @@ $db = new DB();
 $conn = $db->getConnection();
 
 
-if($auth->authorize() != null){
+if($auth->authorize() == "referee"){
     $postdata = json_decode(file_get_contents("php://input"));
     if($ec->createEvents($conn, $postdata)){
         http_response_code(200);

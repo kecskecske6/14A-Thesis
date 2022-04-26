@@ -3,6 +3,7 @@ import { Tournament } from "../interfaces/tournament";
 export class TournamentModel implements Tournament {
   id = 0;
   organizerId = 0;
+  organizerName = '';
   startDate: Date = new Date();
   endDate: Date = new Date();
   name = '';
@@ -23,6 +24,7 @@ export class TournamentModel implements Tournament {
     if (model) {
       this.id = Number(model.id);
       this.organizerId = Number(model.organizerId);
+      this.organizerName = model.organizerName;
       this.startDate = new Date(model.startDate);
       this.endDate = new Date(model.endDate);
       this.name = model.name;
