@@ -1,5 +1,4 @@
 <?php
-
   class TournamentController{
 
     function getAll($conn) {
@@ -161,7 +160,7 @@
         return $tournaments;
     }
 
-    function getAvailable($conn){
+    function getAvailable($conn, $uc){
         $sql = "SELECT * from foottour.tournaments WHERE startDate > NOW()";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) return false;
@@ -169,6 +168,7 @@
         $result = $stmt->get_result();
         $tournaments = array();
         while($row = $result->fetch_object()){
+            $row->organizerName = $uc->getNameById($conn,$row->organizerId);
             array_push($tournaments,$row);
         }
         return $tournaments;

@@ -18,7 +18,8 @@ class UserController{
         $stmt->bind_param("i",$id);
         if ($stmt->execute() === false) return false;
         $result = $stmt->get_result();
-        return $result->fetch_object();
+        $result = $result->fetch_object();
+        return $result->name;
     }
 
     function getByType($conn, $type) {

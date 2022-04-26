@@ -65,7 +65,7 @@
     <div class="card-body text-center">
       <h4 class="card-title text-center">{{tournament.name}}</h4>
       <p class="card-text mt-4 text-start">
-        <b> Szervező: </b> {{organizers[i]}} <br>
+        <b> Szervező: </b> {{tournament.organizerName}} <br>
         <b> Helyszín: </b> {{tournament.location + ' (' + tournament.county + ')'}} <br>
         <b> Nevezési díj: </b> {{tournament.entryFee}} Ft<br>
         <b> Időpont: </b> {{tournament.startDate | date: "yyyy.MM.dd hh:mm"}}
