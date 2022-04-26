@@ -39,6 +39,10 @@ export class UserService {
    this.userName = null;
   }
 
+  getTypeOfTheUser(id: number): Observable<string>{
+    return this.http.get<string>(`${environment.backendURL}/api/users/getType.php?id=${id}`);
+  }
+
   getByType(type: string): Observable<UserModel[]> {
     return this.http.get<UserModel[]>(`${environment.backendURL}/api/users/list.php?type=${type}`);
   }
