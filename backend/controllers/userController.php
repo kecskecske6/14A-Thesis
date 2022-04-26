@@ -37,6 +37,10 @@ class UserController{
         return $users;
     }
 
+    function getByTournamentId($conn, $id) {
+        
+    }
+
     function login($conn, $postdata)
     {
         $sql = "SELECT * from foottour.users where email = '" . $postdata->email . "';";

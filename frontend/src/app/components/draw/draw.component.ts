@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TeamModel } from 'src/app/models/Team';
 import { TournamentModel } from 'src/app/models/Tournament';
+import { UserModel } from 'src/app/models/User';
 import { DrawService } from 'src/app/services/draw.service';
 import { GroupService } from 'src/app/services/group.service';
 import { TeamService } from 'src/app/services/team.service';
 import { TournamentService } from 'src/app/services/tournament.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-draw',
@@ -16,11 +18,23 @@ export class DrawComponent implements OnInit {
 
   tournament = new TournamentModel();
 
+  referee: UserModel = new UserModel();
+
   teams: TeamModel[] = [];
+
+  referees: UserModel[] = [];
 
   enableDraw = true;
 
-  constructor(private router: Router, private tournamentService: TournamentService, private teamService: TeamService, private drawService: DrawService, private groupService: GroupService) { }
+  id: number = 0;
+
+  underModify = {
+    status: false,
+    index: -1,
+    id: 0
+  }
+
+  constructor(private router: Router, private tournamentService: TournamentService, private teamService: TeamService, private drawService: DrawService, private groupService: GroupService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.getTournamentInfo();
@@ -30,7 +44,7 @@ export class DrawComponent implements OnInit {
   draw() {
     this.tournamentService.modify(this.tournament).subscribe(
       result => {
-        this.drawService.create(this.tournament, this.teams).subscribe(
+        this.drawService.create(this.tournament, this.teams, this.referees).subscribe(
           result => console.log(result),
           error => console.log(error)
         );
@@ -65,6 +79,61 @@ export class DrawComponent implements OnInit {
       },
       error => console.log(error)
     );
+  }
+
+  modify(index: number, referee: UserModel) {
+    this.underModify.status = true;
+    this.underModify.index = index;
+    this.underModify.id = referee.id;
+  }
+
+  deletePlayer(index: number) {
+    this.referees.splice(index, 1);
+  }
+
+  checkDuplicateNumbers() {
+    if (this.referees.some(p => p.id === this.id)) return true;
+    return false;
+  }
+
+  savePlayer() {
+    if (this.id > 0 && this.underModify.status == false) {
+      if (!this.checkDuplicateNumbers()) {
+        this.referee.id = this.id;
+        this.userService.getById(this.referee.id).subscribe(
+          result => {
+            this.referee.name = result.name;
+            this.referees.push(this.referee);
+            this.referee = new UserModel();
+            this.id = 0;
+            console.log(this.referees);
+          },
+          error => console.log(error)
+        );
+      }
+      else {
+        console.log("Már létezik ilyen mezszámú játékos!");
+      }
+    }
+    else {
+      console.log("Rosszu")
+      //TODO helytelen adat alert
+    }
+  }
+
+  stopModifyWithSave(index: number, referee: UserModel) {
+    if (!this.checkDuplicateNumbers()) {
+      referee.id = this.underModify.id;
+      this.referees[index] = referee;
+      this.stopModify();
+    }
+    else console.log("Már létezik ilyen mezszámú játékos!");
+  }
+
+  stopModify() {
+    this.underModify.status = false;
+    this.underModify.id = 0;
+    this.underModify.index = -1;
   }
 
 }

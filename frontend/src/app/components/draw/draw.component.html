@@ -22,6 +22,39 @@
       <option value="2">2</option>
     </select>
   </div>
+  <table class="table col-lg-12 mb-5 mt-3 mx-auto">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center col-1">Bíró azonosítója</th>
+        <th scope="col" class="text-center col-9">Név</th>
+        <th scope="col" class="col-2"></th>
+      </tr>
+    </thead>
+    <tbody class="align-middle text-center">
+        <tr>
+            <th scope="row"><input [disabled]="underModify.status" [(ngModel)] = 'id' type="number" class="w-75 text-center ps-3" name="" id="inPlayerKitNumber" placeholder="10"></th>
+            <td class="pb-3 text-center"><i *ngIf="!underModify.status" (click)="savePlayer()" class="bi bi-check-circle"></i></td>
+        </tr>
+        <tr *ngFor="let referee of referees let i = index" [attr.data-index]="i">
+          <ng-template [ngIf] = "underModify.status == false || underModify.index != i" [ngIfElse] = "modifyPlayer">
+          <!-- Csak azt az egyet modosítsd -->
+          <th class="align-middle pe-2" scope="row">{{referee.id}}</th>
+          <td class="text-center align-middle">{{referee.name}}</td>
+          <td>
+            <i (click)="modify(i, referees[i])" class="bi bi-pencil me-1 text-start"></i>
+            <i (click)="deletePlayer(i)" class="bi bi-trash ms-1 text-end"></i>
+          </td>
+        </ng-template>
+        <ng-template #modifyPlayer>
+          <th scope="row"><input [(ngModel)] = 'underModify.id' type="number" class="w-75 text-center ps-3" name="" id="" placeholder="10"></th>
+          <td class="pb-3 text-center">
+            <i (click)="stopModifyWithSave(i, referees[i])" class="bi bi-check-circle me-1"></i>
+            <i (click)="stopModify()" class="bi bi-x-circle ms-1"></i>
+          </td>
+        </ng-template>
+        </tr>
+    </tbody>
+</table>
   <hr>
   <div class="text-center">
     <input [disabled]="!enableDraw" type="button" value="Sorsolás" class="btn btn-primary" (click)="draw()">
