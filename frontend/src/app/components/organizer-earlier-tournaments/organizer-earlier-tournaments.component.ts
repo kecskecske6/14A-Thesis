@@ -13,14 +13,12 @@ export class OrganizerEarlierTournamentsComponent implements OnInit {
 
   tournaments: TournamentModel[] = [];
   earlierTournaments: TournamentModel[] = [];
-  organizer: string = '';
   type: string = '';
 
-  constructor(private tournamentService: TournamentService, private auth: AuthService, private userService: UserService) { }
+  constructor(private tournamentService: TournamentService, private auth: AuthService) { }
 
   ngOnInit(): void {
     this.getTournaments();
-    this.getOrganizerName();
     this.type = localStorage.getItem('type')!;
   }
   getTournaments(): void {
@@ -37,12 +35,5 @@ export class OrganizerEarlierTournamentsComponent implements OnInit {
           this.auth.logout();
         }
       });
-  }
-
-  getOrganizerName(): void {
-    this.userService.getById(Number(this.auth.getId())).subscribe(
-      result => this.organizer = result.name,
-      error => console.log(error)
-    );
   }
 }

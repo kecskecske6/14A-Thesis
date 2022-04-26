@@ -13,7 +13,7 @@
     $db = new DB();
     $conn = $db->getConnection();
     
-    if($auth->authorize() != null){
+    if($auth->authorize() == "leader"){
         $postdata = json_decode(file_get_contents("php://input"));
         if(!isset($postdata->leaderId) || !isset($postdata->tournamentId) || !isset($postdata->players) || !isset($postdata->teamName)){
             http_response_code(400);

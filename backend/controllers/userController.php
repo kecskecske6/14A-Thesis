@@ -59,6 +59,7 @@ class UserController{
 
     function login($conn, $postdata)
     {
+        $uc = new UserController();
         $sql = "SELECT * from foottour.users where email = '" . $postdata->email . "';";
         $result = $conn->query($sql);
         $count = mysqli_num_rows($result);
@@ -88,11 +89,11 @@ class UserController{
                 "iat" => $iat,
                 "nbf" => $nbf,
                 "exp" => $exp,
-                "data" => $user
+                "data" => $user,
+                'type' => $uc->getTypeOfTheUser($conn, $row[0])
             );
             http_response_code(200);
             $jwt = JWT::encode($token, SECRET_KEY);
-            $uc = new UserController();
             $data_insert = array(
                 'access_token' => $jwt,
                 'time' => time(),

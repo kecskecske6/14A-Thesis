@@ -11,7 +11,7 @@ $mc = new MatchController();
 $db = new DB();
 $conn = $db->getConnection();
 
-if($auth->authorize() != null){
+if($auth->authorize() == "referee"){
     
     $postdata = json_decode(file_get_contents("php://input"));
     if($mc->saveMatch($conn, $postdata)){
