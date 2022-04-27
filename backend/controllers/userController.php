@@ -38,7 +38,18 @@ class UserController{
     }
 
     function getByTournamentId($conn, $id) {
-        
+        $sql = "SELECT foottour.users.* from foottour.users inner join foottour.matches on foottour.matches.refereeId = foottour.users.id inner join foottour.groups on foottour.groups.id = foottour.matches.groupId inner join foottour.tournaments on foottour.tournaments.id = foottour.groups.tournamentId where foottour.tournaments.id = ? group by foottour.users.id;";
+        $stmt = $conn->prepare($sql);
+        if ($stmt == false) return false;
+        $id = htmlspecialchars(strip_tags($id));
+        $stmt->bind_param("i", $id);
+        if ($stmt->execute() == false) return false;
+        $result = $stmt->get_result();
+        $referees = array();
+        while ($row = $result->fetch_object()) {
+            array_push($referees, $row);
+        }
+        return $referees;
     }
 
     function login($conn, $postdata)

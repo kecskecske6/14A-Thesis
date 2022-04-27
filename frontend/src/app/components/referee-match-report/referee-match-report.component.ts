@@ -97,7 +97,7 @@ export class RefereeMatchReportComponent implements OnInit {
     this.match.id = this.id;
     this.match.team1Goals = this.team1Goals;
     this.match.team2Goals = this.team2Goals;
-    this.userService.getByType('referee').subscribe(
+    this.userService.getAllByTournamentId(this.tournamentId).subscribe(
       result => this.referees = result,
       error => console.log(error)
     );
