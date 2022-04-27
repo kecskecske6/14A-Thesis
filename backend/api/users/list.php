@@ -19,6 +19,9 @@
             } elseif (isset($_GET["type"])) {
                 echo json_encode($uc->getByType($conn, $_GET["type"]));
             }
+            elseif (isset($_GET["tournamentId"])) {
+                echo json_encode($uc->getByTournamentId($conn, $_GET["tournamentId"]));
+            }
         } else {
             http_response_code(405);
         }

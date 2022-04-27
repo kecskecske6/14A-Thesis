@@ -46,4 +46,8 @@ export class UserService {
   getByType(type: string): Observable<UserModel[]> {
     return this.http.get<UserModel[]>(`${environment.backendURL}/api/users/list.php?type=${type}`);
   }
+
+  getAllByTournamentId(id: number): Observable<UserModel[]> {
+    return this.http.get<UserModel[]>(`${environment.backendURL}/api/users/list.php?tournamentId=${id}`);
+  }
 }

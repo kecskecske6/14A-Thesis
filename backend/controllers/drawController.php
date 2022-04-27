@@ -57,7 +57,7 @@
                         } while ($doAgain);
                         array_push($orderedTeams, $team);
                     }
-                    $referees = $uc->getByType($conn, "referee");
+                    $referees = $data->referees;
                     $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[0], "team2Id" => $orderedTeams[1], "code" => $g->name . "1-1", "groupId" => $g->id));
                     array_push($matches, $match);
                     $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[3], "team2Id" => $orderedTeams[2], "code" => $g->name . "1-2", "groupId" => $g->id));
@@ -136,7 +136,7 @@
                         } while ($doAgain);
                         array_push($orderedTeams, $team);
                     }
-                    $referees = $uc->getByType($conn, "referee");
+                    $referees = $data->referees;
                     $match = $mc->createMatch($conn, (object)array("refereeId" => $referees[rand(0, count($referees) - 1)]->id, "team1Id" => $orderedTeams[0], "team2Id" => $orderedTeams[1], "code" => $g->name . "-1", "groupId" => $g->id));
                     array_push($matches, $match);
                     if ($data->tournament->knockoutMatches == 2)
