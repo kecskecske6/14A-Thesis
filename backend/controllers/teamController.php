@@ -49,12 +49,25 @@ class TeamController{
     }
 
     function registerTeam($conn, $postdata, $pc){
-        $sql = "INSERT INTO foottour.teams (leaderId, name) VALUES (?,?)";
-        $stmt = $conn->prepare($sql);
-        if ($stmt === false) return false;
         $leaderId = (int)htmlspecialchars(strip_tags($postdata->leaderId));
         $tournamentId = htmlspecialchars(strip_tags($postdata->tournamentId));
         $teamName = htmlspecialchars(strip_tags($postdata->teamName));
+        $sql = "SELECT teams.id
+                FROM teams_to_tournaments
+                INNER JOIN teams
+                    ON teams_to_tournaments.teamId = teams.id
+                WHERE teams.leaderId = ?
+                    AND teams_to_tournaments.tournamentId = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
+        $stmt->bind_param("ii",$leaderId, $tournamentId);
+        if ($stmt->execute() === false) return false;
+        $result = $stmt->get_result();
+        $count = mysqli_num_rows($result);
+        if($count > 0) return false;
+        $sql = "INSERT INTO foottour.teams (leaderId, name) VALUES (?,?)";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) return false;
         
         $stmt->bind_param("is", $leaderId, $teamName);
         if ($stmt->execute() === false) return false;

@@ -1,6 +1,7 @@
 export interface Tournament {
   id: number;
   organizerId: number;
+  organizerName: string,
   startDate: Date;
   endDate: Date;
   name: string;

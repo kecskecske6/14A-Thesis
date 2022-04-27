@@ -43,7 +43,6 @@ export class AvailableTournamentsComponent implements OnInit {
   ngOnInit(): void {
     this.getTournaments();
     var date = new Date();
-    console.log(date);
   }
 
   getTournaments(): void {
@@ -51,7 +50,6 @@ export class AvailableTournamentsComponent implements OnInit {
       (data: TournamentModel[]) => {
         data.forEach(t => {
           this.tournaments.push(new TournamentModel(t));
-          this.getOrganizerName(t.organizerId);
         });
       },
       error => {
@@ -60,13 +58,6 @@ export class AvailableTournamentsComponent implements OnInit {
           this.auth.logout();
         }
       }
-    );
-  }
-
-  getOrganizerName(id: number): void {
-    this.userService.getById(id).subscribe(
-      result => this.organizers.push(result.name),
-      error => console.log(error)
     );
   }
 

@@ -15,11 +15,13 @@ export class OrganizerTournamentDashboardComponent implements OnInit {
 
   teams: Team[] = [];
   tournament: TournamentModel = new TournamentModel();
+  type: string = '';
 
   constructor(private teamService: TeamService, private tournamentService: TournamentService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getTournamentInfo();
+    this.type = localStorage.getItem('type')!;
   }
 
   getTeams(): void {

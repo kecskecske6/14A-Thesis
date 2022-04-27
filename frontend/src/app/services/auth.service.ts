@@ -45,6 +45,7 @@ export class AuthService {
   setUser(resp: LoginResponse) {
     localStorage.setItem('id', resp.id.toString());
     localStorage.setItem('access_token', resp.access_token);
+    localStorage.setItem('type', resp.type);
   }
 
   isLoggedIn() {

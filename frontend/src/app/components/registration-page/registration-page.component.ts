@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class RegistrationPageComponent implements OnInit {
     email: '',
     password: '',
     passwordAgain: '',
-    name: 'Kis Pista'
+    name: ''
   }
 
   token: string | undefined;
@@ -25,7 +26,7 @@ export class RegistrationPageComponent implements OnInit {
     default: true
   }
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     this.token = undefined;
     this.onResize();
   }
@@ -64,7 +65,7 @@ export class RegistrationPageComponent implements OnInit {
     }
       
     this.userService.insert(this.model).subscribe(
-      result => this.userService.userName = result.name,
+      result => this.router.navigate(["/login"]),
       error => console.log(error)
     );
   }
