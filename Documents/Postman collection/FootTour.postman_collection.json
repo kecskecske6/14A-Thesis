@@ -1,0 +1,911 @@
+{
+	"info": {
+		"_postman_id": "1ac778d5-6836-41b3-8451-3fef1a319017",
+		"name": "FootTour",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Draw",
+			"item": [
+				{
+					"name": "Make draw",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tournament\": {\r\n        \"id\": 2,\r\n        \"organizerId\": 3,\r\n        \"startDate\": \"2022-06-06 06:01:16\",\r\n        \"endDate\": \"2022-06-17 22:52:37\",\r\n        \"name\": \"consequatur\",\r\n        \"location\": \"604 Stiedemann Manors\\nLake Ulises, OR 61670-7878\",\r\n        \"county\": \"Zala\",\r\n        \"bestPlayer\": null,\r\n        \"topScorer\": null,\r\n        \"bestGoalkeeper\": null,\r\n        \"entryFee\": 11231,\r\n        \"description\": \"Et cum aliquid et quos. Amet aut dolor tempora. Voluptatem cupiditate consequatur dolor commodi sit ut blanditiis. Corporis ut officiis temporibus et occaecati ea. Eveniet sed nostrum facere. Quos debitis est consequatur odio voluptatibus omnis dolores. Neque amet ullam voluptatem laboriosam. Odit hic id repudiandae minus ipsa aut. Veniam tempora eum modi velit sit. Laudantium reprehenderit doloremque optio nam. Eius libero enim eum autem totam. Voluptate libero facere reiciendis voluptate tenetur. Nisi quos fugit praesentium itaque quae maiores. Est voluptatem rerum perferendis ipsum quae dolor consequatur. Dolores quisquam illum non tempore. Neque neque doloremque qui harum et voluptatem. Est magni numquam reiciendis necessitatibus pariatur sit distinctio voluptas. Qui et numquam molestiae et. Similique est magni unde rerum cum.\",\r\n        \"teamsCount\": 32,\r\n        \"type\": \"Egyenes kieséses\",\r\n        \"groupMatches\": 1,\r\n        \"knockoutMatches\": 1,\r\n        \"finalMatches\": 1\r\n    },\r\n    \"teams\": [\r\n        {\r\n            \"id\": 9,\r\n            \"leaderId\": 2,\r\n            \"name\": \"et\"\r\n        },\r\n        {\r\n            \"id\": 10,\r\n            \"leaderId\": 2,\r\n            \"name\": \"id\"\r\n        },\r\n        {\r\n            \"id\": 11,\r\n            \"leaderId\": 3,\r\n            \"name\": \"nesciunt\"\r\n        },\r\n        {\r\n            \"id\": 12,\r\n            \"leaderId\": 2,\r\n            \"name\": \"deserunt\"\r\n        },\r\n        {\r\n            \"id\": 13,\r\n            \"leaderId\": 5,\r\n            \"name\": \"aliquam\"\r\n        },\r\n        {\r\n            \"id\": 14,\r\n            \"leaderId\": 6,\r\n            \"name\": \"nemo\"\r\n        },\r\n        {\r\n            \"id\": 15,\r\n            \"leaderId\": 6,\r\n            \"name\": \"adipisci\"\r\n        },\r\n        {\r\n            \"id\": 16,\r\n            \"leaderId\": 6,\r\n            \"name\": \"explicabo\"\r\n        },\r\n        {\r\n            \"id\": 17,\r\n            \"leaderId\": 6,\r\n            \"name\": \"quidem\"\r\n        },\r\n        {\r\n            \"id\": 18,\r\n            \"leaderId\": 6,\r\n            \"name\": \"explicabo\"\r\n        },\r\n        {\r\n            \"id\": 19,\r\n            \"leaderId\": 1,\r\n            \"name\": \"iste\"\r\n        },\r\n        {\r\n            \"id\": 20,\r\n            \"leaderId\": 4,\r\n            \"name\": \"in\"\r\n        },\r\n        {\r\n            \"id\": 21,\r\n            \"leaderId\": 3,\r\n            \"name\": \"aspernatur\"\r\n        },\r\n        {\r\n            \"id\": 22,\r\n            \"leaderId\": 5,\r\n            \"name\": \"iste\"\r\n        },\r\n        {\r\n            \"id\": 23,\r\n            \"leaderId\": 1,\r\n            \"name\": \"ab\"\r\n        },\r\n        {\r\n            \"id\": 24,\r\n            \"leaderId\": 5,\r\n            \"name\": \"explicabo\"\r\n        },\r\n        {\r\n            \"id\": 25,\r\n            \"leaderId\": 4,\r\n            \"name\": \"quis\"\r\n        },\r\n        {\r\n            \"id\": 26,\r\n            \"leaderId\": 2,\r\n            \"name\": \"laboriosam\"\r\n        },\r\n        {\r\n            \"id\": 27,\r\n            \"leaderId\": 4,\r\n            \"name\": \"rerum\"\r\n        },\r\n        {\r\n            \"id\": 28,\r\n            \"leaderId\": 3,\r\n            \"name\": \"officiis\"\r\n        },\r\n        {\r\n            \"id\": 29,\r\n            \"leaderId\": 5,\r\n            \"name\": \"quam\"\r\n        },\r\n        {\r\n            \"id\": 30,\r\n            \"leaderId\": 2,\r\n            \"name\": \"nisi\"\r\n        },\r\n        {\r\n            \"id\": 31,\r\n            \"leaderId\": 1,\r\n            \"name\": \"dolor\"\r\n        },\r\n        {\r\n            \"id\": 32,\r\n            \"leaderId\": 3,\r\n            \"name\": \"facilis\"\r\n        },\r\n        {\r\n            \"id\": 33,\r\n            \"leaderId\": 3,\r\n            \"name\": \"provident\"\r\n        },\r\n        {\r\n            \"id\": 34,\r\n            \"leaderId\": 2,\r\n            \"name\": \"inventore\"\r\n        },\r\n        {\r\n            \"id\": 35,\r\n            \"leaderId\": 4,\r\n            \"name\": \"nulla\"\r\n        },\r\n        {\r\n            \"id\": 36,\r\n            \"leaderId\": 3,\r\n            \"name\": \"et\"\r\n        },\r\n        {\r\n            \"id\": 37,\r\n            \"leaderId\": 6,\r\n            \"name\": \"animi\"\r\n        },\r\n        {\r\n            \"id\": 38,\r\n            \"leaderId\": 6,\r\n            \"name\": \"dolore\"\r\n        },\r\n        {\r\n            \"id\": 39,\r\n            \"leaderId\": 6,\r\n            \"name\": \"in\"\r\n        },\r\n        {\r\n            \"id\": 40,\r\n            \"leaderId\": 3,\r\n            \"name\": \"voluptatibus\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/draw/create.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"draw",
+								"create.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Create events",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"matchId\": 1,\r\n        \"playerId\": 1,\r\n        \"type\": \"goal\",\r\n        \"minute\": 1\r\n    },\r\n    {\r\n        \"matchId\": 1,\r\n        \"playerId\": 2,\r\n        \"type\": \"goal\",\r\n        \"minute\": 2\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/events/save.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"events",
+								"save.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "Create group",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tournamentId\": 1,\r\n    \"name\": \"GSA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/groups/create.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"groups",
+								"create.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/groups/list.php?tournamentId=1&type=GS%",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"groups",
+								"list.php"
+							],
+							"query": [
+								{
+									"key": "tournamentId",
+									"value": "1"
+								},
+								{
+									"key": "type",
+									"value": "GS%"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by tournament ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/groups/list.php?tournamentId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"groups",
+								"list.php"
+							],
+							"query": [
+								{
+									"key": "tournamentId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Matches",
+			"item": [
+				{
+					"name": "Create match",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refereeId\": 1,\r\n    \"code\": \"GSA1-1\",\r\n    \"groupId\": 1,\r\n    \"team1Id\": 1,\r\n    \"team2Id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/matches/create.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"matches",
+								"create.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/matches/getById.php?matchId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"matches",
+								"getById.php"
+							],
+							"query": [
+								{
+									"key": "matchId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by tournament ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/matches/getByTournamentId.php?tournamentId=14",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"matches",
+								"getByTournamentId.php"
+							],
+							"query": [
+								{
+									"key": "tournamentId",
+									"value": "14"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/matches/getByType.php?tournamentId=14&type=GS%",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"matches",
+								"getByType.php"
+							],
+							"query": [
+								{
+									"key": "tournamentId",
+									"value": "14"
+								},
+								{
+									"key": "type",
+									"value": "GS%"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save match",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"team1Id\": 1,\r\n    \"team2Id\": 2,\r\n    \"refereeId\": 1,\r\n    \"team1Goals\": 1,\r\n    \"team2Goals\": 0,\r\n    \"code\": \"GSA1-1\",\r\n    \"id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/matches/save.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"matches",
+								"save.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Players",
+			"item": [
+				{
+					"name": "Get by tournament ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/players/list.php?tournamentId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"players",
+								"list.php"
+							],
+							"query": [
+								{
+									"key": "tournamentId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teams",
+			"item": [
+				{
+					"name": "Get teams by tournament ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/teams/list.php?tournamentId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"teams",
+								"list.php"
+							],
+							"query": [
+								{
+									"key": "tournamentId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register team",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"leaderId\": 1,\r\n    \"tournamentId\": 1,\r\n    \"players\": [\r\n        {\r\n            \"name\": \"a\",\r\n            \"kitNumber\": 1\r\n        }\r\n    ],\r\n    \"teamName\": \"a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/teams/registerToTournament.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"teams",
+								"registerToTournament.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teams to groups",
+			"item": [
+				{
+					"name": "Create group",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"teamId\": 1,\r\n    \"groupId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/teams_to_groups/create.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"teams_to_groups",
+								"create.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by tournament ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/teams_to_groups/list.php?tournamentId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"teams_to_groups",
+								"list.php"
+							],
+							"query": [
+								{
+									"key": "tournamentId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tournaments",
+			"item": [
+				{
+					"name": "Create tournament",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"organizerId\": 1,\r\n    \"startDate\": \"2022-04-26 12:00:00\",\r\n    \"endDate\": \"2022-04-29 12:00:00\",\r\n    \"name\": \"A\",\r\n    \"location\": \"A\",\r\n    \"county\": \"Vas\",\r\n    \"entryFee\": 0,\r\n    \"description\": \"A\",\r\n    \"teamsCount\": 8,\r\n    \"type\": \"Egyenes kieséses\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/tournaments/create.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tournaments",
+								"create.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get available",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/tournaments/getAvailable.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tournaments",
+								"getAvailable.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get name by ID",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/tournaments/getNameById.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tournaments",
+								"getNameById.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/tournaments/list.php?id=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tournaments",
+								"list.php"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by organizer ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/tournaments/list.php?userId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tournaments",
+								"list.php"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get tournament by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/tournaments/list.php?name=A",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tournaments",
+								"list.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "A"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by search parameter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/tournaments/list.php?parameter=A",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tournaments",
+								"list.php"
+							],
+							"query": [
+								{
+									"key": "parameter",
+									"value": "A"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by filters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/tournaments/list.php?county=Győr-Moson-Sopron&min=0&max=30000&pickedDates=2022-06-11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tournaments",
+								"list.php"
+							],
+							"query": [
+								{
+									"key": "county",
+									"value": "Győr-Moson-Sopron"
+								},
+								{
+									"key": "min",
+									"value": "0"
+								},
+								{
+									"key": "max",
+									"value": "30000"
+								},
+								{
+									"key": "pickedDates",
+									"value": "2022-06-11"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/tournaments/list.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tournaments",
+								"list.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify tournament",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 17,\r\n    \"organizerId\": 6,\r\n    \"startDate\": \"2022-04-01 15:36:06\",\r\n    \"endDate\": \"2022-04-03 21:44:29\",\r\n    \"name\": \"voluptate\",\r\n    \"location\": \"910 Issac Alley\\nWest Keyshawnstad, MO 78668-5486\",\r\n    \"county\": \"Tolna\",\r\n    \"bestPlayer\": null,\r\n    \"topScorer\": null,\r\n    \"bestGoalkeeper\": null,\r\n    \"entryFee\": 28470,\r\n    \"description\": \"Quasi tempora quod laboriosam omnis repudiandae qui. Deleniti quo corporis occaecati assumenda. Nam facilis numquam sequi tenetur. Voluptatem aspernatur tempora rerum labore nesciunt. Eum incidunt est voluptatem nisi eos velit. Enim fuga sed reprehenderit perspiciatis nam omnis. Aperiam beatae culpa magni et adipisci ut. Quasi tempora cumque sed pariatur illum. Ut aut qui qui soluta et. Optio ea quae enim possimus omnis. Fugit itaque impedit consequatur iste voluptas nihil. Molestiae ullam excepturi laudantium dolor consequatur. Libero voluptatem quae dolorem voluptatem maiores quia. Quibusdam aliquid repellendus neque in quo. Vel nobis quos est nemo. Aspernatur dolor enim ea et eum dolore reprehenderit. Voluptas quod aspernatur iste a neque magni. Rerum ipsum voluptatem tenetur. Quisquam voluptatibus et id. Corrupti neque maxime rerum iste consequuntur modi ipsum. Nam possimus incidunt voluptatem necessitatibus sapiente voluptatem iure.\",\r\n    \"teamsCount\": 8,\r\n    \"type\": \"Egyenes kieséses\",\r\n    \"groupMatches\": 1,\r\n    \"knockoutMatches\": 1,\r\n    \"finalMatches\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/tournaments/modify.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"tournaments",
+								"modify.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/users/list.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"list.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Admin Béla\",\r\n    \"email\": \"admin3\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/users/create.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"create.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/users/list.php?type=referee",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"list.php"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "referee"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get name by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/users/list.php?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"list.php"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJ3d3cuRm9vdFRvdXIuY29tIiwiaWF0IjoxNjUxMTYzNjI3LCJuYmYiOjE2NTExNjM2MzcsImV4cCI6MTY1MTE2NzIyNywiZGF0YSI6eyJpZCI6IjEiLCJuYW1lIjoiQWRtaW4iLCJlbWFpbCI6ImFkbWluIiwicGFzc3dvcmQiOiIkMnkkMTAkWFk4NFB3ZDFvZW14VEliVVppMnY2Lmt2RXdxdnhYRzNyLmZQXC9rT2pTUnRoUWVjdC5CNy4yIiwiaXNEZWxldGVkIjoiMCIsImlzT3JnYW5pemVyIjoiMSIsImlzUmVmZXJlZSI6IjEiLCJpc0xlYWRlciI6IjEifX0.wP5p7D_wXPFexk_2ecEnVVw9o-9RgEMQG8jEcNqKKEE",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
