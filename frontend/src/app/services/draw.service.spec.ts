@@ -63,6 +63,7 @@ describe('DrawService', () => {
     service.create({
       "id": 1,
       "organizerId": 6,
+      organizerName: "Mrs. Rachael Barrows IV",
       "startDate": new Date("2022-04-01 15:36:06"),
       "endDate": new Date("2022-04-03 21:44:29"),
       "name": "voluptate",
@@ -118,6 +119,47 @@ describe('DrawService', () => {
         "id": 8,
         "leaderId": 2,
         "name": "vel"
+      }
+    ], [
+      {
+        "id": 1,
+        "name": "Admin",
+        "email": "admin",
+        "password": "$2y$10$XY84Pwd1oemxTIbUZi2v6.kvEwqvxXG3r.fP/kOjSRthQect.B7.2",
+        "isDeleted": false,
+        "isOrganizer": false,
+        "isReferee": true,
+        "isLeader": true
+      },
+      {
+          "id": 3,
+          "name": "Ms. Scarlett Gaylord",
+          "email": "orion.parisian@hotmail.com",
+          "password": "$2y$10$55eXgRpBzc//C.0GNXkF/eFFJTXV6jkF8sG.sIASDauuzW1xQowMm",
+          "isDeleted": false,
+          "isOrganizer": true,
+          "isReferee": true,
+          "isLeader": true
+      },
+      {
+          "id": 4,
+          "name": "Evalyn Schuppe",
+          "email": "winnifred.smith@ritchie.com",
+          "password": "$2y$10$BFGIBBoY0Eib6ZscTt/mvegQyLTPmRn9z9SF6lfV6zQL5hrwsTu0K",
+          "isDeleted": false,
+          "isOrganizer": true,
+          "isReferee": true,
+          "isLeader": true
+      },
+      {
+          "id": 6,
+          "name": "Mrs. Rachael Barrows IV",
+          "email": "chad.cassin@hotmail.com",
+          "password": "$2y$10$6mJk8m1UJ4ywEeE5by4IjOmz0VjHy1ac3yPEMN0fzGEhalwe0uT8K",
+          "isDeleted": false,
+          "isOrganizer": true,
+          "isReferee": true,
+          "isLeader": true
       }
     ]).subscribe({
       next: result => {

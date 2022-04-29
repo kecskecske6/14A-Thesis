@@ -45,7 +45,7 @@ export class TournamentInfoComponent implements OnInit {
 
   getOrganizerName(): void {
     this.userService.getById(this.tournament.organizerId).subscribe(
-      result => this.organizerName = result.name,
+      result => this.organizerName = result,
       error => console.log(error)
     );
   }
