@@ -37,18 +37,33 @@
                             placeholder="Jelszó újra" [(ngModel)]="model.passwordAgain">
                     </div>
                 </div>
-                <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required
+                <re-captcha id="recaptcha" class="w-100 mx-auto" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required
                     [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
             </div>
             <div id="registerFormFooter" class="row">
-                <div class="mb-3 mt-4 form-check">
+                <div class="mb-3 form-check">
                     <p *ngIf="termsAndConditionsDisplay.default" id="termsOfUse">
                         Regisztrációjával hozzájárul személyes adatainak az
                         <a href="#TermsOfUse">Adatvédelmi Szabályzat</a> szerinti felhasználásához.
                     </p>
-                    <p *ngIf="termsAndConditionsDisplay.small">
-                        <input type="checkbox" name="" id=""> ÁSZF
-                    </p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" [(ngModel)]="model.type" value="leader" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Csapatvezető
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" [(ngModel)]="model.type" value="organizer" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          Szervező
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" [(ngModel)]="model.type" value="referee" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          Játékvezető
+                        </label>
+                    </div>
                 </div>
                 <button type="button" class="btn btn-lg btn-primary col-8 mx-auto"
                     (click)="register()">Regisztráció</button>

@@ -2,7 +2,7 @@
   <div class="col mx-auto">
     <h2 class="text-center">{{tournament.name}}</h2>
     <br>
-    <button class="btn btn-primary" *ngIf="every()" [routerLink]="'/awards/' + tournament.id">Díjak kiosztása</button>
+    <button class="btn btn-primary" *ngIf="every() && type == 'organizer'" [routerLink]="'/awards/' + tournament.id">Díjak kiosztása</button>
     <div *ngIf="tournament.type == 'Csoportkör és kieséses'" class="row">
       <div *ngFor="let group of groups" class="card text-dark bg-light m-5 mb-3 mx-auto" style="max-width: 45rem;">
         <div class="card-header">{{group.name[2]}} csoport</div>

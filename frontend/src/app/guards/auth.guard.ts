@@ -7,6 +7,9 @@ import { UserService } from '../services/user.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
+  
+  type: string = '';
+
   constructor(private router: Router, private authService: AuthService, private userService: UserService){}
   
   canActivate(next: ActivatedRouteSnapshot){
@@ -21,7 +24,8 @@ export class AuthGuard implements CanActivate {
   }
 
   checkUserRole(route: ActivatedRouteSnapshot): boolean{
-    if(route.data.role == this.userService.getTypeOfTheUser || route.data.role == "any") return true;
+    this.userService.getTypeOfTheUser(this.userService.getUserId()).subscribe(result => {this.type = result});
+    if(route.data.role == this.type || route.data.role == "any") return true;
     return false;
   }
 }

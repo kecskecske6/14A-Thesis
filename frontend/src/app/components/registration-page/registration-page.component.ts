@@ -14,7 +14,8 @@ export class RegistrationPageComponent implements OnInit {
     email: '',
     password: '',
     passwordAgain: '',
-    name: ''
+    name: '',
+    type: ''
   }
 
   token: string | undefined;

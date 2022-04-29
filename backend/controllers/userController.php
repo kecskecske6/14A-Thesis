@@ -127,22 +127,26 @@ class UserController{
     function register($conn, $postdata)
     {
         $password = password_hash($postdata->password, PASSWORD_DEFAULT);
-        $sql = "INSERT into foottour.users (name, email, password, isDeleted, isOrganizer, isReferee, isLeader) values ('" . $postdata->name . "', '" . $postdata->email . "', '" . $password . "', false, false, false, false);";
+        switch ($postdata->type) {
+            case 'leader':
+                $sql = "INSERT into foottour.users (name, email, password, isDeleted, isOrganizer, isReferee, isLeader) values ('" . $postdata->name . "', '" . $postdata->email . "', '" . $password . "', false, false, false, true);";
+                break;
+
+            case 'organizer':
+                $sql = "INSERT into foottour.users (name, email, password, isDeleted, isOrganizer, isReferee, isLeader) values ('" . $postdata->name . "', '" . $postdata->email . "', '" . $password . "', false, true, false, false);";
+                break;
+            
+            case 'referee':
+                $sql = "INSERT into foottour.users (name, email, password, isDeleted, isOrganizer, isReferee, isLeader) values ('" . $postdata->name . "', '" . $postdata->email . "', '" . $password . "', false, false, true, false);";
+                break;
+
+            default:
+                return false;
+                break;
+        }
         $result = $conn->query($sql);
         if ($result !== TRUE) die($conn->error);
-        $sql = "SELECT last_insert_id();";
-        $result = $conn->query($sql);
-        $user = [
-            'id' => $result,
-            'email' => $postdata->email,
-            'password' => $password,
-            'name' => $postdata->name,
-            'isDeleted' => false,
-            'isOrganizer' => false,
-            'isReferee' => false,
-            'isLeader' => false,
-        ];
-        return $user;
+        return true;
     }
 }
 ?>
