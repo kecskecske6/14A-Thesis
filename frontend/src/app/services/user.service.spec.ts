@@ -91,16 +91,7 @@ describe('UserService', () => {
   });
 
   it('#getById should return value from observable', (done: DoneFn) => {
-    let expectedResult = {
-      "id": 1,
-      "name": "Admin",
-      "email": "admin",
-      "password": "$2y$10$XY84Pwd1oemxTIbUZi2v6.kvEwqvxXG3r.fP/kOjSRthQect.B7.2",
-      "isDeleted": false,
-      "isOrganizer": true,
-      "isReferee": true,
-      "isLeader": true
-    };
+    let expectedResult = 'Admin';
     httpClientSpy.get.and.returnValue(of(expectedResult));
     service.getById(1).subscribe({
       next: result => {

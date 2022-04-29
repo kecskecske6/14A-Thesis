@@ -102,7 +102,7 @@ export class DrawComponent implements OnInit {
         this.referee.id = this.id;
         this.userService.getById(this.referee.id).subscribe(
           result => {
-            this.referee.name = result.name;
+            this.referee.name = result;
             this.referees.push(this.referee);
             this.referee = new UserModel();
             this.id = 0;

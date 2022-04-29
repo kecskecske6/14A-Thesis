@@ -75,7 +75,7 @@ export class RefereeMatchReportComponent implements OnInit {
         this.match.team2Id = result.team2Id;
         this.match.code = result.code;
         this.match.refereeId = result.refereeId;
-        this.refereeName = result.refereeName.name;
+        this.refereeName = result.refereeName;
         this.tournamentName = result.tournamentName.name;
         this.tournamentId = result.tournamentId;
         console.log(result);
